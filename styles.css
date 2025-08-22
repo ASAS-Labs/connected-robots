@@ -10,7 +10,7 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
-  background: #fafafa;
+  background: #f8f4ff;
 }
 
 /* Top Bar (IEEE Logos + Title) */
@@ -18,9 +18,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
+  background: #6a4c93;
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #8b5cf6;
+  color: white;
 }
 .top-bar h1 {
   font-size: 1.5rem;
@@ -36,8 +37,9 @@ body {
 /* Title Header (optional subtitle) */
 .title-header {
   text-align: center;
-  background: #e9ecef;
+  background: #8b5cf6;
   padding: 1.5rem;
+  color: white;
 }
 .title-header h2 {
   font-size: 1.4rem;
@@ -61,13 +63,13 @@ body {
   margin-bottom: 2rem;
 }
 .speaker-card {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #f8f4ff;
+  border: 1px solid #8b5cf6;
   border-radius: 4px;
   width: 30%;
   margin: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
 }
 .speaker-card h3 {
   margin: 0.5rem 0;
@@ -87,8 +89,8 @@ body {
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 1rem;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #f8f4ff;
+  border: 1px solid #8b5cf6;
   border-radius: 4px;
   padding: 1.5rem;
 }
@@ -122,7 +124,8 @@ body {
   text-align: left;
 }
 .schedule-section th {
-  background: #f8f8f8;
+  background: #8b5cf6;
+  color: white;
 }
 
 /* Organizers Section */
@@ -141,13 +144,13 @@ body {
   flex-wrap: wrap;
 }
 .organizer-card {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #f8f4ff;
+  border: 1px solid #8b5cf6;
   border-radius: 4px;
   width: 30%;
   margin: 0.5rem;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
 }
 .organizer-card h3 {
   margin: 0.5rem 0;
@@ -162,18 +165,18 @@ body {
 .footer {
   text-align: center;
   padding: 1rem;
-  background: #e9ecef;
-  border-top: 1px solid #ccc;
+  background: #6a4c93;
+  border-top: 1px solid #8b5cf6;
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: #555;
+  color: white;
 }
 
 /* Workshop Title and Subtitle Styles */
 .workshop-title-container {
   text-align: center;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6a4c93 0%, #8b5cf6 100%);
   color: white;
 }
 
@@ -193,7 +196,7 @@ body {
 .title-divider {
   width: 80px;
   height: 4px;
-  background: #ffd700;
+  background: #c084fc;
   margin: 1.5rem auto;
   border-radius: 2px;
 }
@@ -232,16 +235,16 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
 .animated-word:hover {
   transform: translateY(-8px) scale(1.05);
-  color: #ffd700;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  color: #c084fc;
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.6);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
 }
 
 .animated-word:hover::before {
