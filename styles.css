@@ -168,3 +168,117 @@ body {
   font-size: 0.9rem;
   color: #555;
 }
+
+/* Workshop Title and Subtitle Styles */
+.workshop-title-container {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.workshop-title-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 3px;
+}
+
+.title-divider {
+  width: 80px;
+  height: 4px;
+  background: #ffd700;
+  margin: 1.5rem auto;
+  border-radius: 2px;
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.conference-date {
+  font-size: 1.2rem;
+  font-style: italic;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Animated Word Effects */
+.animated-word {
+  display: inline-block;
+  margin: 0 0.2rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-word::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.animated-word:hover {
+  transform: translateY(-8px) scale(1.05);
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.animated-word:hover::before {
+  left: 100%;
+}
+
+/* Add some spacing between words for better hover effect */
+.subtitle .animated-word:not(:last-child) {
+  margin-right: 0.3rem;
+}
+
+/* Fade in animation for words */
+.fade-in-word {
+  animation: fadeInWord 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInWord {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ripple effect animation */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Enhanced hover states for different words */
+.animated-word:nth-child(1):hover { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
+.animated-word:nth-child(2):hover { transform: translateY(-8px) scale(1.05) rotate(1deg); }
+.animated-word:nth-child(3):hover { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
+.animated-word:nth-child(4):hover { transform: translateY(-8px) scale(1.05) rotate(1deg); }
+.animated-word:nth-child(5):hover { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
+.animated-word:nth-child(6):hover { transform: translateY(-8px) scale(1.05) rotate(1deg); }

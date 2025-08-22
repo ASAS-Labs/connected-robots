@@ -21,7 +21,14 @@
     <div class="workshop-title-wrapper text-center">
       <h1 class="main-title">EARS-CONN</h1>
       <div class="title-divider"></div>
-      <h2 class="subtitle">Empowering Autonomous Robotic Systems with Connectivity</h2>
+      <h2 class="subtitle">
+        <span class="animated-word">Empowering</span>
+        <span class="animated-word">Autonomous</span>
+        <span class="animated-word">Robotic</span>
+        <span class="animated-word">Systems</span>
+        <span class="animated-word">with</span>
+        <span class="animated-word">Connectivity</span>
+      </h2>
       <div class="conference-date">Join Us for the 2026 IEEE International Conference on Robotics & Automation, 1–5 June, Vienna, Austria!</div>
     </div>
   </div>
@@ -706,6 +713,61 @@
     
     // Update button text
     button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
+  }
+
+  // Enhanced animated word effects
+  document.addEventListener('DOMContentLoaded', function() {
+    const animatedWords = document.querySelectorAll('.animated-word');
+    
+    animatedWords.forEach((word, index) => {
+      // Add staggered entrance animation
+      word.style.animationDelay = `${index * 0.1}s`;
+      word.classList.add('fade-in-word');
+      
+      // Enhanced hover effects
+      word.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.05) rotate(1deg)';
+        this.style.zIndex = '10';
+        
+        // Add ripple effect
+        createRippleEffect(this);
+      });
+      
+      word.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+        this.style.zIndex = '1';
+      });
+      
+      // Add click effect
+      word.addEventListener('click', function() {
+        this.style.transform = 'translateY(-4px) scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'translateY(0) scale(1)';
+        }, 150);
+      });
+    });
+  });
+
+  function createRippleEffect(element) {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 215, 0, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.left = '50%';
+    ripple.style.top = '50%';
+    ripple.style.width = '20px';
+    ripple.style.height = '20px';
+    ripple.style.marginLeft = '-10px';
+    ripple.style.marginTop = '-10px';
+    ripple.style.pointerEvents = 'none';
+    
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
   }
   </script>
 
