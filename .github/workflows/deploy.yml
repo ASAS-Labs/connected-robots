@@ -1,9 +1,9 @@
-name: Deploy to S3
+name: Deploy static site to S3
 
 on:
   push:
     branches:
-      - main   # or "master", depending on your default branch
+      - main   # change if your default branch is "master"
 
 jobs:
   deploy:
@@ -18,7 +18,20 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
-      - name: Sync files to S3
-        run: aws s3 sync . s3://${{ secrets.S3_BUCKET }} --delete
+      - name: Who am I (debug)
+        run: |
+          aws sts get-caller-identity
+          aws s3 ls s3://ears-conn.com || true
+
+      # If you are serving raw HTML files directly from the repo:
+      - name: Sync site to S3
+        run: aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*"
+
+      # If you’re using React/Vue/etc. and have a build folder, replace above with:
+      # - name: Build site
+      #   run: npm ci && npm run build
+      #
+      # - name: Sync build output to S3
+      #   run: aws s3 sync build/ s3://ears-conn.com --delete
