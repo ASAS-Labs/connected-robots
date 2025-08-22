@@ -20,16 +20,37 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Who am I (debug)
+      - name: Debug AWS permissions
         run: |
+          echo "=== AWS Identity ==="
           aws sts get-caller-identity
-          aws s3 ls s3://ears-conn.com || true
+          echo ""
+          echo "=== Testing S3 permissions ==="
+          echo "Testing ListBucket permission..."
+          aws s3 ls s3://ears-conn.com || echo "❌ ListBucket permission denied"
+          echo ""
+          echo "Testing GetObject permission..."
+          aws s3 ls s3://ears-conn.com/ || echo "❌ GetObject permission denied"
+          echo ""
+          echo "Testing PutObject permission..."
+          echo "test" | aws s3 cp - s3://ears-conn.com/test-permission.txt || echo "❌ PutObject permission denied"
+          echo ""
+          echo "Cleaning up test file..."
+          aws s3 rm s3://ears-conn.com/test-permission.txt || echo "❌ DeleteObject permission denied"
 
-      # If you are serving raw HTML files directly from the repo:
-      - name: Sync site to S3
-        run: aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*"
+      - name: Deploy to S3
+        run: |
+          echo "Starting S3 sync deployment..."
+          if aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*" --exclude ".DS_Store"; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+            echo "Please check the AWS IAM permissions for user: earsconn-dev"
+            echo "Required permissions: s3:ListBucket, s3:GetObject, s3:PutObject, s3:DeleteObject"
+            exit 1
+          fi
 
-      # If you’re using React/Vue/etc. and have a build folder, replace above with:
+      # If you're using React/Vue/etc. and have a build folder, replace above with:
       # - name: Build site
       #   run: npm ci && npm run build
       #
