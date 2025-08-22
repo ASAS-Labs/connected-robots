@@ -1,2 +1,4 @@
-# earsconn-iros2025
-Static website for EARS CONN Workshop on IROS 2025
+# ears-conn.com 
+Repo for maintaining the website for EARS-CONN Workshop
+- Submitted to IROS 2025
+- Preparing for ICRA 2026
