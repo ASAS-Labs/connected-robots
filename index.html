@@ -17,84 +17,147 @@
   </div>
 
   <!-- Workshop Title / Subtitle (optional) -->
-  <header class="title-header">
-    <h2>Empowering Autonomous Robotic Systems with Connectivity (EARS-CONN)</h2>
-  </header>
+  <div class="workshop-title-container">
+    <div class="workshop-title-wrapper text-center">
+      <h1 class="main-title">EARS-CONN</h1>
+      <div class="title-divider"></div>
+      <h2 class="subtitle">Empowering Autonomous Robotic Systems with Connectivity</h2>
+      <div class="conference-date">October 19-25, 2025</div>
+    </div>
+  </div>
 
-  <!-- Invited Speakers (2 rows, 3 columns) -->
-  <section class="speakers-section">
-    <h2>Invited Speakers</h2>
-    <!-- First row of speakers -->
-    <div class="speaker-row">
-      <!-- Speaker 1 -->
-      <div class="speaker-card">
-        <img src="images/ken_goldberg.jpg" alt="Ken Goldberg" class="speaker-img">
-        <h3>Ken Goldberg</h3>
-        <p><strong>Topic:</strong> Digital Twins and Cloud-Based Automation</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Mobility, power, and price points often mean that automation systems lack 
-          sufficient on-board computing for modern algorithms. FogROS2 helps leverage 
-          cloud computing resources with reduced latency and overhead...
-        </p>
+  <!-- Keynote Speakers Section -->
+  <section class="keynote-speakers-section">
+    <h2 class="section-title">Key Note Speakers</h2>
+    <div class="speakers-grid">
+      <!-- Ken's speaker card -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <a href="https://goldberg.berkeley.edu" target="_blank">
+            <img src="images/ken.png" alt="Ken Goldberg" class="rounded-circle" />
+          </a>
+        </div>
+        <div class="keynote-content">
+          <h3><a href="https://goldberg.berkeley.edu" target="_blank">Ken Goldberg</a></h3>
+          <p class="keynote-affiliation">Professor, UC Berkeley</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('ken-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="ken-bio" class="expandable-content">
+              <p>Ken Goldberg, a renowned academic and leading expert in networked telerobotics and Cloud Robotics, will share his insights at the workshop, offering a valuable perspective from an academic authority in the field.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('ken-abstract')">
+              Topic: Digital Twins and Cloud-Based Automation <span class="arrow">▼</span>
+            </button>
+            <div id="ken-abstract" class="expandable-content">
+              <p>Abstract— Mobility, power, and price points often dictate that automation systems do not have sufficient computing power on board to run contemporary algorithms at desired rates. Cloud computing providers such as AWS, GCP, and Azure offer immense computing power on demand, but tapping into that power is non-trivial. We present FogROS2, an open-source platform to facilitate cloud and fog computing that is compatible with the emerging Robot Operating System 2 (ROS 2) standard.</p>
+              <p>FogROS2 is completely redesigned and distinct from its predecessor FogROS1 in 9 ways, and has lower latency, overhead, and startup times; improved usability, and additional automation, such as region and computer type selection. Additionally, FogROS2 was added to the official distribution of ROS 2, gaining performance, timing, and additional improvements associated with ROS 2.</p>
+              <p>In examples, FogROS2 reduces SLAM latency by 50 %, reduces grasp planning time from 14 s to 1.2 s, and speeds up motion planning 28x. When compared to FogROS1, FogROS2 reduces network utilization by up to 3.8x, improves startup time by 63 %, and network round-trip latency by 97 % for images using video compression.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Speaker 2 -->
-      <div class="speaker-card">
-        <img src="images/kddi_research.jpg" alt="KDDI Research" class="speaker-img">
-        <h3>KDDI Research (TBD)</h3>
-        <p><strong>Topic:</strong> Robotics, AI, and Network</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Next-generation networks (5G & 6G) can transform future robotic systems 
-          with real-time data, AI, and cloud-edge computing. This talk explores 
-          breakthroughs in network optimization and ultra-low-latency communication...
-        </p>
-      </div>
+      <!-- Yoshinori's speaker card -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <Image src=images/yoshinori.png alt="Yoshinori Kitatsuji" width={200} height={200} className="rounded-circle" />
+        </div>
+        <div class="keynote-content">
+          <h3>Yoshinori Kitatsuji</h3>
+          <p class="keynote-affiliation">Senior Research Engineer at KDDI</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('yoshinori-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="yoshinori-bio" class="expandable-content">
+              <p>Yoshinori Kitatsuji is a Senior Research Engineer at KDDI, where he focuses on developing advanced technologies for telecommunications networks. He has extensive experience in network engineering and telecommunications systems.</p>
+            </div>
+          </div>
 
-      <!-- Speaker 3 (Placeholder) -->
-      <div class="speaker-card">
-        <img src="images/speaker_placeholder.jpg" alt="Speaker 3" class="speaker-img">
-        <h3>Speaker 3</h3>
-        <p><strong>Topic:</strong> TBD</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in gravida 
-          sem, vitae condimentum metus.
-        </p>
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('yoshinori-abstract')">
+              Topic: Communication Technologies for Robotics <span class="arrow">▼</span>
+            </button>
+            <div id="yoshinori-abstract" class="expandable-content">
+              <p>This talk explores the role of communication in robotics applications and the network requirements needed to support it. This begins with an overview of advancements in robotics and their diverse applications, followed by an explanation of how communication technologies enhance robot functionality.</p>
+              
+              <p>Next, The talk delves into the importance of real-time communication and key network requirements such as bandwidth, latency, and reliability. Discussions include the potential of 5G, edge computing, and cloud processing in transforming robotics.</p>
+              
+              <p>Additionally, the talk addresses challenges like security concerns, measures to handle communication failures, and the design of network topologies. Finally, the talk examines the impact of next-generation communication technologies, such as 6G and quantum communication, on the future of robotics.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Second row of speakers -->
-    <div class="speaker-row">
-      <!-- Speaker 4 (Placeholder) -->
-      <div class="speaker-card">
-        <img src="images/speaker_placeholder.jpg" alt="Speaker 4" class="speaker-img">
-        <h3>Speaker 4</h3>
-        <p><strong>Topic:</strong> TBD</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in gravida 
-          sem, vitae condimentum metus.
-        </p>
+  <!-- Panelists Section -->
+  <section class="panelists-section">
+    <h2 class="section-title">Our Panellists</h2>
+    <div class="speakers-grid">
+      <!-- Denis Efimov card (left) -->
+      <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
+        <div class="speaker-image">
+          <img src="images/denis.jpeg" alt="Speaker 3" class="organizer-img">
+        </div>
+        <h3>Denis Efimov</h3>
+        <p class="speaker-title">Inria</p>
+        <p class="speaker-expertise">Expertise: Connected Systems</p>
+        
+        <div class="bio-section">
+          <p class="short-bio">
+            Denis Efimov, a senior researcher at Inria, France, specializes in robust control, networked systems, and intelligent automation for complex robotics platforms.
+          </p>
+          <button class="expand-bio-btn" onclick="toggleBio('denis-full-bio')">
+            Read More <span class="arrow">▼</span>
+          </button>
+          <div id="denis-full-bio" class="expandable-bio">
+            <p>Denis Efimov, a senior researcher at Inria, France, will discuss his latest work at the intersection of robust control, networked systems, and intelligent automation. His talk will delve into cutting-edge methodologies for designing and analyzing complex connected robotics platforms, focusing on ensuring stability, safety, and resiliency in uncertain environments. Drawing on Inria's deep expertise in advanced control theory and distributed computation, Dr. Efimov will illustrate how real-time data processing, AI-driven decision-making, and next-generation communication networks converge to enable a new class of high-performance automated systems.</p>
+            <p>He will discuss both theoretical foundations and practical case studies that showcase the critical importance of cross-disciplinary collaboration to address real-world challenges, such as latency constraints, cyber-physical security, and large-scale system integration. By shedding light on recent breakthroughs and emerging research directions, Dr. Efimov will offer valuable insights into how innovative approaches to control and connectivity can accelerate the deployment of reliable, intelligent robotic platforms in domains ranging from autonomous vehicles to industrial automation. This presentation will serve as a valuable resource for those seeking to harness the full potential of networked robotics in the coming era of pervasive autonomy.</p>
+          </div>
+        </div>
       </div>
-
-      <!-- Speaker 5 (Placeholder) -->
-      <div class="speaker-card">
-        <img src="images/speaker_placeholder.jpg" alt="Speaker 5" class="speaker-img">
-        <h3>Speaker 5</h3>
-        <p><strong>Topic:</strong> TBD</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in gravida 
-          sem, vitae condimentum metus.
-        </p>
+      
+      <!-- Elham Mirzai in middle position -->
+      <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
+        <div class="speaker-image">
+          <img src="images/elham.png" alt="Elham Mirzai" width={200} height={200} className="rounded-circle" />
+        </div>
+        <h3>Elham Mirzai</h3>
+        <p class="speaker-title">EasyMile</p>
+        <p class="speaker-expertise">Expertise: Connected Autonomous Vehicles</p>
+        
+        <div class="bio-section">
+          <p class="short-bio">
+            Elham Mirzaei from EasyMile brings expertise in connected autonomous vehicles (CAVs) and their safe, scalable deployment in urban environments.
+          </p>
+          <button class="expand-bio-btn" onclick="toggleBio('elham-full-bio')">
+            Read More <span class="arrow">▼</span>
+          </button>
+          <div id="elham-full-bio" class="expandable-bio">
+            <p>
+              Elham Mirzaei from EasyMile will bring her insight regarding the evolving landscape of connected autonomous vehicles (CAVs) and highlight the critical role that robust connectivity plays in enabling safe, scalable, and efficient autonomous mobility solutions. With her extensive expertise in driverless transportation systems, she will examine how seamless integration of advanced sensor technologies, real-time data processing, and resilient network architectures accelerates the deployment of CAVs across diverse urban and industrial environments.
+            </p>
+            <p>
+              Focusing on practical lessons learned from real-world deployments, Ms. Mirzaei will address the engineering challenges of ensuring end-to-end reliability, maintaining cybersecurity, and adhering to regulatory frameworks that govern autonomous operations. She will also explore the broader impact of next-generation wireless networks, including 5G and beyond, on enhancing system intelligence through distributed edge computing and AI-driven decision-making. Attendees will gain insights into emerging best practices for collaboration among manufacturers, service providers, policymakers, and community stakeholders.
+            </p>
+          </div>
+        </div>
       </div>
-
-      <!-- Speaker 6 (Placeholder) -->
-      <div class="speaker-card">
-        <img src="images/speaker_placeholder.jpg" alt="Speaker 6" class="speaker-img">
-        <h3>Speaker 6</h3>
-        <p><strong>Topic:</strong> TBD</p>
-        <p><strong>Bio & Abstract:</strong><br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce in gravida 
-          sem, vitae condimentum metus.
-        </p>
+      
+      <!-- Third panelist card -->
+      <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
+        <div class="speaker-image">
+          <img src="images/speaker4.png" alt="Speaker 4" class="organizer-img">
+        </div>
+        <!-- Speaker 4 details -->
       </div>
     </div>
   </section>
@@ -183,7 +246,7 @@
     <div class="organizer-row">
       <!-- Organizer 1 -->
       <div class="organizer-card">
-        <img src="images/mata_khalili.jpg" alt="Mata Khalili" class="organizer-img">
+        <img src="images/mata.png" alt="Mata Khalili" class="organizer-img">
         <h3>Dr. Mata Khalili</h3>
         <p>Nokia Bell Labs (France)<br>
            <em>mata.khalili@nokia-bell-labs.com</em>
@@ -191,15 +254,15 @@
       </div>
       <!-- Organizer 2 -->
       <div class="organizer-card">
-        <img src="images/aliasghar_arab.jpg" alt="Aliasghar Arab" class="organizer-img">
-        <h3>Dr. Aliasghar (Al) Arab</h3>
+        <img src="images/ali.png" alt="Aliasghar Arab" class="organizer-img">
+        <h3>Dr. Aliasghar Arab</h3>
         <p>New York University (USA)<br>
            <em>aliasghar.arab@nyu.edu</em>
         </p>
       </div>
       <!-- Organizer 3 -->
       <div class="organizer-card">
-        <img src="images/mohsen_jalaeian.jpg" alt="Mohsen Jalaeian" class="organizer-img">
+        <img src="images/mohsen.png" alt="Mohsen Jalaeian" class="organizer-img">
         <h3>Dr. Mohsen Jalaeian Farimani</h3>
         <p>Politecnico di Milano (Italy)<br>
            <em>mohsen.jalaeian@polimi.it</em>
@@ -214,5 +277,438 @@
     <p>IEEE is a registered trademark of the Institute of Electrical and Electronics Engineers, Inc.</p>
   </footer>
 
+  <style>
+  /* Base styles */
+  .container {
+    width: 100%;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  /* Workshop title responsive */
+  .workshop-title-container {
+    padding: 4rem 0;
+    background: linear-gradient(to right, #f8f9fa, #ffffff, #f8f9fa);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .main-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    padding: 0 15px;
+  }
+
+  .conference-date {
+    font-size: 1.4rem;
+    color: #3498db;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in;
+  }
+
+  /* Desktop layout */
+  @media (min-width: 769px) {
+    .speakers-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .keynote-card, .speaker-card {
+      flex: 1;
+      max-width: 400px;
+    }
+  }
+
+  /* Mobile layout */
+  @media (max-width: 768px) {
+    /* Container reset */
+    .container {
+      padding: 0;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Specific styles for Keynote Speakers and Panelists */
+    .keynote-card, .speaker-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 0 1rem 0 !important;
+      padding: 1.5rem !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 0;
+      background: white;
+      display: block !important;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Reset flex for speakers and panelists */
+    .speakers-grid div[style*="display: flex"] {
+      display: block !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Maintain original organizer card styling */
+    .organizer-card {
+      width: 90% !important;
+      margin: 0 auto 1.5rem auto !important;
+      padding: 1.5rem !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Section titles */
+    .section-title {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    /* Image sizing */
+    .speaker-image, .keynote-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    /* Bio sections */
+    .bio-section {
+      width: 100%;
+      padding: 0;
+    }
+
+    /* Expandable content */
+    .expandable-content {
+      width: 100%;
+      padding: 1rem 0.5rem;
+      margin: 0;
+    }
+  }
+
+  /* Small screens */
+  @media (max-width: 380px) {
+    .keynote-card, .speaker-card {
+      padding: 1rem !important;
+    }
+
+    .organizer-card {
+      width: 95% !important;
+      padding: 1rem !important;
+    }
+
+    .speaker-image, .keynote-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Force center alignment */
+  .text-center {
+    text-align: center !important;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 100%;
+    color: #2c3e50;
+  }
+
+  .speaker-image, .keynote-image, .organizer-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .speaker-image img, .keynote-image img, .organizer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .speaker-card, .keynote-card, .organizer-card {
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 300px;
+  }
+
+  .keynote-card {
+    flex: 1;
+    max-width: 500px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .keynote-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #4a90e2, #67b26f);
+  }
+
+  .keynote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .keynote-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+    border-radius: 50%;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .keynote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  .keynote-content {
+    padding: 1rem 0;
+  }
+
+  .keynote-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .keynote-title {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .keynote-org {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .expand-section {
+    margin-top: 1rem;
+    text-align: left;
+  }
+
+  .expand-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .expand-btn:hover {
+    background: #e9ecef;
+  }
+
+  .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-content {
+    display: none;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 1rem;
+  }
+
+  .expandable-content.active {
+    display: block;
+  }
+
+  .bio-section {
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .short-bio {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .expand-bio-btn {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .expand-bio-btn:hover {
+    color: #357abd;
+  }
+
+  .arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-bio {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+
+  .expandable-bio.active {
+    display: block;
+  }
+
+  .expandable-bio p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .keynote-card a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .keynote-card a:hover {
+    color: #4a90e2;
+  }
+
+  .workshop-title-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .title-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    margin: 1.5rem auto;
+    border-radius: 2px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+
+  <script>
+  function toggleSection(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+    
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+  }
+
+  function toggleBio(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+    
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+    
+    // Update button text
+    button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
+  }
+  </script>
+
 </body>
 </html>
+
