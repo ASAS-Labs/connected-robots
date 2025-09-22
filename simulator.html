@@ -103,43 +103,66 @@
       margin: 2rem 0;
     }
     
-    .bubble {
+    .robot {
       position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(192, 132, 252, 0.6));
-      box-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+      font-size: 3rem;
       transition: all 0.3s ease;
       pointer-events: none;
+      text-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
+      animation: robotPulse 2s ease-in-out infinite;
     }
     
-    .bubble:nth-child(1) {
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(168, 85, 247, 0.7));
+    .robot:nth-child(1) {
+      font-size: 3.5rem;
+      animation-delay: 0s;
+      filter: hue-rotate(0deg);
     }
     
-    .bubble:nth-child(2) {
-      width: 45px;
-      height: 45px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(192, 132, 252, 0.6));
+    .robot:nth-child(2) {
+      font-size: 2.8rem;
+      animation-delay: 0.4s;
+      filter: hue-rotate(60deg);
     }
     
-    .bubble:nth-child(3) {
-      width: 70px;
-      height: 70px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(139, 92, 246, 0.5));
+    .robot:nth-child(3) {
+      font-size: 4rem;
+      animation-delay: 0.8s;
+      filter: hue-rotate(120deg);
     }
     
-    .bubble:nth-child(4) {
-      width: 35px;
-      height: 35px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(168, 85, 247, 0.8));
+    .robot:nth-child(4) {
+      font-size: 2.5rem;
+      animation-delay: 1.2s;
+      filter: hue-rotate(180deg);
     }
     
-    .bubble:nth-child(5) {
-      width: 55px;
-      height: 55px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(192, 132, 252, 0.4));
+    .robot:nth-child(5) {
+      font-size: 3.2rem;
+      animation-delay: 1.6s;
+      filter: hue-rotate(240deg);
+    }
+    
+    @keyframes robotPulse {
+      0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
+      }
+      50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 30px rgba(192, 132, 252, 1);
+      }
+    }
+    
+    @keyframes robotDance {
+      0%, 100% {
+        transform: rotate(0deg) scale(1);
+      }
+      25% {
+        transform: rotate(-5deg) scale(1.05);
+      }
+      75% {
+        transform: rotate(5deg) scale(1.05);
+      }
     }
     
     .simulator-instructions {
@@ -169,11 +192,11 @@
       </div>
       
       <div class="simulator-canvas" id="simulatorCanvas">
-        <div class="bubble" id="bubble1"></div>
-        <div class="bubble" id="bubble2"></div>
-        <div class="bubble" id="bubble3"></div>
-        <div class="bubble" id="bubble4"></div>
-        <div class="bubble" id="bubble5"></div>
+        <div class="robot" id="robot1">🤖</div>
+        <div class="robot" id="robot2">🤖</div>
+        <div class="robot" id="robot3">🤖</div>
+        <div class="robot" id="robot4">🤖</div>
+        <div class="robot" id="robot5">🤖</div>
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
@@ -185,9 +208,9 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const canvas = document.getElementById('simulatorCanvas');
-      const bubbles = document.querySelectorAll('.bubble');
+      const robots = document.querySelectorAll('.robot');
       
-      // Initial positions for bubbles (scattered around center)
+      // Initial positions for robots (scattered around center)
       const initialPositions = [
         { x: 200, y: 150 },
         { x: 300, y: 200 },
@@ -197,16 +220,17 @@
       ];
       
       // Set initial positions
-      bubbles.forEach((bubble, index) => {
+      robots.forEach((robot, index) => {
         const pos = initialPositions[index];
-        bubble.style.left = pos.x + 'px';
-        bubble.style.top = pos.y + 'px';
+        robot.style.left = pos.x + 'px';
+        robot.style.top = pos.y + 'px';
       });
       
       // Mouse tracking variables
       let mouseX = 0;
       let mouseY = 0;
       let isMouseInCanvas = false;
+      let danceMode = false;
       
       // Update mouse position
       canvas.addEventListener('mousemove', function(e) {
@@ -223,40 +247,49 @@
       // Animation loop
       function animate() {
         if (isMouseInCanvas) {
-          bubbles.forEach((bubble, index) => {
-            const currentX = parseFloat(bubble.style.left) || 0;
-            const currentY = parseFloat(bubble.style.top) || 0;
+          robots.forEach((robot, index) => {
+            const currentX = parseFloat(robot.style.left) || 0;
+            const currentY = parseFloat(robot.style.top) || 0;
             
-            // Calculate offset for each bubble (different distances from mouse)
+            // Calculate offset for each robot (different distances from mouse)
             const offsets = [
-              { x: -80, y: -60 },
-              { x: 60, y: -40 },
-              { x: -40, y: 80 },
-              { x: 90, y: 20 },
-              { x: 20, y: -90 }
+              { x: -100, y: -80 },
+              { x: 80, y: -60 },
+              { x: -60, y: 100 },
+              { x: 110, y: 30 },
+              { x: 30, y: -110 }
             ];
             
             const offset = offsets[index];
             const targetX = mouseX + offset.x;
             const targetY = mouseY + offset.y;
             
-            // Smooth movement with different speeds for each bubble
-            const speeds = [0.05, 0.08, 0.03, 0.1, 0.06];
+            // Smooth movement with different speeds for each robot
+            const speeds = [0.04, 0.07, 0.03, 0.09, 0.05];
             const speed = speeds[index];
             
             const newX = currentX + (targetX - currentX) * speed;
             const newY = currentY + (targetY - currentY) * speed;
             
-            // Keep bubbles within canvas bounds
-            const maxX = canvas.offsetWidth - bubble.offsetWidth;
-            const maxY = canvas.offsetHeight - bubble.offsetHeight;
+            // Keep robots within canvas bounds
+            const maxX = canvas.offsetWidth - 60; // Account for robot size
+            const maxY = canvas.offsetHeight - 60;
             
-            bubble.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
-            bubble.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+            robot.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+            robot.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
             
-            // Add subtle rotation based on movement
-            const rotation = (newX - currentX) * 0.5;
-            bubble.style.transform = `rotate(${rotation}deg)`;
+            // Add rotation based on movement direction
+            const deltaX = newX - currentX;
+            const deltaY = newY - currentY;
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            
+            // Add dance animation when not moving much
+            if (Math.abs(deltaX) < 1 && Math.abs(deltaY) < 1) {
+              robot.style.animation = 'robotDance 1s ease-in-out infinite';
+            } else {
+              robot.style.animation = 'robotPulse 2s ease-in-out infinite';
+              robot.style.transform = `rotate(${angle}deg)`;
+            }
           });
         }
         
@@ -266,14 +299,26 @@
       // Start animation
       animate();
       
-      // Add click effect
+      // Add click effect - make robots dance
       canvas.addEventListener('click', function(e) {
-        bubbles.forEach((bubble, index) => {
-          bubble.style.transform = 'scale(1.2)';
-          setTimeout(() => {
-            bubble.style.transform = 'scale(1)';
-          }, 200);
+        danceMode = !danceMode;
+        robots.forEach((robot, index) => {
+          if (danceMode) {
+            robot.style.animation = 'robotDance 0.5s ease-in-out infinite';
+            robot.style.transform = 'scale(1.3)';
+          } else {
+            robot.style.animation = 'robotPulse 2s ease-in-out infinite';
+            robot.style.transform = 'scale(1)';
+          }
         });
+        
+        // Update instructions
+        const instructions = document.querySelector('.simulator-instructions');
+        if (danceMode) {
+          instructions.textContent = '🎉 Robots are dancing! Click again to stop.';
+        } else {
+          instructions.textContent = '🖱️ Move your mouse to control the robot swarm';
+        }
       });
     });
   </script>
