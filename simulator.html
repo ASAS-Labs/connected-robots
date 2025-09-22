@@ -237,6 +237,28 @@
         transform: scaleY(1.2);
       }
     }
+    
+    .connectivity-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, #8b5cf6, #c084fc, #8b5cf6);
+      background-size: 20px 2px;
+      border-radius: 1px;
+      opacity: 0.7;
+      animation: linePulse 2s ease-in-out infinite;
+      z-index: 5;
+    }
+    
+    @keyframes linePulse {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scaleX(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleX(1.05);
+      }
+    }
   </style>
 </head>
 <body>
@@ -260,13 +282,18 @@
       
       <div class="simulator-canvas" id="simulatorCanvas">
         <!-- Cellular Tower -->
-        <div class="cellular-tower" style="right: 20px; top: 20px;">
+        <div class="cellular-tower" style="left: 20px; bottom: 20px;">
           📡
           <div class="tower-signal"></div>
           <div class="tower-signal"></div>
           <div class="tower-signal"></div>
           <div class="tower-signal"></div>
         </div>
+        
+        <!-- Connectivity Lines -->
+        <div class="connectivity-line" id="line1"></div>
+        <div class="connectivity-line" id="line2"></div>
+        <div class="connectivity-line" id="line3"></div>
         
         <!-- Robots -->
         <div class="robot" id="robot1">🤖</div>
@@ -286,6 +313,11 @@
     document.addEventListener('DOMContentLoaded', function() {
       const canvas = document.getElementById('simulatorCanvas');
       const robots = document.querySelectorAll('.robot');
+      const lines = document.querySelectorAll('.connectivity-line');
+      
+      // Antenna position (bottom left)
+      const antennaX = 20 + 32; // 20px margin + half of antenna size
+      const antennaY = canvas.offsetHeight - 20 - 32; // bottom margin + half of antenna size
       
       // Initial positions for robots (scattered around center)
       const initialPositions = [
@@ -320,6 +352,35 @@
       canvas.addEventListener('mouseleave', function() {
         isMouseInCanvas = false;
       });
+      
+      // Function to update connectivity lines
+      function updateConnectivityLines() {
+        // Connect 3 robots to the antenna (robots 1, 3, and 5)
+        const connectedRobots = [0, 2, 4]; // indices of robots to connect
+        
+        connectedRobots.forEach((robotIndex, lineIndex) => {
+          if (lineIndex < lines.length) {
+            const robot = robots[robotIndex];
+            const line = lines[lineIndex];
+            
+            const robotX = parseFloat(robot.style.left) + 30; // center of robot
+            const robotY = parseFloat(robot.style.top) + 30;
+            
+            // Calculate distance and angle
+            const deltaX = robotX - antennaX;
+            const deltaY = robotY - antennaY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+            
+            // Update line position and rotation
+            line.style.left = antennaX + 'px';
+            line.style.top = antennaY + 'px';
+            line.style.width = distance + 'px';
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.transformOrigin = '0 50%';
+          }
+        });
+      }
       
       // Animation loop
       function animate() {
@@ -369,6 +430,9 @@
             }
           });
         }
+        
+        // Update connectivity lines
+        updateConnectivityLines();
         
         requestAnimationFrame(animate);
       }
