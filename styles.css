@@ -28,6 +28,35 @@ p, li, td, th {
   border-bottom: 1px solid #8b5cf6;
   color: white;
 }
+
+/* Navigation Tab */
+.nav-tab {
+  background: #8b5cf6;
+  text-align: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #c084fc;
+}
+
+.simulator-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.simulator-link:hover {
+  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+  border-color: #c084fc;
+}
 .top-bar h1 {
   font-size: 1.5rem;
   text-transform: uppercase;
