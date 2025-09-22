@@ -322,8 +322,9 @@
       function updateAntennaPosition() {
         const antenna = document.querySelector('.cellular-tower');
         if (antenna) {
-          antennaX = parseFloat(antenna.style.left) + 32; // 20px margin + half of antenna size
-          antennaY = parseFloat(antenna.style.top) + 32; // 20px margin + half of antenna size
+          // Get the actual position from CSS (left: 20px, bottom: 20px)
+          antennaX = 20 + 32; // 20px margin + half of antenna size (4rem = 64px)
+          antennaY = canvas.offsetHeight - 20 - 32; // bottom margin + half of antenna size
         }
       }
       
@@ -343,10 +344,10 @@
         robot.style.top = pos.y + 'px';
       });
       
-      // Initialize antenna position and hide lines initially
+      // Initialize antenna position and show lines
       updateAntennaPosition();
       lines.forEach(line => {
-        line.style.display = 'none';
+        line.style.display = 'block';
       });
       
       // Mouse tracking variables
@@ -371,6 +372,12 @@
       function updateConnectivityLines() {
         // Update antenna position first
         updateAntennaPosition();
+        
+        // Fallback antenna position if calculation fails
+        if (antennaX === 0 || antennaY === 0) {
+          antennaX = 52; // 20px margin + 32px (half of 4rem)
+          antennaY = canvas.offsetHeight - 52; // bottom margin + 32px
+        }
         
         // Connect 3 robots to the antenna (robots 1, 3, and 5)
         const connectedRobots = [0, 2, 4]; // indices of robots to connect
@@ -397,6 +404,7 @@
             line.style.transform = `rotate(${angle}deg)`;
             line.style.transformOrigin = '0 50%';
             line.style.display = 'block';
+            line.style.opacity = '0.8';
           }
         });
       }
