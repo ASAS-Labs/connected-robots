@@ -227,6 +227,33 @@
       75% { opacity: 0.9; }
     }
     
+    .car {
+      position: absolute;
+      font-size: 2rem;
+      z-index: 6;
+      animation: carMoveRightToLeft 6s linear infinite;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .car1 {
+      animation-delay: 0s;
+    }
+    
+    .car2 {
+      animation-delay: 3s;
+    }
+    
+    @keyframes carMoveRightToLeft {
+      0% {
+        left: calc(100% + 50px);
+        transform: translateX(0);
+      }
+      100% {
+        left: -50px;
+        transform: translateX(0);
+      }
+    }
+    
     .cellular-tower {
       position: absolute;
       font-size: 4rem;
@@ -424,6 +451,10 @@
         <!-- Road Markings -->
         <div class="road-marking" style="left: 0; top: 200px; width: 100%; height: 2px;"></div>
         <div class="road-marking" style="left: 0; top: 250px; width: 100%; height: 2px;"></div>
+        
+        <!-- Moving Cars -->
+        <div class="car car1" style="top: 195px;">🚗</div>
+        <div class="car car2" style="top: 245px;">🚕</div>
         
         <!-- Cellular Tower -->
         <div class="cellular-tower" style="left: 20px; bottom: 20px;">
