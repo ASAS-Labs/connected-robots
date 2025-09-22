@@ -259,6 +259,48 @@
         transform: scaleX(1.05);
       }
     }
+    
+    .connectivity-icon {
+      position: absolute;
+      font-size: 1.2rem;
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+      animation: iconPulse 1.5s ease-in-out infinite;
+      z-index: 15;
+      pointer-events: none;
+    }
+    
+    .connectivity-icon.connected {
+      color: #10b981;
+      animation: iconPulse 1.5s ease-in-out infinite;
+    }
+    
+    .connectivity-icon.disconnected {
+      color: #ef4444;
+      animation: iconBlink 0.8s ease-in-out infinite;
+    }
+    
+    @keyframes iconPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes iconBlink {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
   </style>
 </head>
 <body>
@@ -301,6 +343,13 @@
         <div class="robot" id="robot3">🤖</div>
         <div class="robot" id="robot4">🤖</div>
         <div class="robot" id="robot5">🤖</div>
+        
+        <!-- Connectivity Icons -->
+        <div class="connectivity-icon connected" id="icon1">📶</div>
+        <div class="connectivity-icon disconnected" id="icon2">📵</div>
+        <div class="connectivity-icon connected" id="icon3">📶</div>
+        <div class="connectivity-icon disconnected" id="icon4">📵</div>
+        <div class="connectivity-icon connected" id="icon5">📶</div>
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
@@ -314,6 +363,7 @@
       const canvas = document.getElementById('simulatorCanvas');
       const robots = document.querySelectorAll('.robot');
       const lines = document.querySelectorAll('.connectivity-line');
+      const icons = document.querySelectorAll('.connectivity-icon');
       
       // Antenna position (bottom left) - get actual position after DOM loads
       let antennaX = 0;
@@ -349,6 +399,9 @@
       lines.forEach(line => {
         line.style.display = 'block';
       });
+      
+      // Initialize connectivity icons position
+      updateConnectivityIcons();
       
       // Mouse tracking variables
       let mouseX = 0;
@@ -409,6 +462,21 @@
         });
       }
       
+      // Function to update connectivity icons position
+      function updateConnectivityIcons() {
+        icons.forEach((icon, index) => {
+          const robot = robots[index];
+          if (robot) {
+            const robotX = parseFloat(robot.style.left);
+            const robotY = parseFloat(robot.style.top);
+            
+            // Position icon above the robot
+            icon.style.left = (robotX + 20) + 'px'; // center horizontally
+            icon.style.top = (robotY - 10) + 'px'; // above the robot
+          }
+        });
+      }
+      
       // Animation loop
       function animate() {
         if (isMouseInCanvas) {
@@ -460,6 +528,9 @@
         
         // Update connectivity lines
         updateConnectivityLines();
+        
+        // Update connectivity icons
+        updateConnectivityIcons();
         
         requestAnimationFrame(animate);
       }
