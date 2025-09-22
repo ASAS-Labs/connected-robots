@@ -338,6 +338,27 @@
       pointer-events: none;
       z-index: 19;
     }
+    
+    .satellite-icon {
+      position: absolute;
+      font-size: 2.5rem;
+      color: #8b5cf6;
+      text-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+      animation: satelliteFloat 3s ease-in-out infinite;
+      z-index: 15;
+      pointer-events: none;
+    }
+    
+    @keyframes satelliteFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-10px) rotate(5deg);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -390,6 +411,9 @@
         
         <!-- Mouse Cursor -->
         <div class="mouse-cursor hidden" id="mouseCursor">🎯</div>
+        
+        <!-- Satellite Icon -->
+        <div class="satellite-icon" style="right: 20px; top: 20px;">🛰️</div>
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
