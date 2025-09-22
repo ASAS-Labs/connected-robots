@@ -301,6 +301,43 @@
         transform: scale(1.1);
       }
     }
+    
+    .mouse-cursor {
+      position: absolute;
+      font-size: 2rem;
+      color: #f59e0b;
+      text-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+      animation: cursorPulse 1s ease-in-out infinite;
+      z-index: 20;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    
+    .mouse-cursor.hidden {
+      display: none;
+    }
+    
+    @keyframes cursorPulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+    }
+    
+    .cursor-trail {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #f59e0b;
+      border-radius: 50%;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 19;
+    }
   </style>
 </head>
 <body>
@@ -350,6 +387,9 @@
         <div class="connectivity-icon connected" id="icon3">📶</div>
         <div class="connectivity-icon disconnected" id="icon4">📵</div>
         <div class="connectivity-icon connected" id="icon5">📶</div>
+        
+        <!-- Mouse Cursor -->
+        <div class="mouse-cursor hidden" id="mouseCursor">🎯</div>
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
@@ -364,6 +404,7 @@
       const robots = document.querySelectorAll('.robot');
       const lines = document.querySelectorAll('.connectivity-line');
       const icons = document.querySelectorAll('.connectivity-icon');
+      const mouseCursor = document.getElementById('mouseCursor');
       
       // Antenna position (bottom left) - get actual position after DOM loads
       let antennaX = 0;
@@ -415,10 +456,20 @@
         mouseX = e.clientX - rect.left;
         mouseY = e.clientY - rect.top;
         isMouseInCanvas = true;
+        
+        // Show and position mouse cursor
+        mouseCursor.classList.remove('hidden');
+        mouseCursor.style.left = mouseX + 'px';
+        mouseCursor.style.top = mouseY + 'px';
+        
+        // Create cursor trail effect
+        createCursorTrail(mouseX, mouseY);
       });
       
       canvas.addEventListener('mouseleave', function() {
         isMouseInCanvas = false;
+        // Hide mouse cursor when leaving canvas
+        mouseCursor.classList.add('hidden');
       });
       
       // Function to update connectivity lines
@@ -475,6 +526,26 @@
             icon.style.top = (robotY - 10) + 'px'; // above the robot
           }
         });
+      }
+      
+      // Function to create cursor trail effect
+      function createCursorTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = x + 'px';
+        trail.style.top = y + 'px';
+        canvas.appendChild(trail);
+        
+        // Animate trail fade out
+        let opacity = 0.6;
+        const fadeInterval = setInterval(() => {
+          opacity -= 0.05;
+          trail.style.opacity = opacity;
+          if (opacity <= 0) {
+            clearInterval(fadeInterval);
+            trail.remove();
+          }
+        }, 50);
       }
       
       // Animation loop
