@@ -507,20 +507,29 @@
           antennaY = canvas.offsetHeight - 52; // bottom margin + 32px
         }
         
-        // Connect 3 robots to the antenna (robots 1, 3, and 5)
-        const connectedRobots = [0, 2, 4]; // indices of robots to connect
+        const canvasWidth = canvas.offsetWidth;
+        const halfWidth = canvasWidth / 2;
         
-        connectedRobots.forEach((robotIndex, lineIndex) => {
-          if (lineIndex < lines.length) {
-            const robot = robots[robotIndex];
+        // Hide all lines first
+        lines.forEach(line => {
+          line.style.display = 'none';
+        });
+        
+        // Show lines only for robots on the left side (connected)
+        let lineIndex = 0;
+        robots.forEach((robot, robotIndex) => {
+          const robotX = parseFloat(robot.style.left) || 0;
+          
+          if (robotX < halfWidth && lineIndex < lines.length) {
             const line = lines[lineIndex];
+            const robotY = parseFloat(robot.style.top) || 0;
             
-            const robotX = parseFloat(robot.style.left) + 30; // center of robot
-            const robotY = parseFloat(robot.style.top) + 30;
+            const robotCenterX = robotX + 30; // center of robot
+            const robotCenterY = robotY + 30;
             
             // Calculate distance and angle
-            const deltaX = robotX - antennaX;
-            const deltaY = robotY - antennaY;
+            const deltaX = robotCenterX - antennaX;
+            const deltaY = robotCenterY - antennaY;
             const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
             const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
             
@@ -533,12 +542,17 @@
             line.style.transformOrigin = '0 50%';
             line.style.display = 'block';
             line.style.opacity = '0.8';
+            
+            lineIndex++;
           }
         });
       }
       
-      // Function to update connectivity icons position
+      // Function to update connectivity icons position and status
       function updateConnectivityIcons() {
+        const canvasWidth = canvas.offsetWidth;
+        const halfWidth = canvasWidth / 2;
+        
         icons.forEach((icon, index) => {
           const robot = robots[index];
           if (robot) {
@@ -548,6 +562,17 @@
             // Position icon above the robot with constant relative distance
             icon.style.left = (robotX + 20) + 'px'; // center horizontally (robot is ~40px wide)
             icon.style.top = (robotY - 15) + 'px'; // above the robot with consistent spacing
+            
+            // Update connectivity status based on robot position
+            if (robotX < halfWidth) {
+              // Robot is on left half - show connected
+              icon.textContent = '📶';
+              icon.className = 'connectivity-icon connected';
+            } else {
+              // Robot is on right half - show disconnected
+              icon.textContent = '📵';
+              icon.className = 'connectivity-icon disconnected';
+            }
           }
         });
       }
