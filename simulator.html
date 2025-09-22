@@ -171,6 +171,72 @@
       color: #6b7280;
       font-style: italic;
     }
+    
+    .cellular-tower {
+      position: absolute;
+      font-size: 4rem;
+      color: #8b5cf6;
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+      animation: towerPulse 3s ease-in-out infinite;
+      z-index: 10;
+    }
+    
+    .tower-signal {
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(to top, #8b5cf6, transparent);
+      animation: signalWave 2s ease-in-out infinite;
+    }
+    
+    .tower-signal:nth-child(1) {
+      height: 20px;
+      left: 10px;
+      top: -20px;
+      animation-delay: 0s;
+    }
+    
+    .tower-signal:nth-child(2) {
+      height: 30px;
+      left: 15px;
+      top: -30px;
+      animation-delay: 0.2s;
+    }
+    
+    .tower-signal:nth-child(3) {
+      height: 40px;
+      left: 20px;
+      top: -40px;
+      animation-delay: 0.4s;
+    }
+    
+    .tower-signal:nth-child(4) {
+      height: 50px;
+      left: 25px;
+      top: -50px;
+      animation-delay: 0.6s;
+    }
+    
+    @keyframes towerPulse {
+      0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+      }
+      50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 30px rgba(139, 92, 246, 1);
+      }
+    }
+    
+    @keyframes signalWave {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scaleY(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleY(1.2);
+      }
+    }
   </style>
 </head>
 <body>
@@ -184,7 +250,8 @@
       <h2 style="color: #57068c; margin-bottom: 1rem; text-align: center;">Interactive Robot Simulator</h2>
       <p class="simulator-description" style="text-align: center;">
         Move your mouse around the canvas below to see the connected robots follow your cursor. 
-        This demonstrates real-time communication and coordination in cloud-connected robotics systems.
+        The cellular tower (📡) represents the connectivity infrastructure that enables real-time 
+        communication and coordination in cloud-connected robotics systems.
       </p>
       
       <div class="simulator-instructions">
@@ -192,6 +259,16 @@
       </div>
       
       <div class="simulator-canvas" id="simulatorCanvas">
+        <!-- Cellular Tower -->
+        <div class="cellular-tower" style="right: 20px; top: 20px;">
+          📡
+          <div class="tower-signal"></div>
+          <div class="tower-signal"></div>
+          <div class="tower-signal"></div>
+          <div class="tower-signal"></div>
+        </div>
+        
+        <!-- Robots -->
         <div class="robot" id="robot1">🤖</div>
         <div class="robot" id="robot2">🤖</div>
         <div class="robot" id="robot3">🤖</div>
