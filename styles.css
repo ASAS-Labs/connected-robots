@@ -134,6 +134,23 @@ p, li, td, th {
   color: white;
 }
 
+/* Schedule table column widths */
+.schedule-section th:nth-child(1),
+.schedule-section td:nth-child(1) {
+  width: 15%;
+  min-width: 120px;
+}
+
+.schedule-section th:nth-child(2),
+.schedule-section td:nth-child(2) {
+  width: 50%;
+}
+
+.schedule-section th:nth-child(3),
+.schedule-section td:nth-child(3) {
+  width: 35%;
+}
+
 /* Organizers Section */
 .organizers-section {
   max-width: 1100px;
