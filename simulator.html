@@ -91,6 +91,63 @@
       background: #8b5cf6;
       color: white;
     }
+    
+    .simulator-canvas {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      margin: 2rem 0;
+    }
+    
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(192, 132, 252, 0.6));
+      box-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .bubble:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(168, 85, 247, 0.7));
+    }
+    
+    .bubble:nth-child(2) {
+      width: 45px;
+      height: 45px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(192, 132, 252, 0.6));
+    }
+    
+    .bubble:nth-child(3) {
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(139, 92, 246, 0.5));
+    }
+    
+    .bubble:nth-child(4) {
+      width: 35px;
+      height: 35px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(168, 85, 247, 0.8));
+    }
+    
+    .bubble:nth-child(5) {
+      width: 55px;
+      height: 55px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(192, 132, 252, 0.4));
+    }
+    
+    .simulator-instructions {
+      text-align: center;
+      margin: 1rem 0;
+      color: #6b7280;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -101,15 +158,22 @@
     </div>
     
     <div class="simulator-content">
-      <div class="simulator-placeholder">
-        <div class="simulator-icon">🚀</div>
-        <h2 style="color: #57068c; margin-bottom: 1rem;">Simulator Coming Soon!</h2>
-        <p class="simulator-description">
-          This interactive simulator will demonstrate cloud-connected robotics concepts 
-          featured in the EARS-CONN workshop. Experience real-time robot control, 
-          cloud-based AI processing, and network-aware robotics applications.
-        </p>
-        <div class="coming-soon">Under Development</div>
+      <h2 style="color: #57068c; margin-bottom: 1rem; text-align: center;">Interactive Robot Simulator</h2>
+      <p class="simulator-description" style="text-align: center;">
+        Move your mouse around the canvas below to see the connected robots follow your cursor. 
+        This demonstrates real-time communication and coordination in cloud-connected robotics systems.
+      </p>
+      
+      <div class="simulator-instructions">
+        🖱️ Move your mouse to control the robot swarm
+      </div>
+      
+      <div class="simulator-canvas" id="simulatorCanvas">
+        <div class="bubble" id="bubble1"></div>
+        <div class="bubble" id="bubble2"></div>
+        <div class="bubble" id="bubble3"></div>
+        <div class="bubble" id="bubble4"></div>
+        <div class="bubble" id="bubble5"></div>
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
@@ -117,5 +181,101 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('simulatorCanvas');
+      const bubbles = document.querySelectorAll('.bubble');
+      
+      // Initial positions for bubbles (scattered around center)
+      const initialPositions = [
+        { x: 200, y: 150 },
+        { x: 300, y: 200 },
+        { x: 150, y: 250 },
+        { x: 350, y: 180 },
+        { x: 250, y: 300 }
+      ];
+      
+      // Set initial positions
+      bubbles.forEach((bubble, index) => {
+        const pos = initialPositions[index];
+        bubble.style.left = pos.x + 'px';
+        bubble.style.top = pos.y + 'px';
+      });
+      
+      // Mouse tracking variables
+      let mouseX = 0;
+      let mouseY = 0;
+      let isMouseInCanvas = false;
+      
+      // Update mouse position
+      canvas.addEventListener('mousemove', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        isMouseInCanvas = true;
+      });
+      
+      canvas.addEventListener('mouseleave', function() {
+        isMouseInCanvas = false;
+      });
+      
+      // Animation loop
+      function animate() {
+        if (isMouseInCanvas) {
+          bubbles.forEach((bubble, index) => {
+            const currentX = parseFloat(bubble.style.left) || 0;
+            const currentY = parseFloat(bubble.style.top) || 0;
+            
+            // Calculate offset for each bubble (different distances from mouse)
+            const offsets = [
+              { x: -80, y: -60 },
+              { x: 60, y: -40 },
+              { x: -40, y: 80 },
+              { x: 90, y: 20 },
+              { x: 20, y: -90 }
+            ];
+            
+            const offset = offsets[index];
+            const targetX = mouseX + offset.x;
+            const targetY = mouseY + offset.y;
+            
+            // Smooth movement with different speeds for each bubble
+            const speeds = [0.05, 0.08, 0.03, 0.1, 0.06];
+            const speed = speeds[index];
+            
+            const newX = currentX + (targetX - currentX) * speed;
+            const newY = currentY + (targetY - currentY) * speed;
+            
+            // Keep bubbles within canvas bounds
+            const maxX = canvas.offsetWidth - bubble.offsetWidth;
+            const maxY = canvas.offsetHeight - bubble.offsetHeight;
+            
+            bubble.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+            bubble.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+            
+            // Add subtle rotation based on movement
+            const rotation = (newX - currentX) * 0.5;
+            bubble.style.transform = `rotate(${rotation}deg)`;
+          });
+        }
+        
+        requestAnimationFrame(animate);
+      }
+      
+      // Start animation
+      animate();
+      
+      // Add click effect
+      canvas.addEventListener('click', function(e) {
+        bubbles.forEach((bubble, index) => {
+          bubble.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            bubble.style.transform = 'scale(1)';
+          }, 200);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
