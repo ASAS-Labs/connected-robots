@@ -238,27 +238,6 @@
       }
     }
     
-    .connectivity-line {
-      position: absolute;
-      height: 2px;
-      background: linear-gradient(90deg, #8b5cf6, #c084fc, #8b5cf6);
-      background-size: 20px 2px;
-      border-radius: 1px;
-      opacity: 0.7;
-      animation: linePulse 2s ease-in-out infinite;
-      z-index: 5;
-    }
-    
-    @keyframes linePulse {
-      0%, 100% {
-        opacity: 0.7;
-        transform: scaleX(1);
-      }
-      50% {
-        opacity: 1;
-        transform: scaleX(1.05);
-      }
-    }
     
     .connectivity-icon {
       position: absolute;
@@ -390,10 +369,6 @@
           <div class="tower-signal"></div>
         </div>
         
-        <!-- Connectivity Lines -->
-        <div class="connectivity-line" id="line1"></div>
-        <div class="connectivity-line" id="line2"></div>
-        <div class="connectivity-line" id="line3"></div>
         
         <!-- Robots -->
         <div class="robot" id="robot1">🤖</div>
@@ -426,22 +401,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       const canvas = document.getElementById('simulatorCanvas');
       const robots = document.querySelectorAll('.robot');
-      const lines = document.querySelectorAll('.connectivity-line');
       const icons = document.querySelectorAll('.connectivity-icon');
       const mouseCursor = document.getElementById('mouseCursor');
       
-      // Antenna position (bottom left) - get actual position after DOM loads
-      let antennaX = 0;
-      let antennaY = 0;
-      
-      function updateAntennaPosition() {
-        const antenna = document.querySelector('.cellular-tower');
-        if (antenna) {
-          // Get the actual position from CSS (left: 20px, bottom: 20px)
-          antennaX = 20 + 32; // 20px margin + half of antenna size (4rem = 64px)
-          antennaY = canvas.offsetHeight - 20 - 32; // bottom margin + half of antenna size
-        }
-      }
       
       // Initial positions for robots (scattered around center)
       const initialPositions = [
@@ -457,12 +419,6 @@
         const pos = initialPositions[index];
         robot.style.left = pos.x + 'px';
         robot.style.top = pos.y + 'px';
-      });
-      
-      // Initialize antenna position and show lines
-      updateAntennaPosition();
-      lines.forEach(line => {
-        line.style.display = 'block';
       });
       
       // Initialize connectivity icons position
@@ -496,57 +452,6 @@
         mouseCursor.classList.add('hidden');
       });
       
-      // Function to update connectivity lines
-      function updateConnectivityLines() {
-        // Update antenna position first
-        updateAntennaPosition();
-        
-        // Fallback antenna position if calculation fails
-        if (antennaX === 0 || antennaY === 0) {
-          antennaX = 52; // 20px margin + 32px (half of 4rem)
-          antennaY = canvas.offsetHeight - 52; // bottom margin + 32px
-        }
-        
-        const canvasWidth = canvas.offsetWidth;
-        const halfWidth = canvasWidth / 2;
-        
-        // Hide all lines first
-        lines.forEach(line => {
-          line.style.display = 'none';
-        });
-        
-        // Show lines only for robots on the left side (connected)
-        let lineIndex = 0;
-        robots.forEach((robot, robotIndex) => {
-          const robotX = parseFloat(robot.style.left) || 0;
-          
-          if (robotX < halfWidth && lineIndex < lines.length) {
-            const line = lines[lineIndex];
-            const robotY = parseFloat(robot.style.top) || 0;
-            
-            const robotCenterX = robotX + 30; // center of robot
-            const robotCenterY = robotY + 30;
-            
-            // Calculate distance and angle
-            const deltaX = robotCenterX - antennaX;
-            const deltaY = robotCenterY - antennaY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-            const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-            
-            // Update line position and rotation
-            line.style.left = antennaX + 'px';
-            line.style.top = antennaY + 'px';
-            line.style.width = distance + 'px';
-            line.style.height = '2px';
-            line.style.transform = `rotate(${angle}deg)`;
-            line.style.transformOrigin = '0 50%';
-            line.style.display = 'block';
-            line.style.opacity = '0.8';
-            
-            lineIndex++;
-          }
-        });
-      }
       
       // Function to update connectivity icons position and status
       function updateConnectivityIcons() {
@@ -646,8 +551,7 @@
           });
         }
         
-        // Always update connectivity lines and icons (even when mouse is not in canvas)
-        updateConnectivityLines();
+        // Always update connectivity icons (even when mouse is not in canvas)
         updateConnectivityIcons();
         
         requestAnimationFrame(animate);
