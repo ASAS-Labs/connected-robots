@@ -277,6 +277,64 @@
       animation-delay: 3s, 0s;
     }
     
+    .helicopter {
+      position: absolute;
+      font-size: 2.5rem;
+      z-index: 6;
+      animation: helicopterMoveRightToLeft 12s linear infinite;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .helicopter1 {
+      animation-delay: 0s;
+    }
+    
+    .helicopter2 {
+      animation-delay: 4s;
+    }
+    
+    .helicopter3 {
+      animation-delay: 8s;
+    }
+    
+    @keyframes helicopterMoveRightToLeft {
+      0% {
+        left: calc(100% + 50px);
+        transform: translateX(0);
+      }
+      100% {
+        left: -50px;
+        transform: translateX(0);
+      }
+    }
+    
+    .helicopter-connectivity-icon {
+      position: absolute;
+      font-size: 1rem;
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+      z-index: 7;
+      animation: helicopterMoveRightToLeft 12s linear infinite, iconPulse 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    .helicopter-connectivity-icon.disconnected {
+      color: #ef4444;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+    
+    .helicopter-connectivity-icon#helicopterIcon1 {
+      animation-delay: 0s, 0s;
+    }
+    
+    .helicopter-connectivity-icon#helicopterIcon2 {
+      animation-delay: 4s, 0s;
+    }
+    
+    .helicopter-connectivity-icon#helicopterIcon3 {
+      animation-delay: 8s, 0s;
+    }
+    
     .cellular-tower {
       position: absolute;
       font-size: 4rem;
@@ -483,6 +541,16 @@
         <div class="car-connectivity-icon" id="carIcon1" style="top: 175px;">📶</div>
         <div class="car-connectivity-icon" id="carIcon2" style="top: 225px;">📶</div>
         
+        <!-- Helicopters -->
+        <div class="helicopter helicopter1" style="top: 80px;">🚁</div>
+        <div class="helicopter helicopter2" style="top: 120px;">🚁</div>
+        <div class="helicopter helicopter3" style="top: 160px;">🚁</div>
+        
+        <!-- Helicopter Connectivity Icons -->
+        <div class="helicopter-connectivity-icon" id="helicopterIcon1" style="top: 60px;">📶</div>
+        <div class="helicopter-connectivity-icon" id="helicopterIcon2" style="top: 100px;">📶</div>
+        <div class="helicopter-connectivity-icon" id="helicopterIcon3" style="top: 140px;">📶</div>
+        
         <!-- Cellular Tower -->
         <div class="cellular-tower" style="left: 20px; bottom: 20px;">
           📡
@@ -528,6 +596,8 @@
       const mouseCursor = document.getElementById('mouseCursor');
       const cars = document.querySelectorAll('.car');
       const carIcons = document.querySelectorAll('.car-connectivity-icon');
+      const helicopters = document.querySelectorAll('.helicopter');
+      const helicopterIcons = document.querySelectorAll('.helicopter-connectivity-icon');
       
       
       // Initial positions for robots (scattered around bottom half)
@@ -549,6 +619,7 @@
       // Initialize connectivity icons position
       updateConnectivityIcons();
       updateCarConnectivityIcons();
+      updateHelicopterConnectivityIcons();
       
       // Mouse tracking variables
       let mouseX = 0;
@@ -627,6 +698,30 @@
               // Car is on right half - show disconnected
               icon.textContent = '📵';
               icon.className = 'car-connectivity-icon disconnected';
+            }
+          }
+        });
+      }
+      
+      // Function to update helicopter connectivity icons
+      function updateHelicopterConnectivityIcons() {
+        const canvasWidth = canvas.offsetWidth;
+        const halfWidth = canvasWidth / 2;
+        
+        helicopterIcons.forEach((icon, index) => {
+          const helicopter = helicopters[index];
+          if (helicopter) {
+            const helicopterX = parseFloat(helicopter.style.left) || 0;
+            
+            // Update connectivity status based on helicopter position
+            if (helicopterX < halfWidth) {
+              // Helicopter is on left half - show connected
+              icon.textContent = '📶';
+              icon.className = 'helicopter-connectivity-icon';
+            } else {
+              // Helicopter is on right half - show disconnected
+              icon.textContent = '📵';
+              icon.className = 'helicopter-connectivity-icon disconnected';
             }
           }
         });
@@ -738,6 +833,7 @@
         // Always update connectivity icons (even when mouse is not in canvas)
         updateConnectivityIcons();
         updateCarConnectivityIcons();
+        updateHelicopterConnectivityIcons();
         
         requestAnimationFrame(animate);
       }
