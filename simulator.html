@@ -530,13 +530,13 @@
       const carIcons = document.querySelectorAll('.car-connectivity-icon');
       
       
-      // Initial positions for robots (scattered around center)
+      // Initial positions for robots (scattered around bottom half)
       const initialPositions = [
-        { x: 200, y: 150 },
-        { x: 300, y: 200 },
-        { x: 150, y: 250 },
-        { x: 350, y: 180 },
-        { x: 250, y: 300 }
+        { x: 200, y: 300 },
+        { x: 300, y: 350 },
+        { x: 150, y: 400 },
+        { x: 350, y: 320 },
+        { x: 250, y: 450 }
       ];
       
       // Set initial positions
@@ -679,12 +679,13 @@
             const newX = currentX + (targetX - currentX) * speed;
             const newY = currentY + (targetY - currentY) * speed;
             
-            // Keep robots within canvas bounds
+            // Keep robots within canvas bounds (bottom half only)
             const maxX = canvas.offsetWidth - 60; // Account for robot size
             const maxY = canvas.offsetHeight - 60;
+            const minY = canvas.offsetHeight / 2; // Bottom half only
             
             robot.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
-            robot.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+            robot.style.top = Math.max(minY, Math.min(newY, maxY)) + 'px';
             
             // Add rotation based on movement direction
             const deltaX = newX - currentX;
