@@ -254,6 +254,21 @@
       }
     }
     
+    .car-connectivity-icon {
+      position: absolute;
+      font-size: 1rem;
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+      z-index: 7;
+      animation: iconPulse 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    .car-connectivity-icon.disconnected {
+      color: #ef4444;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+    
     .cellular-tower {
       position: absolute;
       font-size: 4rem;
@@ -456,6 +471,10 @@
         <div class="car car1" style="top: 195px;">🚗</div>
         <div class="car car2" style="top: 245px;">🚕</div>
         
+        <!-- Car Connectivity Icons -->
+        <div class="car-connectivity-icon" id="carIcon1">📶</div>
+        <div class="car-connectivity-icon" id="carIcon2">📶</div>
+        
         <!-- Cellular Tower -->
         <div class="cellular-tower" style="left: 20px; bottom: 20px;">
           📡
@@ -499,6 +518,8 @@
       const robots = document.querySelectorAll('.robot');
       const icons = document.querySelectorAll('.connectivity-icon');
       const mouseCursor = document.getElementById('mouseCursor');
+      const cars = document.querySelectorAll('.car');
+      const carIcons = document.querySelectorAll('.car-connectivity-icon');
       
       
       // Initial positions for robots (scattered around center)
@@ -519,6 +540,7 @@
       
       // Initialize connectivity icons position
       updateConnectivityIcons();
+      updateCarConnectivityIcons();
       
       // Mouse tracking variables
       let mouseX = 0;
@@ -573,6 +595,35 @@
               // Robot is on right half - show disconnected
               icon.textContent = '📵';
               icon.className = 'connectivity-icon disconnected';
+            }
+          }
+        });
+      }
+      
+      // Function to update car connectivity icons
+      function updateCarConnectivityIcons() {
+        const canvasWidth = canvas.offsetWidth;
+        const halfWidth = canvasWidth / 2;
+        
+        carIcons.forEach((icon, index) => {
+          const car = cars[index];
+          if (car) {
+            const carX = parseFloat(car.style.left) || 0;
+            const carY = parseFloat(car.style.top) || 0;
+            
+            // Position icon above the car
+            icon.style.left = (carX + 15) + 'px'; // center horizontally
+            icon.style.top = (carY - 20) + 'px'; // above the car
+            
+            // Update connectivity status based on car position
+            if (carX < halfWidth) {
+              // Car is on left half - show connected
+              icon.textContent = '📶';
+              icon.className = 'car-connectivity-icon';
+            } else {
+              // Car is on right half - show disconnected
+              icon.textContent = '📵';
+              icon.className = 'car-connectivity-icon disconnected';
             }
           }
         });
@@ -649,6 +700,7 @@
         
         // Always update connectivity icons (even when mouse is not in canvas)
         updateConnectivityIcons();
+        updateCarConnectivityIcons();
         
         requestAnimationFrame(animate);
       }
