@@ -260,13 +260,21 @@
       color: #10b981;
       text-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
       z-index: 7;
-      animation: iconPulse 2s ease-in-out infinite;
+      animation: carMoveRightToLeft 6s linear infinite, iconPulse 2s ease-in-out infinite;
       pointer-events: none;
     }
     
     .car-connectivity-icon.disconnected {
       color: #ef4444;
       text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+    
+    .car-connectivity-icon#carIcon1 {
+      animation-delay: 0s, 0s;
+    }
+    
+    .car-connectivity-icon#carIcon2 {
+      animation-delay: 3s, 0s;
     }
     
     .cellular-tower {
@@ -472,8 +480,8 @@
         <div class="car car2" style="top: 245px;">🚕</div>
         
         <!-- Car Connectivity Icons -->
-        <div class="car-connectivity-icon" id="carIcon1">📶</div>
-        <div class="car-connectivity-icon" id="carIcon2">📶</div>
+        <div class="car-connectivity-icon" id="carIcon1" style="top: 175px;">📶</div>
+        <div class="car-connectivity-icon" id="carIcon2" style="top: 225px;">📶</div>
         
         <!-- Cellular Tower -->
         <div class="cellular-tower" style="left: 20px; bottom: 20px;">
@@ -609,11 +617,6 @@
           const car = cars[index];
           if (car) {
             const carX = parseFloat(car.style.left) || 0;
-            const carY = parseFloat(car.style.top) || 0;
-            
-            // Position icon above the car
-            icon.style.left = (carX + 15) + 'px'; // center horizontally
-            icon.style.top = (carY - 20) + 'px'; // above the car
             
             // Update connectivity status based on car position
             if (carX < halfWidth) {
