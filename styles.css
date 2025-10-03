@@ -11,7 +11,7 @@ body {
   line-height: 1.6;
   color: #1a1a1a;
   background: #f8f4ff;
-  padding-top: 80px; /* Account for fixed top bar height */
+  padding-top: 120px; /* Account for fixed top bar + navigation tab height */
 }
 
 /* General text color for better contrast */
@@ -43,6 +43,11 @@ p, li, td, th {
   text-align: center;
   padding: 0.75rem;
   border-bottom: 1px solid #c084fc;
+  position: fixed;
+  top: 60px; /* Position below the top bar */
+  left: 0;
+  right: 0;
+  z-index: 999;
 }
 
 .simulator-link {
@@ -53,10 +58,11 @@ p, li, td, th {
   padding: 0.75rem 2rem;
   border-radius: 25px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  min-width: 280px;
 }
 
 .simulator-link:hover {
@@ -278,6 +284,10 @@ p, li, td, th {
   margin-top: 2rem;
   font-size: 0.9rem;
   color: white;
+}
+
+.footer p {
+  color: white !important;
 }
 
 /* Workshop Title and Subtitle Styles */
