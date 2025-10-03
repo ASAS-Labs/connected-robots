@@ -11,6 +11,7 @@ body {
   line-height: 1.6;
   color: #1a1a1a;
   background: #f8f4ff;
+  padding-top: 80px; /* Account for fixed top bar height */
 }
 
 /* General text color for better contrast */
@@ -27,6 +28,13 @@ p, li, td, th {
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #8b5cf6;
   color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Navigation Tab */
