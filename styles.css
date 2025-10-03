@@ -23,7 +23,7 @@ p, li, td, th {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #57068c;
+  background: #000000;
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #8b5cf6;
   color: white;
@@ -57,15 +57,52 @@ p, li, td, th {
   box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
   border-color: #c084fc;
 }
-.top-bar h1 {
-  font-size: 1.5rem;
+.title-container {
+  flex: 1;
+  overflow: hidden;
+  margin: 0 20px;
+  position: relative;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.sliding-title {
+  font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0;
+  white-space: nowrap;
+  animation: slideText 15s linear infinite;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sliding-logo {
+  height: 30px;
+  width: auto;
+  vertical-align: middle;
+}
+
+@keyframes slideText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 .logo-left, .logo-right {
   height: 50px;
   width: auto;
+}
+
+.logo-right-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* Title Header (optional subtitle) */
