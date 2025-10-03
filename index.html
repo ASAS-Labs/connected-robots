@@ -49,7 +49,7 @@
 
   <!-- Keynote Speakers Section -->
   <section class="keynote-speakers-section">
-    <h2 class="section-title">Key Note Speakers</h2>
+    <h2 class="section-title">Keynote Speakers</h2>
     <div class="speakers-grid">
       <!-- Ken's speaker card -->
       <div class="keynote-card text-center">
@@ -87,7 +87,7 @@
       <!-- Yoshinori's speaker card -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <Image src=images/yoshinori.png alt="Yoshinori Kitatsuji" width={200} height={200} className="rounded-circle" />
+          <img src="images/yoshinori.png" alt="Yoshinori Kitatsuji" class="rounded-circle" />
         </div>
         <div class="keynote-content">
           <h3>Yoshinori Kitatsuji</h3>
@@ -117,17 +117,83 @@
         </div>
       </div>
     </div>
+
+    <!-- Second row of keynote speakers -->
+    <div class="speakers-grid" style="margin-top: 2rem;">
+      <!-- Florian Pokorny keynote card -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <a href="https://www.kth.se/profile/fpokorny" target="_blank">
+            <img src="images/florian.jpg" alt="Florian Pokorny" class="rounded-circle" />
+          </a>
+        </div>
+        <div class="keynote-content">
+          <h3><a href="https://www.kth.se/profile/fpokorny" target="_blank">Florian Pokorny</a></h3>
+          <p class="keynote-affiliation">KTH Royal Institute of Technology</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('florian-keynote-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="florian-keynote-bio" class="expandable-content">
+              <p>Florian Pokorny is an Associate Professor at KTH Royal Institute of Technology, Stockholm. His group is working on data-driven methods for robotic manipulation and cloud robotics. He is currently coordinating the Horizon Europe project SoftEnable (softenable.eu) and the WASP-NEST project "Intelligent Cloud Robotics for Real-Time Manipulation at Scale" funded by the Wallenberg AI, Autonomous Systems & Software Program (wasp-sweden.org). He obtained his PhD in mathematics at the University of Edinburgh and holds a BSc in mathematics from the University of Edinburgh and a Master of Advanced Study in Mathematics (Part III) from the University of Cambridge.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('florian-keynote-abstract')">
+              Topic: Towards Bootstrapping Dexterous Manipulation with Cloud Robotics <span class="arrow">▼</span>
+            </button>
+            <div id="florian-keynote-abstract" class="expandable-content">
+              <p>Abstract—Data-Driven methods in Robotics, and Foundation Models in particular, are currently among the most exciting areas of progress within robotic manipulation, but core challenges such as rigorous reasoning about data requirements and reliability, remain. In this presentation, I will discuss some of our recent work on leveraging cloud robotics as a paradigm for training machine learning models for robotics and how the CloudGripper (cloudgripper.org) cloud robotics test-bed at KTH enables data-driven validation and benchmarking at scale using a set of remotely accessible robot arm cells.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prachi Sachdeva keynote card -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <a href="https://www.linkedin.com/in/prachisachdeva/" target="_blank">
+            <img src="images/prachi.jpeg" alt="Prachi Sachdeva" class="rounded-circle" />
+          </a>
+        </div>
+        <div class="keynote-content">
+          <h3><a href="https://www.linkedin.com/in/prachisachdeva/" target="_blank">Prachi Sachdeva</a></h3>
+          <p class="keynote-affiliation">TNO, Netherlands</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('prachi-keynote-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="prachi-keynote-bio" class="expandable-content">
+              <p>Prachi Sachdeva is a researcher at TNO (Netherlands Organization for Applied Scientific Research) with expertise spanning 6G networks, European Union policy frameworks, and cloud computing architectures. Her research focuses on the intersection of next-generation communication technologies and autonomous systems.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('prachi-keynote-abstract')">
+              Topic: 6G Networks and Cybersecurity for Connected Autonomous Systems <span class="arrow">▼</span>
+            </button>
+            <div id="prachi-keynote-abstract" class="expandable-content">
+              <p><strong>Publication Topics:</strong> 6G Networks, European Union Member States, 6G Research, Application Programming Interface, Aspects Of Policy, Business Model, Cloud Computing, Cloud Infrastructure, Cloud Radio Access Network, Collaborative Project, Core Network, and Cybersecurity.</p>
+              <p>Her work at TNO involves investigating how emerging 6G technologies can support the unique requirements of connected autonomous systems, with particular emphasis on policy frameworks, security considerations, and scalable cloud infrastructure for robotics applications.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Panelists Section -->
   <section class="panelists-section">
     <h2 class="section-title">Our Panellists</h2>
     <div class="speakers-grid">
-      <!-- Denis Efimov card (left) -->
+      <!-- Denis Efimov card -->
       <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
         <div class="speaker-image">
           <a href="https://chercheurs.lille.inria.fr/~efimov/" target="_blank">
-            <img src="images/denis.jpeg" alt="Speaker 3" class="organizer-img rounded-circle">
+            <img src="images/denis.jpeg" alt="Denis Efimov" class="organizer-img rounded-circle">
           </a>
         </div>
         <h3><a href="https://chercheurs.lille.inria.fr/~efimov/" target="_blank">Denis Efimov</a></h3>
@@ -148,37 +214,7 @@
         </div>
       </div>
       
-      <!-- Florian Pokorny in middle position (replaces Elham) -->
-      <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
-        <div class="speaker-image">
-          <a href="https://www.kth.se/profile/fpokorny" target="_blank">
-            <img src="images/florian.jpg" alt="Florian Pokorny" width={200} height={200} className="rounded-circle" />
-          </a>
-        </div>
-        <h3><a href="https://www.kth.se/profile/fpokorny" target="_blank">Florian Pokorny</a></h3>
-        <p class="speaker-title">KTH Royal Institute of Technology</p>
-        <p class="speaker-expertise">Expertise: Data-driven manipulation and cloud robotics</p>
-        <p class="speaker-talk-title"><strong>Title:</strong> Towards Bootstrapping Dexterous Manipulation with Cloud Robotics</p>
-        
-        <div class="bio-section">
-          <p class="short-bio">
-            Florian Pokorny is an Associate Professor at KTH working on data-driven methods for robotic manipulation and cloud robotics.
-          </p>
-          <button class="expand-bio-btn" onclick="toggleBio('florian-full-bio')">
-            Read More <span class="arrow">▼</span>
-          </button>
-          <div id="florian-full-bio" class="expandable-bio">
-            <p>
-              Florian Pokorny is an Associate Professor at KTH Royal Institute of Technology, Stockholm. His group is working on data-driven methods for robotic manipulation and cloud robotics. He is currently coordinating the Horizon Europe project SoftEnable (softenable.eu) and the WASP-NEST project "Intelligent Cloud Robotics for Real-Time Manipulation at Scale" funded by the Wallenberg AI, Autonomous Systems & Software Program (wasp-sweden.org). He obtained his PhD in mathematics at the University of Edinburgh and holds a BSc in mathematics from the University of Edinburgh and a Master of Advanced Study in Mathematics (Part III) from the University of Cambridge.
-            </p>
-            <p>
-              Abstract—Data-Driven methods in Robotics, and Foundation Models in particular, are currently among the most exciting areas of progress within robotic manipulation, but core challenges such as rigorous reasoning about data requirements and reliability, remain. In this presentation, I will discuss some of our recent work on leveraging cloud robotics as a paradigm for training machine learning models for robotics and how the CloudGripper (cloudgripper.org) cloud robotics test-bed at KTH enables data-driven validation and benchmarking at scale using a set of remotely accessible robot arm cells.
-            </p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Third panelist card -->
+      <!-- Prachi Sachdeva panelist card (middle position) -->
       <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
         <div class="speaker-image">
           <a href="https://www.linkedin.com/in/prachisachdeva/" target="_blank">
@@ -193,13 +229,39 @@
           <p class="short-bio">
             Prachi Sachdeva (TNO, Netherlands) — tentative panelist with expertise in 6G networks, cloud computing, and cybersecurity.
           </p>
-          <button class="expand-bio-btn" onclick="toggleBio('prachi-full-bio')">
+          <button class="expand-bio-btn" onclick="toggleBio('prachi-panelist-full-bio')">
             Read More <span class="arrow">▼</span>
           </button>
-          <div id="prachi-full-bio" class="expandable-bio">
+          <div id="prachi-panelist-full-bio" class="expandable-bio">
             <p>Prachi Sachdeva is a researcher at TNO (Netherlands Organization for Applied Scientific Research) with expertise spanning 6G networks, European Union policy frameworks, and cloud computing architectures. Her research focuses on the intersection of next-generation communication technologies and autonomous systems.</p>
             <p><strong>Publication Topics:</strong> 6G Networks, European Union Member States, 6G Research, Application Programming Interface, Aspects Of Policy, Business Model, Cloud Computing, Cloud Infrastructure, Cloud Radio Access Network, Collaborative Project, Core Network, and Cybersecurity.</p>
             <p>Her work at TNO involves investigating how emerging 6G technologies can support the unique requirements of connected autonomous systems, with particular emphasis on policy frameworks, security considerations, and scalable cloud infrastructure for robotics applications.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Florian Pokorny panelist card -->
+      <div class="speaker-card text-center" style="flex: 1; max-width: 300px;">
+        <div class="speaker-image">
+          <a href="https://www.kth.se/profile/fpokorny" target="_blank">
+            <img src="images/florian.jpg" alt="Florian Pokorny" class="organizer-img rounded-circle">
+          </a>
+        </div>
+        <h3><a href="https://www.kth.se/profile/fpokorny" target="_blank">Florian Pokorny</a></h3>
+        <p class="speaker-title">KTH Royal Institute of Technology</p>
+        <p class="speaker-expertise">Expertise: Data-driven manipulation and cloud robotics</p>
+        <p class="speaker-talk-title"><strong>Title:</strong> Towards Bootstrapping Dexterous Manipulation with Cloud Robotics</p>
+        
+        <div class="bio-section">
+          <p class="short-bio">
+            Florian Pokorny is an Associate Professor at KTH working on data-driven methods for robotic manipulation and cloud robotics.
+          </p>
+          <button class="expand-bio-btn" onclick="toggleBio('florian-panelist-full-bio')">
+            Read More <span class="arrow">▼</span>
+          </button>
+          <div id="florian-panelist-full-bio" class="expandable-bio">
+            <p>Florian Pokorny is an Associate Professor at KTH Royal Institute of Technology, Stockholm. His group is working on data-driven methods for robotic manipulation and cloud robotics. He is currently coordinating the Horizon Europe project SoftEnable (softenable.eu) and the WASP-NEST project "Intelligent Cloud Robotics for Real-Time Manipulation at Scale" funded by the Wallenberg AI, Autonomous Systems & Software Program (wasp-sweden.org). He obtained his PhD in mathematics at the University of Edinburgh and holds a BSc in mathematics from the University of Edinburgh and a Master of Advanced Study in Mathematics (Part III) from the University of Cambridge.</p>
+            <p>Abstract—Data-Driven methods in Robotics, and Foundation Models in particular, are currently among the most exciting areas of progress within robotic manipulation, but core challenges such as rigorous reasoning about data requirements and reliability, remain. In this presentation, I will discuss some of our recent work on leveraging cloud robotics as a paradigm for training machine learning models for robotics and how the CloudGripper (cloudgripper.org) cloud robotics test-bed at KTH enables data-driven validation and benchmarking at scale using a set of remotely accessible robot arm cells.</p>
           </div>
         </div>
       </div>
