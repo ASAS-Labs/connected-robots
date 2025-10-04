@@ -501,13 +501,27 @@
       padding: 0 !important;
     }
 
-    /* Maintain original organizer card styling */
+    /* Mobile organizer card styling - one per row */
+    .organizer-row {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 1rem !important;
+    }
+    
     .organizer-card {
-      width: 90% !important;
+      width: 95% !important;
+      max-width: 400px !important;
       margin: 0 auto 1.5rem auto !important;
       padding: 1.5rem !important;
-      border-radius: 8px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px !important;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2) !important;
+      flex: none !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 150px !important;
+      height: 150px !important;
+      margin: 0 auto 1rem !important;
     }
 
     /* Section titles */
@@ -516,6 +530,18 @@
       text-align: center;
       padding: 1rem;
       margin: 1rem 0;
+      font-size: 2rem !important;
+    }
+    
+    /* Mobile navigation adjustments */
+    .nav-tab {
+      padding: 0.5rem !important;
+    }
+    
+    .simulator-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 240px !important;
     }
 
     /* Image sizing */
@@ -547,8 +573,14 @@
     }
 
     .organizer-card {
-      width: 95% !important;
+      width: 98% !important;
       padding: 1rem !important;
+      margin: 0 auto 1rem auto !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 120px !important;
+      height: 120px !important;
     }
 
     .speaker-image, .keynote-image {
