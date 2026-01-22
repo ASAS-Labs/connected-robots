@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Connected Robot Simulator - CARS Workshop</title>
+  <title>Connected Robots - CARS Workshop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Cache control -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -15,6 +15,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
+      padding-top: 140px; /* Account for fixed header */
       background: #f8f4ff;
       min-height: 100vh;
     }
@@ -34,6 +35,56 @@
       font-size: 1.2rem;
       color: #6b7280;
       margin-bottom: 2rem;
+    }
+    
+    .quote-section {
+      max-width: 900px;
+      margin: 0 auto 3rem auto;
+      padding: 2.5rem;
+      padding-left: 3.5rem;
+      background: #ffffff;
+      border-left: 4px solid #57068c;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+    
+    .quote-text {
+      margin: 0;
+      padding: 0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #1a1a2e;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    
+    .quote-text::before {
+      content: '"';
+      font-size: 4rem;
+      line-height: 1;
+      color: #57068c;
+      opacity: 0.2;
+      position: absolute;
+      left: 1.5rem;
+      top: 1rem;
+      font-family: Georgia, serif;
+    }
+    
+    .quote-citation {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+      font-style: normal;
+      text-align: right;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    
+    .quote-citation::before {
+      content: '— ';
     }
     
     .simulator-content {
@@ -493,13 +544,45 @@
         opacity: 1;
       }
     }
+    
   </style>
 </head>
 <body>
+
+  <!-- Top Bar with IEEE Logos and Title -->
+  <div class="top-bar">
+    <img src="images/icra.webp" alt="IEEE ICRA Logo Left" class="logo-left">
+    <div class="title-container">
+      <h1 class="sliding-title"><img src="images/ICRA_2026.png" alt="ICRA 2026" class="sliding-logo"> Connected Autonomous Robotic Systems Workshop - IEEE ICRA 2026 <img src="images/ICRA_2026.png" alt="ICRA 2026" class="sliding-logo"></h1>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/ieee-logo.png" alt="IEEE Logo" class="logo-right">
+      <img src="images/IEEE_RAS.png" alt="RAS Logo" class="logo-right">
+    </div>
+  </div>
+
+  <!-- Navigation Tab -->
+  <div class="nav-tab">
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="call-for-papers.html" class="nav-link cfp-link">Call for Papers</a>
+      <a href="simulator.html" class="simulator-link">
+        Connected Robots
+      </a>
+    </div>
+  </div>
+
   <div class="simulator-container">
     <div class="simulator-header">
-      <h1 class="simulator-title">🤖 Connected Robot Simulator</h1>
+      <h1 class="simulator-title">Connected Robots</h1>
       <p class="simulator-subtitle">Interactive Cloud Robotics Platform for CARS Workshop</p>
+    </div>
+    
+    <div class="quote-section">
+      <blockquote class="quote-text">
+        "We are at the dawn of an era in networking that has the potential to define a new phase of human existence. This era will be shaped by the digitization and connection of everything and everyone with the goal of automating much of life, effectively creating time by maximizing the efficiency of everything we do and augmenting our intelligence with knowledge that expedites and optimizes decision-making and everyday routines and processes."
+      </blockquote>
+      <cite class="quote-citation">The Future X Network: A Bell Labs Perspective</cite>
     </div>
     
     <div class="simulator-content">
@@ -573,7 +656,7 @@
       </div>
       
       <div style="margin-top: 2rem; text-align: center;">
-        <a href="index.html" class="back-link">🏠 Go Back to Conference Main Page</a>
+        <a href="index.html" class="back-link">Go Back to Conference Main Page</a>
       </div>
     </div>
   </div>
@@ -851,6 +934,31 @@
         } else {
           instructions.textContent = '🖱️ Move your mouse to control the robot swarm';
         }
+      });
+    });
+
+    // Scroll-based navigation hide/show
+    let lastScrollTop = 0;
+    const navTab = document.querySelector('.nav-tab');
+    let isScrolling = false;
+
+    window.addEventListener('scroll', function() {
+      if (isScrolling) return;
+      
+      isScrolling = true;
+      requestAnimationFrame(function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+          // Scrolling down - hide nav
+          navTab.classList.add('hidden');
+        } else {
+          // Scrolling up - show nav
+          navTab.classList.remove('hidden');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        isScrolling = false;
       });
     });
   </script>

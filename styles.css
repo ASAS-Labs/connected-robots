@@ -7,11 +7,13 @@
 
 /* Body and Typography */
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.7;
   color: #1a1a1a;
-  background: #f8f4ff;
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 50%, #f8f9fa 100%);
   padding-top: 120px; /* Account for fixed top bar + navigation tab height */
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 /* General text color for better contrast */
@@ -39,37 +41,132 @@ p, li, td, th {
 
 /* Navigation Tab */
 .nav-tab {
-  background: #8b5cf6;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   text-align: center;
-  padding: 0.75rem;
-  border-bottom: 1px solid #c084fc;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: fixed;
   top: 60px; /* Position below the top bar */
   left: 0;
   right: 0;
   z-index: 999;
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.nav-tab.hidden {
+  transform: translateY(-100%);
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.875rem 2.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+  left: 100%;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Call for Papers link - Purple gradient */
+.cfp-link {
+  background: linear-gradient(135deg, #57068c 0%, #7c3aed 100%) !important;
+  box-shadow: 0 4px 12px rgba(87, 6, 140, 0.3) !important;
+}
+
+.cfp-link::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+}
+
+.cfp-link:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%) !important;
+  box-shadow: 0 6px 20px rgba(87, 6, 140, 0.4) !important;
 }
 
 .simulator-link {
   display: inline-block;
-  background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
-  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
   text-decoration: none;
-  padding: 0.75rem 2rem;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  min-width: 280px;
+  padding: 0.875rem 2.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 240px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.simulator-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.simulator-link:hover::before {
+  left: 100%;
 }
 
 .simulator-link:hover {
-  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
-  border-color: #c084fc;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 .title-container {
   flex: 1;
@@ -175,10 +272,11 @@ p, li, td, th {
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 1rem;
-  background: #f8f4ff;
-  border: 1px solid #8b5cf6;
-  border-radius: 4px;
-  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(87, 6, 140, 0.15);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 .abstract-section h2 {
   margin-bottom: 1rem;
@@ -190,6 +288,226 @@ p, li, td, th {
   list-style: disc;
   margin-left: 1.5rem;
   margin-top: 0.5rem;
+}
+
+/* Call for Papers Preview Section */
+.cfp-preview-section {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  background: #ffffff;
+  border: 1px solid rgba(87, 6, 140, 0.15);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cfp-preview-content {
+  text-align: center;
+}
+
+.cfp-preview-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.cfp-preview-text strong {
+  color: #57068c;
+  font-weight: 600;
+}
+
+.cfp-button-container {
+  margin-top: 2rem;
+}
+
+.cfp-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #57068c 0%, #7c3aed 100%);
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(87, 6, 140, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cfp-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.cfp-button:hover::before {
+  left: 100%;
+}
+
+.cfp-button:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(87, 6, 140, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Call for Papers Section (Full Page) */
+.cfp-section {
+  max-width: 1000px;
+  margin: 3rem auto;
+  margin-top: 160px; /* Account for fixed header */
+  padding: 0 1rem;
+  background: #ffffff;
+  border: 1px solid rgba(87, 6, 140, 0.15);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  scroll-margin-top: 140px; /* Account for fixed navigation */
+}
+
+.cfp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.cfp-intro,
+.cfp-submission,
+.cfp-topics,
+.cfp-timeline,
+.cfp-format,
+.cfp-tpc,
+.cfp-submission-platform {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #57068c;
+}
+
+.cfp-section h3 {
+  color: #1a1a2e;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.cfp-section p {
+  line-height: 1.8;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.cfp-section ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  line-height: 1.8;
+}
+
+.cfp-section li {
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.cfp-section li strong {
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.tpc-intro {
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #57068c;
+}
+
+.tpc-list {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.tpc-list li {
+  padding: 0.875rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background: #ffffff;
+  border-left: 3px solid #57068c;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tpc-list li:hover {
+  background: #f8f9fa;
+  transform: translateX(3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.external-link {
+  color: #57068c;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-top: 0.5rem;
+  border-bottom: 1px solid transparent;
+}
+
+.external-link:hover {
+  color: #7c3aed;
+  border-bottom-color: #7c3aed;
+  transform: translateX(3px);
+}
+
+.back-link {
+  display: inline-block;
+  background: linear-gradient(135deg, #57068c 0%, #7c3aed 100%);
+  color: white;
+  text-decoration: none;
+  padding: 0.875rem 2.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(87, 6, 140, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.back-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.back-link:hover::before {
+  left: 100%;
+}
+
+.back-link:hover {
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(87, 6, 140, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Schedule Section */

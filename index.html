@@ -27,9 +27,13 @@
 
   <!-- Navigation Tab -->
   <div class="nav-tab">
-    <a href="simulator.html" target="_blank" class="simulator-link">
-      🤖 Connected Robot Simulator
-    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="call-for-papers.html" class="nav-link cfp-link">Call for Papers</a>
+      <a href="simulator.html" target="_blank" class="simulator-link">
+        Connected Robots
+      </a>
+    </div>
   </div>
 
   <!-- Workshop Title / Subtitle (optional) -->
@@ -283,24 +287,35 @@
 
     <h3>Topics of Interest</h3>
     <ul>
-      <li>Robotics applications of wireless networks</li>
-      <li>Network-aware robotics solutions</li>
-      <li>Network-enabled multi-agent collaboration</li>
-      <li>Network-enabled digital twins for robotics applications</li>
-      <li>Satellite connectivity for autonomous systems</li>
-      <li>Joint communication and sensing for robotics applications</li>
-      <li>Network-enabled real-time data curation</li>
-      <li>Network-enabled model training and remote benchmarking</li>
-      <li>Network architectures and specifications for connected autonomous systems</li>
+      <li>Communication-aware perception, planning, and control for autonomous robots</li>
+      <li>Network-constrained pose estimation, localization, and state estimation</li>
+      <li>Edge-cloud robotics and digital twins for real-time autonomous systems</li>
+      <li>Cloud-assisted learning, manipulation, and centralized perception under latency and reliability constraints</li>
+      <li>Network-enabled multi-robot and multi-agent coordination in autonomy-critical scenarios</li>
+      <li>Joint communication and sensing for robotic perception and control</li>
+      <li>Heterogeneous network support (WiFi, cellular, satellite) for connected autonomous systems</li>
+      <li>Communication requirements and architectures derived from robotic autonomy workloads</li>
+      <li>Network-aware safety and robustness mechanisms for connected autonomous robots</li>
+      <li>Evaluation, benchmarking, and experimental validation of network-constrained robotic systems</li>
     </ul>
+  </section>
 
-    <h3>Call for Papers</h3>
-    <p>
-      We invite submissions exploring innovations in networked robotics systems, including 
-      safety, security, data-driven optimization, and cloud-edge collaboration. Papers should 
-      discuss cutting-edge research, relevant algorithms, or case studies that address 
-      connectivity in robotics.
-    </p>
+  <!-- Call for Papers Preview Section -->
+  <section class="cfp-preview-section">
+    <h2 class="section-title">Call for Papers</h2>
+    <div class="cfp-preview-content">
+      <p class="cfp-preview-text">
+        We invite submissions presenting novel research, methodologies, and applications in networked robotic systems. 
+        All papers will be peer-reviewed for originality, relevance, technical quality, and clarity by our Technical Program Committee. 
+        Accepted papers will be presented as posters. At least one author must attend in person to present.
+      </p>
+      <p class="cfp-preview-text">
+        <strong>Submission Deadline:</strong> April 17, 2026 | <strong>Notification:</strong> May 8, 2026
+      </p>
+      <div class="cfp-button-container">
+        <a href="call-for-papers.html" class="cfp-button">View Full Call for Papers →</a>
+      </div>
+    </div>
   </section>
 
   <!-- (Optional) Workshop Schedule, if desired -->
@@ -439,6 +454,7 @@
     text-transform: uppercase;
     background: linear-gradient(120deg, #2c3e50, #3498db);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -538,10 +554,61 @@
       padding: 0.5rem !important;
     }
     
+    .nav-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .nav-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
     .simulator-link {
       font-size: 1rem !important;
       padding: 0.6rem 1.5rem !important;
-      min-width: 240px !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    /* Mobile CFP section */
+    .cfp-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-text {
+      font-size: 1rem !important;
+    }
+    
+    .cfp-button {
+      font-size: 1rem !important;
+      padding: 0.875rem 2rem !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .cfp-intro,
+    .cfp-submission,
+    .cfp-topics,
+    .cfp-timeline,
+    .cfp-format,
+    .cfp-tpc,
+    .cfp-submission-platform {
+      padding: 1rem !important;
+    }
+    
+    .cfp-section h3 {
+      font-size: 1.2rem !important;
     }
 
     /* Image sizing */
@@ -609,11 +676,13 @@
 
   .section-title {
     font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
     text-align: center;
     width: 100%;
-    color: #2c3e50;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
 
   .speaker-image, .keynote-image, .organizer-image {
@@ -877,6 +946,31 @@
     // Update button text
     button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
   }
+
+  // Scroll-based navigation hide/show
+  let lastScrollTop = 0;
+  const navTab = document.querySelector('.nav-tab');
+  let isScrolling = false;
+
+  window.addEventListener('scroll', function() {
+    if (isScrolling) return;
+    
+    isScrolling = true;
+    requestAnimationFrame(function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down - hide nav
+        navTab.classList.add('hidden');
+      } else {
+        // Scrolling up - show nav
+        navTab.classList.remove('hidden');
+      }
+      
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      isScrolling = false;
+    });
+  });
 
   // Enhanced animated word effects
   document.addEventListener('DOMContentLoaded', function() {
