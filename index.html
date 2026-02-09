@@ -8,16 +8,22 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+  <!-- Link to your CSS file -->
   <link rel="stylesheet" href="styles.css?v=2026-02-09">
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Top Bar with Logos and Sliding Dates -->
   <div class="top-bar">
-    <div class="title-container" style="margin: 0;">
-      <h1 class="sliding-title" style="animation: none; transform: none;">
-        EARS-CONN 2026 — New York City
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <div class="title-container">
+      <h1 class="sliding-title">
+        EARS-CONN 2026 — New York City — Dates TBA — Embodied AI for Resilient &amp; Sustainable Systems Connected to Earth and Space
       </h1>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
     </div>
   </div>
 
@@ -26,228 +32,871 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
       <a href="call-for-papers.html" class="nav-link cfp-link">Call for Participation</a>
-      <a href="#program" class="nav-link">Program</a>
-      <a href="#challenge" class="nav-link">NYC Challenge</a>
       <a href="simulator.html" target="_blank" class="simulator-link">Interactive Demo</a>
     </div>
   </div>
 
-  <!-- Conference Title / Subtitle -->
+  <!-- Workshop Title / Subtitle (optional) -->
   <div class="workshop-title-container">
     <div class="workshop-title-wrapper text-center">
-      <h1 class="main-title">EARS-CONN 2026</h1>
+      <h1 class="main-title">EARS-CONN</h1>
       <div class="title-divider"></div>
       <h2 class="subtitle">
-        Embodied AI for Resilient &amp; Sustainable Systems<br>
-        Connected to Earth and Space
+        <span class="animated-word">Embodied</span>
+        <span class="animated-word">AI</span>
+        <span class="animated-word">Resilient</span>
+        <span class="animated-word">Sustainable</span>
       </h2>
-      <div class="conference-date">
-        New York City, USA • Dates TBA • 3–4 Days • Single-track talks + panels
-      </div>
+      <div class="conference-date">New York City, USA — Dates TBA — 3–4 days (single-track talks + panels) — 1–2 days (workshops + innovation challenge)</div>
     </div>
   </div>
 
-  <!-- Vision -->
+  <!-- Conference Vision -->
   <section class="abstract-section">
     <h2>Conference Vision</h2>
     <p>
-      As autonomous robotic systems begin operating at large scale across cities, infrastructure, and environmental domains, EARS-CONN brings together experts from robotics and embodied AI, environmental science, remote sensing, satellite/CubeSat systems, policy &amp; governance, and urban systems &amp; sustainability.
+      As autonomous robotic systems begin operating at large scale across cities, infrastructure, and environmental domains, EARS-CONN brings together experts from robotics &amp; embodied AI, environmental science, remote sensing, satellite/CubeSat systems, policy &amp; governance, and urban systems &amp; sustainability.
     </p>
     <p>
       <strong>Central question:</strong> How do we design safe, scalable, ethical, and environmentally responsible embodied AI systems for a planet where robots operate among humans and ecosystems?
     </p>
+    <div class="important-dates">
+      <strong>Important dates:</strong> TBA
+    </div>
   </section>
 
-  <!-- Format -->
-  <section class="cfp-preview-section" id="program">
-    <h2 class="section-title">Conference Format (Refined)</h2>
-    <div class="cfp-preview-content" style="text-align: left;">
-      <ul>
-        <li><strong>3–4 days total</strong></li>
-        <li><strong>2 days:</strong> talks + panels (single-track, shared audience)</li>
-        <li><strong>1–2 days:</strong> workshops + innovation challenge</li>
-        <li><strong>5–7 hosts / organizers</strong> (TBA)</li>
-        <li><strong>8–11 invited speakers</strong> (TBA)</li>
-        <li><strong>3 thematic sessions</strong> (sequential, not parallel)</li>
-      </ul>
-      <p style="margin-top: 1rem;">
-        Each theme includes <strong>1–2 keynote talks</strong> to set direction and <strong>one moderated multidisciplinary panel</strong> to spark cross-disciplinary discussion.
+  <!-- Keynote Speakers Section -->
+  <section class="keynote-speakers-section">
+    <h2 class="section-title">Invited Speakers (TBA)</h2>
+    <div class="speakers-grid">
+      <!-- Speaker card 1 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Thematic Block 1 — Technical Barriers to Scalable Embodied AI</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker1-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker1-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker1-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker1-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speaker card 2 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Thematic Block 2 — Ethical AI Governance for Embodied Systems</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker2-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker2-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker2-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker2-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row of keynote speakers -->
+    <div class="speakers-grid" style="margin-top: 2rem;">
+      <!-- Speaker card 3 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Thematic Block 3 — Embodied AI for Climate &amp; Environmental Action</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker3-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker3-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker3-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker3-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speaker card 4 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+        </div>
+        <div class="keynote-content">
+          <h3>Invited Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Cross-cutting — Earth/Space connectivity, sensing, and urban systems</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker4-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker4-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker4-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker4-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panelists Section -->
+  <section class="panelists-section">
+    <h2 class="section-title">Our Panellists</h2>
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <p class="cfp-preview-text">
+        Each thematic block includes a moderated multidisciplinary panel. Panel themes and participants will be announced (TBA).
       </p>
     </div>
   </section>
 
-  <!-- Thematic blocks -->
+  <!-- Call for Papers Preview Section -->
   <section class="cfp-preview-section">
-    <h2 class="section-title">Core Program Structure (Single-Track)</h2>
-    <div class="cfp-preview-content" style="text-align: left;">
-
-      <h3 style="margin-top: 0;">Thematic Block 1 — Technical Barriers to Scalable Embodied AI</h3>
-      <p><strong>Focus:</strong> Engineering and scientific challenges that limit safe, large-scale deployment of autonomous robotic systems.</p>
-      <p><strong>Keynote topics (1–2 speakers):</strong></p>
-      <ul>
-        <li>Scalability challenges in embodied AI</li>
-        <li>Safety verification for city-scale robotics</li>
-        <li>Robust autonomy in unstructured environments</li>
-        <li>Satellite-connected robotic ecosystems</li>
-      </ul>
-      <p><strong>Moderated panel theme:</strong> “From Lab to Planet-Scale Deployment: What Is Still Missing?”</p>
-      <p><strong>Panel composition (example):</strong> robotics safety researcher, AI systems engineer, remote sensing scientist, infrastructure/urban systems expert, industry representative.</p>
-      <p><strong>Discussion points:</strong> reliability at scale, maintenance/lifecycle costs, energy sustainability, connectivity + remote sensing integration, infrastructure readiness.</p>
-
-      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid rgba(0,0,0,0.08);">
-
-      <h3>Thematic Block 2 — Ethical AI Governance for Embodied Systems</h3>
-      <p><strong>Context:</strong> Embodied AI operates physically in human environments—raising safety, legal, and ethical questions.</p>
-      <p><strong>Keynote topics (1–2 speakers):</strong></p>
-      <ul>
-        <li>Governance frameworks for embodied AI</li>
-        <li>Safety certification and public trust</li>
-        <li>Ethical risks in physical AI systems</li>
-      </ul>
-      <p><strong>Moderated panel theme:</strong> “Who Governs Robots in Public Spaces?”</p>
-      <p><strong>Panel composition (example):</strong> AI ethics expert, policy researcher, robotics safety engineer, legal/regulatory specialist, public-sector representative.</p>
-      <p><strong>Discussion points:</strong> accountability, safety standards/certification, transparency/explainability, societal acceptance, global coordination.</p>
-
-      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid rgba(0,0,0,0.08);">
-
-      <h3>Thematic Block 3 — Embodied AI for Climate &amp; Environmental Action</h3>
-      <p><strong>Focus:</strong> Using robotics and AI as active tools to address urgent environmental and sustainability challenges.</p>
-      <p><strong>Keynote topics (1–2 speakers):</strong></p>
-      <ul>
-        <li>Robotics for ecosystem monitoring</li>
-        <li>Remote sensing + embodied AI integration</li>
-        <li>Climate-response robotic systems</li>
-      </ul>
-      <p><strong>Moderated panel theme:</strong> “Can Robots Help Heal the Planet?”</p>
-      <p><strong>Panel composition (example):</strong> environmental scientist, climate systems researcher, remote sensing expert, robotics researcher, sustainability policy expert.</p>
-      <p><strong>Discussion areas:</strong> ecosystem restoration, sustainable forest management, desertification, biodiversity monitoring, water resource management, robot + satellite sensing.</p>
-    </div>
-  </section>
-
-  <!-- Workshops -->
-  <section class="cfp-preview-section">
-    <h2 class="section-title">Workshops (1–2 Days)</h2>
-    <div class="cfp-preview-content" style="text-align: left;">
-      <h3 style="margin-top: 0;">Workshop 1 — Hands-On Safety Programming for Autonomous Robots</h3>
-      <ul>
-        <li>Program mobile robots</li>
-        <li>Implement safety rules, social norms, and human-aware navigation</li>
-        <li>Learn risk-aware motion planning and safe public-space operation</li>
-      </ul>
-
-      <h3 style="margin-top: 1.5rem;">Workshop 2 — Remote Sensing + Satellite Data for Robotics</h3>
-      <ul>
-        <li>Using Earth observation data in robotics</li>
-        <li>Satellite-connected autonomy</li>
-        <li>CubeSat data pipelines for environmental robotics</li>
-        <li>Urban monitoring applications</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Innovation Challenge -->
-  <section class="cfp-preview-section" id="challenge">
-    <h2 class="section-title">NYC Innovation Challenge</h2>
-    <div class="cfp-preview-content" style="text-align: left;">
-      <p>
-        <strong>Theme:</strong> Embodied AI + Remote Sensing for a Safe, Sustainable, and Friendly NYC
+    <h2 class="section-title">Call for Participation</h2>
+    <div class="cfp-preview-content">
+      <p class="cfp-preview-text">
+        Participation details will be posted as the conference logistics are finalized. We anticipate opportunities via talks and panels aligned with the three thematic blocks, hands-on workshops, posters/demos, and the NYC Innovation Challenge.
       </p>
-      <p><strong>Focus areas:</strong></p>
-      <ul>
-        <li>Environmental monitoring robots</li>
-        <li>Disaster response systems</li>
-        <li>Smart infrastructure inspection</li>
-        <li>Sustainable delivery robotics</li>
-        <li>Air/water quality sensing networks</li>
-      </ul>
-      <p><strong>Structure:</strong> idea submission phase → shortlisted teams pitch live → jury panel evaluates.</p>
-      <p><strong>Possible awards:</strong> Best Sustainability Impact, Best Safety Innovation, Best Urban Solution, Student Innovation Award.</p>
+      <p class="cfp-preview-text">
+        <strong>Location:</strong> New York City &nbsp; | &nbsp; <strong>Dates:</strong> TBA
+      </p>
+      <div class="cfp-button-container">
+        <a href="call-for-papers.html" class="cfp-button">View Call for Participation →</a>
+      </div>
     </div>
   </section>
 
-  <!-- Speakers (placeholders) -->
+  <!-- (Optional) Workshop Schedule, if desired -->
   <section class="schedule-section">
-    <h2>Invited Speakers (TBA)</h2>
-    <p style="max-width: 900px; margin: 0 auto;">
-      We will feature <strong>8–11 invited speakers</strong> across the three thematic blocks. Speaker list and titles will be posted here once finalized.
-    </p>
-    <table style="margin-top: 1.25rem;">
+    <h2>Draft Schedule (TBA)</h2>
+    <table>
       <thead>
         <tr>
-          <th>Block</th>
+          <th>Time</th>
+          <th>Talk/Session</th>
           <th>Speaker</th>
-          <th>Topic</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Block 1</td><td>Invited Speaker A (TBA)</td><td>TBA</td></tr>
-        <tr><td>Block 1</td><td>Invited Speaker B (TBA)</td><td>TBA</td></tr>
-        <tr><td>Block 2</td><td>Invited Speaker C (TBA)</td><td>TBA</td></tr>
-        <tr><td>Block 2</td><td>Invited Speaker D (TBA)</td><td>TBA</td></tr>
-        <tr><td>Block 3</td><td>Invited Speaker E (TBA)</td><td>TBA</td></tr>
-        <tr><td>Block 3</td><td>Invited Speaker F (TBA)</td><td>TBA</td></tr>
+        <tr>
+          <td>Day 1</td>
+          <td>Thematic Block 1 — Keynotes + Panel</td>
+          <td>Invited speakers + panelists (TBA)</td>
+        </tr>
+        <tr>
+          <td>Day 2</td>
+          <td>Thematic Block 2 — Keynotes + Panel</td>
+          <td>Invited speakers + panelists (TBA)</td>
+        </tr>
+        <tr>
+          <td>Day 3</td>
+          <td>Thematic Block 3 — Keynotes + Panel</td>
+          <td>Invited speakers + panelists (TBA)</td>
+        </tr>
+        <tr>
+          <td>Day 3–4</td>
+          <td>Workshops + NYC Innovation Challenge</td>
+          <td>Hosts / organizers + jury (TBA)</td>
+        </tr>
       </tbody>
     </table>
   </section>
 
-  <!-- Organizers (placeholders) -->
+  <!-- Organizers in one row, three columns -->
   <section class="organizers-section">
     <h2>Hosts / Organizers (TBA)</h2>
-    <p style="max-width: 900px; margin: 0 auto 1rem auto;">
-      We are assembling a multidisciplinary host team (5–7 people) spanning robotics, environment, remote sensing, policy, and sustainability.
-    </p>
-    <div class="organizer-row" style="flex-wrap: wrap;">
+    <div class="organizer-row">
+      <!-- Organizer 1 (placeholder) -->
       <div class="organizer-card">
-        <h3>Host/Organizer 1 (TBA)</h3>
+        <img src="images/speakers/placeholder.svg" alt="Organizer placeholder" class="organizer-img rounded-circle">
+        <h3>Host / Organizer 1 (TBA)</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
+      <!-- Organizer 2 (placeholder) -->
       <div class="organizer-card">
-        <h3>Host/Organizer 2 (TBA)</h3>
+        <img src="images/speakers/placeholder.svg" alt="Organizer placeholder" class="organizer-img rounded-circle">
+        <h3>Host / Organizer 2 (TBA)</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
+      <!-- Organizer 3 (placeholder) -->
       <div class="organizer-card">
-        <h3>Host/Organizer 3 (TBA)</h3>
+        <img src="images/speakers/placeholder.svg" alt="Organizer placeholder" class="organizer-img rounded-circle">
+        <h3>Host / Organizer 3 (TBA)</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
+      <!-- Organizer 4 (placeholder) -->
       <div class="organizer-card">
-        <h3>Host/Organizer 4 (TBA)</h3>
-        <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
-      </div>
-      <div class="organizer-card">
-        <h3>Host/Organizer 5 (TBA)</h3>
+        <img src="images/speakers/placeholder.svg" alt="Organizer placeholder" class="organizer-img rounded-circle">
+        <h3>Host / Organizer 4 (TBA)</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
     </div>
+    <p style="margin-top: 1rem;">Additional hosts/organizers will be announced (TBA).</p>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2026 EARS-CONN. All Rights Reserved.</p>
   </footer>
 
+  <style>
+  /* Base styles */
+  .container {
+    width: 100%;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  /* Workshop title responsive */
+  .workshop-title-container {
+    padding: 4rem 0;
+    background: linear-gradient(to right, #f8f9fa, #ffffff, #f8f9fa);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .main-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    padding: 0 15px;
+  }
+
+  .conference-date {
+    font-size: 1.4rem;
+    color: #3498db;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in;
+  }
+
+  .important-dates {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1.2rem;
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    display: inline-block;
+    color: #2c3e50;
+  }
+
+  /* Desktop layout */
+  @media (min-width: 769px) {
+    .speakers-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .keynote-card, .speaker-card {
+      flex: 1;
+      max-width: 400px;
+    }
+  }
+
+  /* Mobile layout */
+  @media (max-width: 768px) {
+    /* Container reset */
+    .container {
+      padding: 0;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Specific styles for Keynote Speakers and Panelists */
+    .keynote-card, .speaker-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 0 1rem 0 !important;
+      padding: 1.5rem !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 0;
+      background: white;
+      display: block !important;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Reset flex for speakers and panelists */
+    .speakers-grid div[style*="display: flex"] {
+      display: block !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Mobile organizer card styling - one per row */
+    .organizer-row {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 1rem !important;
+    }
+    
+    .organizer-card {
+      width: 95% !important;
+      max-width: 400px !important;
+      margin: 0 auto 1.5rem auto !important;
+      padding: 1.5rem !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2) !important;
+      flex: none !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 150px !important;
+      height: 150px !important;
+      margin: 0 auto 1rem !important;
+    }
+
+    /* Section titles */
+    .section-title {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 2rem !important;
+    }
+    
+    /* Mobile navigation adjustments */
+    .nav-tab {
+      padding: 0.5rem !important;
+    }
+    
+    .nav-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .nav-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .simulator-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    /* Mobile CFP section */
+    .cfp-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-text {
+      font-size: 1rem !important;
+    }
+    
+    .cfp-button {
+      font-size: 1rem !important;
+      padding: 0.875rem 2rem !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .cfp-intro,
+    .cfp-submission,
+    .cfp-topics,
+    .cfp-timeline,
+    .cfp-format,
+    .cfp-tpc,
+    .cfp-submission-platform {
+      padding: 1rem !important;
+    }
+    
+    .cfp-section h3 {
+      font-size: 1.2rem !important;
+    }
+
+    /* Image sizing */
+    .speaker-image, .keynote-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    /* Bio sections */
+    .bio-section {
+      width: 100%;
+      padding: 0;
+    }
+
+    /* Expandable content */
+    .expandable-content {
+      width: 100%;
+      padding: 1rem 0.5rem;
+      margin: 0;
+    }
+  }
+
+  /* Small screens */
+  @media (max-width: 380px) {
+    .keynote-card, .speaker-card {
+      padding: 1rem !important;
+    }
+
+    .organizer-card {
+      width: 98% !important;
+      padding: 1rem !important;
+      margin: 0 auto 1rem auto !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 120px !important;
+      height: 120px !important;
+    }
+
+    .speaker-image, .keynote-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Force center alignment */
+  .text-center {
+    text-align: center !important;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    width: 100%;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .speaker-image, .keynote-image, .organizer-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .speaker-image img, .keynote-image img, .organizer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .speaker-card, .keynote-card, .organizer-card {
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 300px;
+  }
+
+  .keynote-card {
+    flex: 1;
+    max-width: 500px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .keynote-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #4a90e2, #67b26f);
+  }
+
+  .keynote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .keynote-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+    border-radius: 50%;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .keynote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  .keynote-content {
+    padding: 1rem 0;
+  }
+
+  .keynote-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .keynote-title {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .keynote-org {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .expand-section {
+    margin-top: 1rem;
+    text-align: left;
+  }
+
+  .expand-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .expand-btn:hover {
+    background: #e9ecef;
+  }
+
+  .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-content {
+    display: none;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 1rem;
+  }
+
+  .expandable-content.active {
+    display: block;
+  }
+
+  .bio-section {
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .short-bio {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .expand-bio-btn {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .expand-bio-btn:hover {
+    color: #357abd;
+  }
+
+  .arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-bio {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+
+  .expandable-bio.active {
+    display: block;
+  }
+
+  .expandable-bio p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .keynote-card a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .keynote-card a:hover {
+    color: #4a90e2;
+  }
+
+  .workshop-title-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .title-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    margin: 1.5rem auto;
+    border-radius: 2px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  </style>
+
   <script>
-    // Scroll-based navigation hide/show
-    let lastScrollTop = 0;
-    const navTab = document.querySelector('.nav-tab');
-    let isScrolling = false;
+  function toggleSection(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+    
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+  }
 
-    window.addEventListener('scroll', function() {
-      if (isScrolling) return;
+  function toggleBio(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+    
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+    
+    // Update button text
+    button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
+  }
 
-      isScrolling = true;
-      requestAnimationFrame(function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  // Scroll-based navigation hide/show
+  let lastScrollTop = 0;
+  const navTab = document.querySelector('.nav-tab');
+  let isScrolling = false;
 
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-          navTab.classList.add('hidden');
-        } else {
-          navTab.classList.remove('hidden');
-        }
+  window.addEventListener('scroll', function() {
+    if (isScrolling) return;
+    
+    isScrolling = true;
+    requestAnimationFrame(function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down - hide nav
+        navTab.classList.add('hidden');
+      } else {
+        // Scrolling up - show nav
+        navTab.classList.remove('hidden');
+      }
+      
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+      isScrolling = false;
+    });
+  });
 
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        isScrolling = false;
+  // Enhanced animated word effects
+  document.addEventListener('DOMContentLoaded', function() {
+    const animatedWords = document.querySelectorAll('.animated-word');
+    
+    animatedWords.forEach((word, index) => {
+      // Add staggered entrance animation
+      word.style.animationDelay = `${index * 0.1}s`;
+      word.classList.add('fade-in-word');
+      
+      // Enhanced hover effects
+      word.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.05) rotate(1deg)';
+        this.style.zIndex = '10';
+        
+        // Add ripple effect
+        createRippleEffect(this);
+      });
+      
+      word.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+        this.style.zIndex = '1';
+      });
+      
+      // Add click effect
+      word.addEventListener('click', function() {
+        this.style.transform = 'translateY(-4px) scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'translateY(0) scale(1)';
+        }, 150);
       });
     });
+  });
+
+  function createRippleEffect(element) {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(192, 132, 252, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.left = '50%';
+    ripple.style.top = '50%';
+    ripple.style.width = '20px';
+    ripple.style.height = '20px';
+    ripple.style.marginLeft = '-10px';
+    ripple.style.marginTop = '-10px';
+    ripple.style.pointerEvents = 'none';
+    
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
   </script>
 
 </body>
 </html>
+
