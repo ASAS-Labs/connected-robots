@@ -9,6 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
   <style>
     .simulator-container {
       max-width: 1200px;
@@ -209,6 +210,30 @@
       0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
       50% { transform: translateY(-10px) rotate(5deg); opacity: 1; }
     }
+
+    /* Dark mode overrides (simulator page has local styles) */
+    body.theme-dark .simulator-container {
+      background: transparent;
+    }
+
+    body.theme-dark .quote-section,
+    body.theme-dark .simulator-content {
+      background: var(--panel);
+      border-color: var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    body.theme-dark .quote-text,
+    body.theme-dark .simulator-subtitle,
+    body.theme-dark .simulator-description,
+    body.theme-dark .simulator-instructions {
+      color: var(--text-muted);
+    }
+
+    body.theme-dark .simulator-title,
+    body.theme-dark h2 {
+      color: var(--brand);
+    }
   </style>
 </head>
 <body>
@@ -218,7 +243,8 @@
     <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
     <div class="title-container">
       <h1 class="sliding-title">
-        EARS-CONN 2026 — New York City — Dates TBA — Interactive Demo
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
+        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Interactive Demo
       </h1>
     </div>
     <div class="logo-right-container">
@@ -233,6 +259,7 @@
       <a href="index.html" class="nav-link">Home</a>
       <a href="call-for-papers.html" class="nav-link cfp-link">Call for Participation</a>
       <a href="simulator.html" class="simulator-link">Interactive Demo</a>
+      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
     </div>
   </div>
 
@@ -491,6 +518,30 @@
         isScrolling = false;
       });
     });
+  </script>
+
+  <script>
+    // Theme toggle (persisted)
+    (function () {
+      const key = 'earsconn_theme';
+      const btn = document.getElementById('themeToggle');
+      const apply = (mode) => {
+        document.body.classList.toggle('theme-dark', mode === 'dark');
+        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      let stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
+      if (stored === 'dark' || stored === 'light') apply(stored);
+      else apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
+          try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
+          apply(next);
+        });
+      }
+    })();
   </script>
 </body>
 </html>

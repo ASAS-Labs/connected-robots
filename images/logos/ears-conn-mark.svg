@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="EARS-CONN mark">
+  <defs>
+    <linearGradient id="g1m" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="55%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="g2m" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="softGlowM" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.35 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Orbit -->
+  <path d="M 38 152 C 80 54, 198 32, 266 114 C 318 176, 284 230, 214 236"
+        fill="none" stroke="url(#g1m)" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+  <path d="M 68 184 C 114 234, 216 234, 268 174"
+        fill="none" stroke="url(#g2m)" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- Earth -->
+  <circle cx="176" cy="148" r="58" fill="url(#g1m)" filter="url(#softGlowM)"/>
+  <path d="M136 138c18-14 44-20 80-14" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M142 166c22 18 52 22 84 10" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Satellite / node -->
+  <g transform="translate(276,98)">
+    <circle cx="0" cy="0" r="10" fill="#0ea5e9"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="rgba(14,165,233,0.35)" stroke-width="6"/>
+  </g>
+</svg>

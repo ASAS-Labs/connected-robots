@@ -9,6 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
 </head>
 <body>
 
@@ -17,7 +18,8 @@
     <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
     <div class="title-container">
       <h1 class="sliding-title">
-        EARS-CONN 2026 — New York City — Dates TBA — Call for Participation
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
+        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Ethical Embodied-AI Workshop Series: Safe and Responsible Decisions
       </h1>
     </div>
     <div class="logo-right-container">
@@ -32,6 +34,7 @@
       <a href="index.html" class="nav-link">Home</a>
       <a href="call-for-papers.html" class="nav-link cfp-link">Call for Participation</a>
       <a href="simulator.html" target="_blank" class="simulator-link">Interactive Demo</a>
+      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
     </div>
   </div>
 
@@ -43,7 +46,7 @@
         <h3>About EARS-CONN</h3>
         <p>
           <strong>EARS-CONN 2026</strong> (New York City) is a single-track, multidisciplinary forum on
-          <strong>Embodied AI for Resilient &amp; Sustainable Systems Connected to Earth and Space</strong>.
+          <strong>Ethical Embodied-AI Workshop Series: Safe and Responsible Decisions</strong>.
           The conference connects robotics and embodied AI with environmental science, remote sensing, satellite/CubeSat systems,
           policy &amp; governance, and urban systems &amp; sustainability.
         </p>
@@ -79,7 +82,7 @@
       <div class="cfp-timeline">
         <h3>Timeline</h3>
         <ul>
-          <li><strong>Dates:</strong> TBA</li>
+          <li><strong>Dates (tentative):</strong> June 14–18, 2026</li>
           <li><strong>Participation deadlines:</strong> TBA</li>
         </ul>
       </div>
@@ -116,7 +119,10 @@
   </section>
 
   <footer class="footer">
-    <p>&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
   </footer>
 
   <script>
@@ -142,6 +148,30 @@
         isScrolling = false;
       });
     });
+  </script>
+
+  <script>
+    // Theme toggle (persisted)
+    (function () {
+      const key = 'earsconn_theme';
+      const btn = document.getElementById('themeToggle');
+      const apply = (mode) => {
+        document.body.classList.toggle('theme-dark', mode === 'dark');
+        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      let stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
+      if (stored === 'dark' || stored === 'light') apply(stored);
+      else apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
+          try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
+          apply(next);
+        });
+      }
+    })();
   </script>
 
 </body>

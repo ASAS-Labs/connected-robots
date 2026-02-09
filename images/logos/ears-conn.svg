@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 240" role="img" aria-label="EARS-CONN logo">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="55%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.35 0" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Mark -->
+  <g transform="translate(40,20)">
+    <!-- Orbit -->
+    <path d="M 28 132 C 68 38, 184 18, 252 96 C 304 156, 270 216, 202 224"
+          fill="none" stroke="url(#g1)" stroke-width="14" stroke-linecap="round" opacity="0.95"/>
+    <path d="M 58 164 C 104 214, 206 214, 258 154"
+          fill="none" stroke="url(#g2)" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- Earth -->
+    <circle cx="160" cy="128" r="58" fill="url(#g1)" filter="url(#softGlow)"/>
+    <path d="M120 118c18-14 44-20 80-14" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M126 146c22 18 52 22 84 10" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Satellite / node -->
+    <g transform="translate(260,78)">
+      <circle cx="0" cy="0" r="10" fill="#0ea5e9"/>
+      <circle cx="0" cy="0" r="18" fill="none" stroke="rgba(14,165,233,0.35)" stroke-width="6"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(360,78)">
+    <text x="0" y="0"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
+          font-size="64" font-weight="800" fill="#111827" letter-spacing="2">
+      EARS-CONN
+    </text>
+    <text x="2" y="48"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif"
+          font-size="20" font-weight="700" fill="#6b7280" letter-spacing="0.2">
+      Embodied AI • Earth + Space
+    </text>
+  </g>
+</svg>
