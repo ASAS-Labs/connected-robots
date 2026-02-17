@@ -352,6 +352,20 @@
         <h3>Aliasghar Arab</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
+
+      <!-- Karin Sjöstrand -->
+      <div class="organizer-card">
+        <img src="images/speakers/KarinSjoestrand.jpeg" alt="Karin Sjöstrand" class="organizer-img rounded-circle">
+        <h3>Karin Sjöstrand</h3>
+        <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
+      </div>
+
+      <!-- Mitchell Goldberg -->
+      <div class="organizer-card">
+        <img src="images/speakers/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="organizer-img rounded-circle">
+        <h3>Mitchell Goldberg</h3>
+        <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
+      </div>
     </div>
     <p style="margin-top: 1rem;">Additional hosts/organizers will be announced (TBA).</p>
   </section>
@@ -462,17 +476,18 @@
     .organizer-row {
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     .organizer-card {
-      flex: 0 1 calc(33.333% - 1.5rem);
-      max-width: 340px;
+      flex: 0 1 calc(25% - 1rem);
+      max-width: 240px;
+      padding: 1rem;
     }
 
-    .organizer-card:nth-child(n+4) {
-      flex-basis: calc(50% - 1.5rem);
-      max-width: 420px;
+    .organizer-card .organizer-img {
+      width: 140px;
+      height: 140px;
     }
   }
 
@@ -1187,7 +1202,7 @@
       let stored = null;
       try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
       if (stored === 'dark' || stored === 'light') apply(stored);
-      else apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      else apply('light');
 
       if (btn) {
         btn.addEventListener('click', () => {

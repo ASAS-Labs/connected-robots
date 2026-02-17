@@ -1178,28 +1178,28 @@ body.theme-dark .cfp-preview-text-subtle {
 }
 .organizer-row {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 .organizer-card {
   background: #f8f4ff;
   border: 1px solid #8b5cf6;
   border-radius: 4px;
-  width: 22%;
   margin: 0.5rem;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2);
-  flex: 1;
+  flex: 0 1 calc(25% - 1rem);
+  max-width: 240px;
   min-width: 0;
 }
 .organizer-card h3 {
   margin: 0.5rem 0;
 }
 .organizer-card .organizer-img {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 1.5rem;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1rem;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
