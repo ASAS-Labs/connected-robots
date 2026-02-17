@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Innovation Challenge — EARS-CONN 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+</head>
+<body>
+
+  <div class="top-bar">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <div class="title-container">
+      <h1 class="sliding-title">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
+        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Environment-aware Autonomous Robotics for a Sustainable Future
+      </h1>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
+    </div>
+  </div>
+
+  <div class="nav-tab">
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-tabs">
+        <a href="attend.html" class="nav-tab-item">Attend</a>
+        <a href="call-for-papers.html" class="nav-tab-item">Call for Papers</a>
+        <a href="innovation-challenge.html" class="nav-tab-item nav-tab-active">Innovation Challenge</a>
+      </div>
+      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </div>
+  </div>
+
+  <section class="cfp-section page-section">
+    <h2 class="section-title">Call for Innovation Challenge Submissions</h2>
+    <p class="page-intro">Submit ideas and compete in pitch competitions: how fused robot + remote-sensing information can help different industries build resilient, sustainable urban ecosystems in NYC.</p>
+
+    <div class="attend-blocks">
+      <div class="attend-block">
+        <h3>NYC Innovation Challenge</h3>
+        <p>We invite submissions for the EARS-CONN 2026 Innovation Challenge. Proposals should show how <strong>fused information</strong>—combining robot data with global remote sensing, satellite data, and connectivity—can serve different industries and build resilient, sustainable urban ecosystems in New York City.</p>
+      </div>
+
+      <div class="attend-block">
+        <h3>Industry Applications — How Fused Information Helps</h3>
+        <p>Pitch how fused robot + remote-sensing data can serve industries such as:</p>
+        <ul>
+          <li><strong>Parametric insurance</strong> — Trigger-based coverage using real-time environmental and robotic data</li>
+          <li><strong>Basis risk</strong> — Reducing mismatch between indexed triggers and actual losses</li>
+          <li>Environmental monitoring and risk assessment</li>
+          <li>Urban infrastructure inspection and maintenance</li>
+          <li>Disaster response, prevention, and prediction</li>
+        </ul>
+      </div>
+
+      <div class="attend-block">
+        <h3>Resources &amp; Infrastructure</h3>
+        <p>Participants can leverage:</p>
+        <ul>
+          <li>Existing urban infrastructure and connectivity</li>
+          <li>Satellite and Earth observation data</li>
+          <li>Robotic platforms and embodied AI solutions</li>
+          <li>Open datasets and APIs for environmental sensing</li>
+        </ul>
+      </div>
+
+      <div class="attend-block">
+        <h3>Submission &amp; Pitch Competition</h3>
+        <p>Shortlisted teams will present their ideas in live pitch sessions. A jury panel will evaluate proposals and award prizes for the most impactful innovations.</p>
+        <p class="attend-cta"><a href="#" class="vision-btn">Submit (TBA)</a></p>
+      </div>
+    </div>
+
+    <div class="important-dates" style="margin-top: 2rem;">
+      <strong>Submission deadline:</strong> TBA &nbsp;|&nbsp; <strong>Pitch event:</strong> June 14–18, 2026 (tentative)
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const key = 'earsconn_theme';
+      const btn = document.getElementById('themeToggle');
+      const apply = (mode) => {
+        document.body.classList.toggle('theme-dark', mode === 'dark');
+        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      let stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
+      if (stored === 'dark' || stored === 'light') apply(stored);
+      else apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (btn) btn.addEventListener('click', () => {
+        const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
+        try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
+        apply(next);
+      });
+    })();
+  </script>
+</body>
+</html>

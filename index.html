@@ -20,7 +20,7 @@
     <div class="title-container">
       <h1 class="sliding-title">
         <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
-        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Ethical Embodied-AI Workshop Series: Safe and Responsible Decisions — Earth + Space
+        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Environment-aware Autonomous Robotics for a Sustainable Future
       </h1>
     </div>
     <div class="logo-right-container">
@@ -33,8 +33,11 @@
   <div class="nav-tab">
     <div class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
-      <a href="call-for-papers.html" class="nav-link cfp-link">Call for Participation</a>
-      <a href="simulator.html" target="_blank" class="simulator-link">Interactive Demo</a>
+      <div class="nav-tabs">
+        <a href="attend.html" class="nav-tab-item">Attend</a>
+        <a href="call-for-papers.html" class="nav-tab-item cfp-link">Call for Papers</a>
+        <a href="innovation-challenge.html" class="nav-tab-item">Innovation Challenge</a>
+      </div>
       <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
     </div>
   </div>
@@ -45,35 +48,80 @@
       <h1 class="main-title">EARS-CONN</h1>
       <div class="title-divider"></div>
       <h2 class="subtitle">
-        <span class="animated-word">Embodied</span>
-        <span class="animated-word">AI</span>
-        <span class="animated-word">Resilient</span>
-        <span class="animated-word">Sustainable</span>
+        <span class="rotating-word-slot">
+          <span class="animated-word rotating-word" id="rotatingWord" aria-live="polite">Embodied-AI</span>
+        </span>
+        <span class="subtitle-fixed">
+          <span class="animated-word">Autonomous</span>
+          <span class="animated-word">Robotic</span>
+          <span class="animated-word">Systems</span>
+        </span>
       </h2>
       <div style="margin-top: 0.75rem; font-weight: 600; color: var(--text-muted);">
-        Ethical Embodied-AI Workshop Series: Safe and Responsible Decisions
+        Emerging Autonomous Robots to Build a Sustainable Future
       </div>
-      <div class="conference-date">New York, New Yrok, USA — June 14–18, 2026 (tentative) — 2 days (talks + panels) — 2 days (workshops + innovation challenge)</div>
+      <div class="conference-date">New York, NY, USA — June 14–18, 2026 (tentative)</div>
     </div>
   </div>
 
-  <!-- Conference Vision -->
-  <section class="abstract-section">
-    <h2>Conference Vision</h2>
-    <ul class="vision-bullets" aria-label="EARS-CONN conference vision">
-      <li class="vision-bullet" tabindex="0">
-        <strong>Responsible embodied AI at scale</strong>: design, govern, and deploy autonomous robots across cities, infrastructure, and natural environments to serve society safely, sustainably, and responsibly.
-      </li>
-      <li class="vision-bullet" tabindex="0">
-        <strong>A global multidisciplinary platform</strong>: unite robotics and AI with environmental science, remote sensing, satellite/CubeSat engineering, policy, and urban innovation to address technical, ethical, and environmental challenges of large-scale deployment.
-      </li>
-      <li class="vision-bullet" tabindex="0">
-        <strong>Sustainability-aligned impact</strong>: inspire safe AI design principles that minimize ecological impact, reduce resource consumption, and strengthen resilience through collaborative dialogue, hands-on innovation, and policy-informed discussion.
-      </li>
-    </ul>
-    <div class="important-dates">
+  <!-- Welcome / Conference Vision -->
+  <section class="abstract-section e-con-inner vision-side-by-side">
+    <div class="vision-left">
+      <h2 class="vision-welcome">Welcome to EARS-CONN 2026</h2>
+      <h3 class="vision-tagline">WHERE EMBODIED AI<br>MEETS EARTH AWARENESS</h3>
+      <p class="vision-intro">
+        EARS-CONN 2026 brings together the <strong>robot point of view</strong> and the <strong>global view from remote sensors</strong> to build more sustainable urban ecosystems—with a focus on NYC needs. We connect stakeholders across the Ethical Embodied-AI triangle: AI safety, environment, robotics, remote sensing, and more.
+      </p>
+      <p class="vision-intro">
+        Join talks, workshops, paper submissions, and pitch competitions that fuse local and global data to serve cities, industries, and the planet.
+      </p>
+      <div class="vision-actions">
+        <a href="attend.html" class="vision-btn">Attend</a>
+        <a href="call-for-papers.html" class="vision-btn vision-btn-secondary">Call for Papers</a>
+        <a href="innovation-challenge.html" class="vision-btn vision-btn-secondary">Innovation Challenge</a>
+        <a href="#schedule" class="vision-btn vision-btn-secondary">Program Overview</a>
+      </div>
+    </div>
+    <div class="vision-right elementor-element elementor-element-0db8320 e-con-full e-flex e-con e-child" data-id="0db8320" data-element_type="container" data-e-type="container">
+      <div class="elementor-element elementor-element-526f2ac elementor-widget elementor-widget-video" data-id="526f2ac" data-element_type="widget" data-e-type="widget" data-settings="{&quot;video_type&quot;:&quot;hosted&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
+        <div class="e-hosted-video elementor-wrapper elementor-open-inline">
+          <video class="elementor-video" src="https://2026.ieee-iros.org/wp-content/uploads/sites/804/videoieeetv.east_.s3.amazonaws.com-ns-ieeetvdl-2025-IROS-2026-Promo.mp4" controls preload="auto" autoplay loop muted playsinline poster="https://2026.ieee-iros.org/wp-content/uploads/sites/804/Screenshot-2025-12-08-133057.png"></video>
+        </div>
+      </div>
+    </div>
+    <div class="important-dates" style="width: 100%; margin-top: 1.5rem;">
       <strong>Tentative dates:</strong> June 14–18, 2026
     </div>
+  </section>
+
+  <!-- Ethical Embodied-AI Triangle: Connecting the Dots -->
+  <section class="triangle-section">
+    <h2 class="section-title">Ethical Embodied-AI Triangle</h2>
+    <p class="triangle-intro">
+      EARS-CONN positions itself at the intersection of sustainability, environment, and responsible technology. Our framework centers <strong>Academia &amp; Education</strong> as the heart of a triangle that connects three essential pillars—each critical for safe, scalable, and environmentally conscious embodied AI:
+    </p>
+    <div class="triangle-content">
+      <div class="triangle-image-wrapper">
+        <img src="images/ears-triangle.svg" alt="Ethical Embodied-AI triangle: Academia & Education at the center, connected to Technology, Regulation, and Insurance/Assurance" class="triangle-image">
+      </div>
+      <div class="triangle-pillars">
+        <div class="pillar-card pillar-tech">
+          <h3>1. Industry &amp; Technology</h3>
+          <p>Scalable robotics, embodied AI systems, remote sensing, and satellite-connected autonomy. Technology drives innovation while academia provides knowledge, talent, and R&amp;D.</p>
+        </div>
+        <div class="pillar-card pillar-reg">
+          <h3>2. Standards &amp; Regulations</h3>
+          <p>Safety certification, environmental compliance, and policy frameworks. Regulations ensure responsible deployment; academia informs and shapes evolving standards.</p>
+        </div>
+        <div class="pillar-card pillar-gov">
+          <h3>3. Insurance &amp; RiskGovernance</h3>
+          <p>Accountability, assurance, and risk management for autonomous systems. Governance and insurance incentivize sustainable, safe design; academia contributes evidence and best practices.</p>
+        </div>
+      </div>
+    </div>
+    <p class="triangle-closing">
+      Our main value proposition: <strong>connecting the dots</strong> as a multidisciplinary problem. Invited speakers and panelists from across the triangle—AI safety, environment, robotics research, remote sensing, policy, and industry—come together to address how robots and global remote sensing can combine to build sustainable urban ecosystems, with a focus on NYC.
+    </p>
   </section>
 
   <!-- Keynote Speakers Section -->
@@ -204,31 +252,34 @@
   <!-- Panelists Section -->
   <section class="panelists-section">
     <h2 class="section-title">Our Panellists</h2>
-    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+    <div style="max-width: min(90vw, 1400px); margin: 0 auto; text-align: center;">
       <p class="cfp-preview-text">
-        Each thematic block includes a moderated multidisciplinary panel. Panel themes and participants will be announced (TBA).
+        Each thematic block includes a moderated multidisciplinary panel. We invite speakers from across the Ethical Embodied-AI triangle—AI safety, environment, robotics, remote sensing, policy—to connect the dots and address how robots + remote sensing can build sustainable urban ecosystems with an NYC focus. Panel themes and participants will be announced (TBA).
       </p>
     </div>
   </section>
 
-  <!-- Call for Papers Preview Section -->
-  <section class="cfp-preview-section">
-    <h2 class="section-title">Call for Participation</h2>
-    <div class="cfp-preview-content">
-      <p class="cfp-preview-text cfp-preview-text-subtle">
-        Participation details will be posted as the conference logistics are finalized. We anticipate opportunities via talks and panels aligned with the three thematic blocks, hands-on workshops, posters/demos, and the NYC Innovation Challenge.
-      </p>
-      <p class="cfp-preview-text cfp-preview-text-subtle">
-        <strong>Location:</strong> New York City &nbsp; | &nbsp; <strong>Dates:</strong> June 14–18, 2026 (tentative)
-      </p>
-      <div class="cfp-button-container">
-        <a href="call-for-papers.html" class="cfp-button">View Call for Participation →</a>
-      </div>
+  <!-- Quick Links / Tabs -->
+  <section class="tabs-preview-section">
+    <h2 class="section-title">Participate</h2>
+    <div class="tabs-preview">
+      <a href="attend.html" class="tab-preview-card">
+        <h3>Attend</h3>
+        <p>Talks &amp; panels connecting the Ethical Embodied-AI triangle—AI safety, environment, robotics, remote sensing—to build sustainable urban ecosystems with an NYC focus.</p>
+      </a>
+      <a href="call-for-papers.html" class="tab-preview-card">
+        <h3>Call for Papers</h3>
+        <p>Methods to build models from global and local data: fusing robot and remote-sensing data for sustainable urban ecosystems.</p>
+      </a>
+      <a href="innovation-challenge.html" class="tab-preview-card">
+        <h3>Innovation Challenge</h3>
+        <p>Pitch how fused robot + remote-sensing information can serve industries (parametric insurance, basis risk, and more) for resilient NYC ecosystems.</p>
+      </a>
     </div>
   </section>
 
   <!-- (Optional) Workshop Schedule, if desired -->
-  <section class="schedule-section">
+  <section class="schedule-section" id="schedule">
     <h2>Draft Schedule (TBA)</h2>
     <table>
       <thead>
@@ -303,6 +354,35 @@
       </div>
     </div>
     <p style="margin-top: 1rem;">Additional hosts/organizers will be announced (TBA).</p>
+  </section>
+
+  <!-- Sponsors Section (IROS-style) -->
+  <section class="sponsors-section">
+    <h2 class="section-title">Sponsors</h2>
+    <p class="sponsors-intro">We thank our sponsors for supporting EARS-CONN 2026.</p>
+    <div class="sponsors-grid">
+      <div class="sponsor-tier">
+        <h3>Platinum</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+        </div>
+      </div>
+      <div class="sponsor-tier">
+        <h3>Gold</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+        </div>
+      </div>
+      <div class="sponsor-tier">
+        <h3>Silver</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -853,8 +933,47 @@
   body.theme-dark .section-title,
   body.theme-dark .abstract-section h2,
   body.theme-dark .schedule-section h2,
-  body.theme-dark .organizers-section h2 {
+  body.theme-dark .organizers-section h2,
+  body.theme-dark .triangle-section h2 {
     color: var(--text);
+  }
+
+  body.theme-dark .vision-welcome,
+  body.theme-dark .vision-tagline {
+    color: var(--text);
+  }
+
+  body.theme-dark .vision-intro,
+  body.theme-dark .triangle-intro,
+  body.theme-dark .triangle-closing {
+    color: var(--text-muted);
+  }
+
+  body.theme-dark .vision-btn-secondary {
+    color: var(--brand);
+    border-color: var(--brand);
+  }
+
+  body.theme-dark .vision-btn-secondary:hover {
+    background: rgba(192, 132, 252, 0.12);
+  }
+
+  body.theme-dark .triangle-section {
+    background: var(--panel);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  body.theme-dark .pillar-card {
+    background: var(--panel-muted);
+  }
+
+  body.theme-dark .pillar-card h3 {
+    color: var(--text);
+  }
+
+  body.theme-dark .pillar-card p {
+    color: var(--text-muted);
   }
 
   body.theme-dark .keynote-card,
@@ -977,6 +1096,28 @@
       isScrolling = false;
     });
   });
+
+  // Rotating first word: Embodied-AI ↔ Environment-aware ↔ Earth-friendly (slides left/right)
+  (function initRotatingWord() {
+    const el = document.getElementById('rotatingWord');
+    if (!el) return;
+    const words = ['Embodied-AI', 'Environment-aware', 'Earth-friendly'];
+    let i = 0;
+    setInterval(function() {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(24px)';
+      setTimeout(function() {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.style.transform = 'translateX(-24px)';
+        el.style.opacity = '0';
+        void el.offsetWidth;
+        el.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'translateX(0)';
+      }, 350);
+    }, 3000);
+  })();
 
   // Enhanced animated word effects
   document.addEventListener('DOMContentLoaded', function() {

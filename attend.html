@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attend — EARS-CONN 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+</head>
+<body>
+
+  <div class="top-bar">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <div class="title-container">
+      <h1 class="sliding-title">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
+        EARS-CONN 2026 — New York City — June 14–18, 2026 (tentative) — Environment-aware Autonomous Robotics for a Sustainable Future
+      </h1>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
+    </div>
+  </div>
+
+  <div class="nav-tab">
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-tabs">
+        <a href="attend.html" class="nav-tab-item nav-tab-active">Attend</a>
+        <a href="call-for-papers.html" class="nav-tab-item">Call for Papers</a>
+        <a href="innovation-challenge.html" class="nav-tab-item">Innovation Challenge</a>
+      </div>
+      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </div>
+  </div>
+
+  <section class="cfp-section page-section">
+    <h2 class="section-title">Attend EARS-CONN 2026</h2>
+    <p class="page-intro">Register for the conference, attend talks and panels that connect the Ethical Embodied-AI triangle, and join hands-on workshops on combining robot and remote-sensing data for sustainable urban ecosystems—with a focus on NYC.</p>
+
+    <div class="attend-blocks">
+      <div class="attend-block">
+        <h3>Conference Registration</h3>
+        <p>Register for EARS-CONN 2026 to attend the full conference program. Registration includes access to all keynote talks, multidisciplinary panels, and networking sessions.</p>
+        <p><strong>Dates:</strong> June 14–18, 2026 (tentative) &nbsp;|&nbsp; <strong>Location:</strong> New York City</p>
+        <p class="attend-cta"><a href="#" class="vision-btn">Registration (TBA)</a></p>
+      </div>
+
+      <div class="attend-block">
+        <h3>Talks &amp; Panels — Connecting the Dots</h3>
+        <p><strong>Main value proposition:</strong> We invite speakers and panelists from across the Ethical Embodied-AI triangle to address <strong>connecting the dots</strong> as a multidisciplinary problem. Different stakeholders come together:</p>
+        <ul>
+          <li>AI safety researchers</li>
+          <li>Environment and sustainability experts</li>
+          <li>Robotics researchers</li>
+          <li>Remote sensing and satellite data specialists</li>
+          <li>Policy, regulation, and industry</li>
+        </ul>
+        <p>Together they explore how the robot point of view and global remote-sensing view can combine to build more sustainable urban ecosystems, with a focus on NYC needs.</p>
+      </div>
+
+      <div class="attend-block">
+        <h3>Workshop Attendance — Hands-On Programming</h3>
+        <p>Participate in hands-on workshops on how to align and navigate existing embodied-AI solutions for environment and Earth applications. Topics include:</p>
+        <ul>
+          <li>Safety programming for autonomous robots</li>
+          <li>Remote sensing and satellite data for robotics</li>
+          <li>Integrating global and local data for urban ecosystems</li>
+        </ul>
+        <p>Workshop registration details will be posted as logistics are finalized.</p>
+      </div>
+    </div>
+
+    <div class="important-dates" style="margin-top: 2rem;">
+      <strong>Tentative dates:</strong> June 14–18, 2026 &nbsp;|&nbsp; <strong>Location:</strong> New York City
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const key = 'earsconn_theme';
+      const btn = document.getElementById('themeToggle');
+      const apply = (mode) => {
+        document.body.classList.toggle('theme-dark', mode === 'dark');
+        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      let stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
+      if (stored === 'dark' || stored === 'light') apply(stored);
+      else apply(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (btn) btn.addEventListener('click', () => {
+        const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
+        try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
+        apply(next);
+      });
+    })();
+  </script>
+</body>
+</html>
