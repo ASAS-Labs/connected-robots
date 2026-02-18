@@ -583,6 +583,103 @@ body.theme-dark .vision-bullet:focus {
   }
 }
 
+/* Connectivity as Sixth Sense Section */
+.connectivity-section {
+  max-width: min(90vw, 1600px);
+  margin: 2.5rem auto;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(87, 6, 140, 0.04) 50%, var(--panel) 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.connectivity-intro {
+  text-align: center;
+  max-width: min(85vw, 900px);
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.connectivity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.connectivity-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: var(--panel-muted);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--brand);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.connectivity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(87, 6, 140, 0.12);
+}
+
+.connectivity-card h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.connectivity-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.connectivity-closing {
+  text-align: center;
+  max-width: min(85vw, 900px);
+  margin: 0 auto;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.connectivity-tagline {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sixth-sense-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: linear-gradient(135deg, rgba(87, 6, 140, 0.12) 0%, rgba(124, 58, 237, 0.12) 100%);
+  border: 1px solid rgba(87, 6, 140, 0.25);
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+body.theme-dark .sixth-sense-badge {
+  background: rgba(192, 132, 252, 0.15);
+  border-color: rgba(192, 132, 252, 0.3);
+  color: var(--brand);
+}
+
+body.theme-dark .connectivity-section {
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(192, 132, 252, 0.06) 50%, var(--panel) 100%);
+}
+
+body.theme-dark .connectivity-card {
+  background: var(--panel-muted);
+  border-top-color: var(--brand);
+}
+
 /* Ethical Embodied-AI Triangle Section */
 .triangle-section {
   max-width: min(90vw, 1600px);

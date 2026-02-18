@@ -38,7 +38,6 @@
         <a href="call-for-papers.html" class="nav-tab-item cfp-link">Call for Papers</a>
         <a href="innovation-challenge.html" class="nav-tab-item">Innovation Challenge</a>
       </div>
-      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
     </div>
   </div>
 
@@ -60,6 +59,9 @@
       <div style="margin-top: 0.75rem; font-weight: 600; color: var(--text-muted);">
         Emerging Autonomous Robots to Build a Sustainable Future
       </div>
+      <div class="connectivity-tagline">
+        <span class="sixth-sense-badge">Connectivity as a Sixth Sense</span> — from satellite data to local robot sensing
+      </div>
       <div class="conference-date">New York, NY, USA — June 14–18, 2026 (tentative)</div>
     </div>
   </div>
@@ -71,6 +73,9 @@
       <h3 class="vision-tagline">WHERE EMBODIED AI<br>MEETS EARTH AWARENESS</h3>
       <p class="vision-intro">
         EARS-CONN 2026 brings together the <strong>robot point of view</strong> and the <strong>global view from remote sensors</strong> to build more sustainable urban ecosystems—with a focus on NYC needs. We connect stakeholders across the Ethical Embodied-AI triangle: AI safety, environment, robotics, remote sensing, and more.
+      </p>
+      <p class="vision-intro">
+        At the heart of our vision is <strong>connectivity as a sixth sense</strong>: a Digital Earth where networks sense, understand, and map the environment in real time—from satellite and fiber sensing to local robot perception. This fusion of global and local data enables digital twins, autonomous navigation, and smarter resource flow for cities, industries, and the planet.
       </p>
       <p class="vision-intro">
         Join talks, workshops, paper submissions, and pitch competitions that fuse local and global data to serve cities, industries, and the planet.
@@ -94,6 +99,31 @@
     </div>
   </section>
 
+  <!-- Digital Sixth Sense / Connectivity Theme -->
+  <section class="connectivity-section">
+    <h2 class="section-title">Connectivity as a Sixth Sense</h2>
+    <p class="connectivity-intro">
+      EARS-CONN embraces the concept of a <strong>Digital Earth</strong>—where physical infrastructure becomes an intelligent, connected, and sensing network. Connectivity acts as a sixth sense, spanning from orbital and terrestrial sensing down to the local perception of robots.
+    </p>
+    <div class="connectivity-grid">
+      <div class="connectivity-card">
+        <h3>Satellite &amp; Remote Sensing</h3>
+        <p>Global environmental monitoring, Earth observation, and real-time mapping from space. Data flows from satellites to inform digital twins and urban planning.</p>
+      </div>
+      <div class="connectivity-card">
+        <h3>Network Sensing &amp; 6G</h3>
+        <p>Next-generation networks that sense and map environments—understanding location, movement, and shape of people, robots, and objects for autonomous systems.</p>
+      </div>
+      <div class="connectivity-card">
+        <h3>Local Robot Perception</h3>
+        <p>On-board sensors, embodied AI, and real-time decision-making. Robots fuse global context with local observations for safe, sustainable operations.</p>
+      </div>
+    </div>
+    <p class="connectivity-closing">
+      Together, these layers form a continuous sensing fabric: from fiber-optic cables monitoring oceans and seismic activity, to environmental sensors detecting wildfires and contamination, to robots navigating factories and cities—all connected in a sustainable, autonomous future.
+    </p>
+  </section>
+
   <!-- Ethical Embodied-AI Triangle: Connecting the Dots -->
   <section class="triangle-section">
     <h2 class="section-title">Ethical Embodied-AI Triangle</h2>
@@ -107,7 +137,7 @@
       <div class="triangle-pillars">
         <div class="pillar-card pillar-tech">
           <h3>1. Industry &amp; Technology</h3>
-          <p>Scalable robotics, embodied AI systems, remote sensing, and satellite-connected autonomy. Technology drives innovation while academia provides knowledge, talent, and R&amp;D.</p>
+          <p>Scalable robotics, embodied AI systems, remote sensing, and satellite-connected autonomy. Digital twins, 6G sensing, and connectivity as a sixth sense drive innovation while academia provides knowledge, talent, and R&amp;D.</p>
         </div>
         <div class="pillar-card pillar-reg">
           <h3>2. Standards &amp; Regulations</h3>
@@ -1116,7 +1146,7 @@
   (function initRotatingWord() {
     const el = document.getElementById('rotatingWord');
     if (!el) return;
-    const words = ['Embodied-AI', 'Environment-aware', 'Earth-friendly'];
+    const words = ['Embodied-AI', 'Environment-aware', 'Earth-friendly', 'Connected'];
     let i = 0;
     setInterval(function() {
       el.style.opacity = '0';
@@ -1188,30 +1218,6 @@
       ripple.remove();
     }, 600);
   }
-  </script>
-
-  <script>
-    // Theme toggle (persisted)
-    (function () {
-      const key = 'earsconn_theme';
-      const btn = document.getElementById('themeToggle');
-      const apply = (mode) => {
-        document.body.classList.toggle('theme-dark', mode === 'dark');
-        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
-      };
-      let stored = null;
-      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
-      if (stored === 'dark' || stored === 'light') apply(stored);
-      else apply('light');
-
-      if (btn) {
-        btn.addEventListener('click', () => {
-          const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
-          try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
-          apply(next);
-        });
-      }
-    })();
   </script>
 
 </body>

@@ -31,10 +31,9 @@
       <a href="index.html" class="nav-link">Home</a>
       <div class="nav-tabs">
         <a href="attend.html" class="nav-tab-item">Attend</a>
-        <a href="call-for-papers.html" class="nav-tab-item">Call for Papers</a>
-        <a href="innovation-challenge.html" class="nav-tab-item nav-tab-active">Innovation Challenge</a>
+      <a href="call-for-papers.html" class="nav-tab-item">Call for Papers</a>
+      <a href="innovation-challenge.html" class="nav-tab-item nav-tab-active">Innovation Challenge</a>
       </div>
-      <button class="nav-btn" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
     </div>
   </div>
 
@@ -131,24 +130,5 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      const key = 'earsconn_theme';
-      const btn = document.getElementById('themeToggle');
-      const apply = (mode) => {
-        document.body.classList.toggle('theme-dark', mode === 'dark');
-        if (btn) btn.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
-      };
-      let stored = null;
-      try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
-      if (stored === 'dark' || stored === 'light') apply(stored);
-      else apply('light');
-      if (btn) btn.addEventListener('click', () => {
-        const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
-        try { localStorage.setItem(key, next); } catch (e) { /* ignore */ }
-        apply(next);
-      });
-    })();
-  </script>
 </body>
 </html>
