@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Hands-On Workshop — EARS-CONN 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -13,48 +14,53 @@
 <body>
 
   <div class="top-bar">
-    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
     <div class="title-container">
-      <h1 class="sliding-title">
-        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
-        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital Earth as Infrastructure for Ethical Embodied-AI
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital-Earth as Infrastructure for Ethical Embodied-AI
       </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — June 14–15
+      </span>
     </div>
     <div class="logo-right-container">
-      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
-      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right" width="80" height="50" loading="lazy">
     </div>
   </div>
 
   <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
       <div class="nav-tabs">
-        <a href="attend.html" class="nav-tab-item">Attend</a>
-        <a href="call-for-papers.html" class="nav-tab-item cfp-link">Poster</a>
-        <a href="innovation-challenge.html" class="nav-tab-item">Digital Earth Challenge</a>
-        <a href="workshop.html" class="nav-tab-item nav-tab-active">Workshop</a>
+        <a href="attend.html" class="nav-tab-item nav-tab-active">Attend</a>
+        <a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a>
       </div>
     </div>
   </div>
 
   <section class="cfp-section page-section">
-    <h2 class="section-title">Hands-On Workshop: Building a Digital Twin of Earth</h2>
-    <p class="page-intro">Learn how to use data from <strong>robots to satellites</strong> to build the digital twin of Earth. This hands-on workshop guides participants through integrating multi-source data for Digital Earth applications.</p>
+    <h1 class="initiative-page-headline">Implementation Plan: How to Improve Life in the NYC Area with Robotics and AI — Digital-Earth as Infrastructure</h1>
+    <h2 class="section-title">Hands-On Workshop: Building Digital-Earth</h2>
+    <p class="page-intro">Learn how to use data from <strong>robots to satellites</strong> to build Digital-Earth. This hands-on workshop supports our initiative for <strong>improving life in the NYC area</strong> through Robotics, AI, and Digital-Earth as Infrastructure.</p>
 
     <div class="attend-blocks">
       <div class="attend-block">
         <h3>Workshop Overview</h3>
-        <p>Digital Earth relies on data from many sources—satellites, autonomous cars, robots, airplanes, drones, and UAVs. This workshop provides hands-on experience in <strong>fusing and using these data</strong> to build and maintain a digital twin of Earth for real-time ethical decisions.</p>
+        <p>Digital-Earth relies on data from many sources—satellites, autonomous cars, robots, airplanes, drones, and UAVs. This workshop provides hands-on experience in <strong>fusing and using these data</strong> to build and maintain Digital-Earth for real-time ethical decisions—supporting implementation plans for improving urban life in NYC.</p>
       </div>
 
       <div class="attend-block">
         <h3>What You Will Learn</h3>
         <ul>
           <li>Data sources: satellite imagery, robot sensing, drone/UAV data, environmental sensors</li>
-          <li>Data fusion and integration for digital twin construction</li>
-          <li>Cloud, connectivity, compute, and AI/ML in the Digital Earth stack</li>
-          <li>Practical tools and workflows for urban and environmental applications</li>
+          <li>Data fusion and integration for Digital-Earth construction</li>
+          <li>Cloud, connectivity, compute, and AI/ML in the Digital-Earth stack</li>
+          <li>Practical tools and workflows for urban and environmental applications—including NYC use cases</li>
         </ul>
       </div>
 
@@ -88,7 +94,7 @@
     </div>
 
     <div style="margin-top: 2rem; text-align: center;">
-      <a href="index.html" class="back-link">Back to Home</a>
+      <a href="attend.html" class="back-link">Back to Attend</a>
     </div>
   </section>
 
@@ -99,5 +105,26 @@
     </div>
   </footer>
 
+  <script>
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>EARS-CONN 2026 — New York City</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <!-- Cache control -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -16,36 +19,44 @@
 
   <!-- Top Bar with Logos and Sliding Dates -->
   <div class="top-bar">
-    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
     <div class="title-container">
-      <h1 class="sliding-title">
-        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
-        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital Earth as Infrastructure for Ethical Embodied-AI
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital-Earth as Infrastructure for Ethical Embodied-AI
       </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — June 14–15
+      </span>
     </div>
     <div class="logo-right-container">
-      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
-      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right" width="80" height="50" loading="lazy">
     </div>
   </div>
 
   <!-- Navigation Tab -->
   <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
       <div class="nav-tabs">
         <a href="attend.html" class="nav-tab-item">Attend</a>
-        <a href="call-for-papers.html" class="nav-tab-item cfp-link">Poster</a>
-        <a href="innovation-challenge.html" class="nav-tab-item">Digital Earth Challenge</a>
-        <a href="workshop.html" class="nav-tab-item">Workshop</a>
+        <a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a>
       </div>
     </div>
   </div>
 
-  <!-- Workshop Title / Subtitle (optional) -->
-  <div class="workshop-title-container">
+  <!-- Initiative Hero / Big Headline -->
+  <div class="workshop-title-container initiative-hero">
+    <video class="hero-bg-video" autoplay loop muted playsinline preload="auto">
+      <source src="videos/hero-background.mp4" type="video/mp4">
+    </video>
+    <div class="hero-bg-overlay"></div>
     <div class="workshop-title-wrapper text-center">
-      <h1 class="main-title">EARS-CONN</h1>
+      <h1 class="initiative-headline">Implementation Plan: How to Improve Life in the NYC Area with Robotics and AI — Digital-Earth as Infrastructure</h1>
       <div class="title-divider"></div>
       <h2 class="subtitle">
         <span class="rotating-word-slot">
@@ -57,33 +68,26 @@
           <span class="animated-word">Systems</span>
         </span>
       </h2>
-      <div style="margin-top: 0.75rem; font-weight: 600; color: var(--text-muted);">
-        An Initiative on Digital Earth for Ethical, Sustainable &amp; Safe Embodied-AI
+      <div class="initiative-tagline">
+        A Long-Vision Initiative for Ethical, Sustainable &amp; Safe Embodied-AI
       </div>
       <div class="connectivity-tagline">
-        <span class="sixth-sense-badge">Digital Earth as Infrastructure</span> — from AI agents to ground robots, building and protecting our connected world
+        <span class="sixth-sense-badge">Digital-Earth as Infrastructure</span> — from AI agents to ground robots, building and protecting our connected world
       </div>
       <div class="conference-date">New York, NY, USA — June 14–15, 2026 (tentative)</div>
     </div>
   </div>
 
-  <!-- Welcome Title -->
-  <section class="welcome-title-section">
-    <h2 class="vision-welcome">Welcome to EARS-CONN 2026</h2>
-  </section>
-
   <!-- Conference Vision -->
   <section class="abstract-section e-con-inner vision-side-by-side">
     <div class="vision-left">
-      <h3 class="vision-tagline">DIGITAL EARTH AS INFRASTRUCTURE<br>FOR ETHICAL EMBODIED-AI</h3>
+      <h2 class="vision-welcome">Welcome to EARS-CONN 2026</h2>
+      <h3 class="vision-tagline">DIGITAL-EARTH for ETHICAL EMBODIED-AI</h3>
       <p class="vision-intro">
-        EARS-CONN 2026 is an <strong>initiative event</strong> on challenges and opportunities for <strong>Digital Earth</strong>—enabling ethical, sustainable, and safe embodied-AI in our lives. From <strong>AI agents on computers making decisions</strong> to <strong>robots serving on the ground</strong>, we explore how they contribute to building, supporting, and protecting Digital Earth—where cloud, connectivity, data, compute, and AI/ML models play central roles.
+        EARS-CONN 2026 is a <strong>long-vision initiative</strong> on <strong>improving life in the NYC area with Robotics and AI — Digital-Earth as Infrastructure</strong>. We are at a pivotal moment: robotics and AI are advancing fast—from cloud agents to autonomous robots, drones, and vehicles—while Digital-Earth (real-time environmental and urban data) is emerging but still fragmented. Cities like NYC face climate, mobility, safety, and equity challenges. Data from satellites, autonomous cars, robots, airplanes, drones, and UAVs keeps Digital-Earth updated for <strong>real-time ethical decisions</strong>. <strong>Governance and regulation</strong> are the backbone for keeping these decisions ethical and safe. We examine challenges from three angles: <strong>Technical</strong> (research &amp; industry), <strong>Regulation</strong> (standards &amp; governance), and <strong>Assurance</strong> (insurance &amp; monitoring).
       </p>
       <p class="vision-intro">
-        Data from satellites, autonomous cars, robots, airplanes, drones, and UAVs keeps Digital Earth updated for <strong>real-time ethical decisions</strong>. <strong>Governance and regulation</strong> are the backbone for keeping these decisions ethical and safe. We examine these challenges from three angles: <strong>Technical</strong> (research &amp; industry), <strong>Regulation</strong> (standards &amp; governance), and <strong>Assurance</strong> (insurance &amp; monitoring).
-      </p>
-      <p class="vision-intro">
-        Join us for 2 days of invited speakers, panel discussions, a hands-on workshop on building a digital twin of Earth, poster presentations, and a challenge for Digital Earth ideas focused on urban and environmental sustainability and safety.
+        <strong>Our vision unlocks:</strong> smarter urban life—mobility, safety, resource efficiency; environmental sustainability through real-time monitoring; disaster resilience and faster ethical response; equitable access to Digital-Earth as public infrastructure; responsible deployment via governance and assurance; and new jobs and innovation across robotics, AI, and Digital-Earth. The building blocks exist; what we need is a shared <strong>implementation plan</strong> to connect them for lasting benefit.
       </p>
     </div>
     <div class="vision-right elementor-element elementor-element-0db8320 e-con-full e-flex e-con e-child" data-id="0db8320" data-element_type="container" data-e-type="container">
@@ -95,101 +99,133 @@
     </div>
   </section>
 
-  <!-- Participate -->
+  <!-- Participate — Two main options -->
   <section class="participate-section">
     <div class="participate-box">
       <h2 class="participate-title">Participate <span class="participate-dates">— June 14–15, 2026</span></h2>
-      <div class="participate-cards">
+      <div class="participate-cards participate-cards-two">
         <a href="attend.html" class="participate-card">
           <h3>Attend</h3>
-          <p>2 days of invited speakers and panelists exploring Digital Earth for ethical embodied-AI—from Technical, Regulation, and Assurance angles.</p>
+          <p><strong>Event registration</strong> — Register for the full 2-day initiative: keynotes, multi-disciplinary panels, and open-discussion talks on improving NYC life with Robotics and AI—Digital-Earth as Infrastructure.</p>
+          <p><strong>Workshop registration</strong> — Hands-on sessions on building Digital-Earth using data from robots to satellites.</p>
         </a>
-        <a href="call-for-papers.html" class="participate-card">
-          <h3>Poster Presentation</h3>
-          <p>Submit an abstract or short paper for poster presentation on Digital Earth, embodied-AI, sustainability, and related topics.</p>
-        </a>
-        <a href="innovation-challenge.html" class="participate-card">
-          <h3>Digital Earth Challenge</h3>
-          <p><strong>Ideas for Urban &amp; Environmental Sustainability and Safety.</strong> Submit innovative ideas for Digital Earth that focus on urban and environment sustainability and safety.</p>
-        </a>
-        <a href="workshop.html" class="participate-card">
-          <h3>Hands-On Workshop</h3>
-          <p><strong>Building a Digital Twin of Earth.</strong> Learn how to use data from robots to satellites to build the digital twin of Earth—hands-on sessions for participants.</p>
+        <a href="contribute.html" class="participate-card contribute-card">
+          <h3>Contribute</h3>
+          <p><strong>Abstract &amp; short paper</strong> — Submit for poster presentation. Peer reviewed.</p>
+          <p><strong>Innovation challenge</strong> — Submit ideas for improving urban and environmental life through Robotics, AI, and Digital-Earth. Peer reviewed. Possible awards and technology advancement sponsorships.</p>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Digital Earth as Infrastructure -->
-  <section class="connectivity-section">
-    <h2 class="section-title">Digital Earth as Infrastructure</h2>
-    <h3 class="digital-earth-hero-headline">A Smarter NYC — Robotics, AI &amp; Digital Earth Transforming Urban Life</h3>
-    <p class="connectivity-intro digital-earth-intro">
-      <strong>Digital Earth</strong> is the intelligent infrastructure that enables ethical embodied-AI. <strong>Cloud, connectivity, data, compute,</strong> and <strong>AI/ML models</strong> power this vision. Data flows from satellites, autonomous cars, robots, airplanes, drones, and UAVs—building and keeping Digital Earth updated for real-time ethical decisions.
-    </p>
-    <div class="digital-earth-side-layout">
-      <div class="digital-earth-left">
-        <img src="images/digital-earth-infographic.png" alt="Digital Earth — Monitor, Understand, Simulate, Anticipate, Respond: data from space, robotics, cloud, AI feeding into Digital Earth for Insurance, Government, and Consumers" class="digital-earth-image">
+  <!-- Digital-Earth: 2-Day Abstract Agenda — two tracks in separate boxes -->
+  <section class="digital-earth-section">
+    <h2 class="section-title">Digital-Earth as Infrastructure for Ethical Embodied-AI</h2>
+
+    <div class="agenda-boxes">
+      <div class="agenda-box agenda-box-building">
+        <h3 class="agenda-box-title">Building Digital-Earth</h3>
+        <p class="agenda-box-desc">Satellite data, IoT, robotics, drones, autonomous vehicles, telecommunications, cloud, AI, ML, storage—how technology builds and maintains Digital-Earth.</p>
+        <div class="agenda-day">
+          <h4>Day 1</h4>
+          <ul>
+            <li><strong>Keynote speakers</strong> — Research &amp; industry perspectives on Digital-Earth infrastructure</li>
+            <li><strong>Multi-disciplinary panel</strong> — Data fusion, connectivity, and compute for real-time ethical decisions</li>
+            <li><strong>Open-discussion talks</strong> — Implementation plans for NYC</li>
+          </ul>
+        </div>
+        <div class="agenda-day">
+          <h4>Day 2</h4>
+          <ul>
+            <li><strong>Keynote speakers</strong> — From orbital sensing to ground-level robotics</li>
+            <li><strong>Multi-disciplinary panel</strong> — Satellites, IoT, drones, and autonomous systems</li>
+            <li><strong>Open-discussion talks</strong> — Hands-on workshop, poster session, Digital-Earth Challenge</li>
+          </ul>
+        </div>
       </div>
-      <div class="digital-earth-right">
-        <div class="digital-earth-boxes">
-          <div class="connectivity-card connectivity-card-wrap scroll-reveal" data-reveal>
-            <div class="card-icon card-icon-dark-bg card-icon-float">
-              <img src="images/icon-satellite-remote-sensing.png" alt="Satellite and remote sensing">
-            </div>
-            <h3>Satellite &amp; Remote Sensing</h3>
-            <p>Global environmental monitoring, Earth observation, and real-time mapping from space. Satellite data informs digital twins, urban planning, and ethical decision-making.</p>
-          </div>
-          <div class="connectivity-card scroll-reveal" data-reveal>
-            <div class="card-icon card-icon-dark-bg">
-              <img src="images/icon-connectivity-compute.png" alt="Connectivity and compute">
-            </div>
-            <h3>Connectivity &amp; Compute</h3>
-            <p>Cloud infrastructure, networks, and compute enable data fusion across scales—from orbital sensing to ground-level robot perception for autonomous systems.</p>
-          </div>
-          <div class="connectivity-card scroll-reveal" data-reveal>
-            <div class="card-icon card-icon-dark-bg">
-              <img src="images/icon-robots-drones.png" alt="Robots, drones and autonomous systems">
-            </div>
-            <h3>Robots, Drones &amp; Autonomous Systems</h3>
-            <p>Ground robots, autonomous vehicles, drones, and UAVs collect and contribute data to build and maintain the digital twin of Earth for sustainable, safe operations.</p>
-          </div>
+      <div class="agenda-box agenda-box-stakeholders">
+        <h3 class="agenda-box-title">Digital-Earth Stakeholders</h3>
+        <p class="agenda-box-desc">Regulation, insurance, consumer compliance, and governance—how stakeholders ensure Digital-Earth is ethical, safe, and accountable.</p>
+        <div class="agenda-day">
+          <h4>Day 1</h4>
+          <ul>
+            <li><strong>Keynote speakers</strong> — Regulation &amp; governance for embodied-AI</li>
+            <li><strong>Multi-disciplinary panel</strong> — Standards, safety certification, environmental compliance</li>
+            <li><strong>Open-discussion talks</strong> — Policy frameworks and consumer protection</li>
+          </ul>
+        </div>
+        <div class="agenda-day">
+          <h4>Day 2</h4>
+          <ul>
+            <li><strong>Keynote speakers</strong> — Insurance &amp; assurance for autonomous systems</li>
+            <li><strong>Multi-disciplinary panel</strong> — Accountability, risk management, monitoring</li>
+            <li><strong>Open-discussion talks</strong> — Cross-cutting: connectivity, data, and urban sustainability</li>
+          </ul>
         </div>
       </div>
     </div>
-    <p class="connectivity-closing">
-      Together, these layers form a continuous sensing fabric that supports Digital Earth—enabling ethical, sustainable, and safe embodied-AI from AI agents in the cloud to robots on the ground.
-    </p>
-  </section>
 
-  <!-- Three Angles: Technical, Regulation, Assurance -->
-  <section class="triangle-section">
-    <h2 class="section-title">Challenges &amp; Opportunities: Three Angles</h2>
+    <section class="connectivity-section">
+      <h3 class="digital-earth-hero-headline">Implementation Plan: Improving NYC Life with Robotics, AI &amp; Digital-Earth as Infrastructure</h3>
+      <div class="digital-earth-side-layout">
+        <div class="digital-earth-left">
+          <img src="images/digital-earth-infographic.png" alt="Digital-Earth — Monitor, Understand, Simulate, Anticipate, Respond: data from space, robotics, cloud, AI feeding into Digital-Earth for Insurance, Government, and Consumers" class="digital-earth-image" loading="lazy" width="800" height="auto">
+        </div>
+        <div class="digital-earth-right">
+          <div class="digital-earth-boxes">
+            <div class="connectivity-card connectivity-card-wrap scroll-reveal" data-reveal>
+              <div class="card-icon card-icon-dark-bg card-icon-float">
+                <img src="images/icon-satellite-remote-sensing.png" alt="Satellite and remote sensing">
+              </div>
+              <h3>Satellite &amp; Remote Sensing</h3>
+              <p>Global environmental monitoring, Earth observation, and real-time mapping from space. Data from satellites flows into Digital-Earth—the intelligent infrastructure for ethical embodied-AI—building and keeping it updated for real-time ethical decisions.</p>
+            </div>
+            <div class="connectivity-card scroll-reveal" data-reveal>
+              <div class="card-icon card-icon-dark-bg">
+                <img src="images/icon-connectivity-compute.png" alt="Connectivity and compute">
+              </div>
+              <h3>Connectivity, Compute &amp; Storage</h3>
+              <p>Cloud, connectivity, data, compute, storage, and AI/ML models power Digital-Earth. Telecommunications and networks enable data fusion across scales—from orbital sensing to ground-level robot perception and IoT for autonomous systems.</p>
+            </div>
+            <div class="connectivity-card scroll-reveal" data-reveal>
+              <div class="card-icon card-icon-dark-bg">
+                <img src="images/icon-robots-drones.png" alt="Robots, drones and autonomous systems">
+              </div>
+              <h3>Robots, Drones, IoT &amp; Autonomous Systems</h3>
+              <p>Data flows from ground robots, autonomous cars, drones, UAVs, airplanes, and IoT sensors—building and keeping Digital-Earth updated for real-time ethical decisions and sustainable, safe operations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="triangle-section">
     <p class="triangle-intro">
-      We examine Digital Earth for ethical embodied-AI from three essential angles—each critical for safe, sustainable, and responsible deployment:
+      Governance and stakeholder perspectives—regulation, insurance, and consumer compliance—ensure Digital-Earth remains ethical, safe, and accountable as it scales.
     </p>
     <div class="triangle-content">
       <div class="triangle-image-wrapper">
-        <img src="images/three-angles.png" alt="Challenges &amp; Opportunities: Three Angles — Technology, Regulation, Insurance/Assurance for Digital Earth and ethical embodied-AI" class="triangle-image">
+        <img src="images/three-angles.png" alt="Challenges &amp; Opportunities: Three Angles — Technology, Regulation, Insurance/Assurance for Digital-Earth and ethical embodied-AI" class="triangle-image" loading="lazy" width="520" height="auto">
       </div>
       <div class="triangle-pillars">
-        <div class="pillar-card pillar-tech">
-          <h3>1. Technical</h3>
-          <p>Research and industry: scalable robotics, embodied AI, remote sensing, satellite data, cloud, connectivity, compute, and AI/ML models. How technology builds and maintains Digital Earth for real-time ethical decisions.</p>
-        </div>
         <div class="pillar-card pillar-reg">
-          <h3>2. Regulation</h3>
-          <p>Standards and governance: safety certification, environmental compliance, policy frameworks. Governance and regulation are the backbone for keeping embodied-AI decisions ethical and safe.</p>
+          <h3>1. Regulation &amp; Governance</h3>
+          <p>Standards and governance: safety certification, environmental compliance, policy frameworks. Regulation is the backbone for keeping embodied-AI decisions ethical and safe.</p>
         </div>
         <div class="pillar-card pillar-gov">
-          <h3>3. Assurance</h3>
+          <h3>2. Insurance &amp; Assurance</h3>
           <p>Insurance and monitoring: accountability, risk management, and assurance for autonomous systems. How we verify, monitor, and ensure ethical and safe deployment of embodied-AI.</p>
+        </div>
+        <div class="pillar-card pillar-consumer">
+          <h3>3. Consumer Compliance</h3>
+          <p>Consumer protection, transparency, and compliance—ensuring Digital-Earth and embodied-AI serve users fairly and meet consumer expectations for safety, privacy, and accountability.</p>
         </div>
       </div>
     </div>
     <p class="triangle-closing">
-      Invited speakers and panelists from across these angles—research, industry, policy, standards, and assurance—come together to tell the Digital Earth story and address challenges for ethical, sustainable, and safe embodied-AI in our lives.
+      Invited speakers and panelists from research, industry, policy, standards, insurance, and assurance will connect these threads—how we build Digital-Earth and how we govern it—for ethical, sustainable, and safe embodied-AI in our lives.
     </p>
+  </section>
   </section>
 
   <!-- Keynote Speakers Section -->
@@ -199,11 +235,11 @@
       <!-- Speaker card 1 -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
         </div>
         <div class="keynote-content">
           <h3>Keynote Speaker (TBA)</h3>
-          <p class="keynote-affiliation">Thematic Block 1 — Technical: Digital Earth Infrastructure (Research &amp; Industry)</p>
+          <p class="keynote-affiliation">Thematic Block 1 — Technical: Digital-Earth Infrastructure (Research &amp; Industry)</p>
           
           <div class="expand-section">
             <button class="expand-btn" onclick="toggleSection('speaker1-bio')">
@@ -228,7 +264,7 @@
       <!-- Speaker card 2 -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
         </div>
         <div class="keynote-content">
           <h3>Keynote Speaker (TBA)</h3>
@@ -260,7 +296,7 @@
       <!-- Speaker card 3 -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
         </div>
         <div class="keynote-content">
           <h3>Keynote Speaker (TBA)</h3>
@@ -289,11 +325,11 @@
       <!-- Speaker card 4 -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" />
+          <img src="images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
         </div>
         <div class="keynote-content">
           <h3>Invited Speaker (TBA)</h3>
-          <p class="keynote-affiliation">Cross-cutting — Digital Earth: connectivity, data, and urban sustainability</p>
+          <p class="keynote-affiliation">Cross-cutting — Digital-Earth: connectivity, data, and urban sustainability</p>
           
           <div class="expand-section">
             <button class="expand-btn" onclick="toggleSection('speaker4-bio')">
@@ -322,7 +358,7 @@
     <h2 class="section-title">Our Panellists</h2>
     <div style="max-width: min(90vw, 1400px); margin: 0 auto; text-align: center;">
       <p class="cfp-preview-text">
-        Each thematic block includes a moderated multidisciplinary panel. We invite speakers from across the three angles—Technical, Regulation, Assurance—to tell the Digital Earth story and address how embodied-AI (from AI agents to ground robots) builds, supports, and protects Digital Earth for ethical, sustainable, and safe deployment. Panel themes and participants will be announced (TBA).
+        Each thematic block includes a moderated multidisciplinary panel. We invite speakers from across the three angles—Technical, Regulation, Assurance—to tell the Digital-Earth story and address how embodied-AI (from AI agents to ground robots) builds, supports, and protects Digital-Earth for ethical, sustainable, and safe deployment. Panel themes and participants will be announced (TBA).
       </p>
     </div>
   </section>
@@ -356,7 +392,7 @@
         </tr>
         <tr>
           <td>Day 2</td>
-          <td>Hands-On Workshop — Building Digital Twin of Earth (robots to satellites) + Poster Session + Digital Earth Challenge</td>
+          <td>Hands-On Workshop — Building Digital-Earth (robots to satellites) + Poster Session + Digital-Earth Challenge</td>
           <td>Hosts / organizers + jury (TBA)</td>
         </tr>
       </tbody>
@@ -369,49 +405,49 @@
     <div class="organizer-row">
       <!-- Fred Moshari -->
       <div class="organizer-card">
-        <img src="images/speakers/FredMoshary.jpg" alt="Fred Moshari" class="organizer-img rounded-circle">
+        <img src="images/speakers/FredMoshary.jpg" alt="Fred Moshari" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Fred Moshari</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Reza -->
       <div class="organizer-card">
-        <img src="images/speakers/RezaKhanbilvardi.jpg" alt="Reza Khanbilvardi" class="organizer-img rounded-circle">
+        <img src="images/speakers/RezaKhanbilvardi.jpg" alt="Reza Khanbilvardi" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Reza Khanbilvardi</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Jizhong Xiao -->
       <div class="organizer-card">
-        <img src="images/speakers/JizhongXiao.jpg" alt="Jizhong Xiao" class="organizer-img rounded-circle">
+        <img src="images/speakers/JizhongXiao.jpg" alt="Jizhong Xiao" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Jizhong Xiao</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Naresh Devineni -->
       <div class="organizer-card">
-        <img src="images/speakers/NareshDevineni.jpg" alt="Naresh Devineni" class="organizer-img rounded-circle">
+        <img src="images/speakers/NareshDevineni.jpg" alt="Naresh Devineni" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Naresh Devineni</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Aliasghar Arab -->
       <div class="organizer-card">
-        <img src="images/speakers/AliasgharArab.png" alt="Aliasghar Arab" class="organizer-img rounded-circle">
+        <img src="images/speakers/AliasgharArab.png" alt="Aliasghar Arab" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Aliasghar Arab</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Karin Sjöstrand -->
       <div class="organizer-card">
-        <img src="images/speakers/KarinSjoestrand.jpeg" alt="Karin Sjöstrand" class="organizer-img rounded-circle">
+        <img src="images/speakers/KarinSjoestrand.jpeg" alt="Karin Sjöstrand" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Karin Sjöstrand</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
 
       <!-- Mitchell Goldberg -->
       <div class="organizer-card">
-        <img src="images/speakers/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="organizer-img rounded-circle">
+        <img src="images/speakers/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
         <h3>Mitchell Goldberg</h3>
         <p>Affiliation: TBA<br><em>Contact: TBA</em></p>
       </div>
@@ -1081,40 +1117,43 @@
     border-top-color: rgba(192, 132, 252, 0.25);
   }
 
-  /* Hero watermark logo (half size, subtle background) */
-  .workshop-title-container {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .workshop-title-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('images/logos/ears-conn.png');
-    background-repeat: no-repeat;
-    /* 2x size, positioned lower */
-    background-position: center 62%;
-    background-size: 520px auto;
-    opacity: 0.10;
-    pointer-events: none;
-    transform: translateZ(0);
-  }
-
-  body.theme-dark .workshop-title-container::before {
-    opacity: 0.14;
-  }
-
-  @media (max-width: 768px) {
-    .workshop-title-container::before {
-      background-size: 440px auto;
-      background-position: center 78%;
-      opacity: 0.08;
-    }
-  }
   </style>
 
   <script>
+  // Hero background video: ensure autoplay, loop, and 1/3 speed
+  (function() {
+    var video = document.querySelector('.hero-bg-video');
+    if (!video) return;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.playbackRate = 1 / 3;
+    video.addEventListener('loadeddata', function() { video.play().catch(function() {}); });
+    video.addEventListener('ended', function() { video.currentTime = 0; video.play(); });
+    video.play().catch(function() {});
+  })();
+
+  // Mobile nav hamburger toggle
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+
   function toggleSection(id) {
     const content = document.getElementById(id);
     const button = content.previousElementSibling;
@@ -1165,7 +1204,7 @@
   (function initRotatingWord() {
     const el = document.getElementById('rotatingWord');
     if (!el) return;
-    const words = ['Embodied-AI', 'Digital Earth', 'Environment-aware', 'Ethical', 'Connected'];
+    const words = ['Embodied-AI', 'Digital-Earth', 'Environment-aware', 'Ethical', 'Connected'];
     let i = 0;
     setInterval(function() {
       el.style.opacity = '0';
@@ -1183,7 +1222,7 @@
     }, 3000);
   })();
 
-  // Scroll-reveal: animate each Digital Earth card one by one when scrolling
+  // Scroll-reveal: animate each Digital-Earth card one by one when scrolling
   (function initScrollReveal() {
     const cards = document.querySelectorAll('.connectivity-card[data-reveal]');
     if (!cards.length) return;

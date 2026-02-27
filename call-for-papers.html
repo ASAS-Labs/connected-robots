@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Poster Presentation — EARS-CONN 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -13,49 +14,55 @@
 <body>
 
   <div class="top-bar">
-    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
     <div class="title-container">
-      <h1 class="sliding-title">
-        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" />
-        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital Earth as Infrastructure for Ethical Embodied-AI
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital-Earth as Infrastructure for Ethical Embodied-AI
       </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — June 14–15
+      </span>
     </div>
     <div class="logo-right-container">
-      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right">
-      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right" width="80" height="50" loading="lazy">
     </div>
   </div>
 
   <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
       <div class="nav-tabs">
         <a href="attend.html" class="nav-tab-item">Attend</a>
-        <a href="call-for-papers.html" class="nav-tab-item nav-tab-active cfp-link">Poster</a>
-        <a href="innovation-challenge.html" class="nav-tab-item">Digital Earth Challenge</a>
-        <a href="workshop.html" class="nav-tab-item">Workshop</a>
+        <a href="contribute.html" class="nav-tab-item nav-tab-active cfp-link">Contribute</a>
       </div>
     </div>
   </div>
 
   <section class="cfp-section page-section">
+    <h1 class="initiative-page-headline">Implementation Plan: How to Improve Life in the NYC Area with Robotics and AI — Digital-Earth as Infrastructure</h1>
     <h2 class="section-title">Call for Poster Presentations</h2>
-    <p class="page-intro">Submit an <strong>abstract or short paper</strong> for poster presentation at EARS-CONN 2026. We welcome contributions on Digital Earth, embodied-AI, ethical/sustainable/safe systems, and related topics.</p>
+    <p class="page-intro">Submit an <strong>abstract or short paper</strong> for poster presentation at EARS-CONN 2026. <strong>Peer reviewed.</strong> We welcome contributions aligned with our initiative: <strong>improving life in the NYC area through Robotics, AI, and Digital-Earth as Infrastructure</strong>.</p>
 
     <div class="attend-blocks">
       <div class="attend-block">
         <h3>Scope</h3>
-        <p>EARS-CONN 2026 is an initiative event on <strong>Digital Earth as infrastructure for ethical embodied-AI</strong>. We seek poster presentations that align with our theme: from AI agents on computers to robots on the ground, how they contribute to building, supporting, and protecting Digital Earth—where cloud, connectivity, data, compute, and AI/ML models play central roles.</p>
+        <p>EARS-CONN 2026 is a long-vision initiative on <strong>Digital-Earth as infrastructure for ethical embodied-AI</strong>. We seek poster presentations that address <strong>implementation plans for improving urban life in NYC</strong>—from AI agents on computers to robots on the ground—how they build, support, and protect Digital-Earth through cloud, connectivity, data, compute, and AI/ML models.</p>
       </div>
 
       <div class="attend-block">
         <h3>Topics of Interest</h3>
         <ul>
-          <li>Digital Earth: infrastructure, data fusion, digital twins</li>
-          <li>Embodied-AI for ethical, sustainable, and safe deployment</li>
-          <li>Data from satellites, robots, drones, autonomous vehicles, UAVs</li>
-          <li>Technical, regulation, or assurance perspectives</li>
-          <li>Urban and environmental sustainability and safety</li>
+          <li><strong>Improving NYC life:</strong> robotics and AI for urban quality of life, mobility, safety, sustainability</li>
+          <li><strong>Implementation plans:</strong> Digital-Earth as Infrastructure for ethical embodied-AI</li>
+          <li>Digital-Earth: infrastructure, data fusion, Digital-Earth for urban and environmental applications</li>
+          <li>Data from satellites, robots, drones, autonomous vehicles, UAVs—building and maintaining Digital-Earth</li>
+          <li>Technical, regulation, or assurance perspectives for NYC and urban deployment</li>
+          <li>Urban and environmental sustainability and safety in the NYC area</li>
           <li>Governance, standards, and monitoring for ethical decisions</li>
         </ul>
       </div>
@@ -72,7 +79,7 @@
     </div>
 
     <div style="margin-top: 2rem; text-align: center;">
-      <a href="index.html" class="back-link">Back to Home</a>
+      <a href="contribute.html" class="back-link">Back to Contribute</a>
     </div>
   </section>
 
@@ -83,5 +90,26 @@
     </div>
   </footer>
 
+  <script>
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

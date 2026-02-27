@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contribute — EARS-CONN 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+</head>
+<body>
+
+  <div class="top-bar">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — June 14–15, 2026 (tentative) — Digital-Earth as Infrastructure for Ethical Embodied-AI
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — June 14–15
+      </span>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right" width="80" height="50" loading="lazy">
+    </div>
+  </div>
+
+  <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <div class="nav-tabs">
+        <a href="attend.html" class="nav-tab-item">Attend</a>
+        <a href="contribute.html" class="nav-tab-item nav-tab-active cfp-link">Contribute</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="cfp-section page-section">
+    <h1 class="initiative-page-headline">Implementation Plan: How to Improve Life in the NYC Area with Robotics and AI — Digital-Earth as Infrastructure</h1>
+    <h2 class="section-title">Contribute to EARS-CONN 2026</h2>
+    <p class="page-intro">All contributions are <strong>peer reviewed</strong>. Choose how you want to contribute:</p>
+
+    <div class="attend-blocks">
+      <div class="attend-block">
+        <h3>Abstract &amp; Short Paper — Poster Presentation</h3>
+        <p>Submit an <strong>abstract</strong> (1–2 pages) or <strong>short paper</strong> (2–4 pages) for poster presentation. Accepted submissions will be presented in the poster session during the 2-day event. <strong>Peer reviewed.</strong></p>
+        <p>We welcome contributions aligned with our initiative: improving life in the NYC area through Robotics, AI, and Digital-Earth as Infrastructure.</p>
+        <p class="attend-cta"><a href="call-for-papers.html" class="vision-btn">Submit Abstract / Short Paper</a></p>
+      </div>
+
+      <div class="attend-block">
+        <h3>Digital-Earth Innovation Challenge</h3>
+        <p>Submit innovative ideas for <strong>improving urban and environmental life</strong> through Robotics, AI, and Digital-Earth as Infrastructure. <strong>Peer reviewed.</strong> Possible <strong>awards</strong> and <strong>technology advancement sponsorships</strong> for the most impactful ideas.</p>
+        <p>How can embodied-AI—from AI agents to ground robots—build, support, and protect Digital-Earth for urban and environmental sustainability and safety?</p>
+        <p class="attend-cta"><a href="innovation-challenge.html" class="vision-btn">Submit Innovation Challenge Idea</a></p>
+      </div>
+    </div>
+
+    <div class="important-dates" style="margin-top: 2rem;">
+      <strong>Submission deadlines:</strong> TBA &nbsp;|&nbsp; <strong>Event:</strong> June 14–15, 2026 (tentative)
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

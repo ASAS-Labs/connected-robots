@@ -5,7 +5,12 @@
   box-sizing: border-box;
 }
 
-/* Body and Typography */
+/* Mobile-first: prevent horizontal scroll, safe areas for notched phones */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.7;
@@ -14,6 +19,12 @@ body {
   padding-top: 120px; /* Account for fixed top bar + navigation tab height */
   font-weight: 400;
   letter-spacing: 0.01em;
+  overflow-x: hidden;
+  width: 100%;
+  /* Safe area for notched phones (iPhone X+, etc.) */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  -webkit-tap-highlight-color: rgba(87, 6, 140, 0.15);
 }
 
 /* General text color for better contrast (WCAG AA compliant) */
@@ -55,6 +66,8 @@ body.theme-dark {
   align-items: center;
   background: #000000;
   padding: 0.5rem 1rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
   border-bottom: 1px solid #8b5cf6;
   color: white;
   position: fixed;
@@ -302,6 +315,7 @@ body.theme-dark {
   height: 50px;
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .sliding-title {
@@ -315,6 +329,22 @@ body.theme-dark {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* Mobile: static compact title instead of sliding */
+.sliding-title-mobile {
+  display: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 0;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  align-items: center;
+  gap: 6px;
 }
 
 /* Pause the sliding ticker when hovered/focused */
@@ -347,6 +377,47 @@ body.theme-dark {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* Hamburger menu button (mobile) */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 5px;
+  padding: 10px;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Title Header (optional subtitle) */
@@ -499,12 +570,12 @@ body.theme-dark .vision-bullet:focus {
 }
 
 .vision-tagline {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 800;
   line-height: 1.3;
   margin: 0 0 1.5rem;
   color: var(--text);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
 .vision-tagline br {
@@ -590,6 +661,132 @@ body.theme-dark .vision-bullet:focus {
     width: 100%;
     min-width: 0;
   }
+}
+
+/* Digital-Earth Two Tracks — intro and subtitles */
+.digital-earth-tracks-intro {
+  text-align: center;
+  max-width: min(90vw, 900px);
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.track-subtitle {
+  font-size: 1.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* 2-Day Agenda Boxes — two tracks */
+.agenda-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.agenda-box {
+  padding: 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.25s ease;
+}
+
+.agenda-box:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.agenda-box-building {
+  border-top: 4px solid #2563eb;
+}
+
+.agenda-box-stakeholders {
+  border-top: 4px solid #16a34a;
+}
+
+.agenda-box-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.agenda-box-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+}
+
+.agenda-day {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.agenda-day:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.agenda-day h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand);
+  margin: 0 0 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.agenda-day ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.agenda-day li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.agenda-day li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.agenda-day li strong {
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .agenda-boxes {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.theme-dark .agenda-box {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+body.theme-dark .agenda-box-title {
+  color: var(--text);
+}
+
+body.theme-dark .agenda-day li strong {
+  color: var(--text);
 }
 
 /* Connectivity as Sixth Sense Section */
@@ -825,7 +1022,7 @@ body.theme-dark .connectivity-card {
 }
 
 .triangle-image-wrapper {
-  flex: 0 1 420px;
+  flex: 0 1 520px;
   min-width: 280px;
   text-align: center;
 }
@@ -839,6 +1036,7 @@ body.theme-dark .connectivity-card {
 
 .triangle-pillars {
   flex: 1 1 320px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -867,6 +1065,10 @@ body.theme-dark .connectivity-card {
 
 .pillar-gov {
   border-left-color: #ea580c;
+}
+
+.pillar-consumer {
+  border-left-color: #7c3aed;
 }
 
 .pillar-card h3 {
@@ -923,6 +1125,10 @@ body.theme-dark .connectivity-card {
   padding: 0 1rem;
 }
 
+.vision-benefits-intro {
+  margin-top: 0.5rem;
+}
+
 /* Participate Section - standalone UI box */
 .participate-section {
   padding: 2rem 1rem;
@@ -959,6 +1165,10 @@ body.theme-dark .connectivity-card {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.25rem;
+}
+
+.participate-cards-two {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .participate-card {
@@ -1106,6 +1316,19 @@ body.theme-dark .tab-preview-card p {
 
 .attend-cta {
   margin-top: 1rem !important;
+}
+
+.initiative-page-headline {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 1.5rem;
+  padding: 0 0.5rem;
+  color: var(--text);
+  text-align: center;
+  max-width: min(95vw, 800px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .page-intro {
@@ -1525,6 +1748,7 @@ body.theme-dark .cfp-preview-text-subtle {
 .footer {
   text-align: center;
   padding: 1rem;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
   background: #57068c;
   border-top: 1px solid #8b5cf6;
   margin-top: 2rem;
@@ -1538,10 +1762,77 @@ body.theme-dark .cfp-preview-text-subtle {
 
 /* Workshop Title and Subtitle Styles */
 .workshop-title-container {
+  position: relative;
+  overflow: hidden;
   text-align: center;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #57068c 0%, #8b5cf6 100%);
   color: white;
+  background: linear-gradient(135deg, #57068c 0%, #8b5cf6 100%); /* fallback if video fails */
+}
+
+/* Hero background video (initiative-hero section) */
+.hero-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30, 0, 80, 0.88) 0%, rgba(45, 20, 120, 0.85) 50%, rgba(25, 10, 90, 0.9) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.workshop-title-container .workshop-title-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero text: white / very light purple */
+.initiative-hero .initiative-headline,
+.initiative-hero .subtitle,
+.initiative-hero .conference-date,
+.initiative-hero .connectivity-tagline {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.initiative-hero .subtitle .animated-word {
+  color: #f3e8ff;
+}
+
+.initiative-hero .subtitle .animated-word::first-letter {
+  color: #e9d5ff;
+}
+
+.initiative-hero .subtitle .animated-word:hover {
+  color: #ffffff;
+}
+
+.initiative-hero .subtitle .animated-word:hover::first-letter {
+  color: #ffffff;
+}
+
+.initiative-hero .title-divider {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.initiative-hero .sixth-sense-badge {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #f3e8ff;
+}
+
+.initiative-hero .initiative-tagline {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  color: #e9d5ff;
 }
 
 .workshop-title-wrapper {
@@ -1555,6 +1846,18 @@ body.theme-dark .cfp-preview-text-subtle {
   margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   letter-spacing: 3px;
+}
+
+.initiative-headline {
+  font-size: clamp(1.25rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+  max-width: min(95vw, 900px);
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  letter-spacing: 0.02em;
 }
 
 .title-divider {
@@ -1678,3 +1981,285 @@ body.theme-dark .cfp-preview-text-subtle {
 .animated-word:nth-child(4):hover { transform: translateY(-8px) scale(1.05) rotate(1deg); }
 .animated-word:nth-child(5):hover { transform: translateY(-8px) scale(1.05) rotate(-1deg); }
 .animated-word:nth-child(6):hover { transform: translateY(-8px) scale(1.05) rotate(1deg); }
+
+/* ========== MOBILE & PHONE OPTIMIZATIONS ========== */
+@media (max-width: 900px) {
+  body {
+    padding-top: 110px;
+  }
+
+  .nav-tab {
+    top: 52px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-hamburger {
+    display: flex;
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .nav-tab.expanded .nav-hamburger {
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 1rem;
+    gap: 0.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 12px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+  }
+
+  .nav-tab.expanded .nav-links {
+    display: flex;
+  }
+
+  .nav-link,
+  .nav-tab-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-tab-item {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 100px;
+  }
+
+  .top-bar {
+    padding: 0.4rem 0.75rem;
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .logo-left {
+    height: 36px;
+  }
+
+  .logo-right-container {
+    display: none;
+  }
+
+  .title-container {
+    margin: 0 8px;
+    height: 40px;
+  }
+
+  .sliding-title {
+    display: none !important;
+  }
+
+  .sliding-title-mobile {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .top-bar .brand-mark {
+    height: 28px;
+    margin-right: 6px;
+  }
+
+  .nav-tab {
+    top: 48px;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .initiative-headline {
+    font-size: clamp(1rem, 4.5vw, 1.35rem);
+    line-height: 1.35;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+
+  .rotating-word-slot {
+    min-width: 9em;
+  }
+
+  .connectivity-tagline {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .conference-date {
+    font-size: 1rem;
+  }
+
+  .participate-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .participate-card {
+    min-height: auto;
+  }
+
+  .abstract-section,
+  .connectivity-section,
+  .triangle-section,
+  .participate-box {
+    padding: 1.25rem 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  .vision-side-by-side {
+    flex-direction: column;
+  }
+
+  .vision-right {
+    min-width: 0;
+  }
+
+  .e-hosted-video video {
+    border-radius: 8px;
+  }
+
+  /* Schedule: card layout on mobile */
+  .schedule-section {
+    padding: 0 0.75rem;
+    overflow-x: auto;
+  }
+
+  .schedule-section table {
+    display: block;
+    min-width: 320px;
+  }
+
+  .schedule-section thead {
+    display: none;
+  }
+
+  .schedule-section tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--panel);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .schedule-section td {
+    display: block;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .schedule-section td:last-child {
+    border-bottom: none;
+  }
+
+  .schedule-section td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--brand);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .schedule-section td:first-child::before {
+    content: 'Day';
+  }
+
+  .schedule-section td:nth-child(2)::before {
+    content: 'Session';
+  }
+
+  .schedule-section td:nth-child(3)::before {
+    content: 'Speaker';
+  }
+
+  .cfp-section {
+    margin-top: 120px;
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 92px;
+  }
+
+  .top-bar {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .logo-left {
+    height: 32px;
+  }
+
+  .sliding-title-mobile {
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+
+  .keynote-card h3,
+  .organizer-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .sponsor-slot {
+    min-width: 100%;
+  }
+}
+
+/* Touch-friendly: ensure minimum 44px tap targets */
+@media (pointer: coarse) {
+  .nav-link,
+  .nav-tab-item,
+  .participate-card,
+  .expand-btn,
+  .vision-btn,
+  .cfp-button,
+  .back-link {
+    min-height: 44px;
+  }
+
+  .participate-card {
+    padding: 1.25rem;
+  }
+}
