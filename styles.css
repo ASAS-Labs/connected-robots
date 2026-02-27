@@ -633,10 +633,15 @@ body.theme-dark .vision-bullet:focus {
   min-width: 0;
 }
 
+.vision-side-by-side .vision-tagline {
+  margin-top: 0; /* Align with video on right */
+}
+
 .vision-right {
   flex: 0 1 560px;
   min-width: 360px;
   margin: 0;
+  padding-top: 0;
   justify-content: flex-end;
 }
 
@@ -678,10 +683,17 @@ body.theme-dark .vision-bullet:focus {
   margin-bottom: 1rem !important;
 }
 
-/* 2-Day Agenda Boxes — two tracks */
+/* Digital-Earth section — same width as other sections */
+.digital-earth-section {
+  max-width: min(90vw, 1600px);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 2-Day Agenda Boxes — two tracks side by side */
 .agenda-boxes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
@@ -722,34 +734,88 @@ body.theme-dark .vision-bullet:focus {
   margin: 0 0 1.25rem;
 }
 
-.agenda-day {
+.agenda-day-summary {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
 }
 
-.agenda-day:first-of-type {
+.agenda-day-summary:first-of-type {
   margin-top: 0;
   padding-top: 0;
   border-top: none;
 }
 
-.agenda-day h4 {
+.agenda-day-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--panel-muted);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.agenda-day-toggle:hover {
+  background: rgba(87, 6, 140, 0.06);
+  border-color: rgba(87, 6, 140, 0.25);
+}
+
+.agenda-day-label {
   font-size: 1rem;
   font-weight: 600;
   color: var(--brand);
-  margin: 0 0 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.agenda-day ul {
+.agenda-day-preview {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.agenda-day-arrow {
+  font-size: 0.75rem;
+  color: var(--brand);
+  transition: transform 0.3s ease;
+}
+
+.agenda-day-arrow.active {
+  transform: rotate(180deg);
+}
+
+.agenda-day-detail {
+  display: none;
+  padding: 1rem 1rem 0;
+}
+
+.agenda-detail-heading {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+  margin: 0 0 0.75rem;
+}
+
+.agenda-day-detail.active {
+  display: block;
+}
+
+.agenda-day-detail ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.agenda-day li {
+.agenda-day-detail li {
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-muted);
@@ -758,7 +824,7 @@ body.theme-dark .vision-bullet:focus {
   position: relative;
 }
 
-.agenda-day li::before {
+.agenda-day-detail li::before {
   content: '•';
   position: absolute;
   left: 0;
@@ -766,7 +832,7 @@ body.theme-dark .vision-bullet:focus {
   font-weight: 700;
 }
 
-.agenda-day li strong {
+.agenda-day-detail li strong {
   color: var(--text);
 }
 
@@ -785,8 +851,139 @@ body.theme-dark .agenda-box-title {
   color: var(--text);
 }
 
-body.theme-dark .agenda-day li strong {
+body.theme-dark .agenda-day-detail li strong {
   color: var(--text);
+}
+
+/* Track Sections — Panels with Panelists (agenda-box style) */
+.track-sections {
+  max-width: min(90vw, 1600px);
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.track-sections .section-title {
+  margin-bottom: 1.5rem;
+}
+
+.track-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.track-box {
+  padding: 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.25s ease;
+}
+
+.track-box:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.track-box-building {
+  border-top: 4px solid #2563eb;
+}
+
+.track-box-stakeholders {
+  border-top: 4px solid #16a34a;
+}
+
+.track-box-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.track-box-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+}
+
+.track-panel {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.track-panel:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.track-panel-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem;
+}
+
+.track-panelists {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.track-panelists .panelist-name {
+  font-size: 0.9rem;
+  padding: 0.4rem 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .track-boxes {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.theme-dark .track-box {
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+body.theme-dark .track-box-title {
+  color: var(--text);
+}
+
+/* Embedded panels inside connectivity-section and triangle-section */
+.embedded-panels {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel-muted);
+}
+
+.embedded-panels.track-box-building {
+  border-top: 4px solid #2563eb;
+}
+
+.embedded-panels.track-box-stakeholders {
+  border-top: 4px solid #16a34a;
+}
+
+.embedded-panels-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+
+.embedded-panels .track-panel:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 /* Connectivity as Sixth Sense Section */
@@ -1004,13 +1201,7 @@ body.theme-dark .connectivity-card {
   box-shadow: var(--shadow);
 }
 
-.triangle-intro {
-  text-align: center;
-  max-width: min(85vw, 900px);
-  margin: 0 auto 2rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-}
+/* triangle-intro deprecated: use digital-earth-hero-headline for consistency */
 
 .triangle-content {
   display: flex;
@@ -1090,6 +1281,40 @@ body.theme-dark .connectivity-card {
   margin: 0 auto;
   line-height: 1.7;
   color: var(--text-muted);
+}
+
+.panelists-grid-intro {
+  text-align: center;
+  max-width: min(85vw, 900px);
+  margin: 0 auto 1.5rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.panelists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem 1rem;
+  max-width: min(95vw, 1200px);
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.panelist-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  background: var(--panel-muted);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .panelists-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -1701,6 +1926,20 @@ body.theme-dark .cfp-preview-text-subtle {
 }
 
 /* Organizers Section */
+/* Section breaker between Keynote Speakers and Organizers */
+.section-breaker {
+  height: 1px;
+  margin: 3.5rem auto;
+  padding: 0 2rem;
+  background: linear-gradient(90deg, transparent, var(--brand) 20%, var(--brand-2) 50%, var(--brand) 80%, transparent);
+  opacity: 0.45;
+  max-width: min(90vw, 500px);
+}
+
+body.theme-dark .section-breaker {
+  opacity: 0.5;
+}
+
 .organizers-section {
   max-width: min(90vw, 1600px);
   margin: 2rem auto;
@@ -1766,6 +2005,7 @@ body.theme-dark .cfp-preview-text-subtle {
   overflow: hidden;
   text-align: center;
   padding: 3rem 1rem;
+  margin-top: var(--hero-top-offset, 180px); /* Push below fixed top bar + nav; set by JS */
   color: white;
   background: linear-gradient(135deg, #57068c 0%, #8b5cf6 100%); /* fallback if video fails */
 }
