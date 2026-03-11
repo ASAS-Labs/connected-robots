@@ -60,6 +60,52 @@ p, li, td, th {
   transform: translateY(-100%);
 }
 
+/* Official ICRA 2026 banner (white and red) */
+.icra-banner {
+  margin-top: 120px; /* clear fixed top-bar + nav */
+  background: linear-gradient(90deg, #c41230 0%, #a00d26 50%, #c41230 100%);
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  border-bottom: 3px solid #8b0a1e;
+}
+.icra-banner-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+.icra-banner-link:hover {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.95;
+}
+.icra-banner-text {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+.icra-banner-divider {
+  opacity: 0.8;
+  font-weight: 300;
+}
+.icra-banner-tagline {
+  font-weight: 500;
+}
+.icra-banner-learn {
+  font-size: 0.95rem;
+  text-decoration: underline;
+  margin-left: 0.25rem;
+}
+@media (max-width: 768px) {
+  .icra-banner-link { font-size: 0.95rem; }
+  .icra-banner-text { font-size: 1.05rem; }
+}
+
 .nav-links {
   display: flex;
   justify-content: center;
