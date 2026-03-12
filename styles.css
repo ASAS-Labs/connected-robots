@@ -368,9 +368,22 @@ body.theme-dark {
     transform: translateX(-100%);
   }
 }
+.logo-left-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .logo-left, .logo-right {
   height: 50px;
   width: auto;
+}
+
+.logo-right.logo-banner {
+  max-width: 180px;
+  height: 44px;
+  width: auto;
+  object-fit: contain;
 }
 
 .logo-right-container {
@@ -580,6 +593,14 @@ body.theme-dark .vision-bullet:focus {
 
 .vision-tagline br {
   display: block;
+}
+
+.vision-ears-expansion {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brand);
+  margin: 0 0 1rem;
+  letter-spacing: 0.02em;
 }
 
 .vision-actions {
