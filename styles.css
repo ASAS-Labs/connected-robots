@@ -1990,6 +1990,24 @@ body.theme-dark .cfp-preview-text-subtle {
   font-weight: 600;
 }
 
+.cmt-acknowledgement {
+  margin-top: 2rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.25rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  background: var(--panel-muted);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.cmt-acknowledgement p {
+  margin: 0;
+}
+
 .tpc-intro {
   margin-bottom: 1rem;
   font-weight: 500;
