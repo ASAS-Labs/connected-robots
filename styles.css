@@ -2008,6 +2008,222 @@ body.theme-dark .cfp-preview-text-subtle {
   margin: 0;
 }
 
+/* Venue page — CCNY / Grove School */
+.venue-page {
+  max-width: min(92vw, 1180px);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  margin-top: 140px;
+  scroll-margin-top: 120px;
+}
+
+.venue-page .venue-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 960px) {
+  .venue-page .venue-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.venue-page .venue-hero-text h1 {
+  font-size: clamp(1.65rem, 4vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.venue-page .venue-hero-text .venue-lead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.venue-page .venue-hero-text .venue-unu {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  padding: 1rem 1.15rem;
+  background: linear-gradient(135deg, rgba(87, 6, 140, 0.09), rgba(87, 6, 140, 0.02));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  border-left: 4px solid var(--brand);
+  color: var(--text);
+  margin-top: 1.25rem;
+}
+
+.venue-slider-shell {
+  position: relative;
+  padding: 10px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(87, 6, 140, 0.35), rgba(30, 30, 40, 0.5), rgba(200, 120, 50, 0.15));
+  box-shadow:
+    0 24px 48px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.venue-slider-frame {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d0d12;
+  aspect-ratio: 4 / 3;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.venue-slider-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.venue-slider-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.venue-slider-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.venue-slider-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
+  z-index: 2;
+  line-height: 1.35;
+}
+
+.venue-slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.venue-slider-nav:hover {
+  background: rgba(87, 6, 140, 0.65);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.venue-slider-nav.prev {
+  left: 10px;
+}
+
+.venue-slider-nav.next {
+  right: 10px;
+}
+
+.venue-slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0 0;
+}
+
+.venue-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--border);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.venue-slider-dot.is-active {
+  background: var(--brand);
+  transform: scale(1.2);
+}
+
+.venue-article h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 2.75rem 0 0.75rem;
+  letter-spacing: -0.02em;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--brand);
+}
+
+.venue-article h2:first-of-type {
+  margin-top: 0;
+}
+
+.venue-article h3 {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 1.35rem 0 0.5rem;
+}
+
+.venue-article p,
+.venue-article li {
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.venue-article p {
+  margin: 0 0 0.85rem;
+}
+
+.venue-article ul {
+  margin: 0 0 1rem;
+  padding-left: 1.35rem;
+}
+
+.venue-article li {
+  margin-bottom: 0.45rem;
+}
+
+.venue-article strong {
+  color: var(--text);
+}
+
+.venue-footnote {
+  margin-top: 3rem;
+  padding: 1.25rem 1.35rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  background: var(--panel-muted);
+  border-radius: 10px;
+  border-left: 4px solid var(--brand);
+}
+
 .tpc-intro {
   margin-bottom: 1rem;
   font-weight: 500;
@@ -2206,6 +2422,15 @@ body.theme-dark .section-breaker {
 .organizer-card:hover .organizer-full-affil {
   opacity: 1;
   visibility: visible;
+}
+
+.organizer-full-affil.organizer-bio-scroll {
+  max-height: min(70vh, 28rem);
+  overflow-y: auto;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  text-align: left;
+  -webkit-overflow-scrolling: touch;
 }
 .organizer-card .organizer-img {
   width: 140px;
