@@ -130,7 +130,8 @@
 
   <script>
   (function venueSlider() {
-    var slidesData = [
+    var firstSlide = { src: 'images/venue/grove-school-engineering.png', alt: 'Grove School of Engineering entrance at City College of New York', caption: 'Grove School of Engineering — City College of New York' };
+    var restSlides = [
       { src: 'images/venue/sunset-hudson.png', alt: 'Sunset over Manhattan and the Hudson, view from the CCNY area', caption: 'Sunset toward the Hudson — campus and city' },
       { src: 'images/venue/avenue-skyline.png', alt: 'Snow-lined avenue toward Midtown Manhattan from upper Manhattan', caption: 'Winter light: avenue view toward Midtown' },
       { src: 'images/venue/noaa-crest-radome.png', alt: 'NOAA-CREST remote sensing radome on a snowy rooftop at CCNY', caption: 'NOAA-CREST — Cooperative Remote Sensing Science &amp; Technology Center' },
@@ -149,7 +150,7 @@
       return a;
     }
 
-    var ordered = shuffle(slidesData);
+    var ordered = [firstSlide].concat(shuffle(restSlides));
     var frame = document.getElementById('venueSlider');
     var dotsWrap = document.getElementById('venueDots');
     var prevBtn = document.getElementById('venuePrev');
