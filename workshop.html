@@ -31,15 +31,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 2.5rem;
+      gap: 1.5rem;
       flex-wrap: wrap;
       margin-bottom: 2rem;
     }
+    .ws-hero-partners a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 12px;
+      padding: 0.55rem 1.2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ws-hero-partners a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
     .ws-hero-partners img {
-      height: 52px;
+      height: 44px;
       object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.92;
+      display: block;
     }
     .ws-hero h1 {
       font-size: clamp(1.55rem, 4vw, 2.6rem);
@@ -178,9 +192,10 @@
       transition: opacity 0.2s;
     }
     .ws-partners-strip img:hover { opacity: 1; }
-    body.theme-dark .ws-partners-strip img {
-      filter: brightness(0) invert(1);
-      opacity: 0.8;
+    body.theme-dark .ws-partners-strip a {
+      background: #fff;
+      border-radius: 10px;
+      padding: 0.4rem 0.9rem;
     }
 
     /* ── Autoware github link chip ── */
@@ -257,8 +272,12 @@
   <!-- ── Hero ── -->
   <div class="ws-hero">
     <div class="ws-hero-partners">
-      <img src="images/logos/tier4-logo.png" alt="Tier IV" height="52">
-      <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation" height="52">
+      <a href="https://tier4.jp" target="_blank" rel="noopener">
+        <img src="images/logos/tier4-logo.png" alt="Tier IV">
+      </a>
+      <a href="https://autoware.org" target="_blank" rel="noopener">
+        <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation">
+      </a>
     </div>
     <h1>How <em>Autonomous Vehicles</em><br>Build Safer Cities</h1>
     <p class="ws-hero-sub">
