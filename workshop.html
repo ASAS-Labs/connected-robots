@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hands-On Workshop — EARS-CONN 2026</title>
+  <title>Workshop: How Autonomous Vehicles Build Safer Cities — EARS-CONN 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -10,6 +10,213 @@
   <meta http-equiv="Expires" content="0">
   <link rel="stylesheet" href="styles.css?v=2026-02-09">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <style>
+    /* ── Workshop hero banner ── */
+    .ws-hero {
+      background: linear-gradient(135deg, #0a0e1a 0%, #0d1f3c 60%, #0a1a2e 100%);
+      color: #fff;
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .ws-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(0,180,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ws-hero-partners {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .ws-hero-partners img {
+      height: 52px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.92;
+    }
+    .ws-hero h1 {
+      font-size: clamp(1.55rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin: 0 0 1rem;
+      color: #fff;
+    }
+    .ws-hero h1 em {
+      font-style: normal;
+      color: #38bdf8;
+    }
+    .ws-hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .ws-hero-meta {
+      display: inline-flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .ws-hero-meta strong { color: #38bdf8; }
+
+    /* ── Register CTA bar ── */
+    .ws-register-bar {
+      background: #f0f7ff;
+      border-top: 3px solid #0ea5e9;
+      padding: 1.4rem 2rem;
+      text-align: center;
+    }
+    body.theme-dark .ws-register-bar {
+      background: #0d1f3c;
+      border-top-color: #38bdf8;
+    }
+    .ws-register-bar p {
+      margin: 0 0 0.9rem;
+      font-size: 1.05rem;
+      color: #1e3a5f;
+    }
+    body.theme-dark .ws-register-bar p { color: #93c5fd; }
+
+    /* ── Two-column image+text blocks ── */
+    .ws-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      margin: 2.5rem 0;
+    }
+    .ws-split.reverse { direction: rtl; }
+    .ws-split.reverse > * { direction: ltr; }
+    .ws-split-img {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+      line-height: 0;
+    }
+    .ws-split-img img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .ws-split-text h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 0.6rem;
+      color: #0369a1;
+    }
+    body.theme-dark .ws-split-text h3 { color: #38bdf8; }
+    .ws-split-text p, .ws-split-text li {
+      font-size: 0.97rem;
+      line-height: 1.65;
+      color: #374151;
+    }
+    body.theme-dark .ws-split-text p,
+    body.theme-dark .ws-split-text li { color: #cbd5e1; }
+    .ws-split-text ul { padding-left: 1.3rem; margin: 0.5rem 0 0; }
+    .ws-split-text li { margin-bottom: 0.35rem; }
+
+    /* ── Hackathon / awards callout ── */
+    .ws-hackathon {
+      background: linear-gradient(135deg, #fef9c3 0%, #fef3c7 100%);
+      border-left: 5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0;
+    }
+    body.theme-dark .ws-hackathon {
+      background: linear-gradient(135deg, #1c1a0a 0%, #1e1a0e 100%);
+      border-left-color: #fbbf24;
+    }
+    .ws-hackathon h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    body.theme-dark .ws-hackathon h3 { color: #fde68a; }
+    .ws-hackathon p, .ws-hackathon li {
+      font-size: 0.96rem;
+      color: #78350f;
+      line-height: 1.6;
+    }
+    body.theme-dark .ws-hackathon p,
+    body.theme-dark .ws-hackathon li { color: #fcd34d; }
+    .ws-hackathon ul { padding-left: 1.3rem; margin: 0.5rem 0 0; }
+    .ws-hackathon li { margin-bottom: 0.3rem; }
+
+    /* ── Partner logos strip ── */
+    .ws-partners-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 0 0.5rem;
+    }
+    .ws-partners-strip img {
+      height: 48px;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .ws-partners-strip img:hover { opacity: 1; }
+    body.theme-dark .ws-partners-strip img {
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
+    }
+
+    /* ── Autoware github link chip ── */
+    .ws-github-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #18181b;
+      color: #f4f4f5;
+      border-radius: 30px;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.8rem;
+      vertical-align: middle;
+    }
+    .ws-github-chip:hover {
+      background: #374151;
+      transform: translateY(-1px);
+      color: #f4f4f5;
+      text-decoration: none;
+    }
+    .ws-github-chip svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .ws-split { grid-template-columns: 1fr; }
+      .ws-split.reverse { direction: ltr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,24 +253,121 @@
     </div>
   </div>
 
+  <!-- ── Hero ── -->
+  <div class="ws-hero">
+    <div class="ws-hero-partners">
+      <img src="images/logos/tier4-logo.png" alt="Tier IV" height="52">
+      <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation" height="52">
+    </div>
+    <h1>How <em>Autonomous Vehicles</em><br>Build Safer Cities</h1>
+    <p class="ws-hero-sub">
+      A hands-on workshop co-hosted with <strong>Tier IV</strong> and the <strong>Autoware Foundation</strong> —
+      training the next generation of engineers to fuse vehicle intelligence with urban sensing
+      for resilient, safer connected cities.
+    </p>
+    <div class="ws-hero-meta">
+      <span><strong>When:</strong> September 23, 2026 (Day 2 of EARS-CONN)</span>
+      <span><strong>Location:</strong> New York City — CCNY</span>
+      <span><strong>Format:</strong> Hands-on training + Hackathon</span>
+    </div>
+  </div>
+
+  <!-- ── Registration CTA ── -->
+  <div class="ws-register-bar">
+    <p>Seats are limited — secure your spot for the workshop and hackathon.</p>
+    <a href="attend.html" class="vision-btn" style="font-size:1.05rem; padding: 0.75rem 2.2rem;">
+      Register Now
+    </a>
+  </div>
+
+  <!-- ── Body ── -->
   <section class="cfp-section page-section">
-    <h1 class="initiative-page-headline">Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)</h1>
-    <h2 class="section-title">Hands-On Workshop: Digital-Earth Builders</h2>
-    <p class="page-intro"><strong>EARS-CONN</strong> is Embodied-AI for Resiliency and Sustainability. Learn how to use data from <strong>robots to satellites</strong> to build Digital-Earth. This hands-on workshop supports our initiative for <strong>resilient and sustainable connected cities</strong> through embodied-AI, robotics, and Digital-Earth.</p>
+    <h2 class="section-title" style="text-align:center; margin-bottom: 0.4rem;">Workshop Overview</h2>
+    <p class="page-intro" style="text-align:center; max-width:720px; margin: 0 auto 2rem;">
+      Autonomous vehicles are no longer just a transportation tool — they are <strong>mobile sensing platforms</strong>
+      that continuously map, perceive, and reason about the urban environment.
+      This workshop explores how that intelligence, powered by <strong>Autoware</strong>, can be fused
+      with satellite and remote-sensing data to create living Digital-Earth models that protect cities in real time.
+    </p>
 
-    <div class="attend-blocks">
-      <div class="attend-block">
-        <h3>Workshop Overview</h3>
-        <p>Digital-Earth relies on data from many sources—satellites, embodied-AI systems, robots, drones, and sensors. This workshop provides hands-on experience in <strong>fusing and using these data</strong> to build and maintain Digital-Earth for real-time ethical decisions—supporting sustainability assurance for resilient and sustainable urban ecosystems.</p>
+    <!-- Block 1: Autoware stack -->
+    <div class="ws-split">
+      <div class="ws-split-img">
+        <img src="images/autoware-screenshot.png" alt="Autoware autonomous driving stack visualization" loading="lazy">
       </div>
+      <div class="ws-split-text">
+        <h3>Autoware — The Open-Source Autonomous Driving Stack</h3>
+        <p>
+          Participants will get hands-on training with
+          <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener">Autoware by Tier IV</a>,
+          the world's leading open-source software stack for self-driving vehicles. Built on ROS 2, Autoware provides
+          a complete pipeline from sensor ingestion to route planning:
+        </p>
+        <ul>
+          <li>LiDAR, radar, and camera perception pipelines</li>
+          <li>3-D object detection and tracking in real time</li>
+          <li>HD mapping, localization, and lane-level path planning</li>
+          <li>Vehicle control and safety monitoring</li>
+        </ul>
+        <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener" class="ws-github-chip">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          autoware_training on GitHub
+        </a>
+      </div>
+    </div>
 
+    <!-- Block 2: Waymo / next-gen sensors -->
+    <div class="ws-split reverse">
+      <div class="ws-split-img">
+        <img src="images/waymo-car.png" alt="Next-generation autonomous vehicle sensor suite" loading="lazy" style="object-fit: contain; background:#f8fafc; padding: 1rem;">
+      </div>
+      <div class="ws-split-text">
+        <h3>Sensors &amp; Perception in the Future Generation of Vehicles</h3>
+        <p>
+          Modern autonomous vehicles carry a rich suite of sensors that double as urban observatories.
+          Participants will learn how the sensor stack — and the software that processes it — enables
+          vehicles to serve as <strong>real-time data sources for urban intelligence</strong>:
+        </p>
+        <ul>
+          <li>Solid-state LiDAR, 360° camera arrays, and millimeter-wave radar</li>
+          <li>GNSS/IMU fusion for centimeter-accurate positioning</li>
+          <li>Edge AI inference on embedded compute platforms</li>
+          <li>V2X (vehicle-to-everything) communication for city-scale awareness</li>
+          <li>Perception outputs: lanes, obstacles, pedestrians, road conditions</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Block 3: Hackathon -->
+    <div class="ws-hackathon">
+      <h3>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Hackathon — Fusing AV Data with Remote Sensing for Emergency Response
+      </h3>
+      <p>
+        The afternoon session becomes a competitive hackathon. Teams will combine <strong>Autoware perception outputs</strong>
+        with satellite and drone remote-sensing feeds to build rapid-response urban intelligence layers —
+        think flood routing, post-earthquake damage mapping, or wildfire evacuation planning for NYC.
+      </p>
+      <ul>
+        <li><strong>Challenge tracks:</strong> Emergency routing, infrastructure damage assessment, crowd-flow estimation</li>
+        <li><strong>Data provided:</strong> Autoware sensor logs, Sentinel-2 satellite imagery, NYC open geodata</li>
+        <li><strong>Tools:</strong> ROS 2 / Autoware, Python, QGIS, and cloud APIs</li>
+        <li><strong>Awards:</strong> Cash prizes and recognition at the EARS-CONN 2026 closing ceremony</li>
+        <li><strong>Eligibility:</strong> Students, researchers, and early-career engineers welcome</li>
+      </ul>
+    </div>
+
+    <!-- What you will learn -->
+    <div class="attend-blocks">
       <div class="attend-block">
         <h3>What You Will Learn</h3>
         <ul>
-          <li>Data sources: satellite imagery, robot sensing, drone/UAV data, environmental sensors</li>
-          <li>Data fusion and integration for Digital-Earth construction</li>
-          <li>Cloud, connectivity, compute, and AI/ML in the Digital-Earth stack</li>
-          <li>Practical tools and workflows for urban and environmental applications—including NYC use cases</li>
+          <li>Setting up and running the Autoware stack from source</li>
+          <li>Processing LiDAR point clouds for 3-D object detection</li>
+          <li>Fusing vehicle-based perception with satellite remote-sensing data</li>
+          <li>Building real-time situational-awareness layers for urban scenarios</li>
+          <li>Responsible and ethical deployment of autonomous systems in cities</li>
         </ul>
       </div>
 
@@ -71,29 +375,59 @@
         <h3>Workshop Details</h3>
         <table class="workshop-details-table">
           <tr>
+            <td><strong>Title</strong></td>
+            <td>How Autonomous Vehicles Build Safer Cities</td>
+          </tr>
+          <tr>
             <td><strong>Format</strong></td>
-            <td>Hands-on, interactive sessions</td>
+            <td>Morning: guided hands-on training &nbsp;|&nbsp; Afternoon: hackathon</td>
           </tr>
           <tr>
             <td><strong>When</strong></td>
-            <td>Day 2 of EARS-CONN 2026 (September 23, 2026 tentative)</td>
+            <td>Day 2 of EARS-CONN 2026 (September 23, 2026 — tentative)</td>
           </tr>
           <tr>
             <td><strong>Location</strong></td>
-            <td>New York City (TBA)</td>
+            <td>New York City — CCNY Grove School of Engineering (TBA)</td>
+          </tr>
+          <tr>
+            <td><strong>Instructors</strong></td>
+            <td>Tier IV / Autoware Foundation engineers + EARS-CONN faculty</td>
+          </tr>
+          <tr>
+            <td><strong>Prerequisites</strong></td>
+            <td>Basic Python or C++; familiarity with ROS helpful but not required</td>
           </tr>
         </table>
       </div>
 
-      <div class="attend-block">
-        <h3>Registration</h3>
-        <p>Workshop registration details will be posted as logistics are finalized. Check back for updates.</p>
-        <p class="attend-cta"><a href="attend.html" class="vision-btn">Register (TBA)</a></p>
+      <div class="attend-block" style="text-align:center;">
+        <h3>Powered By</h3>
+        <div class="ws-partners-strip">
+          <a href="https://tier4.jp" target="_blank" rel="noopener">
+            <img src="images/logos/tier4-logo.png" alt="Tier IV" height="48">
+          </a>
+          <a href="https://autoware.org" target="_blank" rel="noopener">
+            <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation" height="48">
+          </a>
+        </div>
+        <p style="font-size:0.88rem; color:#6b7280; margin-top:1rem;">
+          The workshop curriculum is built on the
+          <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener">official Autoware training materials</a>
+          developed by <strong>Tier IV</strong> and the <strong>Autoware Foundation</strong>.
+        </p>
+      </div>
+
+      <div class="attend-block" style="text-align:center;">
+        <h3>Register for the Workshop</h3>
+        <p>Seats are limited. Click below to register and indicate your interest in the hackathon competition.</p>
+        <p><a href="attend.html" class="vision-btn" style="font-size:1rem; padding:0.7rem 2rem;">Register Now</a></p>
+        <p style="font-size: 0.85rem; color: #6b7280; margin-top: 0.5rem;">Full registration details will be posted as the event approaches.</p>
       </div>
     </div>
 
     <div class="important-dates" style="margin-top: 2rem;">
-      <strong>Event:</strong> September 22–25, 2026 (tentative) &nbsp;|&nbsp; <strong>Location:</strong> New York City
+      <strong>Event:</strong> September 22–25, 2026 (tentative) &nbsp;|&nbsp; <strong>Workshop day:</strong> September 23, 2026 &nbsp;|&nbsp; <strong>Location:</strong> New York City
     </div>
 
     <div style="margin-top: 2rem; text-align: center;">
