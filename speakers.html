@@ -12,85 +12,137 @@
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
   <style>
     /* ── Page shell ── */
-    .speakers-page { padding: 2rem 1rem 4rem; max-width: 1400px; margin: 0 auto; }
-    .speakers-page .page-head { text-align: center; margin-bottom: 2.5rem; }
+    .speakers-page { padding: 2rem 1rem 4rem; max-width: 1200px; margin: 0 auto; }
+    .speakers-page .page-head { text-align: center; margin-bottom: 2rem; }
     .speakers-page .page-head h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 0.5rem; color: var(--text); }
-    .speakers-page .page-head p { color: var(--text-muted); font-size: 1rem; }
+    .speakers-page .page-head p { color: var(--text-muted); font-size: 1rem; max-width: 36rem; margin: 0 auto; }
 
-    /* ── Three-column layout ── */
-    .speakers-3col {
+    /* ── Unified grid: 3 per row, equal-size cards ── */
+    .speakers-grid-unified {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      gap: 1.25rem;
+      align-items: stretch;
     }
 
-    /* ── Column ── */
-    .sp-col { display: flex; flex-direction: column; }
-
-    /* ── Column header ── */
-    .sp-col-header {
-      padding: 1.1rem 1rem 1rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-    }
-    .sp-col-header h2 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .speaker-card {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
       margin: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--panel, #fff);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
     }
-    .sp-col-header .sp-col-count {
+    .speaker-card:hover {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+      transform: translateY(-3px);
+    }
+
+    /* Category accent: border color only */
+    .speaker-card--academy { border: 3px solid #16a34a; }
+    .speaker-card--regulatory { border: 3px solid #1e3a5f; }
+    .speaker-card--industry { border: 3px solid #dc2626; }
+    body.theme-dark .speaker-card--academy { border-color: #22c55e; }
+    body.theme-dark .speaker-card--regulatory { border-color: #60a5fa; }
+    body.theme-dark .speaker-card--industry { border-color: #f87171; }
+
+    .speaker-card-inner {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      height: 100%;
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .speaker-card-media {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 280px;
+      aspect-ratio: 3 / 4;
+      background: #0f172a;
+    }
+
+    .speaker-card .speaker-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      display: block;
+      filter: contrast(1.05) saturate(1.03);
+    }
+
+    .speaker-card-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 1rem 1rem 1.1rem;
+      background: linear-gradient(
+        to top,
+        rgba(15, 23, 42, 0.94) 0%,
+        rgba(15, 23, 42, 0.78) 45%,
+        rgba(15, 23, 42, 0) 100%
+      );
+      color: #fff;
+    }
+
+    .speaker-card-caption .speaker-name {
+      font-size: 1rem;
+      font-weight: 800;
+      margin: 0 0 0.35rem;
+      line-height: 1.25;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .speaker-card-caption .speaker-title {
       font-size: 0.78rem;
+      font-weight: 600;
+      margin: 0 0 0.3rem;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.94);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .speaker-card-caption .speaker-university {
+      font-size: 0.72rem;
       font-weight: 500;
-      margin-top: 0.2rem;
-      opacity: 0.75;
+      margin: 0;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.88);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
-    /* ── Academy — green ── */
-    .sp-col--academy .sp-col-header { background: #166534; color: #fff; }
-    .sp-col--academy { background: #f0fdf4; border: 2px solid #16a34a; border-right: 1px solid #bbf7d0; }
-    .sp-col--academy .speaker-card { border-color: #bbf7d0; }
-    .sp-col--academy .speaker-card:hover { border-color: #16a34a; box-shadow: 0 6px 20px rgba(22,163,74,0.15); }
-    .sp-col--academy .speaker-photo { border-color: #86efac !important; }
-    body.theme-dark .sp-col--academy { background: #052e16; border-color: #166534; }
-    body.theme-dark .sp-col--academy .speaker-card { border-color: #14532d; background: #071f0f; }
+    .speaker-placeholder { opacity: 0.72; }
+    .speaker-placeholder .speaker-card-caption .speaker-name,
+    .speaker-placeholder .speaker-card-caption .speaker-title {
+      color: rgba(255, 255, 255, 0.75);
+    }
 
-    /* ── Regulatory & Government — white/neutral ── */
-    .sp-col--regulatory .sp-col-header { background: #1e3a5f; color: #fff; }
-    .sp-col--regulatory { background: #ffffff; border-top: 2px solid #1e3a5f; border-bottom: 2px solid #1e3a5f; }
-    .sp-col--regulatory .speaker-card { border-color: #e2e8f0; }
-    .sp-col--regulatory .speaker-card:hover { border-color: #1e3a5f; box-shadow: 0 6px 20px rgba(30,58,95,0.12); }
-    .sp-col--regulatory .speaker-photo { border-color: #cbd5e1 !important; }
-    body.theme-dark .sp-col--regulatory { background: #0f172a; border-color: #1e40af; }
-    body.theme-dark .sp-col--regulatory .speaker-card { border-color: #1e3a5f; background: #0d1f3c; }
-
-    /* ── Industry — red ── */
-    .sp-col--industry .sp-col-header { background: #991b1b; color: #fff; }
-    .sp-col--industry { background: #fff5f5; border: 2px solid #dc2626; border-left: 1px solid #fecaca; }
-    .sp-col--industry .speaker-card { border-color: #fecaca; }
-    .sp-col--industry .speaker-card:hover { border-color: #dc2626; box-shadow: 0 6px 20px rgba(220,38,38,0.15); }
-    .sp-col--industry .speaker-photo { border-color: #fca5a5 !important; }
-    body.theme-dark .sp-col--industry { background: #2d0707; border-color: #991b1b; }
-    body.theme-dark .sp-col--industry .speaker-card { border-color: #450a0a; background: #1a0505; }
-
-    /* ── Cards inside columns ── */
-    .sp-col-cards { padding: 1rem; display: flex; flex-direction: column; gap: 0.85rem; flex: 1; }
-    .speaker-card { width: 100%; min-width: 0; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s; }
-    .speaker-card .speaker-card-inner { padding: 1rem 0.85rem; cursor: pointer; text-align: center; }
-    .speaker-card .speaker-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 0.85rem; display: block; border: 5px solid #e2e8f0; background: #f1f5f9; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12); filter: contrast(1.05) saturate(1.03); }
-    .speaker-card .speaker-name { font-size: 1.02rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; letter-spacing: -0.02em; }
-    .speaker-card .speaker-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; line-height: 1.3; }
-    .speaker-card .speaker-university { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
-
-    /* ── Placeholder card — muted ── */
-    .speaker-placeholder { opacity: 0.55; }
-    .speaker-placeholder .speaker-name, .speaker-placeholder .speaker-title { color: var(--text-muted) !important; }
+    @media (max-width: 900px) {
+      .speakers-grid-unified { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .speakers-grid-unified { grid-template-columns: 1fr; }
+    }
 
     /* ── Modal ── */
     .speaker-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
@@ -105,15 +157,6 @@
     .speaker-modal-content .speaker-university { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; }
     .speaker-modal-content .speaker-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; text-align: left; }
     .speaker-modal-content a { color: var(--brand); font-weight: 600; }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .speakers-3col { grid-template-columns: 1fr; border-radius: 12px; }
-      .sp-col--academy { border-right: 2px solid #16a34a; border-bottom: none; }
-      .sp-col--regulatory { border-left: 2px solid #1e3a5f; border-right: 2px solid #1e3a5f; border-top: none; }
-      .sp-col--industry { border-left: 1px solid #fecaca; border-top: none; }
-      .sp-col-header { position: static; }
-    }
   </style>
 </head>
 <body>
@@ -158,234 +201,306 @@
   <main class="speakers-page">
     <div class="page-head">
       <h1>Speakers &amp; Panelists</h1>
-      <p>EARS-CONN 2026 brings together voices from three sectors. Click any card to view the full bio.</p>
+      <p>Click any card to view the full bio.</p>
     </div>
 
-    <div class="speakers-3col">
+    <div class="speakers-grid-unified">
 
-      <!-- ══ ACADEMY — GREEN ══ -->
-      <div class="sp-col sp-col--academy">
-        <div class="sp-col-header">
-          <h2>Academy</h2>
-          <div class="sp-col-count">Researchers &amp; Educators</div>
-        </div>
-        <div class="sp-col-cards">
-
-          <article class="speaker-card" data-photo="images/speakers/HamidJafarnejadSani.png" data-name="Hamid Jafarnejad Sani" data-title="Assistant Professor of Mechanical Engineering" data-university="Stevens Institute of Technology" data-bio="Dr. Jafarnejad-Sani is an Assistant Professor of Mechanical Engineering at Stevens Institute of Technology and director of the Safe Autonomous Systems Lab. He received his Ph.D. in Mechanical Engineering from the University of Illinois at Urbana-Champaign in 2018. His research in the areas of controls, robotics, machine learning, and UAV applications is funded by the NSF, IARPA, and the US Army." data-url="">
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/HamidJafarnejadSani.png" data-name="Hamid Jafarnejad Sani" data-title="Assistant Professor of Mechanical Engineering" data-university="Stevens Institute of Technology" data-bio="Dr. Jafarnejad-Sani is an Assistant Professor of Mechanical Engineering at Stevens Institute of Technology and director of the Safe Autonomous Systems Lab. He received his Ph.D. in Mechanical Engineering from the University of Illinois at Urbana-Champaign in 2018. His research in the areas of controls, robotics, machine learning, and UAV applications is funded by the NSF, IARPA, and the US Army." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/HamidJafarnejadSani.png" alt="Hamid Jafarnejad Sani" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Hamid Jafarnejad Sani</h2>
-              <p class="speaker-title">Assistant Professor of Mechanical Engineering</p>
-              <p class="speaker-university">Stevens Institute of Technology</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/HamidJafarnejadSani.png" alt="Hamid Jafarnejad Sani" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Hamid Jafarnejad Sani</h2>
+                  <p class="speaker-title">Assistant Professor of Mechanical Engineering</p>
+                  <p class="speaker-university">Stevens Institute of Technology</p>
+                </div>
+              </div>
             </div>
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/YingLiTian.png" data-name="YingLi Tian" data-title="CUNY Distinguished Professor" data-university="The City College of New York" data-bio="Dr. YingLi Tian is a CUNY Distinguished Professor in the Department of Electrical Engineering at the City College of New York (CCNY) and in the Department of Computer Science at the Graduate Center of the City University of New York (CUNY). She is a Fellow of the IEEE, IAPR, AAAS, and AAIA. Dr. Tian is a pioneer in automatic facial expression analysis, human activity understanding, assistive technology, and remote sensing. Her research on facial expression analysis received the &quot;Test of Time Award&quot; at IEEE FG 2019. Before joining CCNY in 2008, she was a research staff member at the IBM T. J. Watson Research Center. She has published more than 260 peer-reviewed papers and holds 29 issued patents." data-url="https://www.ccny.cuny.edu/profiles/yingli-tian">
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/YingLiTian.png" data-name="YingLi Tian" data-title="CUNY Distinguished Professor" data-university="The City College of New York" data-bio="Dr. YingLi Tian is a CUNY Distinguished Professor in the Department of Electrical Engineering at the City College of New York (CCNY) and in the Department of Computer Science at the Graduate Center of the City University of New York (CUNY). She is a Fellow of the IEEE, IAPR, AAAS, and AAIA. Dr. Tian is a pioneer in automatic facial expression analysis, human activity understanding, assistive technology, and remote sensing. Her research on facial expression analysis received the &quot;Test of Time Award&quot; at IEEE FG 2019. Before joining CCNY in 2008, she was a research staff member at the IBM T. J. Watson Research Center. She has published more than 260 peer-reviewed papers and holds 29 issued patents." data-url="https://www.ccny.cuny.edu/profiles/yingli-tian">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/YingLiTian.png" alt="YingLi Tian" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">YingLi Tian</h2>
-              <p class="speaker-title">CUNY Distinguished Professor</p>
-              <p class="speaker-university">The City College of New York</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/YingLiTian.png" alt="YingLi Tian" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">YingLi Tian</h2>
+                  <p class="speaker-title">CUNY Distinguished Professor</p>
+                  <p class="speaker-university">The City College of New York</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/ZhigangZhu.png" data-name="Zhigang Zhu" data-title="Herbert G. Kayser Professor of Computer Science" data-university="The City College of New York" data-bio="Grove School of Engineering, CUNY Graduate Center. Director of the CUNY Computational Vision and Convergence Laboratory (CCVCL). Co-Director, Master's Program in Data Science and Engineering at CCNY." data-url="http://www-cs.engr.ccny.cuny.edu/~zhu/">
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/ZhigangZhu.png" data-name="Zhigang Zhu" data-title="Herbert G. Kayser Professor of Computer Science" data-university="The City College of New York" data-bio="Grove School of Engineering, CUNY Graduate Center. Director of the CUNY Computational Vision and Convergence Laboratory (CCVCL). Co-Director, Master's Program in Data Science and Engineering at CCNY." data-url="http://www-cs.engr.ccny.cuny.edu/~zhu/">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/ZhigangZhu.png" alt="Zhigang Zhu" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Zhigang Zhu</h2>
-              <p class="speaker-title">Herbert G. Kayser Professor of Computer Science</p>
-              <p class="speaker-university">The City College of New York</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/ZhigangZhu.png" alt="Zhigang Zhu" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Zhigang Zhu</h2>
+                  <p class="speaker-title">Herbert G. Kayser Professor of Computer Science</p>
+                  <p class="speaker-university">The City College of New York</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/JingangYi.png" data-name="Jingang Yi" data-title="Professor, Mechanical &amp; Aerospace Engineering" data-university="Rutgers University" data-bio="Dr. Jingang Yi is a Professor in the Department of Mechanical and Aerospace Engineering at Rutgers, The State University of New Jersey. He received his Ph.D. from the University of California, Berkeley in 2002. His research interests include robotics, mechatronics, dynamic systems and controls, and automation science and engineering, with applications to biomedical systems, transportation, and civil infrastructure." data-url="">
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/JingangYi.png" data-name="Jingang Yi" data-title="Professor, Mechanical &amp; Aerospace Engineering" data-university="Rutgers University" data-bio="Dr. Jingang Yi is a Professor in the Department of Mechanical and Aerospace Engineering at Rutgers, The State University of New Jersey. He received his Ph.D. from the University of California, Berkeley in 2002. His research interests include robotics, mechatronics, dynamic systems and controls, and automation science and engineering, with applications to biomedical systems, transportation, and civil infrastructure." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/JingangYi.png" alt="Jingang Yi" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Jingang Yi</h2>
-              <p class="speaker-title">Professor, Mechanical &amp; Aerospace Engineering</p>
-              <p class="speaker-university">Rutgers University</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/JingangYi.png" alt="Jingang Yi" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Jingang Yi</h2>
+                  <p class="speaker-title">Professor, Mechanical &amp; Aerospace Engineering</p>
+                  <p class="speaker-university">Rutgers University</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/AdrianaTrias.png" data-name="Adriana Trias" data-title="Assistant Professor, Civil &amp; Environmental Engineering" data-university="Rowan University" data-bio="Dr. Adriana Trias is an Assistant Professor in the Department of Civil &amp; Environmental Engineering at Rowan University. Her expertise is in bridge structural evaluation through non-destructive and remote sensors, focusing on structural evaluation and condition assessment of bridges using point cloud data. She received the Young Engineer Best Paper Award at IABSE Ghent (2021)." data-url="">
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/AdrianaTrias.png" data-name="Adriana Trias" data-title="Assistant Professor, Civil &amp; Environmental Engineering" data-university="Rowan University" data-bio="Dr. Adriana Trias is an Assistant Professor in the Department of Civil &amp; Environmental Engineering at Rowan University. Her expertise is in bridge structural evaluation through non-destructive and remote sensors, focusing on structural evaluation and condition assessment of bridges using point cloud data. She received the Young Engineer Best Paper Award at IABSE Ghent (2021)." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/AdrianaTrias.png" alt="Adriana Trias" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Adriana Trias</h2>
-              <p class="speaker-title">Assistant Professor, Civil &amp; Environmental Engineering</p>
-              <p class="speaker-university">Rowan University</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/AdrianaTrias.png" alt="Adriana Trias" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Adriana Trias</h2>
+                  <p class="speaker-title">Assistant Professor, Civil &amp; Environmental Engineering</p>
+                  <p class="speaker-university">Rowan University</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/hosts/MitchGoldbergjpg.png" data-name="Mitchell Goldberg" data-title="Distinguished Research Scientist, NOAA-CESSRST" data-university="The City College of New York" data-bio="Mitchell Goldberg is a Distinguished Research Scientist for NOAA-CESSRST at The City College of New York and Senior Scientist at NOAA NESDIS. His work spans satellite remote sensing, atmospheric science, and the use of observational data for weather forecasting and environmental monitoring." data-url="">
+          <article class="speaker-card speaker-card--academy" data-photo="images/hosts/MitchGoldbergjpg.png" data-name="Mitchell Goldberg" data-title="Distinguished Research Scientist, NOAA-CESSRST" data-university="The City College of New York" data-bio="Mitchell Goldberg is a Distinguished Research Scientist for NOAA-CESSRST at The City College of New York and Senior Scientist at NOAA NESDIS. His work spans satellite remote sensing, atmospheric science, and the use of observational data for weather forecasting and environmental monitoring." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/hosts/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Mitchell Goldberg</h2>
-              <p class="speaker-title">Distinguished Research Scientist, NOAA-CESSRST</p>
-              <p class="speaker-university">The City College of New York</p>
+              <div class="speaker-card-media">
+                <img src="images/hosts/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Mitchell Goldberg</h2>
+                  <p class="speaker-title">Distinguished Research Scientist, NOAA-CESSRST</p>
+                  <p class="speaker-university">The City College of New York</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-card--academy" data-photo="images/hosts/JizhongXiao.jpg" data-name="Jizhong Xiao" data-title="Professor, Electrical Engineering, CCNY — robotics expert" data-university="The City College of New York" data-bio="Jizhong Xiao is a Professor of Electrical Engineering at The City College of New York (CCNY) and a recognized robotics expert. His work spans mobile robotics, autonomous systems, and related areas that connect embodied intelligence to real-world urban and field applications." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/hosts/JizhongXiao.jpg" alt="Jizhong Xiao" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Jizhong Xiao</h2>
+                  <p class="speaker-title">Professor, Electrical Engineering, CCNY — robotics expert</p>
+                  <p class="speaker-university">The City College of New York</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-        </div>
-      </div>
-
-      <!-- ══ REGULATORY & GOVERNMENT — WHITE/NAVY ══ -->
-      <div class="sp-col sp-col--regulatory">
-        <div class="sp-col-header">
-          <h2>Regulatory &amp; Government</h2>
-          <div class="sp-col-count">Policy, Standards &amp; Governance</div>
-        </div>
-        <div class="sp-col-cards">
-
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--regulatory" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-        </div>
-      </div>
-
-      <!-- ══ INDUSTRY — RED ══ -->
-      <div class="sp-col sp-col--industry">
-        <div class="sp-col-header">
-          <h2>Industry</h2>
-          <div class="sp-col-count">Technology &amp; Innovation Leaders</div>
-        </div>
-        <div class="sp-col-cards">
-
-          <article class="speaker-card" data-photo="images/speakers/AlirezaAbbaspour.png" data-name="Dr. Alireza Abbaspour" data-title="Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems" data-university="Qualcomm" data-bio="Dr. Alireza Abbaspour is a Safety Architect at Qualcomm with a Ph.D. in Control Systems. He specializes in autonomous systems, bringing deep expertise in safety architecture and control theory to the design and assurance of intelligent, connected platforms." data-url="">
+          <article class="speaker-card speaker-card--industry" data-photo="images/speakers/AlirezaAbbaspour.png" data-name="Dr. Alireza Abbaspour" data-title="Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems" data-university="Qualcomm" data-bio="Dr. Alireza Abbaspour is a Safety Architect at Qualcomm with a Ph.D. in Control Systems. He specializes in autonomous systems, bringing deep expertise in safety architecture and control theory to the design and assurance of intelligent, connected platforms." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/AlirezaAbbaspour.png" alt="Dr. Alireza Abbaspour" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Dr. Alireza Abbaspour</h2>
-              <p class="speaker-title">Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems</p>
-              <p class="speaker-university">Qualcomm</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/AlirezaAbbaspour.png" alt="Dr. Alireza Abbaspour" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Dr. Alireza Abbaspour</h2>
+                  <p class="speaker-title">Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems</p>
+                  <p class="speaker-university">Qualcomm</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/EdKearns.png" data-name="Dr. Ed Kearns" data-title="Chief Data Officer, First Street Foundation" data-university="Climate-related Financial Risk Advisory Committee" data-bio="Dr. Ed Kearns is Chief Data Officer of First Street Foundation, providing leadership for the organization's science and data activities. He serves on the Climate-related Financial Risk Advisory Committee." data-url="">
+          <article class="speaker-card speaker-card--industry" data-photo="images/speakers/EdKearns.png" data-name="Dr. Ed Kearns" data-title="Chief Data Officer, First Street Foundation" data-university="Climate-related Financial Risk Advisory Committee" data-bio="Dr. Ed Kearns is Chief Data Officer of First Street Foundation, providing leadership for the organization's science and data activities. He serves on the Climate-related Financial Risk Advisory Committee." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/EdKearns.png" alt="Dr. Ed Kearns" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Dr. Ed Kearns</h2>
-              <p class="speaker-title">Chief Data Officer — leadership for science and data activities</p>
-              <p class="speaker-university">First Street Foundation · Climate-related Financial Risk Advisory Committee</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/EdKearns.png" alt="Dr. Ed Kearns" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Dr. Ed Kearns</h2>
+                  <p class="speaker-title">Chief Data Officer, First Street Foundation</p>
+                  <p class="speaker-university">Climate-related Financial Risk Advisory Committee</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card" data-photo="images/speakers/SarahKapnick.png" data-name="Dr. Sarah B. Kapnick" data-title="Global Head of Climate Advisory" data-university="J.P. Morgan" data-bio="Dr. Sarah B. Kapnick is Global Head of Climate Advisory at J.P. Morgan. She advises the bank&apos;s clients on climate, energy, biodiversity and sustainability topics. Responsible for overseeing the Firm&apos;s climate thought leadership strategy, Dr. Kapnick leverages extensive technical and scientific expertise to drive content strategy and advise clients at the intersection of finance, climate science, commerce and national security. She has received several recognitions for her work at J.P. Morgan and Climate Intuition series, including being named to the 2025 TIME100 Climate, Bloomberg Green &quot;Ones to Watch&quot; and Fin-Erth lists. Prior to her current role, she served as Chief Scientist at the National Oceanic and Atmospheric Administration (NOAA), appointed by the President, responsible for guiding the programmatic focus of NOAA&apos;s science and technology priorities. In this capacity, Dr. Kapnick oversaw the development of critical scientific strategies for emerging topics such as climate intervention, greenhouse gas monitoring, marine biodiversity, climate macroeconomics, and climate security." data-url="">
+          <article class="speaker-card speaker-card--industry" data-photo="images/speakers/SarahKapnick.png" data-name="Dr. Sarah B. Kapnick" data-title="Global Head of Climate Advisory" data-university="J.P. Morgan" data-bio="Dr. Sarah B. Kapnick is Global Head of Climate Advisory at J.P. Morgan. She advises the bank's clients on climate, energy, biodiversity and sustainability topics. Responsible for overseeing the Firm's climate thought leadership strategy, Dr. Kapnick leverages extensive technical and scientific expertise to drive content strategy and advise clients at the intersection of finance, climate science, commerce and national security. She has received several recognitions for her work at J.P. Morgan and Climate Intuition series, including being named to the 2025 TIME100 Climate, Bloomberg Green &quot;Ones to Watch&quot; and Fin-Erth lists. Prior to her current role, she served as Chief Scientist at the National Oceanic and Atmospheric Administration (NOAA), appointed by the President, responsible for guiding the programmatic focus of NOAA's science and technology priorities. In this capacity, Dr. Kapnick oversaw the development of critical scientific strategies for emerging topics such as climate intervention, greenhouse gas monitoring, marine biodiversity, climate macroeconomics, and climate security." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/SarahKapnick.png" alt="Dr. Sarah B. Kapnick" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Dr. Sarah B. Kapnick</h2>
-              <p class="speaker-title">Global Head of Climate Advisory — climate, energy, biodiversity &amp; sustainability</p>
-              <p class="speaker-university">J.P. Morgan</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/SarahKapnick.png" alt="Dr. Sarah B. Kapnick" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Dr. Sarah B. Kapnick</h2>
+                  <p class="speaker-title">Global Head of Climate Advisory</p>
+                  <p class="speaker-university">J.P. Morgan</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--industry" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--industry" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--industry" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
+          <article class="speaker-card speaker-placeholder speaker-card--industry" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="&nbsp;" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
+              <div class="speaker-card-media">
+                <img src="images/speakers/placeholder.svg" alt="Speaker (TBA)" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Speaker (TBA)</h2>
+                  <p class="speaker-title">To Be Announced</p>
+                  <p class="speaker-university">&nbsp;</p>
+                </div>
+              </div>
             </div>
+
           </article>
 
-        </div>
-      </div>
+    </div><!-- /.speakers-grid-unified -->
 
-    </div><!-- /.speakers-3col -->
   </main>
 
   <!-- Speaker pop-up modal -->
