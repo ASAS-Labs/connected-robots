@@ -668,11 +668,16 @@ p, li, td, th {
 }
 
 .main-title {
-  font-size: 3.5rem;
+  font-size: clamp(1.35rem, 3.5vw, 2.25rem);
   font-weight: bold;
   margin-bottom: 1rem;
+  line-height: 1.25;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  letter-spacing: 3px;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
 .title-divider {
