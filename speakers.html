@@ -83,9 +83,9 @@
     .sp-col-cards { padding: 1rem; display: flex; flex-direction: column; gap: 0.85rem; flex: 1; }
     .speaker-card { width: 100%; min-width: 0; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s; }
     .speaker-card .speaker-card-inner { padding: 1rem 0.85rem; cursor: pointer; text-align: center; }
-    .speaker-card .speaker-photo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 0.75rem; display: block; border: 3px solid #e5e7eb; background: #f1f5f9; }
-    .speaker-card .speaker-name { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; line-height: 1.3; }
-    .speaker-card .speaker-title { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; line-height: 1.3; }
+    .speaker-card .speaker-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 0.85rem; display: block; border: 5px solid #e2e8f0; background: #f1f5f9; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12); filter: contrast(1.05) saturate(1.03); }
+    .speaker-card .speaker-name { font-size: 1.02rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; letter-spacing: -0.02em; }
+    .speaker-card .speaker-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; line-height: 1.3; }
     .speaker-card .speaker-university { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
 
     /* ── Placeholder card — muted ── */
@@ -99,9 +99,9 @@
     .speaker-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); line-height: 1; padding: 0.25rem; }
     .speaker-modal-close:hover { color: var(--text); }
     .speaker-modal-content { padding: 2rem; text-align: center; }
-    .speaker-modal-content .speaker-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; border: 3px solid var(--border); }
-    .speaker-modal-content .speaker-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; line-height: 1.3; }
-    .speaker-modal-content .speaker-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; }
+    .speaker-modal-content .speaker-photo { width: 168px; height: 168px; border-radius: 50%; object-fit: cover; margin: 0 auto 1.1rem; display: block; border: 5px solid var(--border); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18); filter: contrast(1.05) saturate(1.03); }
+    .speaker-modal-content .speaker-name { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.35rem; line-height: 1.3; letter-spacing: -0.02em; }
+    .speaker-modal-content .speaker-title { font-size: 1.02rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; }
     .speaker-modal-content .speaker-university { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; }
     .speaker-modal-content .speaker-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; text-align: left; }
     .speaker-modal-content a { color: var(--brand); font-weight: 600; }
@@ -126,11 +126,11 @@
     <div class="title-container">
       <h1 class="sliding-title" aria-hidden="true">
         <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
-        EARS-CONN 2026 — New York City — September 15–18, 2026 — Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)
+        EARS-CONN 2026 — New York City — August 24–27, 2026 — Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)
       </h1>
       <span class="sliding-title-mobile" aria-hidden="false">
         <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
-        EARS-CONN 2026 — NYC — September 15–18
+        EARS-CONN 2026 — NYC — August 24–27
       </span>
     </div>
     <div class="logo-right-container">
@@ -173,7 +173,7 @@
 
           <article class="speaker-card" data-photo="images/speakers/HamidJafarnejadSani.png" data-name="Hamid Jafarnejad Sani" data-title="Assistant Professor of Mechanical Engineering" data-university="Stevens Institute of Technology" data-bio="Dr. Jafarnejad-Sani is an Assistant Professor of Mechanical Engineering at Stevens Institute of Technology and director of the Safe Autonomous Systems Lab. He received his Ph.D. in Mechanical Engineering from the University of Illinois at Urbana-Champaign in 2018. His research in the areas of controls, robotics, machine learning, and UAV applications is funded by the NSF, IARPA, and the US Army." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/HamidJafarnejadSani.png" alt="Hamid Jafarnejad Sani" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/HamidJafarnejadSani.png" alt="Hamid Jafarnejad Sani" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Hamid Jafarnejad Sani</h2>
               <p class="speaker-title">Assistant Professor of Mechanical Engineering</p>
               <p class="speaker-university">Stevens Institute of Technology</p>
@@ -182,7 +182,7 @@
 
           <article class="speaker-card" data-photo="images/speakers/YingLiTian.png" data-name="YingLi Tian" data-title="CUNY Distinguished Professor" data-university="The City College of New York" data-bio="Dr. YingLi Tian is a CUNY Distinguished Professor in the Department of Electrical Engineering at the City College of New York (CCNY) and in the Department of Computer Science at the Graduate Center of the City University of New York (CUNY). She is a Fellow of the IEEE, IAPR, AAAS, and AAIA. Dr. Tian is a pioneer in automatic facial expression analysis, human activity understanding, assistive technology, and remote sensing. Her research on facial expression analysis received the &quot;Test of Time Award&quot; at IEEE FG 2019. Before joining CCNY in 2008, she was a research staff member at the IBM T. J. Watson Research Center. She has published more than 260 peer-reviewed papers and holds 29 issued patents." data-url="https://www.ccny.cuny.edu/profiles/yingli-tian">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/YingLiTian.png" alt="YingLi Tian" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/YingLiTian.png" alt="YingLi Tian" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">YingLi Tian</h2>
               <p class="speaker-title">CUNY Distinguished Professor</p>
               <p class="speaker-university">The City College of New York</p>
@@ -191,7 +191,7 @@
 
           <article class="speaker-card" data-photo="images/speakers/ZhigangZhu.png" data-name="Zhigang Zhu" data-title="Herbert G. Kayser Professor of Computer Science" data-university="The City College of New York" data-bio="Grove School of Engineering, CUNY Graduate Center. Director of the CUNY Computational Vision and Convergence Laboratory (CCVCL). Co-Director, Master's Program in Data Science and Engineering at CCNY." data-url="http://www-cs.engr.ccny.cuny.edu/~zhu/">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/ZhigangZhu.png" alt="Zhigang Zhu" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/ZhigangZhu.png" alt="Zhigang Zhu" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Zhigang Zhu</h2>
               <p class="speaker-title">Herbert G. Kayser Professor of Computer Science</p>
               <p class="speaker-university">The City College of New York</p>
@@ -200,7 +200,7 @@
 
           <article class="speaker-card" data-photo="images/speakers/JingangYi.png" data-name="Jingang Yi" data-title="Professor, Mechanical &amp; Aerospace Engineering" data-university="Rutgers University" data-bio="Dr. Jingang Yi is a Professor in the Department of Mechanical and Aerospace Engineering at Rutgers, The State University of New Jersey. He received his Ph.D. from the University of California, Berkeley in 2002. His research interests include robotics, mechatronics, dynamic systems and controls, and automation science and engineering, with applications to biomedical systems, transportation, and civil infrastructure." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/JingangYi.png" alt="Jingang Yi" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/JingangYi.png" alt="Jingang Yi" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Jingang Yi</h2>
               <p class="speaker-title">Professor, Mechanical &amp; Aerospace Engineering</p>
               <p class="speaker-university">Rutgers University</p>
@@ -209,7 +209,7 @@
 
           <article class="speaker-card" data-photo="images/speakers/AdrianaTrias.png" data-name="Adriana Trias" data-title="Assistant Professor, Civil &amp; Environmental Engineering" data-university="Rowan University" data-bio="Dr. Adriana Trias is an Assistant Professor in the Department of Civil &amp; Environmental Engineering at Rowan University. Her expertise is in bridge structural evaluation through non-destructive and remote sensors, focusing on structural evaluation and condition assessment of bridges using point cloud data. She received the Young Engineer Best Paper Award at IABSE Ghent (2021)." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/AdrianaTrias.png" alt="Adriana Trias" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/AdrianaTrias.png" alt="Adriana Trias" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Adriana Trias</h2>
               <p class="speaker-title">Assistant Professor, Civil &amp; Environmental Engineering</p>
               <p class="speaker-university">Rowan University</p>
@@ -218,7 +218,7 @@
 
           <article class="speaker-card" data-photo="images/hosts/MitchGoldbergjpg.png" data-name="Mitchell Goldberg" data-title="Distinguished Research Scientist, NOAA-CESSRST" data-university="The City College of New York" data-bio="Mitchell Goldberg is a Distinguished Research Scientist for NOAA-CESSRST at The City College of New York and Senior Scientist at NOAA NESDIS. His work spans satellite remote sensing, atmospheric science, and the use of observational data for weather forecasting and environmental monitoring." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/hosts/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/hosts/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Mitchell Goldberg</h2>
               <p class="speaker-title">Distinguished Research Scientist, NOAA-CESSRST</p>
               <p class="speaker-university">The City College of New York</p>
@@ -227,7 +227,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -247,7 +247,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -256,7 +256,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -265,7 +265,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -274,7 +274,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -283,7 +283,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -292,7 +292,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -301,7 +301,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -319,9 +319,36 @@
         </div>
         <div class="sp-col-cards">
 
+          <article class="speaker-card" data-photo="images/speakers/AlirezaAbbaspour.png" data-name="Dr. Alireza Abbaspour" data-title="Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems" data-university="Qualcomm" data-bio="Dr. Alireza Abbaspour is a Safety Architect at Qualcomm with a Ph.D. in Control Systems. He specializes in autonomous systems, bringing deep expertise in safety architecture and control theory to the design and assurance of intelligent, connected platforms." data-url="">
+            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
+              <img src="images/speakers/AlirezaAbbaspour.png" alt="Dr. Alireza Abbaspour" class="speaker-photo" width="120" height="120" loading="lazy">
+              <h2 class="speaker-name">Dr. Alireza Abbaspour</h2>
+              <p class="speaker-title">Safety Architect with a Ph.D. in Control Systems, specializing in autonomous systems</p>
+              <p class="speaker-university">Qualcomm</p>
+            </div>
+          </article>
+
+          <article class="speaker-card" data-photo="images/speakers/EdKearns.png" data-name="Dr. Ed Kearns" data-title="Chief Data Officer, First Street Foundation" data-university="Climate-related Financial Risk Advisory Committee" data-bio="Dr. Ed Kearns is Chief Data Officer of First Street Foundation, providing leadership for the organization's science and data activities. He serves on the Climate-related Financial Risk Advisory Committee." data-url="">
+            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
+              <img src="images/speakers/EdKearns.png" alt="Dr. Ed Kearns" class="speaker-photo" width="120" height="120" loading="lazy">
+              <h2 class="speaker-name">Dr. Ed Kearns</h2>
+              <p class="speaker-title">Chief Data Officer — leadership for science and data activities</p>
+              <p class="speaker-university">First Street Foundation · Climate-related Financial Risk Advisory Committee</p>
+            </div>
+          </article>
+
+          <article class="speaker-card" data-photo="images/speakers/SarahKapnick.png" data-name="Dr. Sarah B. Kapnick" data-title="Global Head of Climate Advisory" data-university="J.P. Morgan" data-bio="Dr. Sarah B. Kapnick is Global Head of Climate Advisory at J.P. Morgan. She advises the bank&apos;s clients on climate, energy, biodiversity and sustainability topics. Responsible for overseeing the Firm&apos;s climate thought leadership strategy, Dr. Kapnick leverages extensive technical and scientific expertise to drive content strategy and advise clients at the intersection of finance, climate science, commerce and national security. She has received several recognitions for her work at J.P. Morgan and Climate Intuition series, including being named to the 2025 TIME100 Climate, Bloomberg Green &quot;Ones to Watch&quot; and Fin-Erth lists. Prior to her current role, she served as Chief Scientist at the National Oceanic and Atmospheric Administration (NOAA), appointed by the President, responsible for guiding the programmatic focus of NOAA&apos;s science and technology priorities. In this capacity, Dr. Kapnick oversaw the development of critical scientific strategies for emerging topics such as climate intervention, greenhouse gas monitoring, marine biodiversity, climate macroeconomics, and climate security." data-url="">
+            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
+              <img src="images/speakers/SarahKapnick.png" alt="Dr. Sarah B. Kapnick" class="speaker-photo" width="120" height="120" loading="lazy">
+              <h2 class="speaker-name">Dr. Sarah B. Kapnick</h2>
+              <p class="speaker-title">Global Head of Climate Advisory — climate, energy, biodiversity &amp; sustainability</p>
+              <p class="speaker-university">J.P. Morgan</p>
+            </div>
+          </article>
+
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -330,7 +357,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -339,7 +366,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -348,34 +375,7 @@
 
           <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
-            </div>
-          </article>
-
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
-            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
-            </div>
-          </article>
-
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
-            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
-              <h2 class="speaker-name">Speaker (TBA)</h2>
-              <p class="speaker-title">To Be Announced</p>
-              <p class="speaker-university">&nbsp;</p>
-            </div>
-          </article>
-
-          <article class="speaker-card speaker-placeholder" data-photo="images/speakers/placeholder.svg" data-name="Speaker (TBA)" data-title="To Be Announced" data-university="" data-bio="Speaker details to be announced." data-url="">
-            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
-              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="80" height="80" loading="lazy">
+              <img src="images/speakers/placeholder.svg" alt="Speaker TBA" class="speaker-photo" width="120" height="120" loading="lazy">
               <h2 class="speaker-name">Speaker (TBA)</h2>
               <p class="speaker-title">To Be Announced</p>
               <p class="speaker-university">&nbsp;</p>
@@ -393,7 +393,7 @@
     <div class="speaker-modal" onclick="event.stopPropagation()">
       <button class="speaker-modal-close" onclick="closeSpeakerModal()" aria-label="Close">&times;</button>
       <div class="speaker-modal-content">
-        <img id="modalPhoto" src="" alt="" class="speaker-photo" width="120" height="120">
+        <img id="modalPhoto" src="" alt="" class="speaker-photo" width="168" height="168">
         <h2 id="modalSpeakerName" class="speaker-name"></h2>
         <p id="modalTitle" class="speaker-title"></p>
         <p id="modalUniversity" class="speaker-university"></p>

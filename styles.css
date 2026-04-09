@@ -3006,7 +3006,8 @@ body.theme-dark .section-breaker {
 
   .keynote-card h3,
   .organizer-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 800;
   }
 
   .sponsor-slot {
