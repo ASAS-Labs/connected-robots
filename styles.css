@@ -740,12 +740,32 @@ body.theme-dark .vision-bullet:focus {
   padding: 0 1rem;
 }
 
-/* 2-Day Agenda Boxes — two tracks side by side */
+/* 2-Day Agenda Boxes — default two columns; .agenda-boxes--unified = single centered track */
 .agenda-boxes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
+}
+
+.agenda-boxes--unified {
+  grid-template-columns: 1fr;
+  max-width: min(90vw, 920px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.agenda-box-unified {
+  border-top: 4px solid var(--brand);
+}
+
+.agenda-slot-time {
+  display: inline-block;
+  min-width: 7rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--brand);
+  letter-spacing: 0.02em;
 }
 
 .agenda-box {
