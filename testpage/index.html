@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<!-- Preview build from branch test-3d; lives at https://ears-conn.com/testpage/ — paths adjusted for this subdirectory. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EARS-CONN 2026 — New York City (3D Earth preview)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Cache control -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="../images/logos/ears-conn.png" type="image/png">
+</head>
+<body>
+
+  <!-- Top Bar with Logos and Sliding Dates -->
+  <div class="top-bar">
+    <div class="logo-left-container">
+      <img src="../images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+      <img src="../images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-left" width="80" height="50" loading="lazy">
+    </div>
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="../images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — September 15–18, 2026 — Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="../images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — September 15–18
+      </span>
+    </div>
+    <div class="logo-right-container">
+      <img src="../images/logos/unu-hub-banner.png" alt="UNU Hub – Remote-Sensing &amp; Sustainable Innovations for Resilient Urban Systems (R-SIRUS)" class="logo-right logo-banner" width="160" height="50" loading="lazy">
+      <img src="../images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Navigation Tab -->
+  <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <div class="nav-tabs">
+        <a href="../attend.html" class="nav-tab-item">Attend</a>
+        <a href="../venue.html" class="nav-tab-item">Venue</a>
+        <a href="../speakers.html" class="nav-tab-item">Speakers</a>
+        <a href="../workshop.html" class="nav-tab-item">Workshop</a>
+        <a href="../contribute.html" class="nav-tab-item cfp-link">Contribute</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll-spy section navigation (IPA-style) -->
+  <nav class="scroll-spy-nav" aria-label="Page sections">
+    <ul class="scroll-spy-list">
+      <li><a href="#section-hero" class="scroll-spy-link" data-section="section-hero">Intro</a></li>
+      <li><a href="#section-panels" class="scroll-spy-link" data-section="section-panels">Panels</a></li>
+      <li><a href="#section-governance" class="scroll-spy-link" data-section="section-governance">Governance</a></li>
+      <li class="hidden"><a href="#section-keynotes" class="scroll-spy-link" data-section="section-keynotes">keynotes</a></li>
+      <li><a href="#section-participate" class="scroll-spy-link" data-section="section-participate">Participate</a></li>
+      <li><a href="#section-schedule" class="scroll-spy-link" data-section="section-schedule">Schedule</a></li>
+      <li><a href="#section-organizers" class="scroll-spy-link" data-section="section-organizers">Organizers</a></li>
+      <li><a href="#section-sponsors" class="scroll-spy-link" data-section="section-sponsors">Sponsors</a></li>
+    </ul>
+  </nav>
+
+  <!-- Initiative Hero / Big Headline -->
+  <div id="section-hero" class="workshop-title-container initiative-hero">
+    <video class="hero-bg-video" autoplay loop muted playsinline preload="auto">
+      <source src="https://s3.us-east-1.amazonaws.com/ears-conn.com/Videos/hero-background.mp4" type="video/mp4">
+    </video>
+    <div class="hero-bg-overlay"></div>
+    <div class="workshop-title-wrapper">
+      <div class="hero-layout">
+        <div class="hero-copy text-center">
+          <h1 class="initiative-headline">Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)</h1>
+          <div class="title-divider"></div>
+          <h2 class="subtitle">
+            <span class="rotating-word-slot">
+              <span class="animated-word rotating-word" id="rotatingWord" aria-live="polite">Embodied-AI Meets Digital-Earth</span>
+            </span>
+          </h2>
+          <div class="initiative-tagline">
+            From Ground Robots to Orbiting Satellites — Building the Digital-Earth for Smarter, More Resilient Cities
+          </div>
+          <div class="conference-date">New York, NY, USA — September 15–18, 2026</div>
+        </div>
+        <div class="hero-earth-shell" aria-hidden="true">
+          <div class="hero-earth-halo"></div>
+          <div id="heroEarthScene" class="hero-earth-scene"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conference Vision -->
+  <section id="section-intro" class="abstract-section e-con-inner vision-side-by-side">
+    <div class="vision-left">
+      <h3 class="vision-tagline">Embodied-AI for Resiliency and Sustainability (EARS-CONN)</h3>
+      <p class="vision-intro">
+        Our cities face growing risks — floods, earthquakes, ageing infrastructure — that demand both real-time awareness and long-term foresight. EARS-CONN brings together researchers, engineers, and decision-makers to explore how <strong>embodied-AI</strong>, from autonomous robots and drones on the ground to <strong>satellite remote sensing</strong> from orbit, can continuously sense, map, and reason about our urban environment. Together, these systems build a <strong>living Digital-Earth</strong>: a dynamic, data-rich model that enables <strong>smarter planning of future digital cities</strong> and more <strong>resilient urban infrastructure</strong> for generations to come.
+      </p>
+    </div>
+    <div class="vision-right elementor-element elementor-element-0db8320 e-con-full e-flex e-con e-child" data-id="0db8320" data-element_type="container" data-e-type="container">
+      <div class="elementor-element elementor-element-526f2ac elementor-widget elementor-widget-video" data-id="526f2ac" data-element_type="widget" data-e-type="widget" data-settings="{&quot;video_type&quot;:&quot;hosted&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
+        <div class="e-hosted-video elementor-wrapper elementor-open-inline">
+          <video class="elementor-video" src="https://s3.us-east-1.amazonaws.com/ears-conn.com/Videos/NYC.mp4" controls preload="auto" autoplay loop muted playsinline poster="https://2026.ieee-iros.org/wp-content/uploads/sites/804/Screenshot-2025-12-08-133057.png"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Session Overview — Embodied-AI to Digital-Earth -->
+  <section class="cfp-section page-section" style="background: var(--panel-muted, #f8fafc); border-top: 3px solid var(--brand);">
+    <h2 class="section-title" style="text-align:center; margin-bottom:0.4rem;">Session Overview</h2>
+    <p class="page-intro" style="text-align:center; max-width:760px; margin:0 auto 2.5rem;">
+      We discuss how the integration of <strong>Embodied-AI</strong> — ranging from autonomous robotics to advanced remote sensing — provides the foundational data and intelligence needed to construct a <strong>living Digital-Earth</strong>: high-fidelity digital twins of our cities that move from passive observation to active, AI-driven urban intelligence.
+    </p>
+
+    <div class="attend-blocks" style="margin-bottom:2.5rem;">
+      <div class="attend-block">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🏙️</div>
+        <h3>Optimize Future Digital Cities</h3>
+        <p>Move beyond static models to <strong>dynamic, AI-driven urban simulations</strong>. Digital-Earth enables planners and engineers to test, iterate, and optimise city design before a single brick is laid — accelerating the transition to smarter, more liveable urban environments.</p>
+      </div>
+      <div class="attend-block">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🛡️</div>
+        <h3>Enhance Resilience</h3>
+        <p>Use <strong>real-time sensor data</strong> from robots, drones, and satellites to design infrastructure that can withstand environmental and structural stresses — from flooding and earthquakes to ageing assets and climate-driven extremes.</p>
+      </div>
+      <div class="attend-block">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🔗</div>
+        <h3>Bridge the Gap</h3>
+        <p>Transition from raw data collection to <strong>actionable insights for urban engineering</strong>. Close the loop between what sensors observe, what AI infers, and what decision-makers need to build safer, more equitable cities.</p>
+      </div>
+    </div>
+
+    <h3 style="text-align:center; font-size:1.2rem; font-weight:700; margin-bottom:1.5rem; color: var(--text);">Key Discussion Points</h3>
+    <div class="attend-blocks">
+      <div class="attend-block">
+        <h3 style="color:var(--brand);">Robotics &amp; Remote Sensing</h3>
+        <p>The <em>"eyes and ears"</em> of the Digital-Earth — ground robots, drones, autonomous vehicles, and orbital satellites continuously sense and map the urban environment, feeding a unified, always-current model of the city.</p>
+      </div>
+      <div class="attend-block">
+        <h3 style="color:var(--brand);">Predictive Modeling</h3>
+        <p>Using AI to <strong>stress-test urban infrastructure</strong> before it is built or during its operational life — simulating flood scenarios, traffic collapse, structural fatigue, and emergency response at city scale.</p>
+      </div>
+      <div class="attend-block">
+        <h3 style="color:var(--brand);">Scalability</h3>
+        <p>From <strong>localized robotic data</strong> to <strong>global-scale digital twins</strong> — how standards, open data pipelines, and federated AI architectures make Digital-Earth accessible to cities of every size and resource level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- From Embodied-AI to Digital-Earth — Safer Cities, Resilient Infrastructure, and Better Lives -->
+  <section id="section-panels" class="connectivity-section">
+    <h3 class="digital-earth-hero-headline">Integrating Remote Sensing and Embodied-AI Robotics to Build the Digital-Earth Infrastructure for Metropolitan Sustainability</h3>
+    <div class="digital-earth-side-layout">
+      <div class="digital-earth-left">
+        <img src="../images/digital-earth-infographic.png" alt="Digital-Earth — Monitor, Understand, Simulate, Anticipate, Respond: data from space, robotics, cloud, AI feeding into Digital-Earth for Insurance, Government, and Consumers" class="digital-earth-image" loading="lazy" width="800" height="auto">
+      </div>
+      <div class="digital-earth-right">
+        <div class="digital-earth-boxes">
+          <div class="connectivity-card connectivity-card-wrap scroll-reveal" data-reveal>
+            <div class="card-icon card-icon-dark-bg card-icon-float">
+              <img src="../images/icon-satellite-remote-sensing.png" alt="Satellite and remote sensing">
+            </div>
+            <h3>Satellite &amp; Remote Sensing</h3>
+            <p>Satellite data feeds Digital-Earth for real-time urban mapping and sustainability scenarios — flooding, climate risk, wildfire impact, and infrastructure resilience.</p>
+          </div>
+          <div class="connectivity-card connectivity-card-wrap scroll-reveal" data-reveal>
+            <div class="card-icon card-icon-dark-bg card-icon-float">
+              <img src="../images/icon-robots-drones.png" alt="Robots, drones and autonomous vehicles">
+            </div>
+            <h3>Robots, Drones, &amp; Autonomous Vehicles</h3>
+            <p>Embodied-AI built into robots, drones, autonomous vehicles and urban IoT devices feed ground-level data into Digital-Earth — enabling real-time sustainability awareness, assurance, and emergency response through 5G/6G connectivity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="embedded-panels track-box-building">
+      <!-- Panel 1 -->
+      <div class="track-panel">
+        <button class="panel-toggle" onclick="togglePanel('panel-building-1')" aria-expanded="false">
+          <span class="panel-toggle-title">Panel 1: Bridging Data and Domains — Enabling Cross-Sector Use Cases</span>
+          <span class="panel-toggle-arrow">▼</span>
+        </button>
+        <div id="panel-building-1" class="panel-expandable">
+          <div class="panelist-cards">
+            <a href="../speakers.html" class="panelists-check-box">Check our panelists</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="track-panel">
+        <button class="panel-toggle" onclick="togglePanel('panel-building-2')" aria-expanded="false">
+          <span class="panel-toggle-title">Panel 2: From Real-Time to Predictive — Modeling Urban Scenarios</span>
+          <span class="panel-toggle-arrow">▼</span>
+        </button>
+        <div id="panel-building-2" class="panel-expandable">
+          <div class="panelist-cards">
+            <a href="../speakers.html" class="panelists-check-box">Check our panelists</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governance for Scale — Digital-Earth for Sustainable, Safe, and Resilient Cities -->
+  <section id="section-governance" class="connectivity-section">
+    <h3 class="digital-earth-hero-headline">Governance for Scale — Digital-Earth for Sustainable, Safe, and Resilient Cities</h3>
+    <div class="triangle-content">
+      <div class="triangle-image-wrapper">
+        <img src="../images/three-angles.jpeg" alt="Challenges &amp; Opportunities: Three Angles — Technology, Regulation, Insurance/Assurance for Digital-Earth and ethical embodied-AI" class="triangle-image" loading="lazy" width="520" height="auto">
+      </div>
+      <div class="triangle-pillars">
+        <div class="pillar-card pillar-reg">
+          <div class="card-icon card-icon-float pillar-card-icon">
+            <img src="../images/icon-regulation-compliance.png" alt="Regulation and compliance">
+          </div>
+          <h3>Regulation &amp; Compliance</h3>
+          <p>Policy frameworks, safety certification, and compliance standards for embodied-AI and Digital-Earth systems — keeping city automation ethical, transparent, and fair for residents and communities.</p>
+        </div>
+        <div class="pillar-card pillar-gov">
+          <div class="card-icon card-icon-float pillar-card-icon">
+            <img src="../images/icon-insurance-assurance.png" alt="Insurance and assurance">
+          </div>
+          <h3>Insurance &amp; Assurance</h3>
+          <p>Sustainability assurance frameworks, risk modeling from Digital-Earth data, and insurance intelligence for embodied-AI systems and climate-exposed urban environments.</p>
+        </div>
+      </div>
+    </div>
+    <div class="embedded-panels track-box-stakeholders">
+
+      <!-- Panel 3 -->
+      <div class="track-panel">
+        <button class="panel-toggle" onclick="togglePanel('panel-stake-1')" aria-expanded="false">
+          <span class="panel-toggle-title">Panel 3: Insurance &amp; Digital-Earth — Key Issues</span>
+          <span class="panel-toggle-arrow">▼</span>
+        </button>
+        <div id="panel-stake-1" class="panel-expandable">
+          <div class="panelist-cards">
+            <a href="../speakers.html" class="panelists-check-box">Check our panelists</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4 -->
+      <div class="track-panel">
+        <button class="panel-toggle" onclick="togglePanel('panel-stake-2')" aria-expanded="false">
+          <span class="panel-toggle-title">Panel 4: First-Responder &amp; Emergency Management</span>
+          <span class="panel-toggle-arrow">▼</span>
+        </button>
+        <div id="panel-stake-2" class="panel-expandable">
+          <div class="panelist-cards">
+            <a href="../speakers.html" class="panelists-check-box">Check our panelists</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keynote Speakers Section (hidden until speakers finalized) -->
+  <section id="section-keynotes" class="keynote-speakers-section section-hidden">
+    <h2 class="section-title">Invited Speakers (TBA)</h2>
+    <div class="speakers-grid">
+      <!-- Speaker card 1 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="../images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">NYC 2040 — A Long-Term Vision for Embodied-AI, Digital-Earth, and Resilient Urban Infrastructure</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker1-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker1-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker1-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker1-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speaker card 2 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="../images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Where We Are Now — Gaps, Progress, and the Social Benefit Case for Digital-Earth in NYC</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker2-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker2-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker2-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker2-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row of keynote speakers -->
+    <div class="speakers-grid" style="margin-top: 2rem;">
+      <!-- Speaker card 3 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="../images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
+        </div>
+        <div class="keynote-content">
+          <h3>Keynote Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Building It Out — How Satellites, Embodied-AI, and AI Create Digital-Earth for Safer Cities</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker3-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker3-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker3-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker3-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speaker card 4 -->
+      <div class="keynote-card text-center">
+        <div class="keynote-image">
+          <img src="../images/speakers/placeholder.svg" alt="Speaker placeholder" class="rounded-circle" loading="lazy" width="200" height="200" />
+        </div>
+        <div class="keynote-content">
+          <h3>Invited Speaker (TBA)</h3>
+          <p class="keynote-affiliation">Environmental Intelligence in Action — Digital-Earth Use Cases for Insurance, First-Responders, and Urban Resilience</p>
+          
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker4-bio')">
+              Biography <span class="arrow">▼</span>
+            </button>
+            <div id="speaker4-bio" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+
+          <div class="expand-section">
+            <button class="expand-btn" onclick="toggleSection('speaker4-abstract')">
+              Topic (TBA) <span class="arrow">▼</span>
+            </button>
+            <div id="speaker4-abstract" class="expandable-content">
+              <p>TBA.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Participate — Two main options -->
+  <section id="section-participate" class="participate-section">
+    <div class="participate-box">
+      <h2 class="participate-title">Participate <span class="participate-dates">— September 15–18, 2026</span></h2>
+      <div class="participate-cards participate-cards-two">
+        <a href="../attend.html" class="participate-card">
+          <h3>Attend</h3>
+          <p><strong>Event registration</strong> — Join keynotes, multi-disciplinary panels, and deep-dive discussions on Embodied-AI, Digital-Earth infrastructure, sustainability assurance, and environmental intelligence for cities.</p>
+          <p><strong>Workshop registration</strong> — Hands-on sessions on building Digital-Earth: from satellite and IoT data streams to embodied-AI-generated intelligence for sustainable, resilient cities.</p>
+        </a>
+        <a href="../contribute.html" class="participate-card contribute-card">
+          <h3>Contribute</h3>
+          <p><strong>Abstract &amp; short paper</strong> — Submit for poster presentation. Peer reviewed.</p>
+          <p><strong>Innovation challenge</strong> — Submit ideas using Embodied-AI, remote sensing, and Digital-Earth for sustainability assurance: safer cities, resilient infrastructure, and smarter environmental intelligence. Peer reviewed, with possible awards and sponsorships.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital-Earth: 2-Day Abstract Agenda — two tracks in separate boxes -->
+  <section id="section-schedule" class="digital-earth-section">
+    <h2 class="section-title">Program Schedule</h2>
+
+    <div class="agenda-boxes">
+      <div class="agenda-box agenda-box-stakeholders">
+        <h3 class="agenda-box-title">Digital-Earth Stakeholders</h3>
+        <p class="agenda-box-desc">Regulation, insurance, sustainability assurance, and consumer compliance — how city stakeholders ensure embodied-AI and Digital-Earth systems remain ethical, safe, and accountable at scale.</p>
+        <div class="agenda-day-summary">
+          <button type="button" class="agenda-day-toggle" onclick="toggleAgendaDay('agenda-stake-day1')">
+            <span class="agenda-day-label">Day 1 — September 15</span>
+            <span class="agenda-day-preview">Governance track · Click for detailed schedule</span>
+            <span class="agenda-day-arrow">▼</span>
+          </button>
+          <div id="agenda-stake-day1" class="agenda-day-detail">
+            <p class="agenda-detail-heading">Detailed schedule</p>
+            <ul>
+              <li><strong>Keynote speakers</strong> — Governance frameworks for embodied-AI and Digital-Earth: sustainability assurance at city scale</li>
+              <li><strong>Multi-disciplinary panel</strong> — Safety certification, environmental compliance, and ethical standards</li>
+              <li><strong>Open-discussion</strong> — Policy pathways for safer cities: what NYC needs now</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agenda-day-summary">
+          <button type="button" class="agenda-day-toggle" onclick="toggleAgendaDay('agenda-stake-day2')">
+            <span class="agenda-day-label">Day 2 — September 16</span>
+            <span class="agenda-day-preview">Governance track · Click for detailed schedule</span>
+            <span class="agenda-day-arrow">▼</span>
+          </button>
+          <div id="agenda-stake-day2" class="agenda-day-detail">
+            <p class="agenda-detail-heading">Detailed schedule</p>
+            <ul>
+              <li><strong>Keynote speakers</strong> — Environmental intelligence for insurance: Digital-Earth as a risk tool</li>
+              <li><strong>Multi-disciplinary panel</strong> — Accountability, risk modeling, and assurance for connected autonomous systems</li>
+              <li><strong>Open-discussion</strong> — From sensors to risk insight: what insurers and municipalities need from Digital-Earth</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="agenda-box agenda-box-building">
+        <h3 class="agenda-box-title">Digital-Earth Builders</h3>
+        <p class="agenda-box-desc">Satellites, IoT, embodied-AI robots, drones, and autonomous vehicles generate the data streams that build and maintain Digital-Earth — enabling sustainability assurance for safer, more resilient cities.</p>
+        <div class="agenda-day-summary">
+          <button type="button" class="agenda-day-toggle" onclick="toggleAgendaDay('agenda-build-day1')">
+            <span class="agenda-day-label">Day 1 — September 15</span>
+            <span class="agenda-day-preview">Technical track · Click for detailed schedule</span>
+            <span class="agenda-day-arrow">▼</span>
+          </button>
+          <div id="agenda-build-day1" class="agenda-day-detail">
+            <p class="agenda-detail-heading">Detailed schedule</p>
+            <ul>
+              <li><strong>Keynote speakers</strong> — Embodied-AI and remote sensing: building Digital-Earth infrastructure for urban sustainability assurance</li>
+              <li><strong>Multi-disciplinary panel</strong> — Data fusion from satellites, drones, and ground-based embodied-AI for real-time city sustainability intelligence</li>
+              <li><strong>Open-discussion</strong> — Implementation roadmap: from sensing to sustainability assurance in cities</li>
+            </ul>
+          </div>
+        </div>
+        <div class="agenda-day-summary">
+          <button type="button" class="agenda-day-toggle" onclick="toggleAgendaDay('agenda-build-day2')">
+            <span class="agenda-day-label">Day 2 — September 16</span>
+            <span class="agenda-day-preview">Technical track · Click for detailed schedule</span>
+            <span class="agenda-day-arrow">▼</span>
+          </button>
+          <div id="agenda-build-day2" class="agenda-day-detail">
+            <p class="agenda-detail-heading">Detailed schedule</p>
+            <ul>
+              <li><strong>Keynote speakers</strong> — Predictive Digital-Earth: from now-casting to long-term urban sustainability modeling</li>
+              <li><strong>Multi-disciplinary panel</strong> — Embodied AI enabling flood response, wildfire monitoring, traffic intelligence, and emergency management</li>
+              <li><strong>Open-discussion</strong> — Hands-on workshop, poster session, and Digital-Earth Sustainability Challenge presentations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="section-breaker"></div>
+
+  <!-- Organizers in one row, three columns -->
+  <section id="section-organizers" class="organizers-section">
+    <h2>Hosts / Organizers</h2>
+    <p class="organizers-hint">Click a card to view full bio and affiliation.</p>
+    <div class="organizer-row">
+      <!-- Fred Moshary -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/FredMoshary.jpg"
+           data-name="Fred Moshary"
+           data-affiliation="Chair &amp; Professor of Electrical Engineering, CCNY, CUNY"
+           data-bio="Chair &amp; Professor of Electrical Engineering, City College of New York at City University of New York."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/FredMoshary.jpg" alt="Fred Moshary" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Fred Moshary</h3>
+        <p class="organizer-affiliation">Chair &amp; Professor of Electrical Engineering, CCNY, CUNY.</p>
+      </div>
+
+      <!-- Reza -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/RezaKhanbilvardi.jpg"
+           data-name="Reza Khanbilvardi"
+           data-affiliation="NOAA Chair Professor of Civil Engineering, CCNY, CUNY"
+           data-bio="Professor, Civil Engineering, The City College of New York (CCNY); affiliated with CUNY-CREST Institute, Earth System Science and Environmental Engineering, and NOAA-CESSRST."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/RezaKhanbilvardi.jpg" alt="Reza Khanbilvardi" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Reza Khanbilvardi</h3>
+        <p class="organizer-affiliation">NOAA Chair Professor of Civil Engineering, CCNY, CUNY.</p>
+      </div>
+
+      <!-- Jizhong Xiao -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/JizhongXiao.jpg"
+           data-name="Jizhong Xiao"
+           data-affiliation="Professor, Electrical Engineering, CCNY"
+           data-bio="Professor, Electrical Engineering, The City College of New York (CCNY)."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/JizhongXiao.jpg" alt="Jizhong Xiao" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Jizhong Xiao</h3>
+        <p class="organizer-affiliation">Professor, Electrical Engineering, CCNY.</p>
+      </div>
+
+      <!-- Naresh Devineni -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/NareshDevineni.jpg"
+           data-name="Naresh Devineni"
+           data-affiliation="Professor, Civil Engineering, CCNY"
+           data-bio="Professor, Civil Engineering, The City College of New York (CCNY)."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/NareshDevineni.jpg" alt="Naresh Devineni" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Naresh Devineni</h3>
+        <p class="organizer-affiliation">Professor, Civil Engineering, CCNY.</p>
+      </div>
+
+      <!-- Aliasghar Arab -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/AliasgharArab.png"
+           data-name="Aliasghar Arab"
+           data-affiliation="Research Professor, CCNY and NYU"
+           data-bio="Research Professor at The City College of New York (CCNY) and New York University."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/AliasgharArab.png" alt="Aliasghar Arab" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Aliasghar Arab</h3>
+        <p class="organizer-affiliation">Research Professor, CCNY and NYU.</p>
+      </div>
+
+      <!-- Karin Sjöstrand -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/KarinSjoestrand.jpeg"
+           data-name="Karin Sjöstrand"
+           data-affiliation="Deputy Executive Director of Operations – UNU Hub, CCNY"
+           data-bio="Deputy Executive Director of Operations – UNU Hub, City College of New York."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/KarinSjoestrand.jpeg" alt="Karin Sjöstrand" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Karin Sjöstrand</h3>
+        <p class="organizer-affiliation">Deputy Executive Director of Operations – UNU Hub, CCNY.</p>
+      </div>
+
+      <!-- Shakila Merchant -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/ShakilaMerchant.png"
+           data-name="Shakila Merchant"
+           data-affiliation="Deputy Director, Leadership — NOAA Cooperative Science Center at CCNY; Director, CUNY CREST HIRES program"
+           data-bio="Dr. Shakila Merchant is passionate about education, training, and research projects. She has extensive knowledge and experience in project management, planning, and assessment. Her research areas of interest are environmental impact and ecosystem health assessment. Dr. Merchant is a strong supporter of Science, Technology, Engineering, and Mathematics (STEM) education for high schoolers. She is the director of the CUNY CREST High School Initiative in Remote Sensing of the Earth Systems Engineering &amp; Sciences (HIRES) program. For the last 10 years, HIRES has successfully provided advanced STEM research training to New York City (NYC) high school students from underrepresented groups. Since 2002, Dr. Merchant has served as a program and career advisor and mentor for more than seven hundred (700) post-secondary students from underrepresented groups.&#10;&#10;Dr. Merchant worked as an Environmental Scientist at the National Environmental Engineering Research Institute (NEERI), Council of Scientific and Industrial Research (CSIR), Ministry of Science and Technology, Government of India for more than 10 years before moving to the United States. She joined the National Oceanic and Atmospheric Administration (NOAA) Cooperative Science Center at the City College of New York in 2002. In her tenure at NOAA CSC, Dr. Merchant has worn multiple hats. She has played a key role in developing center best practices such as the Individualized Students Development Plan (ISDP) and Professional Advancement and Career Engagement (PACE). She has served on the American Meteorological Society (AMS) Education Symposium Committee in 2020–2021 and presented at several national conferences, and has been invited to lead and/or serve on several panels including women leaders in STEM fields, diversity, equity and inclusion, and STEM education and workforce development."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/ShakilaMerchant.png" alt="Dr. Shakila Merchant" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Shakila Merchant</h3>
+        <p class="organizer-affiliation">Deputy Director, Leadership — NOAA Cooperative Science Center at CCNY; Director, CUNY CREST HIRES program.</p>
+      </div>
+
+      <!-- Mitchell Goldberg -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/MitchGoldbergjpg.png"
+           data-name="Mitchell Goldberg"
+           data-affiliation="Distinguished Research Scientist, NOAA-CESSRST at CCNY; Senior Scientist, NOAA NESDIS"
+           data-bio="Distinguished Research Scientist for NOAA-CESSRST at The City College of New York; also identified by NOAA NESDIS as Senior Scientist."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/MitchGoldbergjpg.png" alt="Mitchell Goldberg" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Mitchell Goldberg</h3>
+        <p class="organizer-affiliation">Distinguished Research Scientist, NOAA-CESSRST at CCNY; Senior Scientist, NOAA NESDIS.</p>
+      </div>
+
+      <!-- Koorosh Aslansefat -->
+      <div class="organizer-card" role="button" tabindex="0"
+           data-photo="../images/hosts/KooroshAslansefat.png"
+           data-name="Koorosh Aslansefat"
+           data-affiliation="Assistant Professor of Computer Science, University of Hull; Member, Dependable Intelligent System Group (DEIS)"
+           data-bio="Koorosh Aslansefat is an Assistant Professor of Computer Science and a member of the Dependable Intelligent System Group (DEIS) at the University of Hull. He received his M.Sc. in Control Engineering from Shahid Beheshti University, Tehran, Iran, in 2014. From 2016 to 2018, he held a fellowship (Grant No. 723764) for the EU H2020 project GO0D MAN (aGent Oriented Zero Defect Multi-stage mANufacturing). In 2018, he was awarded a Studentship by EDF Energy R&amp;D UK to pursue a PhD at the University of Hull in collaboration with EDF Energy, on the project DREAM (Data-driven Reliability-centred Evolutionary Automated Maintenance for Offshore Wind Farms). During his PhD, he received the IET Leslie H. Paddle Award for Outstanding Researcher for his work on real-time dependability evaluation and the DREAM project."
+           onclick="openOrganizerModal(this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openOrganizerModal(this);}">
+        <img src="../images/hosts/KooroshAslansefat.png" alt="Koorosh Aslansefat" class="organizer-img rounded-circle" loading="lazy" width="140" height="140">
+        <h3>Koorosh Aslansefat</h3>
+        <p class="organizer-affiliation">Assistant Professor of Computer Science, University of Hull.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors Section (IROS-style) -->
+  <section id="section-sponsors" class="sponsors-section">
+    <h2 class="section-title">Sponsors</h2>
+    <p class="sponsors-intro">Our sponsors believe in a safer, smarter, and more resilient New York City — and make this vision possible. We are grateful for their commitment to the future of our communities.</p>
+    <div class="sponsors-grid">
+      <div class="sponsor-tier">
+        <h3>Platinum</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot sponsor-logo-img">
+            <img src="../images/logos/CUNY.png" alt="The City University of New York" loading="lazy" width="200" height="80">
+          </div>
+        </div>
+      </div>
+      <div class="sponsor-tier">
+        <h3>Gold</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+        </div>
+      </div>
+      <div class="sponsor-tier">
+        <h3>Silver</h3>
+        <div class="sponsor-logos">
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+          <div class="sponsor-slot">Sponsor logo (TBA)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="../images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+  /* Base styles */
+  .container {
+    width: 100%;
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  /* Workshop title responsive */
+  .workshop-title-container {
+    padding: 4rem 0;
+    background: linear-gradient(to right, #f8f9fa, #ffffff, #f8f9fa);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 460px);
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-earth-shell {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+  }
+
+  .hero-earth-scene {
+    width: min(42vw, 420px);
+    height: min(42vw, 420px);
+    max-width: 420px;
+    max-height: 420px;
+    min-width: 300px;
+    min-height: 300px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 24px 60px rgba(15, 23, 42, 0.55));
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .hero-earth-scene.is-dragging {
+    cursor: grabbing;
+  }
+
+  .hero-earth-scene canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border-radius: 50%;
+  }
+
+  .hero-earth-halo {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 520px;
+    height: 520px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(14, 165, 233, 0.14) 28%, rgba(2, 132, 199, 0.06) 48%, transparent 70%);
+    filter: blur(10px);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .main-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    background: linear-gradient(120deg, #2c3e50, #3498db);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    padding: 0 15px;
+  }
+
+  .conference-date {
+    font-size: 1.4rem;
+    color: #3498db;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in;
+  }
+
+  .important-dates {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1.2rem;
+    background: #f8f9fa;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    display: inline-block;
+    color: #2c3e50;
+  }
+
+  /* Desktop layout */
+  @media (min-width: 769px) {
+    .speakers-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .keynote-card, .speaker-card {
+      flex: 1;
+      max-width: 400px;
+    }
+
+    /* Organizers: 3 cards top row, 2 bottom row */
+    .organizer-row {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .organizer-card {
+      flex: 0 1 calc(25% - 1rem);
+      max-width: 240px;
+      padding: 1rem;
+    }
+
+    .organizer-card .organizer-img {
+      width: 140px;
+      height: 140px;
+    }
+  }
+
+  /* Mobile layout */
+  @media (max-width: 768px) {
+    .hero-layout {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .hero-earth-shell {
+      order: -1;
+      min-height: 300px;
+      margin-top: -0.5rem;
+    }
+
+    .hero-earth-scene {
+      width: min(72vw, 320px);
+      height: min(72vw, 320px);
+      min-width: 220px;
+      min-height: 220px;
+    }
+
+    .hero-earth-halo {
+      width: 360px;
+      height: 360px;
+    }
+
+    /* Container reset */
+    .container {
+      padding: 0;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Specific styles for Keynote Speakers and Panelists */
+    .keynote-card, .speaker-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 0 1rem 0 !important;
+      padding: 1.5rem !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 0;
+      background: white;
+      display: block !important;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Reset flex for speakers and panelists */
+    .speakers-grid div[style*="display: flex"] {
+      display: block !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Mobile organizer card styling - one per row */
+    .organizer-row {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 1rem !important;
+    }
+    
+    .organizer-card {
+      width: 95% !important;
+      max-width: 400px !important;
+      margin: 0 auto 1.5rem auto !important;
+      padding: 1.5rem !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2) !important;
+      flex: none !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 150px !important;
+      height: 150px !important;
+      margin: 0 auto 1rem !important;
+    }
+
+    /* Section titles */
+    .section-title {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 2rem !important;
+    }
+    
+    /* Mobile navigation adjustments */
+    .nav-tab {
+      padding: 0.5rem !important;
+    }
+    
+    .nav-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .nav-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .simulator-link {
+      font-size: 1rem !important;
+      padding: 0.6rem 1.5rem !important;
+      min-width: 200px !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    /* Mobile CFP section */
+    .cfp-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-section {
+      padding: 1.5rem !important;
+      margin: 2rem 0.5rem !important;
+    }
+    
+    .cfp-preview-text {
+      font-size: 1rem !important;
+    }
+    
+    .cfp-button {
+      font-size: 1rem !important;
+      padding: 0.875rem 2rem !important;
+      width: 100%;
+      max-width: 300px;
+    }
+    
+    .cfp-intro,
+    .cfp-submission,
+    .cfp-topics,
+    .cfp-timeline,
+    .cfp-format,
+    .cfp-tpc,
+    .cfp-submission-platform {
+      padding: 1rem !important;
+    }
+    
+    .cfp-section h3 {
+      font-size: 1.2rem !important;
+    }
+
+    /* Image sizing */
+    .speaker-image, .keynote-image {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1rem;
+      display: block;
+    }
+
+    /* Bio sections */
+    .bio-section {
+      width: 100%;
+      padding: 0;
+    }
+
+    /* Expandable content */
+    .expandable-content {
+      width: 100%;
+      padding: 1rem 0.5rem;
+      margin: 0;
+    }
+  }
+
+  /* Small screens */
+  @media (max-width: 380px) {
+    .keynote-card, .speaker-card {
+      padding: 1rem !important;
+    }
+
+    .organizer-card {
+      width: 98% !important;
+      padding: 1rem !important;
+      margin: 0 auto 1rem auto !important;
+    }
+    
+    .organizer-card .organizer-img {
+      width: 120px !important;
+      height: 120px !important;
+    }
+
+    .speaker-image, .keynote-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  /* Prevent horizontal scroll */
+  body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Force center alignment */
+  .text-center {
+    text-align: center !important;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    width: 100%;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .speaker-image, .keynote-image, .organizer-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .speaker-image img, .keynote-image img, .organizer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .speaker-card, .keynote-card, .organizer-card {
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 300px;
+  }
+
+  .keynote-card {
+    flex: 1;
+    max-width: 500px;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .keynote-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #4a90e2, #67b26f);
+  }
+
+  .keynote-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .keynote-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    position: relative;
+    border-radius: 50%;
+    padding: 8px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .keynote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  .keynote-content {
+    padding: 1rem 0;
+  }
+
+  .keynote-card h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .keynote-title {
+    font-size: 1.2rem;
+    color: #4a90e2;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .keynote-org {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .expand-section {
+    margin-top: 1rem;
+    text-align: left;
+  }
+
+  .expand-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .expand-btn:hover {
+    background: #e9ecef;
+  }
+
+  .arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-content {
+    display: none;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 1rem;
+  }
+
+  .expandable-content.active {
+    display: block;
+  }
+
+  .bio-section {
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .short-bio {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .expand-bio-btn {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .expand-bio-btn:hover {
+    color: #357abd;
+  }
+
+  .arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+
+  .arrow.active {
+    transform: rotate(180deg);
+  }
+
+  .expandable-bio {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+
+  .expandable-bio.active {
+    display: block;
+  }
+
+  .expandable-bio p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .keynote-card a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .keynote-card a:hover {
+    color: #4a90e2;
+  }
+
+  .workshop-title-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .title-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    margin: 1.5rem auto;
+    border-radius: 2px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Dark mode overrides (homepage has local styles) */
+  body.theme-dark .workshop-title-container {
+    background: transparent;
+  }
+
+  body.theme-dark .main-title {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(120deg, var(--brand), var(--brand-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  body.theme-dark .conference-date {
+    color: var(--brand-2);
+  }
+
+  body.theme-dark .section-title,
+  body.theme-dark .abstract-section h2,
+  body.theme-dark .schedule-section h2,
+  body.theme-dark .organizers-section h2,
+  body.theme-dark .triangle-section h2 {
+    color: var(--text);
+  }
+
+  body.theme-dark .vision-welcome,
+  body.theme-dark .vision-tagline {
+    color: var(--text);
+  }
+
+  body.theme-dark .vision-intro,
+  body.theme-dark .triangle-closing {
+    color: var(--text-muted);
+  }
+
+  body.theme-dark .vision-btn-secondary {
+    color: var(--brand);
+    border-color: var(--brand);
+  }
+
+  body.theme-dark .vision-btn-secondary:hover {
+    background: rgba(192, 132, 252, 0.12);
+  }
+
+  body.theme-dark .triangle-section {
+    background: var(--panel);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  body.theme-dark .pillar-card {
+    background: var(--panel-muted);
+  }
+
+  body.theme-dark .pillar-card h3 {
+    color: var(--text);
+  }
+
+  body.theme-dark .pillar-card p {
+    color: var(--text-muted);
+  }
+
+  body.theme-dark .keynote-card,
+  body.theme-dark .speaker-card,
+  body.theme-dark .organizer-card,
+  body.theme-dark .schedule-section table {
+    background: var(--panel);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  body.theme-dark .schedule-section th {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+  }
+
+  body.theme-dark .expand-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.10);
+    color: var(--text);
+  }
+
+  body.theme-dark .expand-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+  }
+
+  body.theme-dark .expandable-content,
+  body.theme-dark .expandable-bio {
+    background: rgba(17, 24, 39, 0.55);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+  }
+
+  body.theme-dark .keynote-card h3,
+  body.theme-dark .speaker-card h3,
+  body.theme-dark .organizer-card h3 {
+    color: var(--text);
+  }
+
+  body.theme-dark .footer {
+    background: rgba(2, 6, 23, 0.85);
+    border-top-color: rgba(192, 132, 252, 0.25);
+  }
+
+  /* Organizer modal */
+  .organizers-hint { text-align: center; font-size: 0.875rem; color: var(--text-muted); margin: -0.75rem 0 1.5rem; }
+  .organizer-card { cursor: pointer; }
+  .organizer-card:hover { border-color: var(--brand) !important; box-shadow: 0 12px 28px rgba(0,0,0,0.12) !important; }
+  .organizer-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
+  .organizer-modal-overlay.open { display: flex; }
+  .organizer-modal { background: var(--panel); border-radius: 12px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
+  .organizer-modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); line-height: 1; padding: 0.25rem; }
+  .organizer-modal-close:hover { color: var(--text); }
+  .organizer-modal-content { padding: 2rem; text-align: center; }
+  .organizer-modal-content .organizer-modal-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; display: block; border: 3px solid var(--border); }
+  .organizer-modal-content .organizer-modal-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; line-height: 1.3; color: var(--text); }
+  .organizer-modal-content .organizer-modal-affil { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; }
+  .organizer-modal-content .organizer-modal-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; white-space: pre-wrap; text-align: left; }
+
+  </style>
+
+  <script>
+  // Hero background video: ensure autoplay, loop, and 1/3 speed
+  (function() {
+    var video = document.querySelector('.hero-bg-video');
+    if (!video) return;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.playbackRate = 1 / 3;
+    video.addEventListener('loadeddata', function() { video.play().catch(function() {}); });
+    video.addEventListener('ended', function() { video.currentTime = 0; video.play(); });
+    video.play().catch(function() {});
+  })();
+
+  // Dynamic hero top offset: ensure first section starts below fixed top bar + nav
+  (function() {
+    function updateHeroTopOffset() {
+      var topBar = document.querySelector('.top-bar');
+      var navTab = document.querySelector('.nav-tab');
+      var hero = document.querySelector('.workshop-title-container');
+      if (!topBar || !navTab || !hero) return;
+      var offset = topBar.getBoundingClientRect().height + navTab.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--hero-top-offset', offset + 'px');
+    }
+    function initHeroOffset() {
+      updateHeroTopOffset();
+      window.addEventListener('resize', updateHeroTopOffset);
+      var hamburger = document.querySelector('.nav-hamburger');
+      var navTab = document.querySelector('.nav-tab');
+      if (hamburger && navTab) {
+        hamburger.addEventListener('click', function() {
+          setTimeout(updateHeroTopOffset, 150);
+        });
+      }
+      if (typeof ResizeObserver !== 'undefined' && navTab) {
+        var ro = new ResizeObserver(updateHeroTopOffset);
+        ro.observe(document.querySelector('.top-bar'));
+        ro.observe(navTab);
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroOffset);
+    } else {
+      initHeroOffset();
+    }
+  })();
+
+  // Mobile nav hamburger toggle
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+
+  function toggleSection(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+  }
+
+  function togglePanel(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.panel-toggle-arrow');
+    const isOpen = content.classList.contains('panel-expandable--open');
+
+    content.classList.toggle('panel-expandable--open', !isOpen);
+    arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    button.setAttribute('aria-expanded', String(!isOpen));
+  }
+
+  function toggleAgendaDay(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button ? button.querySelector('.agenda-day-arrow') : null;
+    content.classList.toggle('active');
+    if (arrow) arrow.classList.toggle('active');
+  }
+
+  function toggleBio(id) {
+    const content = document.getElementById(id);
+    const button = content.previousElementSibling;
+    const arrow = button.querySelector('.arrow');
+    
+    content.classList.toggle('active');
+    arrow.classList.toggle('active');
+    
+    // Update button text
+    button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
+  }
+
+  // Scroll-based navigation hide/show
+  (function() {
+    var lastScrollTop = 0;
+    var isScrolling = false;
+    var navTab = document.querySelector('.nav-tab');
+    if (!navTab) return;
+    window.addEventListener('scroll', function() {
+      if (isScrolling) return;
+      isScrolling = true;
+      requestAnimationFrame(function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+          navTab.classList.add('hidden');
+        } else {
+          navTab.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        isScrolling = false;
+      });
+    });
+  })();
+
+  // Rotating tagline: smooth, bold spin through conference themes
+  (function initRotatingWord() {
+    const el = document.getElementById('rotatingWord');
+    if (!el) return;
+    const phrases = [
+      'Embodied-AI Meets Digital-Earth',
+      'Sustainability Assurance for Cities',
+      'Listening from Space, Acting on the Ground',
+      'Environmental Intelligence for Safer Cities'
+    ];
+    let i = 0;
+    setInterval(function() {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-12px) rotateX(-25deg) scale(0.95)';
+      setTimeout(function() {
+        i = (i + 1) % phrases.length;
+        el.textContent = phrases[i];
+        el.style.transform = 'translateY(12px) rotateX(25deg) scale(0.95)';
+        el.style.opacity = '0';
+        void el.offsetWidth;
+        el.style.transition = 'opacity 0.45s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0) rotateX(0) scale(1)';
+      }, 450);
+    }, 3500);
+  })();
+
+  // Scroll-reveal: animate each Digital-Earth card one by one when scrolling
+  (function initScrollReveal() {
+    const cards = document.querySelectorAll('.connectivity-card[data-reveal]');
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+
+    cards.forEach(function(card) {
+      observer.observe(card);
+    });
+  })();
+
+  // Enhanced animated word effects
+  document.addEventListener('DOMContentLoaded', function() {
+    const animatedWords = document.querySelectorAll('.animated-word');
+    
+    animatedWords.forEach((word, index) => {
+      // Add staggered entrance animation
+      word.style.animationDelay = `${index * 0.1}s`;
+      word.classList.add('fade-in-word');
+      
+      // Enhanced hover effects
+      word.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.05) rotate(1deg)';
+        this.style.zIndex = '10';
+        
+        // Add ripple effect
+        createRippleEffect(this);
+      });
+      
+      word.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1) rotate(0deg)';
+        this.style.zIndex = '1';
+      });
+      
+      // Add click effect
+      word.addEventListener('click', function() {
+        this.style.transform = 'translateY(-4px) scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'translateY(0) scale(1)';
+        }, 150);
+      });
+    });
+  });
+
+  function createRippleEffect(element) {
+    const ripple = document.createElement('div');
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(192, 132, 252, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s linear';
+    ripple.style.left = '50%';
+    ripple.style.top = '50%';
+    ripple.style.width = '20px';
+    ripple.style.height = '20px';
+    ripple.style.marginLeft = '-10px';
+    ripple.style.marginTop = '-10px';
+    ripple.style.pointerEvents = 'none';
+    
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+
+  /* Scroll-spy: highlight active section in nav */
+  (function() {
+    const sections = ['section-hero', 'section-intro', 'section-panels', 'section-governance', 'section-keynotes', 'section-participate', 'section-schedule', 'section-organizers', 'section-sponsors'];
+    const navLinks = document.querySelectorAll('.scroll-spy-link');
+    const topBarHeight = document.querySelector('.top-bar')?.offsetHeight || 0;
+    const navTabHeight = document.querySelector('.nav-tab')?.offsetHeight || 0;
+    const offset = topBarHeight + navTabHeight + 60;
+
+    function updateActiveSection() {
+      let active = 'section-hero';
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.getBoundingClientRect().top <= offset) {
+          active = sections[i];
+          break;
+        }
+      }
+
+      /* Intro nav item covers both hero and Conference Vision */
+      const activeForNav = (active === 'section-intro') ? 'section-hero' : active;
+
+      navLinks.forEach((link) => {
+        const section = link.getAttribute('data-section');
+        link.classList.toggle('active', section === activeForNav);
+      });
+    }
+
+    const nav = document.querySelector('.scroll-spy-nav');
+    let ticking = false;
+    let hideTimer = null;
+
+    function showNav() {
+      nav.classList.add('scroll-spy-visible');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function() {
+        nav.classList.remove('scroll-spy-visible');
+      }, 1200);
+    }
+
+    window.addEventListener('scroll', function() {
+      showNav();
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActiveSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    updateActiveSection();
+  })();
+  </script>
+
+  <script type="module">
+  import * as THREE from 'https://esm.sh/three@0.161.0';
+
+  (function() {
+    const mount = document.getElementById('heroEarthScene');
+    if (!mount) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    mount.appendChild(renderer.domElement);
+
+    const camera = new THREE.PerspectiveCamera(36, mount.clientWidth / mount.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 6.7);
+
+    const ambient = new THREE.AmbientLight(0x8fdcff, 1.6);
+    scene.add(ambient);
+
+    const sun = new THREE.DirectionalLight(0xffffff, 2.6);
+    sun.position.set(4, 2, 5);
+    scene.add(sun);
+
+    const rim = new THREE.DirectionalLight(0x60a5fa, 1.6);
+    rim.position.set(-5, -1.5, -4);
+    scene.add(rim);
+
+    const textureLoader = new THREE.TextureLoader();
+
+    function loadTexture(path) {
+      const texture = textureLoader.load(path);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      return texture;
+    }
+
+    const earthGroup = new THREE.Group();
+    scene.add(earthGroup);
+
+    const earthTexture = loadTexture('../images/earth-3d/albedo.jpg?v=2');
+    const bumpTexture = textureLoader.load('../images/earth-3d/bump.jpg?v=2');
+    const nightTexture = loadTexture('../images/earth-3d/night-lights.png?v=2');
+    const landOceanMask = textureLoader.load('../images/earth-3d/land-ocean-mask.png?v=2');
+
+    bumpTexture.colorSpace = THREE.NoColorSpace;
+    landOceanMask.colorSpace = THREE.NoColorSpace;
+    const earth = new THREE.Mesh(
+      new THREE.SphereGeometry(2, 96, 96),
+      new THREE.MeshPhongMaterial({
+        map: earthTexture,
+        bumpMap: bumpTexture,
+        bumpScale: 0.10,
+        specularMap: landOceanMask,
+        emissiveMap: nightTexture,
+        emissive: new THREE.Color('#ffb347'),
+        emissiveIntensity: 0.4,
+        shininess: 16,
+        specular: new THREE.Color('#a7d8ff')
+      })
+    );
+    earthGroup.add(earth);
+
+    const cloudTexture = textureLoader.load('../images/earth-3d/clouds.png?v=2');
+    cloudTexture.colorSpace = THREE.SRGBColorSpace;
+
+    const clouds = new THREE.Mesh(
+      new THREE.SphereGeometry(2.04, 64, 64),
+      new THREE.MeshPhongMaterial({
+        map: cloudTexture,
+        transparent: true,
+        opacity: 0.34,
+        depthWrite: false
+      })
+    );
+    earthGroup.add(clouds);
+
+    const atmosphere = new THREE.Mesh(
+      new THREE.SphereGeometry(2.18, 64, 64),
+      new THREE.MeshBasicMaterial({
+        color: 0x4cc9ff,
+        transparent: true,
+        opacity: 0.14,
+        side: THREE.BackSide
+      })
+    );
+    earthGroup.add(atmosphere);
+
+    const starsGeometry = new THREE.BufferGeometry();
+    const starCount = 1200;
+    const starVertices = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const radius = 16 + Math.random() * 20;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      starVertices[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      starVertices[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      starVertices[i * 3 + 2] = radius * Math.cos(phi);
+    }
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(starVertices, 3));
+
+    const stars = new THREE.Points(
+      starsGeometry,
+      new THREE.PointsMaterial({
+        color: 0xdbeafe,
+        size: 0.06,
+        transparent: true,
+        opacity: 0.85
+      })
+    );
+    scene.add(stars);
+
+    const pointer = { x: 0, y: 0 };
+    const zoom = {
+      min: 4.3,
+      max: 9.2,
+      current: 6.7,
+      target: 6.7
+    };
+    const drag = {
+      active: false,
+      lastX: 0,
+      lastY: 0,
+      rotationX: 0,
+      rotationY: 0
+    };
+    const activePointers = new Map();
+    let pinchDistance = null;
+    let rafId = null;
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function distanceBetweenPointers(a, b) {
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+      return Math.hypot(dx, dy);
+    }
+
+    function updateZoom(delta) {
+      zoom.target = clamp(zoom.target + delta, zoom.min, zoom.max);
+    }
+
+    function onPointerMove(event) {
+      if (activePointers.has(event.pointerId)) {
+        activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      }
+
+      if (activePointers.size === 2) {
+        const [first, second] = Array.from(activePointers.values());
+        const nextDistance = distanceBetweenPointers(first, second);
+        if (pinchDistance !== null) {
+          updateZoom((pinchDistance - nextDistance) * 0.01);
+        }
+        pinchDistance = nextDistance;
+        drag.active = false;
+        mount.classList.remove('is-dragging');
+        return;
+      }
+
+      if (drag.active) {
+        const dx = event.clientX - drag.lastX;
+        const dy = event.clientY - drag.lastY;
+        drag.lastX = event.clientX;
+        drag.lastY = event.clientY;
+        drag.rotationY += dx * 0.008;
+        drag.rotationX += dy * 0.006;
+        drag.rotationX = clamp(drag.rotationX, -0.65, 0.65);
+        return;
+      }
+      const rect = mount.getBoundingClientRect();
+      pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
+    }
+
+    function onPointerDown(event) {
+      activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (activePointers.size === 2) {
+        const [first, second] = Array.from(activePointers.values());
+        pinchDistance = distanceBetweenPointers(first, second);
+        drag.active = false;
+        mount.classList.remove('is-dragging');
+        mount.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+        return;
+      }
+      drag.active = true;
+      drag.lastX = event.clientX;
+      drag.lastY = event.clientY;
+      mount.classList.add('is-dragging');
+      mount.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    }
+
+    function onPointerUp(event) {
+      activePointers.delete(event.pointerId);
+      if (activePointers.size < 2) pinchDistance = null;
+      drag.active = false;
+      mount.classList.remove('is-dragging');
+      mount.releasePointerCapture?.(event.pointerId);
+    }
+
+    function onWheel(event) {
+      event.preventDefault();
+      updateZoom(event.deltaY * 0.004);
+    }
+
+    mount.addEventListener('pointerdown', onPointerDown);
+    mount.addEventListener('pointermove', onPointerMove);
+    mount.addEventListener('pointerup', onPointerUp);
+    mount.addEventListener('pointercancel', onPointerUp);
+    mount.addEventListener('wheel', onWheel, { passive: false });
+    mount.addEventListener('pointerleave', function() {
+      if (!drag.active) {
+        pointer.x = 0;
+        pointer.y = 0;
+      }
+    });
+    window.addEventListener('pointerup', function() {
+      if (!drag.active) return;
+      drag.active = false;
+      mount.classList.remove('is-dragging');
+    });
+    mount.addEventListener('dragstart', function(event) {
+      event.preventDefault();
+    });
+    mount.addEventListener('pointerleave', function() {
+      if (drag.active) return;
+      pointer.x = 0;
+      pointer.y = 0;
+    });
+
+    function resize() {
+      if (!mount.clientWidth || !mount.clientHeight) return;
+      camera.aspect = mount.clientWidth / mount.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
+    }
+    window.addEventListener('resize', resize);
+
+    const clock = new THREE.Clock();
+    function animate() {
+      const elapsed = clock.getElapsedTime();
+      earth.rotation.y += prefersReducedMotion ? 0.0012 : 0.0022;
+      clouds.rotation.y += prefersReducedMotion ? 0.0016 : 0.0026;
+      stars.rotation.y = elapsed * 0.01;
+      zoom.current += (zoom.target - zoom.current) * 0.12;
+      camera.position.z = zoom.current;
+
+      const targetRotationX = drag.rotationX + pointer.y * 0.18;
+      const targetRotationY = drag.rotationY + pointer.x * 0.24;
+      earthGroup.rotation.x += (targetRotationX - earthGroup.rotation.x) * 0.08;
+      earthGroup.rotation.y += (targetRotationY - earthGroup.rotation.y) * 0.08;
+      earthGroup.position.y = Math.sin(elapsed * 0.7) * 0.08;
+
+      renderer.render(scene, camera);
+      rafId = requestAnimationFrame(animate);
+    }
+
+    resize();
+    animate();
+
+    window.addEventListener('beforeunload', function() {
+      if (rafId) cancelAnimationFrame(rafId);
+      renderer.dispose();
+      starsGeometry.dispose();
+      earth.geometry.dispose();
+      earth.material.dispose();
+      clouds.geometry.dispose();
+      clouds.material.dispose();
+      atmosphere.geometry.dispose();
+      atmosphere.material.dispose();
+      earthTexture.dispose();
+      bumpTexture.dispose();
+      nightTexture.dispose();
+      landOceanMask.dispose();
+      cloudTexture.dispose();
+    });
+  })();
+  </script>
+
+  <!-- Organizer / Host pop-up modal -->
+  <div class="organizer-modal-overlay" id="organizerModal" role="dialog" aria-modal="true" aria-labelledby="modalOrganizerName">
+    <div class="organizer-modal" onclick="event.stopPropagation()">
+      <button class="organizer-modal-close" onclick="closeOrganizerModal()" aria-label="Close">&times;</button>
+      <div class="organizer-modal-content">
+        <img id="modalOrgPhoto" src="" alt="" class="organizer-modal-photo" width="120" height="120">
+        <h2 id="modalOrganizerName" class="organizer-modal-name"></h2>
+        <p id="modalOrgAffil" class="organizer-modal-affil"></p>
+        <p id="modalOrgBio" class="organizer-modal-bio"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function openOrganizerModal(card) {
+    var modal = document.getElementById('organizerModal');
+    document.getElementById('modalOrgPhoto').src = card.dataset.photo || '';
+    document.getElementById('modalOrgPhoto').alt = card.dataset.name || '';
+    document.getElementById('modalOrganizerName').textContent = card.dataset.name || '';
+    document.getElementById('modalOrgAffil').textContent = card.dataset.affiliation || '';
+    document.getElementById('modalOrgBio').textContent = card.dataset.bio || '';
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOrganizerModal() {
+    document.getElementById('organizerModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  (function() {
+    var modal = document.getElementById('organizerModal');
+    if (modal) {
+      modal.addEventListener('click', function(e) { if (e.target === modal) closeOrganizerModal(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeOrganizerModal(); });
+    }
+  })();
+  </script>
+
+</body>
+</html>
+
