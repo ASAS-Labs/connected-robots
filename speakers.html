@@ -43,6 +43,11 @@
       transform: translateY(-3px);
     }
 
+    /* `hidden` must win over .speaker-card { display: flex } (pending confirmations) */
+    .speaker-card[hidden] {
+      display: none !important;
+    }
+
     /* Category accent: border color only */
     .speaker-card--academy { border: 3px solid #16a34a; }
     .speaker-card--regulatory { border: 3px solid #1e3a5f; }
