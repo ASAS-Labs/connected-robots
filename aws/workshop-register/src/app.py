@@ -20,8 +20,15 @@ THANK_YOU_PATH = os.environ.get("THANK_YOU_PATH") or "/workshop-register.html?th
 _ddb = boto3.resource("dynamodb")
 _table = None
 
-_EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
-_PHONE_RE = re.compile(r"^[\d\s\-+().]{0,40}$")
+_EMAIL_RE = re.compile(
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])"
+    r"(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$"
+)
+_ALLOWED_COUNTRY_CODES = frozenset(
+    """AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW""".split()
+)
+_PARTICIPATION_OK = frozenset({"in_person", "remote"})
+_MAX_PHONE_LEN = 24
 
 
 def _get_table():
@@ -50,6 +57,29 @@ def _parse_form(body: str, is_base64: bool) -> dict[str, list[Any]]:
 def _first(params: dict[str, list[Any]], key: str) -> str:
     lst = params.get(key) or []
     return lst[0] if lst else ""
+
+
+def _valid_email(addr: str) -> bool:
+    if len(addr) > 254 or addr.count("@") != 1 or ".." in addr:
+        return False
+    local, domain = addr.rsplit("@", 1)
+    if not local or not domain or len(local) > 64 or len(domain) > 253:
+        return False
+    if local.startswith(".") or local.endswith(".") or domain.startswith(".") or domain.endswith("."):
+        return False
+    if "." not in domain:
+        return False
+    return bool(_EMAIL_RE.match(addr))
+
+
+def _valid_phone(raw: str) -> bool:
+    s = raw.strip()
+    if not s or len(s) > _MAX_PHONE_LEN:
+        return False
+    if not re.match(r"^[\d\s\-+().]+$", s):
+        return False
+    digits = re.sub(r"\D", "", s)
+    return 8 <= len(digits) <= 15
 
 
 def _verify_turnstile(token: str, secret: str, remote_ip: str) -> bool:
@@ -112,7 +142,9 @@ def handler(event, context):
 
     full_name = _first(params, "full_name").strip()[:200]
     email_raw = _first(params, "email").strip()[:254]
-    phone = _first(params, "phone").strip()[:40]
+    phone = _first(params, "phone").strip()[:_MAX_PHONE_LEN]
+    country_code = _first(params, "country_code").strip().upper()[:2]
+    participation_mode = _first(params, "participation_mode").strip()
     recommended_by = _first(params, "recommended_by").strip()[:200]
     affiliation = _first(params, "affiliation").strip()[:200]
     role = _first(params, "role").strip()[:80]
@@ -121,7 +153,15 @@ def handler(event, context):
     accessibility_notes = _first(params, "accessibility_notes").strip()[:2000]
     ack_limited_seats = _first(params, "ack_limited_seats")
 
-    if not full_name or not email_raw or not bring_laptop or ack_limited_seats != "yes":
+    if (
+        not full_name
+        or not email_raw
+        or not phone
+        or not country_code
+        or not participation_mode
+        or not bring_laptop
+        or ack_limited_seats != "yes"
+    ):
         return {
             "statusCode": 400,
             "headers": {"content-type": "text/html; charset=utf-8"},
@@ -132,7 +172,7 @@ def handler(event, context):
             ),
         }
 
-    if not _EMAIL_RE.match(email_raw):
+    if not _valid_email(email_raw):
         return {
             "statusCode": 400,
             "headers": {"content-type": "text/plain; charset=utf-8"},
@@ -140,11 +180,25 @@ def handler(event, context):
         }
 
     email_key = email_raw.lower()
-    if phone and not _PHONE_RE.match(phone):
+    if not _valid_phone(phone):
         return {
             "statusCode": 400,
             "headers": {"content-type": "text/plain; charset=utf-8"},
-            "body": "Invalid phone number.",
+            "body": "Invalid phone number. Use a reachable number with country code (8–15 digits).",
+        }
+
+    if country_code not in _ALLOWED_COUNTRY_CODES:
+        return {
+            "statusCode": 400,
+            "headers": {"content-type": "text/plain; charset=utf-8"},
+            "body": "Invalid country.",
+        }
+
+    if participation_mode not in _PARTICIPATION_OK:
+        return {
+            "statusCode": 400,
+            "headers": {"content-type": "text/plain; charset=utf-8"},
+            "body": "Invalid participation option.",
         }
 
     existing = _get_table().query(
@@ -169,6 +223,8 @@ def handler(event, context):
             "full_name": full_name,
             "email": email_key,
             "phone": phone,
+            "country_code": country_code,
+            "participation_mode": participation_mode,
             "recommended_by": recommended_by,
             "affiliation": affiliation,
             "role": role,
