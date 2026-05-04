@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Pre-Registration — Autoware Training — EARS-CONN 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="description" content="Pre-register for the limited-seat hands-on Autoware training at EARS-CONN 2026 (Tier IV &amp; Autoware Foundation).">
+  <link rel="stylesheet" href="styles.css?v=2026-02-09">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <!-- After deploying aws/workshop-register (SAM), paste CloudFormation output RegisterEndpoint here (full URL ending in /register). -->
+  <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = '';
+  </script>
+  <style>
+    .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
+    .ws-reg-hero {
+      background: linear-gradient(135deg, #0a0e1a 0%, #0d1f3c 60%, #0a1a2e 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      margin: 0 -1rem 2rem;
+    }
+    .ws-reg-hero h1 {
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin: 0 0 0.75rem;
+      color: #fff;
+    }
+    .ws-reg-hero p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .ws-reg-callout {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #78350f;
+    }
+    body.theme-dark .ws-reg-callout {
+      background: #1c1a0a;
+      border-left-color: #fbbf24;
+      color: #fcd34d;
+    }
+    .ws-thanks-banner {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1px solid #34d399;
+      border-radius: 12px;
+      padding: 1.5rem 1.35rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    body.theme-dark .ws-thanks-banner {
+      background: linear-gradient(135deg, #052e1f 0%, #064e3b 100%);
+      border-color: #34d399;
+      color: #a7f3d0;
+    }
+    .ws-thanks-banner h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      color: #065f46;
+    }
+    body.theme-dark .ws-thanks-banner h2 { color: #6ee7b7; }
+    .ws-thanks-banner p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: #047857; }
+    body.theme-dark .ws-thanks-banner p { color: #a7f3d0; }
+
+    .ws-reserve-form fieldset {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ws-reserve-form legend {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text, #111827);
+    }
+    body.theme-dark .ws-reserve-form legend { color: #f1f5f9; }
+    .ws-field {
+      margin-bottom: 1.15rem;
+    }
+    .ws-field label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text, #374151);
+    }
+    body.theme-dark .ws-field label { color: #cbd5e1; }
+    .ws-field .hint {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted, #6b7280);
+      margin-top: 0.25rem;
+    }
+    .ws-reserve-form input[type="text"],
+    .ws-reserve-form input[type="email"],
+    .ws-reserve-form select,
+    .ws-reserve-form textarea {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0.65rem 0.85rem;
+      font-size: 1rem;
+      border: 1px solid var(--border, #d1d5db);
+      border-radius: 8px;
+      background: var(--panel, #fff);
+      color: var(--text, #111827);
+    }
+    body.theme-dark .ws-reserve-form input[type="text"],
+    body.theme-dark .ws-reserve-form input[type="email"],
+    body.theme-dark .ws-reserve-form select,
+    body.theme-dark .ws-reserve-form textarea {
+      background: #1e293b;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+    .ws-reserve-form textarea { min-height: 88px; resize: vertical; }
+    .ws-reserve-form input:focus,
+    .ws-reserve-form select:focus,
+    .ws-reserve-form textarea:focus {
+      outline: 2px solid #0ea5e9;
+      outline-offset: 1px;
+    }
+    .ws-checkbox-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .ws-checkbox-field input { margin-top: 0.2rem; flex-shrink: 0; width: 1.1rem; height: 1.1rem; }
+    .ws-checkbox-field label { font-weight: 500; margin: 0; font-size: 0.92rem; line-height: 1.45; }
+    .ws-submit-row { margin-top: 1.25rem; }
+    .ws-submit-row .vision-btn {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .ws-form-footnote {
+      font-size: 0.82rem;
+      color: var(--text-muted, #6b7280);
+      margin-top: 1.25rem;
+      line-height: 1.5;
+    }
+    .ws-back { text-align: center; margin-top: 2rem; }
+    .ws-endpoint-warning {
+      background: #fee2e2;
+      border-left: 4px solid #dc2626;
+      color: #7f1d1d;
+    }
+    body.theme-dark .ws-endpoint-warning {
+      background: #450a0a;
+      border-left-color: #f87171;
+      color: #fecaca;
+    }
+    .ws-endpoint-warning code { font-size: 0.85em; word-break: break-all; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        EARS-CONN 2026 — New York City — August 24–27, 2026 — Embodied-AI meets Digital-Earth for Sustainability Assurance of Connected Cities (EARS-CONN)
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2026 — NYC — August 24–27
+      </span>
+    </div>
+    <div class="logo-right-container">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-right" width="80" height="50" loading="lazy">
+      <img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Logo" class="logo-right" width="80" height="50" loading="lazy">
+    </div>
+  </div>
+
+  <div class="nav-tab">
+    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <div class="nav-tabs">
+        <a href="index.html" class="nav-tab-item">Home</a>
+        <a href="attend.html" class="nav-tab-item">Attend</a>
+        <a href="venue.html" class="nav-tab-item">Venue</a>
+        <a href="speakers.html" class="nav-tab-item">Speakers</a>
+        <a href="workshop.html" class="nav-tab-item nav-tab-active">Workshop</a>
+        <a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ws-reg-hero">
+    <h1>Autoware Training — Workshop Pre-Registration</h1>
+    <p>
+      Hands-on Autoware session on August 25, 2026 (Day 2 of EARS-CONN). Pre-registration is required;
+      seating for the training is limited and allocated after review.
+    </p>
+  </div>
+
+  <main class="ws-reg-page cfp-section page-section">
+    <div id="ws-thanks" class="ws-thanks-banner" hidden role="status">
+      <h2>Thank you</h2>
+      <p>Your pre-registration was submitted. Organizers will follow up by email if a seat is available. You can still register for the broader EARS-CONN program from the Attend page when registration opens.</p>
+      <p style="margin-top: 1rem;"><a href="workshop.html" class="vision-btn" style="display:inline-block; font-size:0.95rem; padding:0.55rem 1.4rem;">Back to workshop details</a></p>
+    </div>
+
+    <div id="ws-form-section">
+      <div id="ws-endpoint-warning" class="ws-reg-callout ws-endpoint-warning" hidden>
+        Registration API is not configured. Deploy <code>aws/workshop-register</code> with SAM, then set
+        <code>window.__WORKSHOP_REGISTER_POST_URL__</code> in this page to the stack output <strong>RegisterEndpoint</strong>
+        (HTTPS URL ending in <code>/register</code>).
+      </div>
+      <div class="ws-reg-callout">
+        <strong>Limited seats.</strong> This form is for the Tier IV / Autoware Foundation hands-on training track only.
+        It does not replace eventual conference registration; submit both when registration opens if you plan to attend the full event.
+      </div>
+
+      <form id="workshop-reservation-form" class="ws-reserve-form" method="POST">
+        <input type="text" name="_gotcha" class="ws-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+        <fieldset>
+          <legend>Request a seat</legend>
+
+          <div class="ws-field">
+            <label for="full-name">Full name <span aria-label="required">*</span></label>
+            <input type="text" id="full-name" name="full_name" required autocomplete="name" maxlength="200">
+          </div>
+
+          <div class="ws-field">
+            <label for="email">Email <span aria-label="required">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" maxlength="254">
+            <p class="hint">Used only for workshop coordination.</p>
+          </div>
+
+          <div class="ws-field">
+            <label for="affiliation">Organization / affiliation</label>
+            <input type="text" id="affiliation" name="affiliation" autocomplete="organization" maxlength="200">
+          </div>
+
+          <div class="ws-field">
+            <label for="role">Role</label>
+            <select id="role" name="role">
+              <option value="">Select…</option>
+              <option value="student">Student</option>
+              <option value="faculty">Faculty / researcher</option>
+              <option value="industry">Industry</option>
+              <option value="government">Government / nonprofit</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="ws-field">
+            <label for="ros-experience">Prior ROS 2 / Autoware experience</label>
+            <select id="ros-experience" name="ros_autoware_experience">
+              <option value="">Select…</option>
+              <option value="none">None</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+
+          <div class="ws-field">
+            <label for="laptop">Will you bring a laptop suitable for hands-on exercises? <span aria-label="required">*</span></label>
+            <select id="laptop" name="bring_laptop" required>
+              <option value="">Select…</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <div class="ws-field">
+            <label for="notes">Accessibility or dietary notes (optional)</label>
+            <textarea id="notes" name="accessibility_notes" maxlength="2000" placeholder="Optional"></textarea>
+          </div>
+
+          <div class="ws-checkbox-field">
+            <input type="checkbox" id="ack" name="ack_limited_seats" value="yes" required>
+            <label for="ack">I understand that pre-registration does not guarantee a training seat, and that seats are limited. <span aria-label="required">*</span></label>
+          </div>
+
+          <div class="ws-submit-row">
+            <button type="submit" class="vision-btn" style="font-size:1.05rem; padding:0.75rem 2rem;" disabled>Submit pre-registration</button>
+          </div>
+        </fieldset>
+        <script>
+        (function () {
+          var u = typeof window.__WORKSHOP_REGISTER_POST_URL__ === 'string' ? window.__WORKSHOP_REGISTER_POST_URL__.trim() : '';
+          var f = document.getElementById('workshop-reservation-form');
+          var w = document.getElementById('ws-endpoint-warning');
+          var btn = f ? f.querySelector('button[type="submit"]') : null;
+          if (f && /^https:\/\//.test(u)) {
+            f.action = u;
+            if (w) w.hidden = true;
+            if (btn) btn.disabled = false;
+          } else {
+            if (w) w.hidden = false;
+            if (btn) btn.disabled = true;
+          }
+        })();
+        </script>
+      </form>
+
+      <p class="ws-form-footnote">
+        For general conference information, see <a href="attend.html">Attend</a>. Workshop overview and schedule: <a href="workshop.html">Workshop</a>.
+      </p>
+    </div>
+
+    <div class="ws-back">
+      <a href="workshop.html" class="back-link">Back to workshop</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    var hamburger = document.querySelector('.nav-hamburger');
+    var navTab = document.querySelector('.nav-tab');
+    if (hamburger && navTab) {
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var expanded = navTab.classList.toggle('expanded');
+        hamburger.classList.toggle('active', expanded);
+        hamburger.setAttribute('aria-expanded', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
+          navTab.classList.remove('expanded');
+          hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    if (new URLSearchParams(window.location.search).get('thanks') === '1') {
+      var thanks = document.getElementById('ws-thanks');
+      var section = document.getElementById('ws-form-section');
+      if (thanks) thanks.hidden = false;
+      if (section) section.hidden = true;
+    }
+  })();
+  </script>
+</body>
+</html>
