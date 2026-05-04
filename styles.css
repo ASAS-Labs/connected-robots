@@ -3146,3 +3146,113 @@ body.theme-dark .section-breaker {
     display: none;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Hero: thesis line + interactive Digital-Earth (aligned with /testpage)
+   ------------------------------------------------------------------------- */
+.workshop-title-container.has-earth-hero {
+  text-align: left;
+}
+
+.workshop-title-container.has-earth-hero .hero-copy {
+  text-align: center;
+}
+
+.hero-message-lead {
+  font-size: clamp(1rem, 2.4vw, 1.22rem);
+  font-weight: 600;
+  color: #f5f3ff;
+  margin: 0 auto 1rem;
+  max-width: min(95vw, 38rem);
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 460px);
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-earth-shell {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.hero-earth-scene {
+  width: min(42vw, 420px);
+  height: min(42vw, 420px);
+  max-width: 420px;
+  max-height: 420px;
+  min-width: 300px;
+  min-height: 300px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 24px 60px rgba(15, 23, 42, 0.55));
+  cursor: grab;
+  touch-action: none;
+}
+
+.hero-earth-scene.is-dragging {
+  cursor: grabbing;
+}
+
+.hero-earth-scene canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border-radius: 50%;
+}
+
+.hero-earth-halo {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 520px;
+  height: 520px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(14, 165, 233, 0.14) 28%, rgba(2, 132, 199, 0.06) 48%, transparent 70%);
+  filter: blur(10px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .hero-earth-shell {
+    order: -1;
+    min-height: 300px;
+    margin-top: -0.5rem;
+  }
+
+  .hero-earth-scene {
+    width: min(72vw, 320px);
+    height: min(72vw, 320px);
+    min-width: 220px;
+    min-height: 220px;
+  }
+
+  .hero-earth-halo {
+    width: 360px;
+    height: 360px;
+  }
+}
