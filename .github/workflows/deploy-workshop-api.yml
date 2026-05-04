@@ -31,13 +31,29 @@ jobs:
 
       - name: SAM deploy
         working-directory: aws/workshop-register
+        env:
+          TURNSTILE_SECRET_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SECRET_KEY }}
         run: |
-          sam deploy \
-            --no-confirm-changeset \
-            --capabilities CAPABILITY_IAM \
-            --stack-name ears-conn-workshop-register \
-            --resolve-s3 \
-            --parameter-overrides \
-              'PublicSiteOrigin=https://ears-conn.com' \
-              'ThankYouPath=/workshop-register.html?thanks=1' \
-            --no-fail-on-empty-changeset
+          set -e
+          if [ -z "${TURNSTILE_SECRET_KEY:-}" ]; then
+            sam deploy \
+              --no-confirm-changeset \
+              --capabilities CAPABILITY_IAM \
+              --stack-name ears-conn-workshop-register \
+              --resolve-s3 \
+              --parameter-overrides \
+                'PublicSiteOrigin=https://ears-conn.com' \
+                'ThankYouPath=/workshop-register.html?thanks=1' \
+              --no-fail-on-empty-changeset
+          else
+            sam deploy \
+              --no-confirm-changeset \
+              --capabilities CAPABILITY_IAM \
+              --stack-name ears-conn-workshop-register \
+              --resolve-s3 \
+              --parameter-overrides \
+                'PublicSiteOrigin=https://ears-conn.com' \
+                'ThankYouPath=/workshop-register.html?thanks=1' \
+                "TurnstileSecretKey=${TURNSTILE_SECRET_KEY}" \
+              --no-fail-on-empty-changeset
+          fi

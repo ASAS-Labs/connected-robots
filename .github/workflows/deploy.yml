@@ -65,6 +65,33 @@ jobs:
           path.write_text(new_text, encoding="utf-8")
           PY
 
+      - name: Inject Turnstile site key into workshop-register.html (optional)
+        env:
+          WORKSHOP_TURNSTILE_SITE_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SITE_KEY }}
+        run: |
+          if [ -z "$WORKSHOP_TURNSTILE_SITE_KEY" ]; then
+            echo "No WORKSHOP_TURNSTILE_SITE_KEY secret; skipping Turnstile HTML injection."
+            exit 0
+          fi
+          python3 << 'PY'
+          import pathlib, os, re
+          key = os.environ["WORKSHOP_TURNSTILE_SITE_KEY"].strip()
+          if not key:
+              raise SystemExit(0)
+          path = pathlib.Path("workshop-register.html")
+          text = path.read_text(encoding="utf-8")
+          new_text, n = re.subn(
+              r"^(\s*)window\.__TURNSTILE_SITE_KEY__\s*=\s*''\s*;",
+              r"\1window.__TURNSTILE_SITE_KEY__ = " + repr(key) + r";",
+              text,
+              count=1,
+              flags=re.M,
+          )
+          if n != 1:
+              raise SystemExit("workshop-register.html: could not inject WORKSHOP_TURNSTILE_SITE_KEY (marker missing).")
+          path.write_text(new_text, encoding="utf-8")
+          PY
+
       - name: Deploy to S3
         run: |
           echo "Starting S3 sync deployment..."

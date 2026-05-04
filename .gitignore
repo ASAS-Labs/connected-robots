@@ -29,6 +29,10 @@ asas-labs/
 **/.asas-labs/
 *asas-labs*
 
+# Local env (DynamoDB table names, API URLs, etc.)
+.env
+.env.local
+
 # AWS SAM
 .aws-sam/
 
