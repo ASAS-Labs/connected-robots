@@ -160,7 +160,7 @@
     .speaker-modal-content .speaker-name { font-size: 1.55rem; font-weight: 800; margin-bottom: 0.35rem; line-height: 1.3; letter-spacing: -0.02em; }
     .speaker-modal-content .speaker-title { font-size: 1.02rem; font-weight: 800; color: var(--text); margin-bottom: 0.25rem; line-height: 1.3; }
     .speaker-modal-content .speaker-university { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; }
-    .speaker-modal-content .speaker-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; text-align: left; }
+    .speaker-modal-content .speaker-bio { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; text-align: left; white-space: pre-line; }
     .speaker-modal-content a { color: var(--brand); font-weight: 600; }
   </style>
 </head>
@@ -360,6 +360,19 @@
               </div>
             </div>
 
+          </article>
+
+          <article class="speaker-card speaker-card--industry" data-photo="images/speakers/WendyChen.png" data-name="Wendy Chen" data-title="Chief Executive Officer" data-university="PureCipher" data-bio="Wendy Chen is a Growth and Innovation-Minded Technology Executive with a background as a Company Founder, Board Chair and Advisor, Start-Up/Early-Stage Executive, and Innovation Leader at Fortune 100 companies. She is a recognized Thought Leader and Speaker enabling businesses to establish a strong commercial market position through product strategy, roadmap design, distribution &amp; channel development, and go-to market execution. She has been deeply involved in innovative product initiatives that include Deep Neural Network based AI/ML, Cybersecurity and Data Encryption Solutions, Optical/Robotics Systems, Health Informatics, and even her own ice cream brand. Wendy holds an MBA from The Wharton School at the University of Pennsylvania along with Master&apos;s and Bachelor&apos;s degrees in Electrical Engineering from Cornell University.&#10;&#10;Wendy currently serves as the CEO of PureCipher, a purpose driven company with a mission to combat AI data poisoning and AI compromise. PureCipher&apos;s groundbreaking technologies include patent pending and proprietary AI models, data integrity OmniSealTM solution, and quantum safe communication protocols, all designed to safeguard the digital world. With PureCipher&apos;s advanced technologies and dedicated team, it is committed to enhancing the security and reliability of AI for all. Most recently, Wendy was the Managing Partner at Creative Technology Group, a strategy and technology consulting firm advising CXOs in small &amp; medium size enterprises, with a key focus in Cyber/Data Security and healthcare technologies. In each role, Wendy drives and/or advises the business vision, technology/product development, and go-to market strategies &amp; executions.&#10;&#10;Wendy was previously the COO for Hospitals Without Borders, leading the design and architecture of a disruptive integrated telemedicine platform that would enable viewing of medical imaging in 3D. From 2004 to 2008, Wendy held a VP-level role at Pfizer, building their business innovation capability that sparked ahead-of-their-time programs in Big Data and Global Data Classification, Unified Communications, and Virtual Blade Data Centers.&#10;&#10;Wendy&apos;s initial experience as an entrepreneur was with TechnologyConnect.com, where she created a digital marketplace to trade technology licenses/IP and foster technology transfer and recruited two Nobel Laureates to serve on her advisory board. She held a Sales and Technical leadership position as VP, Telecom Industry, at Siemens AG / Pyramid Technology in Asia where she built and trained a technical sales force. Wendy was involved in visionary, advanced technology programs with AT&amp;T Bell Labs.&#10;&#10;Wendy is a recognized thought leader and keynote speaker. She was the second keynote following a Nobel Laureate at the SSGRR conference, L&apos;Aquila, Italy. Wendy is a committed advocate for innovation, health and wellness, economic empowerment, animal and child welfare, as well as education in general and STEM education in particular. She has worked and lived in the US, Japan, Taiwan, China, Germany, and Hong Kong, and is fluent in English and Mandarin Chinese." data-url="">
+            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
+              <div class="speaker-card-media">
+                <img src="images/speakers/WendyChen.png" alt="Wendy Chen" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Wendy Chen</h2>
+                  <p class="speaker-title">Chief Executive Officer</p>
+                  <p class="speaker-university">PureCipher</p>
+                </div>
+              </div>
+            </div>
           </article>
 
           <!-- Pending confirmation: remove `hidden` to show Dr. Kearns -->
