@@ -14,8 +14,8 @@
   <!-- RegisterEndpoint from stack ears-conn-workshop-register (update if API is redeployed). -->
   <script>
     window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
-    /* Cloudflare Turnstile site key (public). Set together with Lambda TurnstileSecretKey. Leave empty to disable widget. */
-    window.__TURNSTILE_SITE_KEY__ = '';
+    /* Cloudflare Turnstile site key (public). Secret lives in Lambda only. */
+    window.__TURNSTILE_SITE_KEY__ = '0x4AAAAAADIs8IhjCxEiMIOU';
   </script>
   <style>
     .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
