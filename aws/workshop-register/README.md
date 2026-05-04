@@ -1,6 +1,6 @@
 # Workshop pre-registration API (AWS-only)
 
-Stack: **HTTP API (API Gateway)** → **Lambda (Node.js 20)** → **DynamoDB** (on-demand billing). Submissions are stored as items keyed by UUID. No third-party form services.
+Stack: **HTTP API (API Gateway)** → **Lambda (Python 3.12)** → **DynamoDB** (on-demand billing). Submissions are stored as items keyed by UUID. No third-party form services.
 
 ## Prerequisites
 
@@ -32,6 +32,19 @@ In `workshop-register.html`, set the URL from the stack output:
 ```
 
 Redeploy the site to S3. Leave the string empty only while testing; the page shows a warning and disables submit until this is set.
+
+## Bot resistance (Turnstile + honeypot)
+
+The static form includes a **honeypot** field (`_gotcha`). For stronger protection, use **Cloudflare Turnstile** (no extra Lambda dependencies).
+
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com/), create a Turnstile widget for your site hostname (match **PublicSiteOrigin**).
+2. Deploy the stack with the **secret** key (server verifies tokens):
+   - `sam deploy ... --parameter-overrides TurnstileSecretKey=YOUR_SECRET`
+   - Or set GitHub secret **`WORKSHOP_TURNSTILE_SECRET_KEY`** for `.github/workflows/deploy-workshop-api.yml`.
+3. Set the **site** key in `workshop-register.html`: `window.__TURNSTILE_SITE_KEY__ = '...'` (public value).
+   - Or set repo secret **`WORKSHOP_TURNSTILE_SITE_KEY`** so `.github/workflows/deploy.yml` can inject it when the HTML still has `window.__TURNSTILE_SITE_KEY__ = '';`.
+
+If **TurnstileSecretKey** is empty, the Lambda skips verification (fine for local testing). In production, configure **both** the Lambda secret and the page site key; otherwise users may see submit enabled while the API rejects requests.
 
 ## Read submissions
 

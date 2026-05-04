@@ -14,6 +14,8 @@
   <!-- RegisterEndpoint from stack ears-conn-workshop-register (update if API is redeployed). -->
   <script>
     window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+    /* Cloudflare Turnstile site key (public). Set together with Lambda TurnstileSecretKey. Leave empty to disable widget. */
+    window.__TURNSTILE_SITE_KEY__ = '';
   </script>
   <style>
     .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
@@ -169,6 +171,7 @@
       color: #fecaca;
     }
     .ws-endpoint-warning code { font-size: 0.85em; word-break: break-all; }
+    .ws-turnstile-wrap { margin: 1rem 0 1.25rem; min-height: 65px; }
   </style>
 </head>
 <body>
@@ -297,24 +300,66 @@
             <label for="ack">I understand that pre-registration does not guarantee a training seat, and that seats are limited. <span aria-label="required">*</span></label>
           </div>
 
+          <div id="ws-turnstile" class="ws-turnstile-wrap" aria-live="polite"></div>
+
           <div class="ws-submit-row">
             <button type="submit" class="vision-btn" style="font-size:1.05rem; padding:0.75rem 2rem;" disabled>Submit pre-registration</button>
           </div>
         </fieldset>
         <script>
         (function () {
-          var u = typeof window.__WORKSHOP_REGISTER_POST_URL__ === 'string' ? window.__WORKSHOP_REGISTER_POST_URL__.trim() : '';
+          var postUrl = typeof window.__WORKSHOP_REGISTER_POST_URL__ === 'string' ? window.__WORKSHOP_REGISTER_POST_URL__.trim() : '';
+          var tsKey = typeof window.__TURNSTILE_SITE_KEY__ === 'string' ? window.__TURNSTILE_SITE_KEY__.trim() : '';
           var f = document.getElementById('workshop-reservation-form');
           var w = document.getElementById('ws-endpoint-warning');
           var btn = f ? f.querySelector('button[type="submit"]') : null;
-          if (f && /^https:\/\//.test(u)) {
-            f.action = u;
-            if (w) w.hidden = true;
-            if (btn) btn.disabled = false;
-          } else {
-            if (w) w.hidden = false;
-            if (btn) btn.disabled = true;
+          var turnstileEl = document.getElementById('ws-turnstile');
+
+          function setSubmitEnabled(ok) {
+            if (btn) btn.disabled = !ok;
           }
+
+          function endpointOk() {
+            return /^https:\/\//.test(postUrl);
+          }
+
+          if (!f || !endpointOk()) {
+            if (w) w.hidden = false;
+            setSubmitEnabled(false);
+            if (turnstileEl) turnstileEl.hidden = true;
+            return;
+          }
+
+          f.action = postUrl;
+          if (w) w.hidden = true;
+
+          if (!tsKey) {
+            setSubmitEnabled(true);
+            if (turnstileEl) turnstileEl.hidden = true;
+            return;
+          }
+
+          if (turnstileEl) turnstileEl.hidden = false;
+          setSubmitEnabled(false);
+
+          window.__wsTurnstileOnLoad = function () {
+            if (!window.turnstile || !turnstileEl) {
+              setSubmitEnabled(false);
+              return;
+            }
+            window.turnstile.render(turnstileEl, {
+              sitekey: tsKey,
+              callback: function () { setSubmitEnabled(true); },
+              'error-callback': function () { setSubmitEnabled(false); },
+              'expired-callback': function () { setSubmitEnabled(false); }
+            });
+          };
+
+          var s = document.createElement('script');
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__wsTurnstileOnLoad&render=explicit';
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
         })();
         </script>
       </form>

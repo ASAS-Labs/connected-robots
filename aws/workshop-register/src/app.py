@@ -1,12 +1,14 @@
 """Workshop pre-registration: POST form body -> DynamoDB -> 302 redirect."""
 
 import base64
+import json
 import os
 import re
 import uuid
 from datetime import datetime, timezone
 from typing import Any
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlencode
+from urllib.request import Request, urlopen
 
 import boto3
 
@@ -44,6 +46,30 @@ def _first(params: dict[str, list[Any]], key: str) -> str:
     return lst[0] if lst else ""
 
 
+def _verify_turnstile(token: str, secret: str, remote_ip: str) -> bool:
+    if not token or not secret:
+        return False
+    payload = urlencode(
+        {
+            "secret": secret,
+            "response": token,
+            **({"remoteip": remote_ip} if remote_ip else {}),
+        }
+    ).encode()
+    req = Request(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        data=payload,
+        method="POST",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+    try:
+        with urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode())
+    except OSError:
+        return False
+    return bool(data.get("success"))
+
+
 def handler(event, context):
     req = (event.get("requestContext") or {}).get("http") or {}
     method = req.get("method") or event.get("httpMethod") or ""
@@ -59,9 +85,24 @@ def handler(event, context):
         }
 
     params = _parse_form(event.get("body") or "", event.get("isBase64Encoded") or False)
+    source_ip = req.get("sourceIp") or ""
 
     if _first(params, "_gotcha"):
         return {"statusCode": 302, "headers": {"location": _thank_you_location()}, "body": ""}
+
+    turnstile_secret = (os.environ.get("TURNSTILE_SECRET_KEY") or "").strip()
+    if turnstile_secret:
+        token = _first(params, "cf-turnstile-response").strip()
+        if not _verify_turnstile(token, turnstile_secret, source_ip):
+            return {
+                "statusCode": 400,
+                "headers": {"content-type": "text/html; charset=utf-8"},
+                "body": (
+                    "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+                    "<title>Verification failed</title></head><body><p>Human verification failed or expired. "
+                    "Please reload the page and try again.</p></body></html>"
+                ),
+            }
 
     full_name = _first(params, "full_name").strip()[:200]
     email = _first(params, "email").strip()[:254]
@@ -92,7 +133,6 @@ def handler(event, context):
 
     item_id = str(uuid.uuid4())
     submitted_at = datetime.now(timezone.utc).isoformat()
-    source_ip = req.get("sourceIp") or ""
 
     _get_table().put_item(
         Item={

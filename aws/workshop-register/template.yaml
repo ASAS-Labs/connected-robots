@@ -11,6 +11,11 @@ Parameters:
     Type: String
     Default: '/workshop-register.html?thanks=1'
     Description: Path and query for successful submissions (must start with /).
+  TurnstileSecretKey:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: Cloudflare Turnstile secret key for siteverify. Leave empty to skip verification (dev only).
 
 Globals:
   Function:
@@ -55,6 +60,7 @@ Resources:
           TABLE_NAME: !Ref WorkshopSubmissionsTable
           PUBLIC_SITE_ORIGIN: !Ref PublicSiteOrigin
           THANK_YOU_PATH: !Ref ThankYouPath
+          TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref WorkshopSubmissionsTable
