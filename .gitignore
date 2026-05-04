@@ -32,6 +32,11 @@ asas-labs/
 .env
 .env.local
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
 # AWS SAM
 .aws-sam/
 

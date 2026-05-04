@@ -15,6 +15,11 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Verify SAM project path
+        run: |
+          test -d aws/workshop-register || { echo "Missing aws/workshop-register — commit the SAM app from this repo." >&2; exit 1; }
+          test -f aws/workshop-register/template.yaml || { echo "Missing aws/workshop-register/template.yaml" >&2; exit 1; }
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

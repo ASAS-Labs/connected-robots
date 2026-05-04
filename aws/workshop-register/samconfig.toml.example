@@ -1,0 +1,16 @@
+# Copy to samconfig.toml and adjust (samconfig.toml is not committed if it contains local overrides).
+# See https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "ears-conn-workshop-register"
+resolve_s3 = true
+s3_prefix = "ears-conn-workshop-register"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "PublicSiteOrigin=\"https://ears-conn.com\" ThankYouPath=\"/workshop-register.html?thanks=1\""
+
+[default.global.parameters]
+region = "us-east-1"
