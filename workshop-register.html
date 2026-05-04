@@ -11,9 +11,9 @@
   <meta name="description" content="Pre-register for the limited-seat hands-on Autoware training at EARS-CONN 2026 (Tier IV &amp; Autoware Foundation).">
   <link rel="stylesheet" href="styles.css?v=2026-02-09">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
-  <!-- After deploying aws/workshop-register (SAM), paste CloudFormation output RegisterEndpoint here (full URL ending in /register). -->
+  <!-- RegisterEndpoint from stack ears-conn-workshop-register (update if API is redeployed). -->
   <script>
-    window.__WORKSHOP_REGISTER_POST_URL__ = '';
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
   </script>
   <style>
     .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }

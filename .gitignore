@@ -28,3 +28,9 @@ asas-labs/
 .asas-labs/
 **/.asas-labs/
 *asas-labs*
+
+# AWS SAM
+.aws-sam/
+
+# Optional local SAM config (uncomment if you keep secrets in samconfig.toml)
+# samconfig.toml

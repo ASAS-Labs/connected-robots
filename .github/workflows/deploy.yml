@@ -38,10 +38,37 @@ jobs:
           echo "Cleaning up test file..."
           aws s3 rm s3://ears-conn.com/test-permission.txt || echo "❌ DeleteObject permission denied"
 
+      - name: Inject workshop API URL into workshop-register.html (optional)
+        env:
+          WORKSHOP_REGISTER_POST_URL: ${{ secrets.WORKSHOP_REGISTER_POST_URL }}
+        run: |
+          if [ -z "$WORKSHOP_REGISTER_POST_URL" ]; then
+            echo "No WORKSHOP_REGISTER_POST_URL secret; skipping HTML injection."
+            exit 0
+          fi
+          python3 << 'PY'
+          import pathlib, os, re
+          url = os.environ["WORKSHOP_REGISTER_POST_URL"].strip()
+          if not url:
+              raise SystemExit(0)
+          path = pathlib.Path("workshop-register.html")
+          text = path.read_text(encoding="utf-8")
+          new_text, n = re.subn(
+              r"^(\s*)window\.__WORKSHOP_REGISTER_POST_URL__\s*=\s*''\s*;",
+              r"\1window.__WORKSHOP_REGISTER_POST_URL__ = " + repr(url) + r";",
+              text,
+              count=1,
+              flags=re.M,
+          )
+          if n != 1:
+              raise SystemExit("workshop-register.html: could not inject WORKSHOP_REGISTER_POST_URL (marker missing).")
+          path.write_text(new_text, encoding="utf-8")
+          PY
+
       - name: Deploy to S3
         run: |
           echo "Starting S3 sync deployment..."
-          if aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*" --exclude ".DS_Store"; then
+          if aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*" --exclude ".DS_Store" --exclude "aws/*"; then
             echo "✅ Deployment successful!"
           else
             echo "❌ Deployment failed!"
