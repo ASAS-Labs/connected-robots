@@ -11,6 +11,7 @@ from urllib.parse import parse_qs, urlencode
 from urllib.request import Request, urlopen
 
 import boto3
+from boto3.dynamodb.conditions import Key
 
 TABLE_NAME = os.environ["TABLE_NAME"]
 PUBLIC_SITE_ORIGIN = (os.environ.get("PUBLIC_SITE_ORIGIN") or "https://ears-conn.com").rstrip("/")
@@ -20,6 +21,7 @@ _ddb = boto3.resource("dynamodb")
 _table = None
 
 _EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+_PHONE_RE = re.compile(r"^[\d\s\-+().]{0,40}$")
 
 
 def _get_table():
@@ -32,6 +34,10 @@ def _get_table():
 def _thank_you_location() -> str:
     path = THANK_YOU_PATH if THANK_YOU_PATH.startswith("/") else f"/{THANK_YOU_PATH}"
     return f"{PUBLIC_SITE_ORIGIN}{path}"
+
+
+def _duplicate_location() -> str:
+    return f"{PUBLIC_SITE_ORIGIN}/workshop-register.html?duplicate=1"
 
 
 def _parse_form(body: str, is_base64: bool) -> dict[str, list[Any]]:
@@ -105,7 +111,9 @@ def handler(event, context):
             }
 
     full_name = _first(params, "full_name").strip()[:200]
-    email = _first(params, "email").strip()[:254]
+    email_raw = _first(params, "email").strip()[:254]
+    phone = _first(params, "phone").strip()[:40]
+    recommended_by = _first(params, "recommended_by").strip()[:200]
     affiliation = _first(params, "affiliation").strip()[:200]
     role = _first(params, "role").strip()[:80]
     ros_autoware_experience = _first(params, "ros_autoware_experience").strip()[:40]
@@ -113,7 +121,7 @@ def handler(event, context):
     accessibility_notes = _first(params, "accessibility_notes").strip()[:2000]
     ack_limited_seats = _first(params, "ack_limited_seats")
 
-    if not full_name or not email or not bring_laptop or ack_limited_seats != "yes":
+    if not full_name or not email_raw or not bring_laptop or ack_limited_seats != "yes":
         return {
             "statusCode": 400,
             "headers": {"content-type": "text/html; charset=utf-8"},
@@ -124,11 +132,31 @@ def handler(event, context):
             ),
         }
 
-    if not _EMAIL_RE.match(email):
+    if not _EMAIL_RE.match(email_raw):
         return {
             "statusCode": 400,
             "headers": {"content-type": "text/plain; charset=utf-8"},
             "body": "Invalid email address.",
+        }
+
+    email_key = email_raw.lower()
+    if phone and not _PHONE_RE.match(phone):
+        return {
+            "statusCode": 400,
+            "headers": {"content-type": "text/plain; charset=utf-8"},
+            "body": "Invalid phone number.",
+        }
+
+    existing = _get_table().query(
+        IndexName="email-index",
+        KeyConditionExpression=Key("email").eq(email_key),
+        Limit=1,
+    )
+    if existing.get("Items"):
+        return {
+            "statusCode": 302,
+            "headers": {"location": _duplicate_location()},
+            "body": "",
         }
 
     item_id = str(uuid.uuid4())
@@ -139,7 +167,9 @@ def handler(event, context):
             "id": item_id,
             "submittedAt": submitted_at,
             "full_name": full_name,
-            "email": email,
+            "email": email_key,
+            "phone": phone,
+            "recommended_by": recommended_by,
             "affiliation": affiliation,
             "role": role,
             "ros_autoware_experience": ros_autoware_experience,

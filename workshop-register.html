@@ -172,6 +172,47 @@
     }
     .ws-endpoint-warning code { font-size: 0.85em; word-break: break-all; }
     .ws-turnstile-wrap { margin: 1rem 0 1.25rem; min-height: 65px; }
+    .ws-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+    }
+    .ws-modal[hidden] { display: none !important; }
+    .ws-modal__panel {
+      max-width: 420px;
+      width: 100%;
+      background: var(--panel, #fff);
+      color: var(--text, #111827);
+      border-radius: 14px;
+      padding: 1.5rem 1.35rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border, #e5e7eb);
+    }
+    body.theme-dark .ws-modal__panel {
+      background: #1e293b;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+    .ws-modal__panel h2 {
+      margin: 0 0 0.65rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .ws-modal__panel p {
+      margin: 0 0 1.25rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--text-muted, #6b7280);
+    }
+    body.theme-dark .ws-modal__panel p { color: #94a3b8; }
+    .ws-modal__panel .vision-btn { width: 100%; box-sizing: border-box; }
   </style>
 </head>
 <body>
@@ -250,7 +291,13 @@
           <div class="ws-field">
             <label for="email">Email <span aria-label="required">*</span></label>
             <input type="email" id="email" name="email" required autocomplete="email" maxlength="254">
-            <p class="hint">Used only for workshop coordination.</p>
+            <p class="hint">Used only for workshop coordination. Each address may pre-register once.</p>
+          </div>
+
+          <div class="ws-field">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40" inputmode="tel" placeholder="Optional">
+            <p class="hint">Optional; for urgent workshop updates.</p>
           </div>
 
           <div class="ws-field">
@@ -268,6 +315,12 @@
               <option value="government">Government / nonprofit</option>
               <option value="other">Other</option>
             </select>
+          </div>
+
+          <div class="ws-field">
+            <label for="recommended-by">Recommended by</label>
+            <input type="text" id="recommended-by" name="recommended_by" maxlength="200" placeholder="Optional — name or organization">
+            <p class="hint">Optional. If someone referred you, enter their name; organizers may use this for discount eligibility.</p>
           </div>
 
           <div class="ws-field">
@@ -374,6 +427,14 @@
     </div>
   </main>
 
+  <div id="ws-duplicate-modal" class="ws-modal" hidden role="dialog" aria-modal="true" aria-labelledby="ws-dup-title">
+    <div class="ws-modal__panel">
+      <h2 id="ws-dup-title">Email already registered</h2>
+      <p>A pre-registration with this email address is already on file. Use another email or contact the organizers if you need help.</p>
+      <button type="button" class="vision-btn" id="ws-dup-close" style="font-size:1rem; padding:0.65rem 1.5rem;">OK</button>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="footer-inner">
       <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
@@ -401,11 +462,46 @@
       });
     }
 
-    if (new URLSearchParams(window.location.search).get('thanks') === '1') {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('thanks') === '1') {
       var thanks = document.getElementById('ws-thanks');
       var section = document.getElementById('ws-form-section');
       if (thanks) thanks.hidden = false;
       if (section) section.hidden = true;
+    }
+
+    var dupModal = document.getElementById('ws-duplicate-modal');
+    var dupClose = document.getElementById('ws-dup-close');
+    function closeDupModal() {
+      if (!dupModal) return;
+      dupModal.hidden = true;
+      document.body.style.overflow = '';
+      try {
+        var u = new URL(window.location.href);
+        if (u.searchParams.get('duplicate') === '1') {
+          u.searchParams.delete('duplicate');
+          var q = u.searchParams.toString();
+          window.history.replaceState({}, '', u.pathname + (q ? '?' + q : '') + u.hash);
+        }
+      } catch (e) {}
+    }
+    function openDupModal() {
+      if (!dupModal) return;
+      dupModal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      if (dupClose) dupClose.focus();
+    }
+    if (params.get('duplicate') === '1') {
+      openDupModal();
+    }
+    if (dupClose) dupClose.addEventListener('click', closeDupModal);
+    if (dupModal) {
+      dupModal.addEventListener('click', function (e) {
+        if (e.target === dupModal) closeDupModal();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && dupModal && !dupModal.hidden) closeDupModal();
+      });
     }
   })();
   </script>
