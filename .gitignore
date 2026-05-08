@@ -40,5 +40,9 @@ __pycache__/
 # AWS SAM
 .aws-sam/
 
-# Optional local SAM config (uncomment if you keep secrets in samconfig.toml)
-# samconfig.toml
+# Local SAM config (machine-specific; may reference SSO profiles or account IDs)
+samconfig.toml
+
+# AWS CLI / SSO — never commit credentials or a copied ~/.aws tree into this repo
+.aws/
+**/sso/cache/
