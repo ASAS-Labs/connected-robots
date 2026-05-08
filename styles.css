@@ -3256,3 +3256,34 @@ body.theme-dark .section-breaker {
     height: 360px;
   }
 }
+
+/* Conference tagline: digital-earth + CONN in CONNected (EARS-CONN) */
+.sliding-title .sliding-title-tagline {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.sliding-title .sliding-title-prefix {
+  display: inline;
+}
+.sliding-title .tagline-digital-earth {
+  font-weight: 700;
+  text-transform: lowercase;
+}
+.sliding-title .tagline-conn {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.initiative-headline .tagline-digital-earth,
+.initiative-page-headline .tagline-digital-earth {
+  font-weight: 700;
+}
+.initiative-headline .tagline-conn,
+.initiative-page-headline .tagline-conn,
+strong.tagline-conn,
+span.tagline-conn {
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+p .tagline-digital-earth {
+  font-weight: 700;
+}
