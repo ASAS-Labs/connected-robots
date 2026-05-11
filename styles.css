@@ -401,6 +401,8 @@ body.theme-dark {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .logo-left, .logo-right {
@@ -408,8 +410,9 @@ body.theme-dark {
   width: auto;
 }
 
+.logo-left.logo-banner,
 .logo-right.logo-banner {
-  max-width: 180px;
+  max-width: 160px;
   height: 44px;
   width: auto;
   object-fit: contain;
@@ -2859,12 +2862,20 @@ body.theme-dark .section-breaker {
     padding-right: max(0.75rem, env(safe-area-inset-right));
   }
 
-  .logo-left {
-    height: 36px;
+  .logo-left-container .logo-left {
+    height: 32px;
+    max-height: 32px;
   }
 
-  .logo-right-container {
-    display: none;
+  .logo-left-container .logo-banner {
+    max-width: 100px;
+    height: 30px;
+  }
+
+  .logo-left-container {
+    gap: 6px;
+    flex-wrap: wrap;
+    max-width: min(48vw, 280px);
   }
 
   .title-container {
