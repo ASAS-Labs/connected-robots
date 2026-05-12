@@ -27,6 +27,8 @@ asas-labs/
 **/asas-labs/
 .asas-labs/
 **/.asas-labs/
+.asas-labs-deploy/
+**/.asas-labs-deploy/
 
 # Local env (DynamoDB table names, API URLs, etc.)
 .env
