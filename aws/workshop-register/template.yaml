@@ -9,7 +9,7 @@ Parameters:
     Description: Public origin of the static site (scheme + host, no trailing slash). Used for CORS and post-submit redirect.
   ThankYouPath:
     Type: String
-    Default: '/workshop-register.html?thanks=1'
+    Default: '/register.html?thanks=1'
     Description: Path and query for successful submissions (must start with /).
   TurnstileSecretKey:
     Type: String
@@ -86,7 +86,7 @@ Outputs:
     Description: Base URL of the HTTP API ($default stage).
     Value: !Sub 'https://${WorkshopHttpApi}.execute-api.${AWS::Region}.amazonaws.com'
   RegisterEndpoint:
-    Description: Full POST URL for workshop-register.html (set window.__WORKSHOP_REGISTER_POST_URL__ or WORKSHOP_REGISTER_POST_URL secret).
+    Description: Full POST URL for register.html (set window.__WORKSHOP_REGISTER_POST_URL__ or WORKSHOP_REGISTER_POST_URL secret).
     Value: !Sub 'https://${WorkshopHttpApi}.execute-api.${AWS::Region}.amazonaws.com/register'
   SubmissionsTableName:
     Description: DynamoDB table storing submissions (scan/query via console or CLI).

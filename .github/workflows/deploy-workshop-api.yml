@@ -48,7 +48,7 @@ jobs:
               --resolve-s3 \
               --parameter-overrides \
                 'PublicSiteOrigin=https://ears-conn.com' \
-                'ThankYouPath=/workshop-register.html?thanks=1' \
+                'ThankYouPath=/register.html?thanks=1' \
               --no-fail-on-empty-changeset
           else
             sam deploy \
@@ -58,7 +58,7 @@ jobs:
               --resolve-s3 \
               --parameter-overrides \
                 'PublicSiteOrigin=https://ears-conn.com' \
-                'ThankYouPath=/workshop-register.html?thanks=1' \
+                'ThankYouPath=/register.html?thanks=1' \
                 "TurnstileSecretKey=${TURNSTILE_SECRET_KEY}" \
               --no-fail-on-empty-changeset
           fi

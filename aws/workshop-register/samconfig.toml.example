@@ -10,7 +10,7 @@ s3_prefix = "ears-conn-workshop-register"
 region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "PublicSiteOrigin=\"https://ears-conn.com\" ThankYouPath=\"/workshop-register.html?thanks=1\""
+parameter_overrides = "PublicSiteOrigin=\"https://ears-conn.com\" ThankYouPath=\"/register.html?thanks=1\""
 
 [default.global.parameters]
 region = "us-east-1"

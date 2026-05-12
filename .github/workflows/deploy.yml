@@ -38,7 +38,7 @@ jobs:
           echo "Cleaning up test file..."
           aws s3 rm s3://ears-conn.com/test-permission.txt || echo "❌ DeleteObject permission denied"
 
-      - name: Inject workshop API URL into workshop-register.html (optional)
+      - name: Inject workshop API URL into register.html (optional)
         env:
           WORKSHOP_REGISTER_POST_URL: ${{ secrets.WORKSHOP_REGISTER_POST_URL }}
         run: |
@@ -51,21 +51,21 @@ jobs:
           url = os.environ["WORKSHOP_REGISTER_POST_URL"].strip()
           if not url:
               raise SystemExit(0)
-          path = pathlib.Path("workshop-register.html")
+          path = pathlib.Path("register.html")
           text = path.read_text(encoding="utf-8")
           new_text, n = re.subn(
-              r"^(\s*)window\.__WORKSHOP_REGISTER_POST_URL__\s*=\s*''\s*;",
+              r"^(\s*)window\.__WORKSHOP_REGISTER_POST_URL__\s*=\s*[^;]*;",
               r"\1window.__WORKSHOP_REGISTER_POST_URL__ = " + repr(url) + r";",
               text,
               count=1,
               flags=re.M,
           )
           if n != 1:
-              raise SystemExit("workshop-register.html: could not inject WORKSHOP_REGISTER_POST_URL (marker missing).")
+              raise SystemExit("register.html: could not inject WORKSHOP_REGISTER_POST_URL (marker missing).")
           path.write_text(new_text, encoding="utf-8")
           PY
 
-      - name: Inject Turnstile site key into workshop-register.html (optional)
+      - name: Inject Turnstile site key into register.html (optional)
         env:
           WORKSHOP_TURNSTILE_SITE_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SITE_KEY }}
         run: |
@@ -78,17 +78,17 @@ jobs:
           key = os.environ["WORKSHOP_TURNSTILE_SITE_KEY"].strip()
           if not key:
               raise SystemExit(0)
-          path = pathlib.Path("workshop-register.html")
+          path = pathlib.Path("register.html")
           text = path.read_text(encoding="utf-8")
           new_text, n = re.subn(
-              r"^(\s*)window\.__TURNSTILE_SITE_KEY__\s*=\s*''\s*;",
+              r"^(\s*)window\.__TURNSTILE_SITE_KEY__\s*=\s*[^;]*;",
               r"\1window.__TURNSTILE_SITE_KEY__ = " + repr(key) + r";",
               text,
               count=1,
               flags=re.M,
           )
           if n != 1:
-              raise SystemExit("workshop-register.html: could not inject WORKSHOP_TURNSTILE_SITE_KEY (marker missing).")
+              raise SystemExit("register.html: could not inject WORKSHOP_TURNSTILE_SITE_KEY (marker missing).")
           path.write_text(new_text, encoding="utf-8")
           PY
 

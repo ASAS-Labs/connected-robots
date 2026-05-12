@@ -17,13 +17,13 @@ sam build
 sam deploy --guided
 ```
 
-Use stack name `ears-conn-workshop-register` (or your choice). Set **PublicSiteOrigin** to the exact origin where `workshop-register.html` is served (scheme + host, no trailing slash).
+Use stack name `ears-conn-workshop-register` (or your choice). Set **PublicSiteOrigin** to the exact origin where `register.html` is served (scheme + host, no trailing slash).
 
 After deploy, copy output **RegisterEndpoint** (full URL ending in `/register`).
 
 ## Wire the static site
 
-In `workshop-register.html`, set the URL from the stack output:
+In `register.html`, set the URL from the stack output:
 
 ```html
 <script>
