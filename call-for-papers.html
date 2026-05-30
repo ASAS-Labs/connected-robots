@@ -10,6 +10,16 @@
   <meta http-equiv="Expires" content="0">
   <!-- Link to your CSS file -->
   <link rel="stylesheet" href="styles.css?v=2026-01-28">
+  <style>
+    body {
+      padding-top: 60px;
+    }
+
+    .cfp-section {
+      margin-top: 2rem;
+      scroll-margin-top: 80px;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,24 +32,6 @@
     <div class="logo-right-container">
       <img src="images/ieee-logo.png" alt="IEEE Logo" class="logo-right">
       <img src="images/IEEE_RAS.png" alt="RAS Logo" class="logo-right">
-    </div>
-  </div>
-
-  <!-- Official ICRA 2026 Conference Banner -->
-  <div class="icra-banner">
-    <a href="https://2026.ieee-icra.org/" target="_blank" rel="noopener noreferrer" class="icra-banner-link">
-      <span class="icra-banner-text">ICRA 2026</span>
-      <span class="icra-banner-divider">|</span>
-      <span class="icra-banner-tagline">Join Us in Vienna, Austria — 1–5 June 2026</span>
-      <span class="icra-banner-learn">Learn more →</span>
-    </a>
-  </div>
-
-  <!-- Navigation Tab -->
-  <div class="nav-tab">
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="call-for-papers.html" class="nav-link cfp-link">Call for Papers</a>
     </div>
   </div>
 
@@ -132,33 +124,6 @@
     <p>&copy; 2026 Connected Autonomous Robotic Systems Workshop. All Rights Reserved.</p>
     <p>IEEE is a registered trademark of the Institute of Electrical and Electronics Engineers, Inc.</p>
   </footer>
-
-  <script>
-  // Scroll-based navigation hide/show
-  let lastScrollTop = 0;
-  const navTab = document.querySelector('.nav-tab');
-  let isScrolling = false;
-
-  window.addEventListener('scroll', function() {
-    if (isScrolling) return;
-    
-    isScrolling = true;
-    requestAnimationFrame(function() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (scrollTop > lastScrollTop && scrollTop > 100) {
-        // Scrolling down - hide nav
-        navTab.classList.add('hidden');
-      } else {
-        // Scrolling up - show nav
-        navTab.classList.remove('hidden');
-      }
-      
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-      isScrolling = false;
-    });
-  });
-  </script>
 
 </body>
 </html>
