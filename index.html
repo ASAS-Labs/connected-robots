@@ -43,6 +43,22 @@
     </div>
   </div>
 
+  <!-- Mobile side menu -->
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileSideMenu">
+    ☰
+  </button>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <aside class="mobile-side-menu" id="mobileSideMenu" aria-hidden="true">
+    <div class="mobile-side-menu-header">
+      <span>Menu</span>
+      <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close navigation menu">×</button>
+    </div>
+    <nav class="mobile-side-nav">
+      <a href="index.html" class="mobile-side-link">Home</a>
+      <a href="call-for-papers.html" class="mobile-side-link">Call for Papers</a>
+    </nav>
+  </aside>
+
   <!-- Workshop Title / Subtitle (optional) -->
   <div class="workshop-title-container">
     <div class="workshop-title-wrapper text-center">
@@ -495,6 +511,12 @@
     text-decoration-thickness: 2px;
   }
 
+  .mobile-menu-toggle,
+  .mobile-menu-overlay,
+  .mobile-side-menu {
+    display: none;
+  }
+
   /* Desktop layout */
   @media (min-width: 769px) {
     .speakers-grid {
@@ -511,6 +533,137 @@
 
   /* Mobile layout */
   @media (max-width: 768px) {
+    body {
+      padding-top: 60px !important;
+    }
+
+    .icra-banner {
+      margin-top: 60px !important;
+    }
+
+    .nav-tab {
+      display: none !important;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      right: 12px;
+      top: 70px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 10px;
+      background: #1a1a2e;
+      color: #ffffff;
+      font-size: 1.4rem;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      z-index: 1001;
+      cursor: pointer;
+    }
+
+    .mobile-menu-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 1002;
+    }
+
+    .mobile-side-menu {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(78vw, 300px);
+      height: 100vh;
+      background: #ffffff;
+      box-shadow: -6px 0 24px rgba(0, 0, 0, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      z-index: 1003;
+      padding: 1rem;
+    }
+
+    .mobile-side-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-side-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .mobile-menu-close {
+      border: none;
+      background: transparent;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    .mobile-side-nav {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .mobile-side-link {
+      display: block;
+      text-decoration: none;
+      color: #111827;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-weight: 600;
+    }
+
+    .top-bar {
+      padding: 0.4rem 0.6rem !important;
+    }
+
+    .logo-left, .logo-right {
+      height: 34px !important;
+      width: auto !important;
+      max-width: 32vw;
+      object-fit: contain;
+    }
+
+    .logo-right-container {
+      gap: 6px !important;
+    }
+
+    .title-container {
+      margin: 0 8px !important;
+      height: 38px !important;
+    }
+
+    .sliding-title {
+      font-size: 0.9rem !important;
+      gap: 6px !important;
+    }
+
+    .sliding-logo {
+      height: 22px !important;
+    }
+
     /* Container reset */
     .container {
       padding: 0;
@@ -653,6 +806,32 @@
       width: 100%;
       padding: 1rem 0.5rem;
       margin: 0;
+    }
+
+    .schedule-section table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .schedule-section th, .schedule-section td {
+      min-width: 150px;
+    }
+
+    .institution-logos-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .institution-logo-link {
+      min-height: 88px;
+      padding: 0.5rem;
+    }
+
+    .institution-logo-img {
+      width: 92%;
+      max-height: 60px;
+      object-fit: contain;
     }
   }
 
@@ -1012,11 +1191,13 @@
   }
 
   .keynote-affiliation-logo {
-    width: 32px;
-    height: 32px;
+    width: 46px;
+    height: 28px;
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain;
+    background: #ffffff;
     border: 1px solid #dbe3ee;
+    padding: 2px;
   }
 
   .title-divider {
@@ -1099,6 +1280,49 @@
 
   // Enhanced animated word effects
   document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileSideMenu = document.getElementById('mobileSideMenu');
+    const mobileSideLinks = document.querySelectorAll('.mobile-side-link');
+
+    function openMobileMenu() {
+      if (!mobileSideMenu || !mobileMenuOverlay || !mobileMenuToggle) return;
+      mobileSideMenu.classList.add('open');
+      mobileMenuOverlay.classList.add('open');
+      mobileSideMenu.setAttribute('aria-hidden', 'false');
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      if (!mobileSideMenu || !mobileMenuOverlay || !mobileMenuToggle) return;
+      mobileSideMenu.classList.remove('open');
+      mobileMenuOverlay.classList.remove('open');
+      mobileSideMenu.setAttribute('aria-hidden', 'true');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', openMobileMenu);
+    }
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+    if (mobileMenuOverlay) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    }
+    mobileSideLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeMobileMenu();
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) closeMobileMenu();
+    });
+
     const animatedWords = document.querySelectorAll('.animated-word');
     
     animatedWords.forEach((word, index) => {
