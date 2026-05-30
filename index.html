@@ -1130,31 +1130,6 @@
     button.firstChild.textContent = content.classList.contains('active') ? 'Read Less ' : 'Read More ';
   }
 
-  // Scroll-based navigation hide/show
-  let lastScrollTop = 0;
-  const navTab = document.querySelector('.nav-tab');
-  let isScrolling = false;
-
-  window.addEventListener('scroll', function() {
-    if (isScrolling) return;
-    
-    isScrolling = true;
-    requestAnimationFrame(function() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (scrollTop > lastScrollTop && scrollTop > 100) {
-        // Scrolling down - hide nav
-        navTab.classList.add('hidden');
-      } else {
-        // Scrolling up - show nav
-        navTab.classList.remove('hidden');
-      }
-      
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-      isScrolling = false;
-    });
-  });
-
   // Enhanced animated word effects
   document.addEventListener('DOMContentLoaded', function() {
     const animatedWords = document.querySelectorAll('.animated-word');

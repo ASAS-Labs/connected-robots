@@ -57,7 +57,7 @@ p, li, td, th {
 }
 
 .nav-tab.hidden {
-  transform: translateY(-100%);
+  transform: translateY(0);
 }
 
 /* Official ICRA 2026 banner (white and red) */
