@@ -373,8 +373,30 @@
     </div>
   </section>
 
+  <section class="institution-logos-section">
+    <h2 class="section-title">Affiliated Institutions</h2>
+    <div class="institution-logos-grid">
+      <a href="https://www.bell-labs.com" target="_blank" rel="noopener noreferrer" class="institution-logo-link">
+        <img src="images/partners/bell-labs.png" alt="Nokia Bell Labs" class="institution-logo-img">
+      </a>
+      <a href="https://engineering.nyu.edu/" target="_blank" rel="noopener noreferrer" class="institution-logo-link">
+        <img src="images/partners/nyu.png" alt="NYU Tandon School of Engineering" class="institution-logo-img">
+      </a>
+      <a href="https://www.kth.se/en" target="_blank" rel="noopener noreferrer" class="institution-logo-link">
+        <img src="images/partners/kth.png" alt="KTH Royal Institute of Technology" class="institution-logo-img">
+      </a>
+      <a href="https://www.bosch.com/" target="_blank" rel="noopener noreferrer" class="institution-logo-link">
+        <img src="images/partners/bosch.png" alt="Bosch" class="institution-logo-img">
+      </a>
+      <a href="https://www.ccny.cuny.edu/" target="_blank" rel="noopener noreferrer" class="institution-logo-link">
+        <img src="images/partners/ccny.png" alt="The City College of New York" class="institution-logo-img">
+      </a>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
+    <p>All workshop correspondence should be addressed to Mata Khalili (mata.khalili@nokia-bell-labs.com).</p>
     <p>&copy; 2026 Connected Autonomous Robotic Systems Workshop. All Rights Reserved.</p>
     <p>IEEE is a registered trademark of the Institute of Electrical and Electronics Engineers, Inc.</p>
   </footer>
@@ -855,6 +877,43 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+  }
+
+  .institution-logos-section {
+    padding: 2.5rem 1.5rem 3rem;
+    background: #f8f9fa;
+  }
+
+  .institution-logos-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .institution-logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 0.75rem;
+    min-height: 96px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .institution-logo-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .institution-logo-img {
+    width: 100%;
+    max-height: 70px;
+    object-fit: contain;
   }
 
   .title-divider {
