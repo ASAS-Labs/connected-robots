@@ -87,7 +87,10 @@
         </div>
         <div class="keynote-content">
           <h3><a href="https://goldberg.berkeley.edu" target="_blank">Ken Goldberg</a></h3>
-          <p class="keynote-affiliation">UC Berkeley, USA</p>
+          <p class="keynote-affiliation affiliation-with-logo">
+            <img src="images/partners/uc-berkeley.png" alt="UC Berkeley logo" class="keynote-affiliation-logo">
+            <span>UC Berkeley, USA</span>
+          </p>
           
           <div class="expand-section">
             <button class="expand-btn" onclick="toggleSection('ken-bio')">
@@ -114,13 +117,16 @@
       <!-- Prachi Sachdeva keynote card -->
       <div class="keynote-card text-center">
         <div class="keynote-image">
-          <a href="https://www.linkedin.com/in/prachisachdeva/" target="_blank">
+          <a href="https://nl.linkedin.com/in/prachisachdeva" target="_blank">
             <img src="images/prachi.jpeg" alt="Prachi Sachdeva" class="rounded-circle" />
           </a>
         </div>
         <div class="keynote-content">
-          <h3><a href="https://www.linkedin.com/in/prachisachdeva/" target="_blank">Prachi Sachdeva</a></h3>
-          <p class="keynote-affiliation">TNO, Netherlands</p>
+          <h3><a href="https://nl.linkedin.com/in/prachisachdeva" target="_blank">Prachi Sachdeva</a></h3>
+          <p class="keynote-affiliation affiliation-with-logo">
+            <img src="images/partners/tno.png" alt="TNO logo" class="keynote-affiliation-logo">
+            <span>TNO, Netherlands</span>
+          </p>
           
           <div class="expand-section">
             <button class="expand-btn" onclick="toggleSection('prachi-keynote-bio')">
@@ -155,7 +161,10 @@
         </div>
         <div class="keynote-content">
           <h3><a href="https://www.kth.se/profile/fpokorny" target="_blank">Florian Pokorny</a></h3>
-          <p class="keynote-affiliation">KTH, Sweden</p>
+          <p class="keynote-affiliation affiliation-with-logo">
+            <img src="images/partners/kth.png" alt="KTH logo" class="keynote-affiliation-logo">
+            <span>KTH, Sweden</span>
+          </p>
           
           <div class="expand-section">
             <button class="expand-btn" onclick="toggleSection('florian-keynote-bio')">
@@ -984,6 +993,20 @@
     margin: 0.45rem 0;
     color: #334155;
     line-height: 1.5;
+  }
+
+  .affiliation-with-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .keynote-affiliation-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #dbe3ee;
   }
 
   .title-divider {
