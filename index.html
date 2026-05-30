@@ -277,11 +277,30 @@
           <td>15:00 - 15:30</td>
           <td>
             Contributed Paper Session
-            <ul>
-              <li>Martin Zoula et al. -- Orientation Matters: Learning Radiation Patterns in Multi-Rotor UAVs</li>
-              <li>Zexin Deng et al. -- VISTA: A Benchmark for Real-Time Video Streaming under Network Impairments in Surgical Teleoperation</li>
-              <li>Anika Mahesh -- Applying Balanced Incomplete Block Diagrams to Ensure Reliable Deterministic Scheduling in Fully Connected Swarms</li>
-            </ul>
+            <div class="paper-list">
+              <details class="paper-item">
+                <summary>Orientation Matters: Learning Radiation Patterns in Multi-Rotor UAVs</summary>
+                <div class="paper-item-content">
+                  <p><strong>Authors:</strong> Martin Zoula, Daniel Bonilla Licea, Jan Faigl, Václav Navrátil, Martin Saska</p>
+                  <p><strong>Abstract:</strong> The paper presents learning antenna Radiation Patterns (RPs) in a pair of heterogeneous quadrotor Uncrewed Aerial Vehicles (UAVs) from calibration flight data. RPs are modeled either as a Spherical Harmonics series or as a weighted average over inducing samples. Linear regression of polynomial coefficients simultaneously decouples the two independent UAVs’ RPs. A joint calibration trajectory exploits available flight time in an obstacle-free anechoic altitude. Evaluation on a real-world dataset demonstrates the feasibility of learning both radiation patterns, achieving 3.6 dB RMS error, the measurement noise level. The proposed RP learning and decoupling can be exploited for rapid recalibration upon payload changes, autonomous path planning, and swarm control.</p>
+                </div>
+              </details>
+              <details class="paper-item">
+                <summary>VISTA: A Benchmark for Real-Time Video Streaming under Network Impairments in Surgical Teleoperation</summary>
+                <div class="paper-item-content">
+                  <p><strong>Authors:</strong> Zexin Deng, Zhenhui Yuan, Gaofeng Li, Longhao Zou, Meipeng Huang, Lu Tian</p>
+                  <p><strong>Abstract:</strong> Real-time video streaming is crucial in surgical teleoperation, yet reproducible evaluation under realistic network impairments remains limited. This paper presents VISTA, a benchmark designed to study how impairments along the forward video path affect received video quality, temporal continuity, and human task performance. VISTA employs Linux Traffic Control with NetEm and a Gilbert-Elliott loss model to emulate five network conditions: Hospital LAN, 5G urban, 4G rural, LEO satellite, and GEO Satellite. The benchmark integrates a standardised peg transfer task with synchronized measurements of Quality of Service (QoS), Peak Signal-to-Noise Ratio (PSNR), Structural Similarity Index (SSIM), and freeze rate, while maintaining a stable reverse control channel. Across 375 experimental trials, network degradation substantially reduced teleoperation performance: success rate decreased from 97% in Hospital LAN to 79% in 5G urban, 35% in 4G rural, 71% in LEO satellite, and 12% in GEO Satellite, while mean task completion time for successful trials increased from 80 s in Hospital LAN to 117 s in 5G Urban, 211 s in 4G Rural, 152 s in LEO Satellite, and 255 s in GEO Satellite. These findings show that network impairments have a direct impact on task completion and success in surgical teleoperation, and provide a reproducible basis for evaluating teleoperation video under realistic network constraints.</p>
+                  <p><strong>Source code:</strong> <a href="https://github.com/Dzxx623/VISTA" target="_blank" rel="noopener noreferrer">https://github.com/Dzxx623/VISTA</a></p>
+                </div>
+              </details>
+              <details class="paper-item">
+                <summary>Applying Balanced Incomplete Block Diagrams to Ensure Reliable Deterministic Scheduling in Fully Connected Swarms</summary>
+                <div class="paper-item-content">
+                  <p><strong>Authors:</strong> Anika Mahesh</p>
+                  <p><strong>Abstract:</strong> Efficient communication is critical for coordination in multi-agent robotic systems operating under bandwidth and reliability constraints. In many existing approaches, communication is either randomized or loosely structured, leading to uncertainty in convergence time and robustness under packet loss. In this work, we propose a deterministic communication scheduling framework based on Balanced Incomplete Block Designs (BIBDs) for achieving consensus in fully connected swarms. The proposed method ensures structured and balanced pairwise communication between agents, enabling predictable information propagations. We evaluate the proposed approach in simulation against randomized and cyclic communication schedules under varying levels of packet loss. Experiments are conducted on systems of up to 91 agents with constrained communication budgets. Results show that BIBD-based scheduling consistently reduces time to consensus compared to randomized scheduling, achieving on average 19.6 faster convergence than the randomized schedules and 85.8 faster convergence than the Cyclic schedule for the 91 Agent swarm. On the 7-node swarm BIBD had on average 28 faster convergence than the randomized schedule and 61 faster convergence than the Cyclic Schedule while maintaining robustness under high packet loss conditions. These results suggest that combinatorial design-based scheduling provides a promising direction for communication-aware coordination in network-constrained robotic systems.</p>
+                </div>
+              </details>
+            </div>
           </td>
           <td>Contributed authors</td>
         </tr>
@@ -914,6 +933,57 @@
     width: 100%;
     max-height: 70px;
     object-fit: contain;
+  }
+
+  .paper-list {
+    margin-top: 0.75rem;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .paper-item {
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .paper-item summary {
+    cursor: pointer;
+    padding: 0.75rem 0.9rem;
+    font-weight: 600;
+    color: #1f3a5f;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .paper-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .paper-item summary::after {
+    content: "▼";
+    font-size: 0.75rem;
+    color: #4a90e2;
+    transition: transform 0.2s ease;
+    margin-left: 0.75rem;
+  }
+
+  .paper-item[open] summary::after {
+    transform: rotate(180deg);
+  }
+
+  .paper-item-content {
+    padding: 0.25rem 0.9rem 0.9rem;
+    border-top: 1px solid #e8eef6;
+  }
+
+  .paper-item-content p {
+    margin: 0.45rem 0;
+    color: #334155;
+    line-height: 1.5;
   }
 
   .title-divider {
