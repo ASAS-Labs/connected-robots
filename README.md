@@ -2,14 +2,6 @@
 
 Website repository for the **Connected Autonomous Robotic Systems** workshop initiative and related EARS-CONN activities.
 
-<p align="center">
-  <img src="images/icra.webp" alt="ICRA" height="60" />
-  &nbsp;&nbsp;&nbsp;
-  <img src="images/ieee-logo.png" alt="IEEE" height="60" />
-  &nbsp;&nbsp;&nbsp;
-  <img src="images/IEEE_RAS.png" alt="IEEE RAS" height="60" />
-</p>
-
 ## Overview
 
 This project maintains the public workshop website and materials around the intersection of:
@@ -19,6 +11,10 @@ This project maintains the public workshop website and materials around the inte
 - edge/cloud intelligence for real-time systems.
 
 The current public site supports the workshop accepted at **IEEE ICRA 2026**.
+
+## Why Connected Robots
+
+Advances in communication technologies, ranging from WiFi and 5G to satellite and emerging 6G architectures, enable robots to operate not only as standalone units but also as interconnected systems that share information, coordinate actions, and access distributed intelligence, with applications and decision-making increasingly leveraging connectivity to edge and cloud resources. This workshop focuses on how communication networks empower robotic autonomy and how autonomous robotic systems impose new requirements for communication infrastructures.
 
 ## Story and Motivation
 
@@ -37,7 +33,7 @@ Our goal is to continue this momentum:
 - grow EARS-CONN activities in New York and internationally,
 - and bridge toward communication-focused conferences in future editions.
 
-In 2026, **Aliasghar Arab** will host **EARS-CONN at CCNY** as part of this broader vision.
+In 2026, **We** will host **EARS-CONN at CCNY** as part of this broader vision.
 
 ## Website Scope
 
@@ -53,27 +49,12 @@ This repository currently includes:
 
 Push to the `main` branch for [ears-conn.com](https://ears-conn.com) and push to the `icra` branch for [connected-robots.com](https://connected-robots.com).
 
-## Key People
-
-- **Mata Khalili** (Nokia Bell Labs)
-- **Aliasghar Arab** (CCNY / NYU)
-- **Shutong Jin** (KTH)
-- **Marcus Gualtieri** (Bosch Research)
-
-## Related Institutions
-
-<p align="left">
-  <img src="images/partners/bell-labs.png" alt="Nokia Bell Labs" height="38" />
-  &nbsp;
-  <img src="images/partners/nyu.png" alt="NYU" height="38" />
-  &nbsp;
-  <img src="images/partners/kth.png" alt="KTH" height="38" />
-  &nbsp;
-  <img src="images/partners/bosch.png" alt="Bosch" height="38" />
-  &nbsp;
-  <img src="images/partners/ccny.png" alt="CCNY" height="38" />
-</p>
-
 ## License
 
 This repository is intended for maintaining workshop web content and related public materials.
+
+<p align="center">
+  <a href="https://wp.nyu.edu/asas_labs/" target="_blank" rel="noopener noreferrer">
+    <img src="images/logos/asas-labs.png" alt="ASAS Labs — Agile Safe Autonomous Systems" height="50" />
+  </a>
+</p>
