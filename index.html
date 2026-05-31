@@ -671,13 +671,33 @@
     }
 
     .schedule-section table {
-      display: block;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      display: table;
+      table-layout: fixed;
     }
 
-    .schedule-section th, .schedule-section td {
-      min-width: 150px;
+    .schedule-section th,
+    .schedule-section td {
+      min-width: 0;
+      padding: 0.5rem;
+      font-size: 0.88rem;
+      word-break: break-word;
+      vertical-align: top;
+    }
+
+    .schedule-section th:nth-child(1),
+    .schedule-section td:nth-child(1) {
+      width: 18%;
+    }
+
+    .schedule-section th:nth-child(2),
+    .schedule-section td:nth-child(2) {
+      width: 60%;
+    }
+
+    .schedule-section th:nth-child(3),
+    .schedule-section td:nth-child(3) {
+      width: 22%;
     }
 
     .institution-logos-grid {
