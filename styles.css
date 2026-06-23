@@ -3156,13 +3156,16 @@ body.theme-dark .section-breaker {
    ------------------------------------------------------------------------- */
 .workshop-title-container.has-earth-hero {
   text-align: left;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .workshop-title-container.has-earth-hero .workshop-title-wrapper {
-  max-width: none;
+  max-width: 100%;
   width: 100%;
-  padding-left: clamp(1rem, 4vw, 2.5rem);
-  padding-right: clamp(1rem, 4vw, 2.5rem);
+  margin: 0;
+  padding-left: clamp(0.5rem, 2vw, 1rem);
+  padding-right: clamp(0.5rem, 2vw, 1rem);
   box-sizing: border-box;
 }
 
@@ -3183,11 +3186,10 @@ body.theme-dark .section-breaker {
 
 /* Hero overlay: opening copy sits on top of the rotating earth */
 .hero-layout--overlay {
-  grid-template-columns: 1fr;
-  min-height: clamp(440px, 54vh, 580px);
-  align-items: center;
-  justify-items: stretch;
+  display: block;
   position: relative;
+  width: 100%;
+  min-height: clamp(440px, 54vh, 580px);
 }
 
 .hero-layout--overlay .hero-earth-shell {
@@ -3219,13 +3221,21 @@ body.theme-dark .section-breaker {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: none;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   padding: 0.75rem 0 1.25rem;
+  box-sizing: border-box;
 }
 
-.workshop-title-container.has-earth-hero .initiative-headline {
-  max-width: none;
+.workshop-title-container.has-earth-hero .initiative-headline,
+.workshop-title-container.has-earth-hero .subtitle,
+.workshop-title-container.has-earth-hero .initiative-tagline,
+.workshop-title-container.has-earth-hero .conference-date,
+.workshop-title-container.has-earth-hero .hero-cta-row,
+.workshop-title-container.has-earth-hero .hero-opening {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .hero-opening {
@@ -3291,7 +3301,8 @@ body.theme-dark .section-breaker {
 }
 
 .hero-layout.hero-layout--overlay {
-  grid-template-columns: 1fr;
+  display: block;
+  grid-template-columns: none;
   gap: 0;
 }
 
