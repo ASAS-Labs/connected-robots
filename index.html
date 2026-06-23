@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>EARS-CONN 2027 — Ethical embodied-AI through Digital-Earth infrastructure · NYC</title>
-  <meta name="description" content="EARS-CONN 2027: a transdisciplinary forum on remote sensing, robotics, and AI for sustainable cities—experts lay out how to turn sensing data into Digital-Earth solutions. New York, January 18–21.">
+  <title>EARS-CONN 2027 — Embodied-AI and Remote-sensing for Sustainable Connected Earth · NYC</title>
+  <meta name="description" content="EARS-CONN 2027 — Embodied-AI and Remote-sensing for Sustainable Connected Earth. A transdisciplinary forum in New York, January 18–21, on remote sensing, robotics, and AI for sustainable solutions.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,7 +28,7 @@
     <div class="title-container">
       <h1 class="sliding-title" aria-hidden="true">
         <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
-        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 18–21, 2027 — </span><span class="sliding-title-tagline">Remote sensing, robotics &amp; AI for sustainable solutions — Embodied-AI meets <span class="tagline-digital-earth">digital-earth</span> in <strong class="tagline-conn">CONN</strong>ected cities (EARS-CONN)</span>
+        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 18–21, 2027 — </span><span class="sliding-title-tagline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</span>
       </h1>
       <span class="sliding-title-mobile" aria-hidden="false">
         <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
@@ -85,7 +85,7 @@
             <p class="hero-opening-lead">We bring experts from remote sensing, robotics, and AI together to show how existing technologies can make sustainability more efficient.</p>
             <p class="hero-opening-focus">What should we do with robotics and remote sensing data to build sustainable solutions?</p>
           </div>
-          <h1 class="initiative-headline">Embodied-AI meets <span class="tagline-digital-earth">digital-earth</span> for Resiliency and Sustainability assurance in <strong class="tagline-conn">CONN</strong>ected cities (EARS-CONN)</h1>
+          <h1 class="initiative-headline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</h1>
           <div class="title-divider"></div>
           <h2 class="subtitle">
             <span class="rotating-word-slot">
@@ -96,6 +96,9 @@
             From ground robots to orbiting satellites — turning sensing data into a living Digital-Earth for smarter, more sustainable cities
           </div>
           <div class="conference-date">New York, NY, USA — January 18–21, 2027</div>
+          <p class="hero-cta-row">
+            <a href="register.html" class="vision-btn hero-register-btn">Register for EARS-CONN 2027</a>
+          </p>
         </div>
       </div>
     </div>
@@ -890,10 +893,6 @@
     }
     
     /* Mobile navigation adjustments */
-    .nav-tab {
-      padding: 0.5rem !important;
-    }
-    
     .nav-links {
       flex-direction: column;
       gap: 0.75rem;
@@ -1446,26 +1445,20 @@
   (function() {
     function updateHeroTopOffset() {
       var topBar = document.querySelector('.top-bar');
-      var navTab = document.querySelector('.nav-tab');
       var hero = document.querySelector('.workshop-title-container');
-      if (!topBar || !navTab || !hero) return;
-      var offset = topBar.getBoundingClientRect().height + navTab.getBoundingClientRect().height;
+      if (!topBar || !hero) return;
+      var offset = topBar.getBoundingClientRect().height;
       document.documentElement.style.setProperty('--hero-top-offset', offset + 'px');
     }
     function initHeroOffset() {
       updateHeroTopOffset();
       window.addEventListener('resize', updateHeroTopOffset);
-      var hamburger = document.querySelector('.nav-hamburger');
-      var navTab = document.querySelector('.nav-tab');
-      if (hamburger && navTab) {
-        hamburger.addEventListener('click', function() {
-          setTimeout(updateHeroTopOffset, 150);
-        });
-      }
-      if (typeof ResizeObserver !== 'undefined' && navTab) {
-        var ro = new ResizeObserver(updateHeroTopOffset);
-        ro.observe(document.querySelector('.top-bar'));
-        ro.observe(navTab);
+      if (typeof ResizeObserver !== 'undefined') {
+        var topBarEl = document.querySelector('.top-bar');
+        if (topBarEl) {
+          var ro = new ResizeObserver(updateHeroTopOffset);
+          ro.observe(topBarEl);
+        }
       }
     }
     if (document.readyState === 'loading') {
@@ -1474,27 +1467,8 @@
       initHeroOffset();
     }
   })();
-
-  // Mobile nav hamburger toggle
-  (function() {
-    var hamburger = document.querySelector('.nav-hamburger');
-    var navTab = document.querySelector('.nav-tab');
-    if (hamburger && navTab) {
-      hamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var expanded = navTab.classList.toggle('expanded');
-        hamburger.classList.toggle('active', expanded);
-        hamburger.setAttribute('aria-expanded', expanded);
-      });
-      document.addEventListener('click', function(e) {
-        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
-          navTab.classList.remove('expanded');
-          hamburger.classList.remove('active');
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-  })();
+  </script>
+  <script src="js/site-nav.js"></script>
 
   function toggleSection(id) {
     const content = document.getElementById(id);
@@ -1566,7 +1540,7 @@
       'Remote sensing + robotics + AI for sustainable cities',
       'What to do with sensing data for sustainable solutions',
       'Experts across fields: Earth observation, robotics, governance, insurance',
-      'digital-earth for Resiliency & Sustainability assurance — CONNected cities',
+      'Embodied-AI and Remote-sensing for Sustainable Connected Earth',
       'From orbit to street level — building sustainable solutions'
     ];
     let i = 0;
@@ -1664,8 +1638,7 @@
     const sections = ['section-hero', 'section-intro', 'section-panels', 'section-governance', 'section-keynotes', 'section-participate', 'section-schedule', 'section-organizers', 'section-sponsors'];
     const navLinks = document.querySelectorAll('.scroll-spy-link');
     const topBarHeight = document.querySelector('.top-bar')?.offsetHeight || 0;
-    const navTabHeight = document.querySelector('.nav-tab')?.offsetHeight || 0;
-    const offset = topBarHeight + navTabHeight + 60;
+    const offset = topBarHeight + 60;
 
     function updateActiveSection() {
       let active = 'section-hero';

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Digital-Earth Challenge — EARS-CONN 2026</title>
+  <title>Digital-Earth Challenge — EARS-CONN 2027</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="styles.css?v=2026-05-12">
+  <link rel="stylesheet" href="styles.css?v=2027-01-18">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
 </head>
 <body>
@@ -22,11 +22,11 @@
     <div class="title-container">
       <h1 class="sliding-title" aria-hidden="true">
         <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
-        <span class="sliding-title-prefix">EARS-CONN 2026 — NEW YORK CITY — AUGUST 24–27, 2026 — </span><span class="sliding-title-tagline">Embodied-AI meets <span class="tagline-digital-earth">digital-earth</span> for Resiliency and Sustainability assurance in <strong class="tagline-conn">CONN</strong>ected cities (EARS-CONN)</span>
+        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 18–21, 2027 — </span><span class="sliding-title-tagline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</span>
       </h1>
       <span class="sliding-title-mobile" aria-hidden="false">
         <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
-        EARS-CONN 2026 — NYC — August 24–27
+        EARS-CONN 2027 — NYC — January 18–21
       </span>
     </div>
   </div>
@@ -48,14 +48,14 @@
   </div>
 
   <section class="cfp-section page-section">
-    <h1 class="initiative-page-headline">Embodied-AI meets <span class="tagline-digital-earth">digital-earth</span> for Resiliency and Sustainability assurance in <strong class="tagline-conn">CONN</strong>ected cities (EARS-CONN)</h1>
+    <h1 class="initiative-page-headline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</h1>
     <h2 class="section-title">Digital-Earth Challenge</h2>
     <p class="page-intro"><strong>EARS-CONN</strong> challenges you to show how <strong>embodied-AI</strong> — from ground robots and drones to satellite remote sensing — builds a <strong>living Digital-Earth</strong> that enables smarter city planning and more resilient urban infrastructure. <strong>Peer reviewed.</strong> Possible <strong>awards</strong> and <strong>technology advancement sponsorships</strong>.</p>
 
     <div class="attend-blocks">
       <div class="attend-block">
         <h3>Challenge Focus</h3>
-        <p>The Digital-Earth Challenge invites ideas aligned with <strong>EARS-CONN: Embodied-AI meets <span class="tagline-digital-earth">digital-earth</span> for Resiliency and Sustainability assurance in <span class="tagline-conn">CONN</span>ected cities</strong>. We seek innovative approaches that address resilient and sustainable urban ecosystems, and leverage data from satellites, embodied-AI systems, robots, drones, and sensors to build and keep Digital-Earth updated for real-time ethical decisions.</p>
+        <p>The Digital-Earth Challenge invites ideas aligned with <strong>EARS-CONN: Embodied-AI and Remote-sensing for Sustainable Connected Earth</strong>. We seek innovative approaches that address resilient and sustainable urban ecosystems, and leverage data from satellites, embodied-AI systems, robots, drones, and sensors to build and keep Digital-Earth updated for real-time ethical decisions.</p>
         <p>A priority focus is <strong>urban insurance intelligence</strong>: demonstrating how Digital-Earth platforms transform insurance from reactive to proactive — enabling precise hazard prediction, property-specific digital twins, hyper-local risk scoring, and ethical automated underwriting and claims. Critically, satellite and aerial remote sensing provides the macro-scale picture but cannot resolve the structural and micro-topographic detail that dense urban environments require; we particularly encourage ideas that integrate <strong>embodied-AI robotics as a complementary ground-truth layer</strong> to close this precision gap for insurers, city planners, and first responders.</p>
       </div>
 
@@ -105,7 +105,7 @@
     </div>
 
     <div class="important-dates" style="margin-top: 2rem;">
-      <strong>Submission deadline:</strong> TBA &nbsp;|&nbsp; <strong>Event:</strong> August 24–25, 2026
+      <strong>Submission deadline:</strong> TBA &nbsp;|&nbsp; <strong>Event:</strong> January 18–19, 2027
     </div>
 
     <div style="margin-top: 2rem; text-align: center;">
@@ -116,30 +116,10 @@
   <footer class="footer">
     <div class="footer-inner">
       <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
-      <p style="margin: 0;">&copy; 2026 EARS-CONN. All Rights Reserved.</p>
+      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <script>
-  (function() {
-    var hamburger = document.querySelector('.nav-hamburger');
-    var navTab = document.querySelector('.nav-tab');
-    if (hamburger && navTab) {
-      hamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var expanded = navTab.classList.toggle('expanded');
-        hamburger.classList.toggle('active', expanded);
-        hamburger.setAttribute('aria-expanded', expanded);
-      });
-      document.addEventListener('click', function(e) {
-        if (navTab.classList.contains('expanded') && !navTab.contains(e.target)) {
-          navTab.classList.remove('expanded');
-          hamburger.classList.remove('active');
-          hamburger.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-  })();
-  </script>
+  <script src="js/site-nav.js"></script>
 </body>
 </html>

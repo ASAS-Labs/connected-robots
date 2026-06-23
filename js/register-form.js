@@ -1,9 +1,9 @@
 /**
  * EARS-CONN unified registration: tier selection, participation_mode,
- * workshop-only fields, early-bird cutoff (local calendar through July 4, 2026).
+ * workshop-only fields, early-bird cutoff (local calendar through December 18, 2026).
  */
 (function () {
-  var EARLY_LAST_MOMENT = new Date(2026, 6, 5, 0, 0, 0);
+  var EARLY_LAST_MOMENT = new Date(2026, 11, 19, 0, 0, 0);
   var prevTier = '';
 
   function earlyBirdOpen() {
@@ -32,7 +32,7 @@
       var open = earlyBirdOpen();
       earlyInput.disabled = !open;
       earlyRow.style.opacity = open ? '' : '0.55';
-      earlyRow.title = open ? '' : 'Early registration ended on July 4, 2026.';
+      earlyRow.title = open ? '' : 'Early registration ended on December 18, 2026.';
       if (!open && tier === 'conf_early') {
         var std = document.getElementById('reg-tier-conf-standard');
         if (std) std.checked = true;

@@ -48,3 +48,6 @@ samconfig.toml
 # AWS CLI / SSO — never commit credentials or a copied ~/.aws tree into this repo
 .aws/
 **/sso/cache/
+
+# Local-only files (speaker contacts, venv, etc.)
+.local/
