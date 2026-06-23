@@ -13,7 +13,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="styles.css?v=2027-01-19">
+  <link rel="stylesheet" href="styles.css?v=2027-01-20">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
 </head>
 <body>
@@ -37,22 +37,24 @@
     </div>
   </div>
 
-  <!-- Navigation Tab -->
-  <div class="nav-tab">
-    <button type="button" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+  <!-- Main navigation — toggle top-right, drawer from right -->
+  <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
+      <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
     </button>
-    <div class="nav-links">
-      <div class="nav-tabs">
-        <a href="attend.html" class="nav-tab-item">Attend</a>
-        <a href="register.html" class="nav-tab-item">Register</a>
-        <a href="venue.html" class="nav-tab-item">Venue</a>
-        <a href="speakers.html" class="nav-tab-item">Speakers</a>
-        <a href="workshop.html" class="nav-tab-item">Workshop</a>
-        <a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a>
-      </div>
+    <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
+      <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <ul class="nav-tabs" role="list">
+        <li><a href="attend.html" class="nav-tab-item">Attend</a></li>
+        <li><a href="register.html" class="nav-tab-item">Register</a></li>
+        <li><a href="venue.html" class="nav-tab-item">Venue</a></li>
+        <li><a href="speakers.html" class="nav-tab-item">Speakers</a></li>
+        <li><a href="workshop.html" class="nav-tab-item">Workshop</a></li>
+        <li><a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a></li>
+      </ul>
     </div>
-  </div>
+  </nav>
 
   <!-- Scroll-spy section navigation (IPA-style) -->
   <nav class="scroll-spy-nav" aria-label="Page sections">
@@ -1441,7 +1443,7 @@
     video.play().catch(function() {});
   })();
 
-  // Dynamic hero top offset: ensure first section starts below fixed top bar + nav
+  // Dynamic hero top offset: ensure first section starts below fixed top bar
   (function() {
     function updateHeroTopOffset() {
       var topBar = document.querySelector('.top-bar');
