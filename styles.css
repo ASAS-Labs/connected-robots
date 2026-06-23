@@ -3180,6 +3180,86 @@ body.theme-dark .section-breaker {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
+/* Hero overlay: opening copy sits on top of the rotating earth */
+.hero-layout--overlay {
+  grid-template-columns: 1fr;
+  min-height: clamp(440px, 54vh, 580px);
+  align-items: center;
+  justify-items: center;
+  position: relative;
+}
+
+.hero-layout--overlay .hero-earth-shell {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-layout--overlay .hero-earth-scene {
+  pointer-events: auto;
+  width: min(52vw, 460px);
+  height: min(52vw, 460px);
+  max-width: 460px;
+  max-height: 460px;
+  opacity: 0.95;
+}
+
+.hero-layout--overlay .hero-earth-halo {
+  width: 560px;
+  height: 560px;
+}
+
+.hero-layout--overlay .hero-copy {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: min(95vw, 900px);
+  margin: 0 auto;
+  padding: 0.75rem 0.5rem 1.25rem;
+}
+
+.hero-opening {
+  margin: 0 auto 1.35rem;
+  padding: 1rem 1.35rem;
+  max-width: min(95vw, 780px);
+  border-radius: 14px;
+  background: rgba(20, 0, 55, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.hero-opening-lead {
+  font-size: clamp(1.05rem, 2.6vw, 1.38rem);
+  font-weight: 600;
+  color: #faf5ff;
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.hero-opening-focus {
+  font-size: clamp(0.98rem, 2.2vw, 1.18rem);
+  font-weight: 500;
+  font-style: italic;
+  color: #e9d5ff;
+  margin: 0.7rem 0 0;
+  line-height: 1.45;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.initiative-hero .hero-opening-lead,
+.initiative-hero .hero-opening-focus {
+  color: #faf5ff;
+}
+
 .hero-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 460px);
@@ -3244,6 +3324,32 @@ body.theme-dark .section-breaker {
 }
 
 @media (max-width: 768px) {
+  .hero-layout--overlay {
+    min-height: clamp(480px, 62vh, 620px);
+  }
+
+  .hero-layout--overlay .hero-earth-shell {
+    order: unset;
+    margin-top: 0;
+  }
+
+  .hero-layout--overlay .hero-earth-scene {
+    width: min(78vw, 340px);
+    height: min(78vw, 340px);
+    min-width: 240px;
+    min-height: 240px;
+  }
+
+  .hero-layout--overlay .hero-earth-halo {
+    width: 400px;
+    height: 400px;
+  }
+
+  .hero-opening {
+    padding: 0.85rem 1rem;
+    margin-bottom: 1rem;
+  }
+
   .hero-layout {
     grid-template-columns: 1fr;
     gap: 1rem;
