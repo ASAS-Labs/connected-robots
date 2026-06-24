@@ -13,10 +13,10 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="styles.css?v=2027-01-20">
+  <link rel="stylesheet" href="styles.css?v=2027-06-23">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
 </head>
-<body>
+<body class="scroll-earth-page">
 
   <!-- Top Bar with Logos and Sliding Dates -->
   <div class="top-bar">
@@ -56,6 +56,14 @@
     </div>
   </nav>
 
+  <!-- Fixed Digital-Earth backdrop — scroll rotates and zooms toward NYC -->
+  <div class="page-earth-backdrop" aria-hidden="true">
+    <div class="page-earth-shell">
+      <div class="hero-earth-halo page-earth-halo"></div>
+      <div id="heroEarthScene" class="hero-earth-scene page-earth-scene" data-scroll-earth="true"></div>
+    </div>
+  </div>
+
   <!-- Scroll-spy section navigation (IPA-style) -->
   <nav class="scroll-spy-nav" aria-label="Page sections">
     <ul class="scroll-spy-list">
@@ -78,10 +86,6 @@
     <div class="hero-bg-overlay"></div>
     <div class="workshop-title-wrapper">
       <div class="hero-layout hero-layout--overlay">
-        <div class="hero-earth-shell" aria-hidden="true">
-          <div class="hero-earth-halo"></div>
-          <div id="heroEarthScene" class="hero-earth-scene"></div>
-        </div>
         <div class="hero-copy text-center">
           <div class="hero-opening">
             <p class="hero-opening-lead">We bring experts from remote sensing, robotics, and AI together to show how existing technologies can make sustainability more efficient.</p>
@@ -1728,7 +1732,7 @@
   })();
   </script>
 
-  <script type="module" src="js/hero-earth.js?v=2026-05-04"></script>
+  <script type="module" src="js/hero-earth.js?v=2027-06-23"></script>
 
 </body>
 </html>

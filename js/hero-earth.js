@@ -1,5 +1,6 @@
 /**
- * Interactive 3D Earth for EARS-CONN hero (same logic as /testpage; textures from /images/earth-3d/).
+ * Interactive 3D Earth for EARS-CONN hero (textures from /images/earth-3d/).
+ * On index (data-scroll-earth): fixed backdrop, scroll rotates globe and zooms toward NYC.
  */
 import * as THREE from 'https://esm.sh/three@0.161.0';
 
@@ -7,7 +8,15 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   const mount = document.getElementById('heroEarthScene');
   if (!mount) return;
 
+  const scrollEarthMode = mount.dataset.scrollEarth === 'true'
+    || document.body.classList.contains('scroll-earth-page');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const NYC_LAT = 40.7128;
+  const NYC_LON = -74.006;
+  /** Align equirectangular texture (Greenwich at +Z) with geographic coords. */
+  const TEXTURE_Y_FIX = -Math.PI / 2;
+
   const scene = new THREE.Scene();
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -114,7 +123,7 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
 
   const pointer = { x: 0, y: 0 };
   const zoom = {
-    min: 4.3,
+    min: scrollEarthMode ? 3.15 : 4.3,
     max: 9.2,
     current: 6.7,
     target: 6.7,
@@ -129,9 +138,52 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   const activePointers = new Map();
   let pinchDistance = null;
   let rafId = null;
+  let scrollProgress = 0;
+
+  const scrollStartQuat = latLonToQuat(18, -32);
+  const scrollEndQuat = latLonToQuat(NYC_LAT, NYC_LON);
+  const scrollOrient = new THREE.Quaternion();
+
+  const scrollZoomStart = 6.7;
+  const scrollZoomEnd = 3.25;
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function latLonToQuat(latDeg, lonDeg) {
+    const lat = THREE.MathUtils.degToRad(latDeg);
+    const lon = THREE.MathUtils.degToRad(lonDeg);
+    const target = new THREE.Vector3(
+      Math.cos(lat) * Math.sin(lon),
+      Math.sin(lat),
+      Math.cos(lat) * Math.cos(lon)
+    ).normalize();
+    const q = new THREE.Quaternion().setFromUnitVectors(
+      target,
+      new THREE.Vector3(0, 0, 1)
+    );
+    if (TEXTURE_Y_FIX) {
+      const texFix = new THREE.Quaternion().setFromAxisAngle(
+        new THREE.Vector3(0, 1, 0),
+        TEXTURE_Y_FIX
+      );
+      q.multiply(texFix);
+    }
+    return q;
+  }
+
+  function updateScrollProgress() {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    scrollProgress = clamp(window.scrollY / maxScroll, 0, 1);
   }
 
   function distanceBetweenPointers(a, b) {
@@ -141,10 +193,13 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   }
 
   function updateZoom(delta) {
+    if (scrollEarthMode) return;
     zoom.target = clamp(zoom.target + delta, zoom.min, zoom.max);
   }
 
   function onPointerMove(event) {
+    if (scrollEarthMode) return;
+
     if (activePointers.has(event.pointerId)) {
       activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     }
@@ -177,6 +232,8 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   }
 
   function onPointerDown(event) {
+    if (scrollEarthMode) return;
+
     activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     if (activePointers.size === 2) {
       const [first, second] = Array.from(activePointers.values());
@@ -196,6 +253,8 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   }
 
   function onPointerUp(event) {
+    if (scrollEarthMode) return;
+
     activePointers.delete(event.pointerId);
     if (activePointers.size < 2) pinchDistance = null;
     drag.active = false;
@@ -204,57 +263,80 @@ import * as THREE from 'https://esm.sh/three@0.161.0';
   }
 
   function onWheel(event) {
+    if (scrollEarthMode) return;
     event.preventDefault();
     updateZoom(event.deltaY * 0.004);
   }
 
-  mount.addEventListener('pointerdown', onPointerDown);
-  mount.addEventListener('pointermove', onPointerMove);
-  mount.addEventListener('pointerup', onPointerUp);
-  mount.addEventListener('pointercancel', onPointerUp);
-  mount.addEventListener('wheel', onWheel, { passive: false });
-  mount.addEventListener('pointerleave', function () {
-    if (!drag.active) {
+  if (!scrollEarthMode) {
+    mount.addEventListener('pointerdown', onPointerDown);
+    mount.addEventListener('pointermove', onPointerMove);
+    mount.addEventListener('pointerup', onPointerUp);
+    mount.addEventListener('pointercancel', onPointerUp);
+    mount.addEventListener('wheel', onWheel, { passive: false });
+    mount.addEventListener('pointerleave', function () {
+      if (!drag.active) {
+        pointer.x = 0;
+        pointer.y = 0;
+      }
+    });
+    window.addEventListener('pointerup', function () {
+      if (!drag.active) return;
+      drag.active = false;
+      mount.classList.remove('is-dragging');
+    });
+    mount.addEventListener('dragstart', function (event) {
+      event.preventDefault();
+    });
+    mount.addEventListener('pointerleave', function () {
+      if (drag.active) return;
       pointer.x = 0;
       pointer.y = 0;
-    }
-  });
-  window.addEventListener('pointerup', function () {
-    if (!drag.active) return;
-    drag.active = false;
-    mount.classList.remove('is-dragging');
-  });
-  mount.addEventListener('dragstart', function (event) {
-    event.preventDefault();
-  });
-  mount.addEventListener('pointerleave', function () {
-    if (drag.active) return;
-    pointer.x = 0;
-    pointer.y = 0;
-  });
+    });
+  } else {
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+    updateScrollProgress();
+  }
 
   function resize() {
-    if (!mount.clientWidth || !mount.clientHeight) return;
-    camera.aspect = mount.clientWidth / mount.clientHeight;
+    const width = mount.clientWidth || window.innerWidth;
+    const height = mount.clientHeight || window.innerHeight;
+    if (!width || !height) return;
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setSize(mount.clientWidth, mount.clientHeight);
+    renderer.setSize(width, height);
   }
   window.addEventListener('resize', resize);
 
   const clock = new THREE.Clock();
   function animate() {
     const elapsed = clock.getElapsedTime();
-    earth.rotation.y += prefersReducedMotion ? 0.0012 : 0.0022;
-    clouds.rotation.y += prefersReducedMotion ? 0.0016 : 0.0026;
+    const spinScale = scrollEarthMode ? Math.max(0, 1 - scrollProgress * 1.15) : 1;
+    const autoSpin = prefersReducedMotion ? 0.0012 : 0.0022;
+
+    earth.rotation.y += autoSpin * spinScale;
+    clouds.rotation.y += (prefersReducedMotion ? 0.0016 : 0.0026) * spinScale;
     stars.rotation.y = elapsed * 0.01;
+
+    if (scrollEarthMode) {
+      const eased = easeInOutCubic(scrollProgress);
+      scrollOrient.slerpQuaternions(scrollStartQuat, scrollEndQuat, eased);
+      earthGroup.quaternion.copy(scrollOrient);
+      zoom.target = lerp(scrollZoomStart, scrollZoomEnd, eased);
+      earthGroup.position.y = Math.sin(elapsed * 0.7) * 0.08 * (1 - eased);
+      const scale = lerp(1, 1.28, eased);
+      mount.style.transform = 'scale(' + scale + ')';
+    } else {
+      const targetRotationX = drag.rotationX + pointer.y * 0.18;
+      const targetRotationY = drag.rotationY + pointer.x * 0.24;
+      earthGroup.rotation.x += (targetRotationX - earthGroup.rotation.x) * 0.08;
+      earthGroup.rotation.y += (targetRotationY - earthGroup.rotation.y) * 0.08;
+      earthGroup.position.y = Math.sin(elapsed * 0.7) * 0.08;
+    }
+
     zoom.current += (zoom.target - zoom.current) * 0.12;
     camera.position.z = zoom.current;
-
-    const targetRotationX = drag.rotationX + pointer.y * 0.18;
-    const targetRotationY = drag.rotationY + pointer.x * 0.24;
-    earthGroup.rotation.x += (targetRotationX - earthGroup.rotation.x) * 0.08;
-    earthGroup.rotation.y += (targetRotationY - earthGroup.rotation.y) * 0.08;
-    earthGroup.position.y = Math.sin(elapsed * 0.7) * 0.08;
 
     renderer.render(scene, camera);
     rafId = requestAnimationFrame(animate);

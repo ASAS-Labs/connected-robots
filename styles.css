@@ -3491,3 +3491,128 @@ span.tagline-conn {
 p .tagline-digital-earth {
   font-weight: 700;
 }
+
+/* -------------------------------------------------------------------------
+   Index: fixed scroll-driven Digital-Earth backdrop
+   ------------------------------------------------------------------------- */
+body.scroll-earth-page {
+  background: #050814;
+}
+
+body.scroll-earth-page .page-earth-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 20%, rgba(30, 58, 138, 0.35), transparent 55%),
+    radial-gradient(ellipse 90% 60% at 80% 80%, rgba(87, 6, 140, 0.22), transparent 50%),
+    linear-gradient(180deg, #060b18 0%, #0a1020 45%, #050814 100%);
+}
+
+body.scroll-earth-page .page-earth-shell {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.scroll-earth-page .page-earth-scene {
+  width: min(118vmin, 980px);
+  height: min(118vmin, 980px);
+  max-width: none;
+  max-height: none;
+  min-width: 280px;
+  min-height: 280px;
+  pointer-events: none;
+  cursor: default;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+body.scroll-earth-page .page-earth-halo {
+  width: min(130vmin, 1080px);
+  height: min(130vmin, 1080px);
+}
+
+body.scroll-earth-page > :not(.page-earth-backdrop):not(.top-bar):not(.site-nav):not(.scroll-spy-nav) {
+  position: relative;
+  z-index: 1;
+}
+
+body.scroll-earth-page .workshop-title-container.has-earth-hero {
+  background: transparent;
+  overflow: visible;
+}
+
+body.scroll-earth-page .hero-bg-video {
+  opacity: 0.35;
+}
+
+body.scroll-earth-page .hero-bg-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 28, 0.72) 0%,
+    rgba(10, 16, 36, 0.55) 45%,
+    rgba(8, 12, 28, 0.48) 100%
+  );
+}
+
+body.scroll-earth-page .hero-layout--overlay {
+  min-height: clamp(480px, 58vh, 620px);
+}
+
+body.scroll-earth-page .abstract-section,
+body.scroll-earth-page .connectivity-section,
+body.scroll-earth-page .participate-box,
+body.scroll-earth-page .digital-earth-section .agenda-box,
+body.scroll-earth-page .sponsors-section,
+body.scroll-earth-page .keynote-speakers-section {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+body.scroll-earth-page .organizer-card,
+body.scroll-earth-page .keynote-card,
+body.scroll-earth-page .speaker-card,
+body.scroll-earth-page .connectivity-card,
+body.scroll-earth-page .participate-card,
+body.scroll-earth-page .agenda-box {
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body.scroll-earth-page .section-breaker {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+body.scroll-earth-page .footer {
+  background: rgba(87, 6, 140, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 768px) {
+  body.scroll-earth-page .page-earth-scene {
+    width: min(135vmin, 720px);
+    height: min(135vmin, 720px);
+  }
+
+  body.scroll-earth-page .abstract-section,
+  body.scroll-earth-page .connectivity-section,
+  body.scroll-earth-page .sponsors-section {
+    background: rgba(255, 255, 255, 0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.scroll-earth-page .page-earth-scene {
+    will-change: auto;
+  }
+}
+
