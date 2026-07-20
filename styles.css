@@ -3278,57 +3278,68 @@ body.theme-dark .section-breaker {
 }
 
 .workshop-title-container.has-earth-hero .initiative-headline,
-.workshop-title-container.has-earth-hero .subtitle,
 .workshop-title-container.has-earth-hero .initiative-tagline,
 .workshop-title-container.has-earth-hero .conference-date,
+.workshop-title-container.has-earth-hero .hero-location-city,
+.workshop-title-container.has-earth-hero .hero-location-venue,
 .workshop-title-container.has-earth-hero .hero-cta-row,
-.workshop-title-container.has-earth-hero .hero-opening {
+.workshop-title-container.has-earth-hero .hero-brand {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-.hero-opening {
-  margin: 0 auto 1.35rem;
-  padding: 1rem clamp(1rem, 3vw, 2rem);
-  max-width: none;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 14px;
-  background: rgba(20, 0, 55, 0.62);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-}
-
-.hero-opening-lead {
-  font-size: clamp(1.05rem, 2.6vw, 1.38rem);
-  font-weight: 600;
-  color: #faf5ff;
-  margin: 0;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
-}
-
-.hero-opening-focus {
-  font-size: clamp(0.98rem, 2.2vw, 1.18rem);
-  font-weight: 500;
-  font-style: italic;
+.hero-brand {
+  margin: 0 0 0.65rem;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: #e9d5ff;
-  margin: 0.7rem 0 0;
-  line-height: 1.45;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+}
+
+.workshop-title-container.has-earth-hero .initiative-headline {
+  font-size: clamp(1.55rem, 4.2vw, 2.65rem);
+  line-height: 1.2;
+  max-width: 18ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.workshop-title-container.has-earth-hero .initiative-tagline {
+  margin-top: 0.35rem;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 500;
+  color: #f3e8ff;
+}
+
+.workshop-title-container.has-earth-hero .conference-date {
+  margin-top: 1rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-style: normal;
+  color: #ffffff;
+}
+
+.hero-location-city {
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.05rem, 2.3vw, 1.25rem);
+  font-weight: 700;
+  color: #ffffff;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-.initiative-hero .hero-opening-lead,
-.initiative-hero .hero-opening-focus {
-  color: #faf5ff;
+.hero-location-venue {
+  margin: 0.25rem 0 0;
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
+  font-weight: 500;
+  color: #e9d5ff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  line-height: 1.4;
 }
 
 .hero-cta-row {
-  margin: 1rem 0 0;
+  margin: 1.25rem 0 0;
 }
 
 .hero-register-btn {
@@ -3430,11 +3441,6 @@ body.theme-dark .section-breaker {
   .hero-layout--overlay .hero-earth-halo {
     width: 400px;
     height: 400px;
-  }
-
-  .hero-opening {
-    padding: 0.85rem 1rem;
-    margin-bottom: 1rem;
   }
 
   .hero-layout {
