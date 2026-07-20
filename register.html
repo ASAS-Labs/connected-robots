@@ -9,7 +9,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="description" content="Register for EARS-CONN 2027 in New York City: conference passes, student rates, early bird through December 18, 2026, and Autoware workshop options.">
-  <link rel="stylesheet" href="styles.css?v=2027-01-20">
+  <link rel="stylesheet" href="styles.css?v=2027-07-20b">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
   <!-- RegisterEndpoint from stack ears-conn-workshop-register (update if API is redeployed). -->
   <script>
@@ -51,10 +51,25 @@
       line-height: 1.55;
       color: #78350f;
     }
+    .ws-reg-callout.ws-reg-urgency {
+      background: #ede9fe;
+      border-left-color: #7c3aed;
+      color: #4c1d95;
+    }
     body.theme-dark .ws-reg-callout {
       background: #1c1a0a;
       border-left-color: #fbbf24;
       color: #fcd34d;
+    }
+    body.theme-dark .ws-reg-callout.ws-reg-urgency {
+      background: #1e1035;
+      border-left-color: #c084fc;
+      color: #e9d5ff;
+    }
+    .reg-pricing-note {
+      margin: 0.5rem 0 1.5rem;
+      font-size: 0.88rem;
+      color: #64748b;
     }
     .ws-thanks-banner {
       background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
@@ -309,15 +324,16 @@
   <div class="ws-reg-hero">
     <h1>Register for EARS-CONN 2027</h1>
     <p>
-      One form for conference and Autoware workshop options. The main program is in person in New York City (January 18–21, 2027).
-      Workshop attendance can be in person or online; there is no online-only conference pass.
+      Secure your spot for January 18–21, 2027 in New York City.
+      Early bird conference rate is open through <strong>December 18, 2026</strong> — register today before it ends.
+      Limited free conference tickets are available by request (organizer approval required).
     </p>
   </div>
 
   <main class="ws-reg-page cfp-section page-section">
     <div id="ws-thanks" class="ws-thanks-banner" hidden role="status">
       <h2>Thank you</h2>
-      <p>Your registration request was received. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable.</p>
+      <p>Your registration request was received. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable. Free-ticket requests are reviewed individually.</p>
       <p style="margin-top: 1rem;"><a href="index.html" class="vision-btn" style="display:inline-block; font-size:0.95rem; padding:0.55rem 1.4rem; margin-right:0.5rem;">Home</a><a href="attend.html" class="vision-btn" style="display:inline-block; font-size:0.95rem; padding:0.55rem 1.4rem;">Attend</a></p>
     </div>
 
@@ -327,10 +343,15 @@
         <code>window.__WORKSHOP_REGISTER_POST_URL__</code> in this file to the stack output <strong>RegisterEndpoint</strong>
         (HTTPS URL ending in <code>/register</code>).
       </div>
+      <div class="ws-reg-callout ws-reg-urgency">
+        <strong>Register now.</strong> Early bird conference seats are <strong>$50 through December 18, 2026</strong>.
+        After that date, the regular conference rate is <strong>$100</strong>.
+        Prefer not to pay? You can <strong>request a limited free conference ticket</strong> — approval is not guaranteed.
+      </div>
       <div class="ws-reg-callout">
-        <strong>Rates (USD).</strong> Early bird conference rate is available through <strong>December 18, 2026</strong> (local date).
+        <strong>Rates (USD).</strong> The main program is in person in New York City.
         Full in-person workshop registration includes the main conference. Online workshop registration includes conference access for remote participation in the main program where streaming is offered, and remote Autoware track access; the conference itself is not sold as online-only.
-        Student pricing may require verification at check-in.
+        Student pricing and free tickets may require verification.
       </div>
 
       <div class="reg-pricing-wrap">
@@ -339,13 +360,15 @@
             <tr><th>Option</th><th>Price</th></tr>
           </thead>
           <tbody>
-            <tr><td>Conference — early (through December 18, 2026)</td><td>$50</td></tr>
+            <tr><td>Conference — early bird (through December 18, 2026)</td><td>$50</td></tr>
+            <tr><td>Conference — regular</td><td>$100</td></tr>
             <tr><td>Conference — student</td><td>$20</td></tr>
-            <tr><td>Conference — standard</td><td>$100</td></tr>
+            <tr><td>Conference — limited free ticket (request)</td><td>$0*</td></tr>
             <tr><td>Workshop — full in person (includes conference)</td><td>$600</td></tr>
             <tr><td>Workshop — online (includes conference)</td><td>$500</td></tr>
           </tbody>
         </table>
+        <p class="reg-pricing-note">* Free tickets are limited and subject to organizer approval.</p>
       </div>
 
       <form id="ears-conn-register-form" class="ws-reserve-form" method="POST">
@@ -356,10 +379,11 @@
           <div class="ws-field ws-field--radios">
             <span class="ws-field-label" id="tier-legend">Registration type <span aria-label="required">*</span></span>
             <div class="ws-radio-group" role="radiogroup" aria-labelledby="tier-legend">
-              <label class="ws-radio-row"><input type="radio" name="registration_tier" id="reg-tier-conf-early" value="conf_early" required> Conference — early bird, $50 (through December 18, 2026)</label>
-              <label class="ws-radio-row"><input type="radio" name="registration_tier" value="conf_student"> Conference — student, $20</label>
-              <label class="ws-radio-row"><input type="radio" name="registration_tier" id="reg-tier-conf-standard" value="conf_standard" checked> Conference — standard, $100</label>
-              <label class="ws-radio-row"><input type="radio" name="registration_tier" value="workshop_full"> Workshop — full in person, $600 (includes conference)</label>
+              <label class="ws-radio-row" id="reg-early"><input type="radio" name="registration_tier" id="reg-tier-conf-early" value="conf_early" required checked> Conference — early bird, $50 (claim your spot by December 18, 2026)</label>
+              <label class="ws-radio-row"><input type="radio" name="registration_tier" id="reg-tier-conf-standard" value="conf_standard"> Conference — regular, $100</label>
+              <label class="ws-radio-row" id="reg-student"><input type="radio" name="registration_tier" value="conf_student"> Conference — student, $20</label>
+              <label class="ws-radio-row" id="reg-free"><input type="radio" name="registration_tier" value="conf_free_request"> Conference — request limited free ticket ($0, approval required)</label>
+              <label class="ws-radio-row" id="reg-workshop"><input type="radio" name="registration_tier" value="workshop_full"> Workshop — full in person, $600 (includes conference)</label>
               <label class="ws-radio-row"><input type="radio" name="registration_tier" value="workshop_online"> Workshop — online, $500 (includes conference)</label>
             </div>
           </div>
@@ -763,7 +787,7 @@
         })();
         </script>
       </form>
-      <script src="js/register-form.js"></script>
+      <script src="js/register-form.js?v=2027-07-20b"></script>
 
       <p class="ws-form-footnote">
         Questions? See <a href="attend.html">Attend</a> for the program overview or <a href="workshop.html">Workshop</a> for Autoware training details.

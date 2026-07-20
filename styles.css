@@ -3342,6 +3342,26 @@ body.theme-dark .section-breaker {
   margin: 1.25rem 0 0;
 }
 
+.hero-cta-sub {
+  margin: 0.75rem 0 0;
+  font-size: clamp(0.88rem, 1.9vw, 1rem);
+  color: #e9d5ff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  line-height: 1.45;
+}
+
+.hero-cta-sub a {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.hero-cta-sub a:hover,
+.hero-cta-sub a:focus-visible {
+  color: #f5f3ff;
+}
+
 .hero-register-btn {
   font-size: clamp(0.95rem, 2.2vw, 1.05rem);
   padding: 0.8rem 1.75rem;

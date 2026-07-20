@@ -35,12 +35,13 @@ _ALLOWED_REGISTRATION_TIERS = frozenset(
         "conf_early",
         "conf_student",
         "conf_standard",
+        "conf_free_request",
         "workshop_full",
         "workshop_online",
     }
 )
-# Early bird (conf_early) ends at this instant (UTC): end of July 4, 2026 US Eastern.
-_EARLY_BIRD_END_UTC = datetime(2026, 7, 5, 4, 0, 0, tzinfo=timezone.utc)
+# Early bird (conf_early) ends after December 18, 2026 US Eastern (midnight → Dec 19 05:00 UTC).
+_EARLY_BIRD_END_UTC = datetime(2026, 12, 19, 5, 0, 0, tzinfo=timezone.utc)
 
 
 def _get_table():
