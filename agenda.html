@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agenda — EARS-CONN 2027</title>
+  <meta name="description" content="Two-day agenda for EARS-CONN 2027, January 18–19, New York City. Foundations, applications, and the Innovation Stage. The hands-on workshop is scheduled separately.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=2027-09-29">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <style>
+    .agenda-page {
+      max-width: min(94vw, 1040px);
+    }
+    .agenda-page p {
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .agenda-page h2,
+    .agenda-page h3 {
+      color: var(--text);
+    }
+    .agenda-lead {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 0 0 1.25rem;
+    }
+    .agenda-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1.25rem;
+      margin: 0 0 1.75rem;
+      padding: 0.85rem 1rem;
+      background: var(--panel-muted);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+    .agenda-meta strong { color: var(--text); }
+    .agenda-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      align-items: center;
+      margin: 0 0 2rem;
+    }
+    .agenda-note {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .agenda-day {
+      margin: 0 0 2.5rem;
+    }
+    .agenda-day-kicker {
+      margin: 0 0 0.2rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+    .agenda-day h2 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+      line-height: 1.25;
+      color: var(--text);
+    }
+    .agenda-theme {
+      margin: 0 0 0.35rem;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text);
+    }
+    .agenda-moderator {
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+    }
+    .agenda-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+    .agenda-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+    .agenda-table th {
+      text-align: left;
+      background: #57068c;
+      color: #fff;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.75rem 0.9rem;
+    }
+    .agenda-table td {
+      padding: 0.8rem 0.9rem;
+      border-top: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .agenda-table .col-time {
+      width: 28%;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .agenda-table .col-who { width: 34%; }
+    .agenda-session {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .agenda-affil {
+      display: block;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    .agenda-who a {
+      color: var(--brand);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .agenda-who a:hover { text-decoration: underline; }
+    .agenda-tba {
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .agenda-row-break td {
+      background: var(--panel-muted);
+      color: var(--text-muted);
+    }
+    .agenda-row-break .agenda-session { font-weight: 600; color: var(--text-muted); }
+    .agenda-row-stage td {
+      background: rgba(87, 6, 140, 0.07);
+    }
+    .agenda-stage {
+      margin-top: 1rem;
+      padding: 1.1rem 1.15rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--brand);
+      background: rgba(87, 6, 140, 0.05);
+    }
+    .agenda-stage h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+    .agenda-stage p {
+      margin: 0 0 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .agenda-aside {
+      margin-top: 0.5rem;
+      padding: 1.15rem 1.2rem;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      background: var(--panel-muted);
+    }
+    .agenda-aside h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+    .agenda-aside p {
+      margin: 0 0 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .agenda-aside p:last-child { margin-bottom: 0; }
+    @media (max-width: 720px) {
+      .agenda-table { min-width: 0; }
+      .agenda-table thead { display: none; }
+      .agenda-table tr {
+        display: block;
+        border-top: 1px solid var(--border);
+        padding: 0.35rem 0;
+      }
+      .agenda-table td {
+        display: block;
+        width: auto !important;
+        border-top: none;
+        padding: 0.25rem 0.85rem;
+        white-space: normal;
+      }
+      .agenda-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--brand);
+        margin-bottom: 0.1rem;
+      }
+      .agenda-table td:empty::before {
+        display: none;
+      }
+    }
+    @media print {
+      .top-bar, .site-nav, .footer, .no-print { display: none !important; }
+      body { padding-top: 0; background: #fff; }
+      .agenda-page.cfp-section {
+        margin: 0;
+        box-shadow: none;
+        border: none;
+        max-width: none;
+      }
+      .agenda-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { color: #111; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="logo-left-container">
+      <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+      <img src="images/logos/NYU.png" alt="NYU Logo" class="logo-left" width="100" height="50" loading="lazy">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-left" width="80" height="50" loading="lazy">
+    </div>
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 18–21, 2027 — </span><span class="sliding-title-tagline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</span>
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2027 — NYC — January 18–21
+      </span>
+    </div>
+  </div>
+
+  <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
+      <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
+    </button>
+    <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
+      <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <ul class="nav-tabs" role="list">
+        <li><a href="index.html" class="nav-tab-item">Home</a></li>
+        <li><a href="attend.html" class="nav-tab-item">Attend</a></li>
+        <li><a href="register.html" class="nav-tab-item">Register</a></li>
+        <li><a href="venue.html" class="nav-tab-item">Venue</a></li>
+        <li><a href="speakers.html" class="nav-tab-item">Speakers</a></li>
+        <li><a href="agenda.html" class="nav-tab-item nav-tab-active">Agenda</a></li>
+        <li><a href="workshop.html" class="nav-tab-item">Workshop</a></li>
+        <li><a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="cfp-section page-section agenda-page">
+    <h1 class="initiative-page-headline">Embodied-AI and Remote-sensing for Sustainable Connected Earth (EARS-CONN)</h1>
+    <h2 class="section-title" style="text-align:center; font-size:clamp(1.6rem, 3vw, 2rem); margin:0 0 0.75rem; color:var(--text);">Conference Agenda</h2>
+    <p class="agenda-lead">Two plenary days at the Grove School of Engineering, The City College of New York. Day 1 builds the sensing and embodied-AI foundations of Digital-Earth. Day 2 turns to urban applications and closes with the Innovation Stage, where selected startup and innovation applicants pitch for a prize. The hands-on workshop is a separate program on January 20–21.</p>
+    <div class="agenda-meta">
+      <span><strong>Conference days:</strong> January 18–19, 2027</span>
+      <span><strong>Venue:</strong> Grove School of Engineering, CCNY</span>
+      <span><strong>Format:</strong> One plenary track</span>
+    </div>
+    <div class="agenda-actions no-print">
+      <a href="#day-1" class="vision-btn">Day 1</a>
+      <a href="#day-2" class="vision-btn vision-btn-secondary">Day 2 and Innovation Stage</a>
+      <p class="agenda-note">Times are provisional. A downloadable PDF will be posted on this page later. Names marked “to be announced” are open slots.</p>
+    </div>
+
+    <article class="agenda-day" id="day-1">
+      <p class="agenda-day-kicker">Day 1</p>
+      <h2>Monday, January 18, 2027</h2>
+      <p class="agenda-theme">Foundations: remote sensing, embodied-AI, and the Digital-Earth stack</p>
+      <p class="agenda-moderator"><strong>Moderator:</strong> <a href="speakers.html">Mitchell Goldberg</a>, The City College of New York / NOAA-CESSRST</p>
+      <div class="agenda-table-wrap">
+        <table class="agenda-table">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Session</th>
+              <th scope="col">Speaker(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">8:30 AM – 9:00 AM</td>
+              <td data-label="Session"><span class="agenda-session">Registration and coffee</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">9:00 AM – 9:15 AM</td>
+              <td data-label="Session"><span class="agenda-session">Welcome remarks</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Mitchell Goldberg</a>
+                <span class="agenda-affil">The City College of New York</span>
+                Reza Khanbilvardi
+                <span class="agenda-affil">The City College of New York, host</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">9:15 AM – 10:15 AM</td>
+              <td data-label="Session"><span class="agenda-session">Guest keynote: Vision and remote sensing for people, cities, and Earth observation</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">YingLi Tian</a>
+                <span class="agenda-affil">The City College of New York</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">10:20 AM – 11:35 AM</td>
+              <td data-label="Session"><span class="agenda-session">Computational vision from the street to the satellite</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Zhigang Zhu</a>
+                <span class="agenda-affil">The City College of New York</span>
+              </td>
+            </tr>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">11:35 AM – 12:30 PM</td>
+              <td data-label="Session"><span class="agenda-session">Lunch</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">12:30 PM – 2:00 PM</td>
+              <td data-label="Session"><span class="agenda-session">Mobile robots, UAVs, and safe autonomous systems</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Jizhong Xiao</a>
+                <span class="agenda-affil">The City College of New York</span>
+                <a href="speakers.html">Hamid Jafarnejad Sani</a>
+                <span class="agenda-affil">Stevens Institute of Technology</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">2:05 PM – 3:35 PM</td>
+              <td data-label="Session"><span class="agenda-session">Infrastructure sensing: bridges, transportation, and non-destructive evaluation</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Adriana C. Trias Blanco</a>
+                <span class="agenda-affil">Rowan University</span>
+                <a href="speakers.html">Jingang Yi</a>
+                <span class="agenda-affil">Rutgers University</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">3:40 PM – 4:25 PM</td>
+              <td data-label="Session"><span class="agenda-session">Autonomous robotic systems and control</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Kaiyan Yu</a>
+                <span class="agenda-affil">Binghamton University</span>
+              </td>
+            </tr>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">4:25 PM – 4:40 PM</td>
+              <td data-label="Session"><span class="agenda-session">Break</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">4:40 PM – 5:15 PM</td>
+              <td data-label="Session"><span class="agenda-session">Open discussion and first-day wrap-up</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Mitchell Goldberg</a>
+                <span class="agenda-affil">The City College of New York</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="agenda-day" id="day-2">
+      <p class="agenda-day-kicker">Day 2</p>
+      <h2>Tuesday, January 19, 2027</h2>
+      <p class="agenda-theme">Applications, assurance, and the Innovation Stage</p>
+      <p class="agenda-moderator"><strong>Moderator:</strong> <a href="speakers.html">Masoud Ghandehari</a>, New York University</p>
+      <div class="agenda-table-wrap">
+        <table class="agenda-table">
+          <thead>
+            <tr>
+              <th scope="col">Time</th>
+              <th scope="col">Session</th>
+              <th scope="col">Speaker(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">8:30 AM – 9:00 AM</td>
+              <td data-label="Session"><span class="agenda-session">Coffee</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">9:00 AM – 10:00 AM</td>
+              <td data-label="Session"><span class="agenda-session">Keynote: Climate resilience of urban infrastructure</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Masoud Ghandehari</a>
+                <span class="agenda-affil">New York University — C2SMART</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">10:05 AM – 11:05 AM</td>
+              <td data-label="Session"><span class="agenda-session">Cities under disruption: mobility, disasters, and resilience</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Takahiro Yabe</a>
+                <span class="agenda-affil">New York University</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">11:10 AM – 11:55 AM</td>
+              <td data-label="Session"><span class="agenda-session">Forecasting climate-driven geohazards</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Te Pei</a>
+                <span class="agenda-affil">Stony Brook University</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">11:55 AM – 12:35 PM</td>
+              <td data-label="Session"><span class="agenda-session">Environmental intelligence for insurance: Digital-Earth as a risk tool</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <span class="agenda-tba">Speaker to be announced</span>
+              </td>
+            </tr>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">12:35 PM – 1:25 PM</td>
+              <td data-label="Session"><span class="agenda-session">Lunch</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">1:25 PM – 2:10 PM</td>
+              <td data-label="Session"><span class="agenda-session">Remote sensing for soil health, carbon, and greenhouse gases</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Yushu Xia</a>
+                <span class="agenda-affil">Lamont-Doherty Earth Observatory, Columbia University</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-time" data-label="Time">2:10 PM – 2:55 PM</td>
+              <td data-label="Session"><span class="agenda-session">Planning sustainability with 6G networks</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Mata Khalili</a>
+                <span class="agenda-affil">Nokia Bell Labs</span>
+              </td>
+            </tr>
+            <tr class="agenda-row-break">
+              <td class="col-time" data-label="Time">2:55 PM – 3:10 PM</td>
+              <td data-label="Session"><span class="agenda-session">Break</span></td>
+              <td class="col-who" data-label="Speaker(s)"></td>
+            </tr>
+            <tr class="agenda-row-stage">
+              <td class="col-time" data-label="Time">3:10 PM – 5:20 PM</td>
+              <td data-label="Session"><span class="agenda-session">Innovation Stage: startup and innovation pitches for the EARS-CONN Prize</span></td>
+              <td class="agenda-who col-who" data-label="Speaker(s)">
+                <a href="speakers.html">Wendy Chen</a>, host
+                <span class="agenda-affil">PureCipher</span>
+                Detail below
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="agenda-stage" id="innovation-stage">
+        <h3>Innovation Stage</h3>
+        <p>Selected <a href="innovation-challenge.html">Digital-Earth Challenge</a> teams and startup applicants pitch on stage. A jury scores the pitches and announces the EARS-CONN Prize the same afternoon. Pitch order will be posted after shortlisting.</p>
+        <div class="agenda-table-wrap">
+          <table class="agenda-table">
+            <thead>
+              <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Session</th>
+                <th scope="col">Speaker(s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-time" data-label="Time">3:10 PM – 3:25 PM</td>
+                <td data-label="Session"><span class="agenda-session">Stage opening and prize criteria</span></td>
+                <td class="agenda-who col-who" data-label="Speaker(s)">
+                  <a href="speakers.html">Wendy Chen</a>
+                  <span class="agenda-affil">PureCipher</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-time" data-label="Time">3:25 PM – 3:45 PM</td>
+                <td data-label="Session"><span class="agenda-session">Place-based AI for New York City</span></td>
+                <td class="agenda-who col-who" data-label="Speaker(s)">
+                  <a href="speakers.html">Paul Johnson</a>
+                  <span class="agenda-affil">Pull City</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-time" data-label="Time">3:45 PM – 4:05 PM</td>
+                <td data-label="Session"><span class="agenda-session">Safety architecture for autonomous systems</span></td>
+                <td class="agenda-who col-who" data-label="Speaker(s)">
+                  <a href="speakers.html">Alireza Abbaspour</a>
+                  <span class="agenda-affil">Qualcomm</span>
+                </td>
+              </tr>
+              <tr class="agenda-row-stage">
+                <td class="col-time" data-label="Time">4:05 PM – 5:00 PM</td>
+                <td data-label="Session"><span class="agenda-session">Pitches by selected startup and innovation applicants</span></td>
+                <td class="agenda-who col-who" data-label="Speaker(s)">
+                  <span class="agenda-tba">Applicants to be announced</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-time" data-label="Time">5:00 PM – 5:20 PM</td>
+                <td data-label="Session"><span class="agenda-session">Jury deliberation, prize announcement, and close</span></td>
+                <td class="agenda-who col-who" data-label="Speaker(s)">
+                  <a href="speakers.html">Wendy Chen</a>
+                  <span class="agenda-affil">PureCipher</span>
+                  <a href="speakers.html">Paul Johnson</a>
+                  <span class="agenda-affil">Pull City</span>
+                  <a href="speakers.html">Alireza Abbaspour</a>
+                  <span class="agenda-affil">Qualcomm</span>
+                  <span class="agenda-tba">Juror to be announced</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </article>
+
+    <aside class="agenda-aside">
+      <h2>Hands-on workshop, January 20–21</h2>
+      <p>The Autoware workshop stays on its own schedule: vehicle stack, sensor fusion, and a data-fusion hackathon, co-hosted with Tier IV and the Autoware Foundation. It is not part of the two-day plenary agenda above.</p>
+      <p class="no-print"><a href="workshop.html" class="vision-btn">Workshop details</a></p>
+    </aside>
+
+    <p class="agenda-note" style="margin-top:1.5rem;">Open slots: an insurance and urban-risk speaker on Day 2, one additional Innovation Stage juror, and the pitch lineup. Every other name is on the current <a href="speakers.html">speakers list</a>. Reza Khanbilvardi joins the Day 1 welcome as a host.</p>
+
+    <div class="no-print" style="margin-top: 2rem; text-align: center;">
+      <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/site-nav.js"></script>
+</body>
+</html>

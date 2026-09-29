@@ -32,7 +32,7 @@ _TIER_LABELS = {
     "conf_early": "Conference — early bird ($50)",
     "conf_standard": "Conference — regular ($100)",
     "conf_student": "Conference — student ($20)",
-    "conf_free_request": "Conference — limited free ticket request ($0)",
+    "conf_free_request": "Conference — limited free ticket request ($0, CUNY students only)",
     "workshop_full": "Workshop — full in person ($600, includes conference)",
     "workshop_online": "Workshop — online ($500, includes conference)",
 }
@@ -146,9 +146,20 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
 
     name = item.get("full_name") or "participant"
     to_addr = item.get("email") or ""
-    tier = _tier_label(str(item.get("registration_tier") or ""))
+    tier_key = str(item.get("registration_tier") or "")
+    tier = _tier_label(tier_key)
     site = PUBLIC_SITE_ORIGIN
     subject = "EARS-CONN registration received"
+    next_steps = (
+        "This message confirms that we received your registration request. "
+        "Organizers will follow up by email with payment or access details, "
+        "and with Autoware seat confirmation when applicable."
+    )
+    if tier_key == "conf_free_request":
+        next_steps += (
+            " Next steps for this request: free tickets are only for CUNY students. "
+            "Organizers will review your request and confirm eligibility by email."
+        )
 
     text_body = (
         f"Hello {name},\n\n"
@@ -156,10 +167,7 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
         "for Connected Environments).\n\n"
         f"Registration option: {tier}\n"
         f"Email on file: {to_addr}\n\n"
-        "This message confirms that we received your registration request. "
-        "Organizers will follow up by email with payment or access details, "
-        "and with Autoware seat confirmation when applicable. Free-ticket requests "
-        "are reviewed individually.\n\n"
+        f"{next_steps}\n\n"
         f"Event site: {site}\n\n"
         "— EARS-CONN organizers\n"
     )
@@ -169,10 +177,7 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
         "(Embodied AI and Robotic Systems for Connected Environments).</p>"
         f"<p><strong>Registration option:</strong> {_html_escape(tier)}<br>"
         f"<strong>Email on file:</strong> {_html_escape(to_addr)}</p>"
-        "<p>This message confirms that we received your registration request. "
-        "Organizers will follow up by email with payment or access details, "
-        "and with Autoware seat confirmation when applicable. Free-ticket requests "
-        "are reviewed individually.</p>"
+        f"<p>{_html_escape(next_steps)}</p>"
         f'<p>Event site: <a href="{_html_escape(site)}">{_html_escape(site)}</a></p>'
         "<p>— EARS-CONN organizers</p>"
     )

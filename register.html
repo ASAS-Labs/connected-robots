@@ -315,6 +315,7 @@
         <li><a href="register.html" class="nav-tab-item nav-tab-active">Register</a></li>
         <li><a href="venue.html" class="nav-tab-item">Venue</a></li>
         <li><a href="speakers.html" class="nav-tab-item">Speakers</a></li>
+        <li><a href="agenda.html" class="nav-tab-item">Agenda</a></li>
         <li><a href="workshop.html" class="nav-tab-item">Workshop</a></li>
         <li><a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a></li>
       </ul>
@@ -326,14 +327,14 @@
     <p>
       Secure your spot for January 18–21, 2027 in New York City.
       Early bird conference rate is open through <strong>December 18, 2026</strong> — register today before it ends.
-      Limited free conference tickets are available by request (organizer approval required).
+      Limited free conference tickets are available by request for CUNY students (organizer approval required).
     </p>
   </div>
 
   <main class="ws-reg-page cfp-section page-section">
     <div id="ws-thanks" class="ws-thanks-banner" hidden role="status">
       <h2>Thank you</h2>
-      <p>Your registration request was received. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable. Free-ticket requests are reviewed individually.</p>
+      <p>Your registration request was received. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable. Free-ticket requests are only for CUNY students and are reviewed individually.</p>
       <p style="margin-top: 1rem;"><a href="index.html" class="vision-btn" style="display:inline-block; font-size:0.95rem; padding:0.55rem 1.4rem; margin-right:0.5rem;">Home</a><a href="attend.html" class="vision-btn" style="display:inline-block; font-size:0.95rem; padding:0.55rem 1.4rem;">Attend</a></p>
     </div>
 
@@ -346,12 +347,12 @@
       <div class="ws-reg-callout ws-reg-urgency">
         <strong>Register now.</strong> Early bird conference seats are <strong>$50 through December 18, 2026</strong>.
         After that date, the regular conference rate is <strong>$100</strong>.
-        Prefer not to pay? You can <strong>request a limited free conference ticket</strong> — approval is not guaranteed.
+        CUNY students can <strong>request a limited free conference ticket</strong> — approval is not guaranteed.
       </div>
       <div class="ws-reg-callout">
         <strong>Rates (USD).</strong> The main program is in person in New York City.
         Full in-person workshop registration includes the main conference. Online workshop registration includes conference access for remote participation in the main program where streaming is offered, and remote Autoware track access; the conference itself is not sold as online-only.
-        Student pricing and free tickets may require verification.
+        Student pricing may require verification. Free tickets are only for CUNY students.
       </div>
 
       <div class="reg-pricing-wrap">
@@ -363,12 +364,12 @@
             <tr><td>Conference — early bird (through December 18, 2026)</td><td>$50</td></tr>
             <tr><td>Conference — regular</td><td>$100</td></tr>
             <tr><td>Conference — student</td><td>$20</td></tr>
-            <tr><td>Conference — limited free ticket (request)</td><td>$0*</td></tr>
+            <tr><td>Conference — limited free ticket (CUNY students, request)</td><td>$0*</td></tr>
             <tr><td>Workshop — full in person (includes conference)</td><td>$600</td></tr>
             <tr><td>Workshop — online (includes conference)</td><td>$500</td></tr>
           </tbody>
         </table>
-        <p class="reg-pricing-note">* Free tickets are limited and subject to organizer approval.</p>
+        <p class="reg-pricing-note">* Free tickets are only for CUNY students, limited, and subject to organizer approval.</p>
       </div>
 
       <form id="ears-conn-register-form" class="ws-reserve-form" method="POST">
@@ -382,10 +383,11 @@
               <label class="ws-radio-row" id="reg-early"><input type="radio" name="registration_tier" id="reg-tier-conf-early" value="conf_early" required checked> Conference — early bird, $50 (claim your spot by December 18, 2026)</label>
               <label class="ws-radio-row"><input type="radio" name="registration_tier" id="reg-tier-conf-standard" value="conf_standard"> Conference — regular, $100</label>
               <label class="ws-radio-row" id="reg-student"><input type="radio" name="registration_tier" value="conf_student"> Conference — student, $20</label>
-              <label class="ws-radio-row" id="reg-free"><input type="radio" name="registration_tier" value="conf_free_request"> Conference — request limited free ticket ($0, approval required)</label>
+              <label class="ws-radio-row" id="reg-free"><input type="radio" name="registration_tier" value="conf_free_request"> Conference — request limited free ticket ($0, CUNY students only, approval required)</label>
               <label class="ws-radio-row" id="reg-workshop"><input type="radio" name="registration_tier" value="workshop_full"> Workshop — full in person, $600 (includes conference)</label>
               <label class="ws-radio-row"><input type="radio" name="registration_tier" value="workshop_online"> Workshop — online, $500 (includes conference)</label>
             </div>
+            <p id="reg-free-next" class="hint" hidden>Next steps: free tickets are only for CUNY students. Submit this request with your CUNY email. Organizers review each request and confirm eligibility by email.</p>
           </div>
         </fieldset>
 
@@ -787,7 +789,7 @@
         })();
         </script>
       </form>
-      <script src="js/register-form.js?v=2027-07-20b"></script>
+      <script src="js/register-form.js?v=2027-09-29"></script>
 
       <p class="ws-form-footnote">
         Questions? See <a href="attend.html">Attend</a> for the program overview or <a href="workshop.html">Workshop</a> for Autoware training details.

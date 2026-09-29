@@ -38,27 +38,27 @@ jobs:
         working-directory: aws/workshop-register
         env:
           TURNSTILE_SECRET_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SECRET_KEY }}
+          CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
+          ORGANIZER_NOTIFY_EMAIL: ${{ secrets.WORKSHOP_ORGANIZER_NOTIFY_EMAIL }}
         run: |
           set -e
-          if [ -z "${TURNSTILE_SECRET_KEY:-}" ]; then
-            sam deploy \
-              --no-confirm-changeset \
-              --capabilities CAPABILITY_IAM \
-              --stack-name ears-conn-workshop-register \
-              --resolve-s3 \
-              --parameter-overrides \
-                'PublicSiteOrigin=https://ears-conn.com' \
-                'ThankYouPath=/register.html?thanks=1' \
-              --no-fail-on-empty-changeset
-          else
-            sam deploy \
-              --no-confirm-changeset \
-              --capabilities CAPABILITY_IAM \
-              --stack-name ears-conn-workshop-register \
-              --resolve-s3 \
-              --parameter-overrides \
-                'PublicSiteOrigin=https://ears-conn.com' \
-                'ThankYouPath=/register.html?thanks=1' \
-                "TurnstileSecretKey=${TURNSTILE_SECRET_KEY}" \
-              --no-fail-on-empty-changeset
+          OVERRIDES=(
+            'PublicSiteOrigin=https://ears-conn.com'
+            'ThankYouPath=/register.html?thanks=1'
+          )
+          if [ -n "${TURNSTILE_SECRET_KEY:-}" ]; then
+            OVERRIDES+=("TurnstileSecretKey=${TURNSTILE_SECRET_KEY}")
           fi
+          if [ -n "${CONFIRMATION_FROM_EMAIL:-}" ]; then
+            OVERRIDES+=("ConfirmationFromEmail=${CONFIRMATION_FROM_EMAIL}")
+          fi
+          if [ -n "${ORGANIZER_NOTIFY_EMAIL:-}" ]; then
+            OVERRIDES+=("OrganizerNotifyEmail=${ORGANIZER_NOTIFY_EMAIL}")
+          fi
+          sam deploy \
+            --no-confirm-changeset \
+            --capabilities CAPABILITY_IAM \
+            --stack-name ears-conn-workshop-register \
+            --resolve-s3 \
+            --parameter-overrides "${OVERRIDES[@]}" \
+            --no-fail-on-empty-changeset

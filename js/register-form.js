@@ -65,10 +65,13 @@
       }
     }
 
+    var freeNext = document.getElementById('reg-free-next');
+    if (freeNext) freeNext.hidden = tier !== 'conf_free_request';
+
     var ackText = document.getElementById('reg-ack-label-text');
     if (ackText) {
       if (tier === 'conf_free_request') {
-        ackText.textContent = 'I understand that free tickets are limited, that this is a request only, and that organizers will confirm eligibility by email. ';
+        ackText.textContent = 'I understand that free tickets are only for CUNY students, that this is a request only, and that organizers will confirm eligibility by email. ';
       } else if (isWorkshopTier(tier)) {
         ackText.textContent = 'I understand that submitting this form does not guarantee a hands-on training seat, and that seats are limited. ';
       } else {
