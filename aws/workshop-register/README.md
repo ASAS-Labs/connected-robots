@@ -33,13 +33,47 @@ In `register.html`, set the URL from the stack output:
 
 ## Read submissions
 
-**Count pre-registrations** (after `aws login`):
+**Count registrations** (after `aws login` / SSO):
 
 ```bash
 ./aws/workshop-register/scripts/count-submissions.sh
 ```
 
+**Export the full list anytime** (CSV to stdout; redirect to a file):
+
+```bash
+export AWS_PROFILE=asaslabs   # if you use SSO
+aws sso login                 # when the session expired
+./aws/workshop-register/scripts/export-submissions.sh > registrations.csv
+./aws/workshop-register/scripts/export-submissions.sh --json > registrations.json
+```
+
 **Console:** DynamoDB → Tables → stack output **SubmissionsTableName** → Explore table items.
+
+## Confirmation emails (Amazon SES)
+
+After a successful save, Lambda sends a confirmation to the registrant (and optionally an alert to organizers).
+
+1. In **SES** (same region as the stack, usually `us-east-1`), verify the **From** identity (domain preferred, or a single address such as `noreply@ears-conn.com`).
+2. If the account is still in the SES **sandbox**, verify recipient addresses too, or request production access so any registrant can receive mail.
+3. Redeploy with parameters (and matching GitHub secrets for CI):
+
+| Parameter | Purpose |
+|-----------|---------|
+| `ConfirmationFromEmail` | Verified SES From address (required to send) |
+| `OrganizerNotifyEmail` | Optional inbox for new-registration alerts |
+
+Example:
+
+```bash
+sam deploy --parameter-overrides \
+  'PublicSiteOrigin=https://ears-conn.com' \
+  'ThankYouPath=/register.html?thanks=1' \
+  'ConfirmationFromEmail=noreply@ears-conn.com' \
+  'OrganizerNotifyEmail=you@example.com'
+```
+
+If `ConfirmationFromEmail` is empty, registration still works; emails are skipped. SES send failures are logged and do not block the thank-you redirect.
 
 ## GitHub Actions
 

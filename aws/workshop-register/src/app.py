@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import logging
 import os
 import re
 import uuid
@@ -18,9 +19,23 @@ from boto3.dynamodb.conditions import Key
 TABLE_NAME = os.environ["TABLE_NAME"]
 PUBLIC_SITE_ORIGIN = (os.environ.get("PUBLIC_SITE_ORIGIN") or "https://ears-conn.com").rstrip("/")
 THANK_YOU_PATH = os.environ.get("THANK_YOU_PATH") or "/register.html?thanks=1"
+CONFIRMATION_FROM_EMAIL = (os.environ.get("CONFIRMATION_FROM_EMAIL") or "").strip()
+ORGANIZER_NOTIFY_EMAIL = (os.environ.get("ORGANIZER_NOTIFY_EMAIL") or "").strip()
 
 _ddb = boto3.resource("dynamodb")
+_ses = boto3.client("ses")
 _table = None
+_log = logging.getLogger(__name__)
+_log.setLevel(logging.INFO)
+
+_TIER_LABELS = {
+    "conf_early": "Conference — early bird ($50)",
+    "conf_standard": "Conference — regular ($100)",
+    "conf_student": "Conference — student ($20)",
+    "conf_free_request": "Conference — limited free ticket request ($0)",
+    "workshop_full": "Workshop — full in person ($600, includes conference)",
+    "workshop_online": "Workshop — online ($500, includes conference)",
+}
 
 _EMAIL_RE = re.compile(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])"
@@ -117,6 +132,96 @@ def _html_escape(s: str) -> str:
         .replace(">", "&gt;")
         .replace('"', "&quot;")
     )
+
+
+def _tier_label(tier: str) -> str:
+    return _TIER_LABELS.get(tier, tier)
+
+
+def _send_confirmation_emails(item: dict[str, Any]) -> None:
+    """Email the registrant (and optionally organizers). Failures are logged only."""
+    if not CONFIRMATION_FROM_EMAIL:
+        _log.info("CONFIRMATION_FROM_EMAIL unset; skipping confirmation email")
+        return
+
+    name = item.get("full_name") or "participant"
+    to_addr = item.get("email") or ""
+    tier = _tier_label(str(item.get("registration_tier") or ""))
+    site = PUBLIC_SITE_ORIGIN
+    subject = "EARS-CONN registration received"
+
+    text_body = (
+        f"Hello {name},\n\n"
+        "Thank you for registering for EARS-CONN (Embodied AI and Robotic Systems "
+        "for Connected Environments).\n\n"
+        f"Registration option: {tier}\n"
+        f"Email on file: {to_addr}\n\n"
+        "This message confirms that we received your registration request. "
+        "Organizers will follow up by email with payment or access details, "
+        "and with Autoware seat confirmation when applicable. Free-ticket requests "
+        "are reviewed individually.\n\n"
+        f"Event site: {site}\n\n"
+        "— EARS-CONN organizers\n"
+    )
+    html_body = (
+        f"<p>Hello {_html_escape(name)},</p>"
+        "<p>Thank you for registering for <strong>EARS-CONN</strong> "
+        "(Embodied AI and Robotic Systems for Connected Environments).</p>"
+        f"<p><strong>Registration option:</strong> {_html_escape(tier)}<br>"
+        f"<strong>Email on file:</strong> {_html_escape(to_addr)}</p>"
+        "<p>This message confirms that we received your registration request. "
+        "Organizers will follow up by email with payment or access details, "
+        "and with Autoware seat confirmation when applicable. Free-ticket requests "
+        "are reviewed individually.</p>"
+        f'<p>Event site: <a href="{_html_escape(site)}">{_html_escape(site)}</a></p>'
+        "<p>— EARS-CONN organizers</p>"
+    )
+
+    try:
+        _ses.send_email(
+            Source=CONFIRMATION_FROM_EMAIL,
+            Destination={"ToAddresses": [to_addr]},
+            Message={
+                "Subject": {"Data": subject, "Charset": "UTF-8"},
+                "Body": {
+                    "Text": {"Data": text_body, "Charset": "UTF-8"},
+                    "Html": {"Data": html_body, "Charset": "UTF-8"},
+                },
+            },
+        )
+        _log.info("Confirmation email sent to %s", to_addr)
+    except Exception:
+        _log.exception("Failed to send confirmation email to %s", to_addr)
+
+    if not ORGANIZER_NOTIFY_EMAIL:
+        return
+
+    org_subject = f"[EARS-CONN] New registration: {name}"
+    org_text = (
+        "New registration received.\n\n"
+        f"Name: {name}\n"
+        f"Email: {to_addr}\n"
+        f"Phone: {item.get('phone') or ''}\n"
+        f"Country: {item.get('country_code') or ''}\n"
+        f"Tier: {tier}\n"
+        f"Participation: {item.get('participation_mode') or ''}\n"
+        f"Affiliation: {item.get('affiliation') or ''}\n"
+        f"Role: {item.get('role') or ''}\n"
+        f"Submitted: {item.get('submittedAt') or ''}\n"
+        f"Id: {item.get('id') or ''}\n"
+    )
+    try:
+        _ses.send_email(
+            Source=CONFIRMATION_FROM_EMAIL,
+            Destination={"ToAddresses": [ORGANIZER_NOTIFY_EMAIL]},
+            Message={
+                "Subject": {"Data": org_subject, "Charset": "UTF-8"},
+                "Body": {"Text": {"Data": org_text, "Charset": "UTF-8"}},
+            },
+        )
+        _log.info("Organizer notify email sent to %s", ORGANIZER_NOTIFY_EMAIL)
+    except Exception:
+        _log.exception("Failed to send organizer notify email")
 
 
 def handler(event, context):
@@ -231,6 +336,7 @@ def handler(event, context):
         "sourceIp": source_ip,
     }
     _get_table().put_item(Item=item)
+    _send_confirmation_emails(item)
 
     return {
         "statusCode": 302,

@@ -16,12 +16,20 @@ Parameters:
     Default: ''
     NoEcho: true
     Description: Cloudflare Turnstile secret key for siteverify. Leave empty to skip verification (dev only).
+  ConfirmationFromEmail:
+    Type: String
+    Default: ''
+    Description: Verified SES From address for registrant confirmation emails (e.g. noreply@ears-conn.com). Leave empty to disable email.
+  OrganizerNotifyEmail:
+    Type: String
+    Default: ''
+    Description: Optional inbox that receives a copy/alert for each new registration. Leave empty to skip.
 
 Globals:
   Function:
     Runtime: python3.12
     MemorySize: 256
-    Timeout: 10
+    Timeout: 15
     Tracing: Active
 
 Resources:
@@ -70,9 +78,17 @@ Resources:
           PUBLIC_SITE_ORIGIN: !Ref PublicSiteOrigin
           THANK_YOU_PATH: !Ref ThankYouPath
           TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
+          CONFIRMATION_FROM_EMAIL: !Ref ConfirmationFromEmail
+          ORGANIZER_NOTIFY_EMAIL: !Ref OrganizerNotifyEmail
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref WorkshopSubmissionsTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ses:SendEmail
+                - ses:SendRawEmail
+              Resource: '*'
       Events:
         RegisterPost:
           Type: HttpApi

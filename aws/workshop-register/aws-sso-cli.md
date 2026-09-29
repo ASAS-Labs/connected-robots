@@ -47,12 +47,13 @@ From the repo root, after `aws sso login`:
 ```bash
 export AWS_PROFILE=asaslabs
 ./aws/workshop-register/scripts/count-submissions.sh
+./aws/workshop-register/scripts/export-submissions.sh > registrations.csv
 ```
 
 Or one line:
 
 ```bash
-AWS_PROFILE=asaslabs aws sso login && AWS_PROFILE=asaslabs ./aws/workshop-register/scripts/count-submissions.sh
+AWS_PROFILE=asaslabs aws sso login && AWS_PROFILE=asaslabs ./aws/workshop-register/scripts/export-submissions.sh > registrations.csv
 ```
 
 ## Example `~/.aws/config` fragment (after `aws configure sso`)
