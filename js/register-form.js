@@ -82,14 +82,88 @@
     prevTier = tier;
   }
 
+  var ERROR_TEXT = {
+    verification: 'Human verification failed or expired. Complete the check above the submit button and try again.',
+    phone: 'Enter a phone number with 8 to 15 digits, including the country code.',
+    email: 'Enter a valid email address.',
+    name: 'Enter your full name.',
+    country: 'Select your country or territory.',
+    ack: 'Check the acknowledgement box to continue.',
+    early: 'Early registration has ended. Choose another registration option.',
+    laptop: 'Say whether you will bring a laptop for the workshop.',
+    tier: 'Select a registration option.'
+  };
+
+  function phoneOk(phone) {
+    var digits = String(phone || '').replace(/\D/g, '');
+    return digits.length >= 8 && digits.length <= 15 && String(phone || '').length <= 24;
+  }
+
+  function showFormError(message, scroll) {
+    var box = document.getElementById('reg-form-error');
+    if (!box) return;
+    box.textContent = message;
+    box.hidden = false;
+    if (scroll !== false && box.scrollIntoView) {
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function bindSubmitChecks() {
+    var form = document.getElementById('ears-conn-register-form');
+    var phone = document.getElementById('phone');
+    if (!form) return;
+
+    if (phone) {
+      phone.addEventListener('input', function () {
+        phone.setCustomValidity('');
+      });
+    }
+
+    form.addEventListener('invalid', function () {
+      showFormError('Complete the required fields, then submit again.', false);
+    }, true);
+
+    form.addEventListener('submit', function (e) {
+      var token = form.querySelector('[name="cf-turnstile-response"]');
+      var tsKey = typeof window.__TURNSTILE_SITE_KEY__ === 'string' ? window.__TURNSTILE_SITE_KEY__.trim() : '';
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        var first = form.querySelector(':invalid');
+        showFormError('Complete the required fields, then submit again.');
+        if (first && first.focus) first.focus();
+        return;
+      }
+      if (phone && !phoneOk(phone.value)) {
+        e.preventDefault();
+        phone.setCustomValidity('Enter a phone number with 8 to 15 digits.');
+        showFormError(ERROR_TEXT.phone);
+        phone.focus();
+        return;
+      }
+      if (tsKey && (!token || !token.value)) {
+        e.preventDefault();
+        showFormError(ERROR_TEXT.verification);
+      }
+    });
+  }
+
   function handleQueryFlags() {
     var params = new URLSearchParams(window.location.search);
     var thanks = params.get('thanks') === '1';
     var duplicate = params.get('duplicate') === '1';
+    var errorCode = params.get('error') || '';
     var formSection = document.getElementById('ws-form-section');
     var thanksBanner = document.getElementById('ws-thanks');
     var modal = document.getElementById('ws-duplicate-modal');
     var closeBtn = document.getElementById('ws-dup-close');
+
+    if (errorCode && ERROR_TEXT[errorCode]) {
+      showFormError(ERROR_TEXT[errorCode]);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    }
 
     if (thanks && thanksBanner) {
       thanksBanner.hidden = false;
@@ -148,6 +222,7 @@
 
   function bind() {
     handleQueryFlags();
+    bindSubmitChecks();
 
     var earlyInput = document.getElementById('reg-tier-conf-early');
     var stdInput = document.getElementById('reg-tier-conf-standard');

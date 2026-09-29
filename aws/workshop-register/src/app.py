@@ -112,16 +112,15 @@ def _phone_ok(phone: str) -> bool:
     return 8 <= len(digits) <= 15 and len(phone) <= _MAX_PHONE_LEN
 
 
-def _bad_request(msg: str) -> dict[str, Any]:
+def _error_location(code: str) -> str:
+    return PUBLIC_SITE_ORIGIN + "/register.html?error=" + code
+
+
+def _bad_request(code: str) -> dict[str, Any]:
     return {
-        "statusCode": 400,
-        "headers": {"content-type": "text/html; charset=utf-8"},
-        "body": (
-            "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-            "<title>Invalid submission</title></head><body><p>"
-            + _html_escape(msg)
-            + "</p></body></html>"
-        ),
+        "statusCode": 302,
+        "headers": {"location": _error_location(code)},
+        "body": "",
     }
 
 
@@ -253,15 +252,7 @@ def handler(event, context):
     if turnstile_secret:
         token = _first(params, "cf-turnstile-response").strip()
         if not _verify_turnstile(token, turnstile_secret, source_ip):
-            return {
-                "statusCode": 400,
-                "headers": {"content-type": "text/html; charset=utf-8"},
-                "body": (
-                    "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-                    "<title>Verification failed</title></head><body><p>Human verification failed or expired. "
-                    "Please reload the page and try again.</p></body></html>"
-                ),
-            }
+            return _bad_request("verification")
 
     full_name = _first(params, "full_name").strip()[:200]
     email_raw = _first(params, "email").strip()[:254]
@@ -276,19 +267,19 @@ def handler(event, context):
     ack_limited_seats = _first(params, "ack_limited_seats").strip()
 
     if not full_name:
-        return _bad_request("Full name is required.")
+        return _bad_request("name")
     if not email_raw or not _EMAIL_RE.match(email_raw):
-        return _bad_request("A valid email address is required.")
+        return _bad_request("email")
     if not phone or not _phone_ok(phone):
-        return _bad_request("A valid phone number is required (8–15 digits).")
+        return _bad_request("phone")
     if not country_code or country_code not in _ALLOWED_COUNTRY_CODES:
-        return _bad_request("Please select a valid country or territory.")
+        return _bad_request("country")
     if registration_tier not in _ALLOWED_REGISTRATION_TIERS:
-        return _bad_request("Please select a registration option.")
+        return _bad_request("tier")
 
     now_utc = datetime.now(timezone.utc)
     if registration_tier == "conf_early" and now_utc >= _EARLY_BIRD_END_UTC:
-        return _bad_request("Early registration has ended. Please choose another registration option.")
+        return _bad_request("early")
 
     if registration_tier == "workshop_online":
         participation_mode = "remote"
@@ -298,12 +289,12 @@ def handler(event, context):
     if registration_tier in ("workshop_full", "workshop_online"):
         bring_laptop = _first(params, "bring_laptop").strip()
         if bring_laptop not in ("yes", "no"):
-            return _bad_request("Please indicate whether you will bring a laptop.")
+            return _bad_request("laptop")
     else:
         bring_laptop = "no"
 
     if ack_limited_seats != "yes":
-        return _bad_request("Please acknowledge the registration terms to continue.")
+        return _bad_request("ack")
 
     email_key = email_raw.lower()
 

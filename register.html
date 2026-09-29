@@ -200,6 +200,23 @@
       text-align: center;
       box-sizing: border-box;
     }
+    .ws-submit-row .vision-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      transform: none;
+      box-shadow: none;
+    }
+    .ws-reserve-form input,
+    .ws-reserve-form select,
+    .ws-reserve-form textarea,
+    .ws-reserve-form button {
+      scroll-margin-top: 96px;
+    }
+    .reg-submit-wait {
+      margin: 0.35rem 0 0;
+      font-size: 0.88rem;
+      color: var(--text-muted, #6b7280);
+    }
     .ws-form-footnote {
       font-size: 0.82rem;
       color: var(--text-muted, #6b7280);
@@ -371,6 +388,8 @@
         </table>
         <p class="reg-pricing-note">* Free tickets are only for CUNY students, limited, and subject to organizer approval.</p>
       </div>
+
+      <div id="reg-form-error" class="ws-reg-callout ws-endpoint-warning" hidden role="alert"></div>
 
       <form id="ears-conn-register-form" class="ws-reserve-form" method="POST">
         <input type="text" name="_gotcha" class="ws-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
@@ -730,6 +749,7 @@
 
           <div class="ws-submit-row">
             <button type="submit" class="vision-btn" style="font-size:1.05rem; padding:0.75rem 2rem;" disabled>Submit registration</button>
+            <p id="reg-submit-wait" class="reg-submit-wait">Complete the verification check above, then submit.</p>
           </div>
         </fieldset>
         <script>
@@ -743,6 +763,8 @@
 
           function setSubmitEnabled(ok) {
             if (btn) btn.disabled = !ok;
+            var wait = document.getElementById('reg-submit-wait');
+            if (wait) wait.hidden = !!ok;
           }
 
           function endpointOk() {
@@ -776,8 +798,22 @@
             window.turnstile.render(turnstileEl, {
               sitekey: tsKey,
               callback: function () { setSubmitEnabled(true); },
-              'error-callback': function () { setSubmitEnabled(false); },
-              'expired-callback': function () { setSubmitEnabled(false); }
+              'error-callback': function () {
+                setSubmitEnabled(false);
+                var wait = document.getElementById('reg-submit-wait');
+                if (wait) {
+                  wait.hidden = false;
+                  wait.textContent = 'Verification did not load. Reload the page and try again.';
+                }
+              },
+              'expired-callback': function () {
+                setSubmitEnabled(false);
+                var wait = document.getElementById('reg-submit-wait');
+                if (wait) {
+                  wait.hidden = false;
+                  wait.textContent = 'Verification expired. Complete the check above, then submit.';
+                }
+              }
             });
           };
 
@@ -789,17 +825,7 @@
         })();
         </script>
       </form>
-      <script src="js/register-form.js?v=2027-09-29"></script>
-
-      <p class="ws-form-footnote">
-        Questions? See <a href="attend.html">Attend</a> for the program overview or <a href="workshop.html">Workshop</a> for Autoware training details.
-      </p>
-    </div>
-
-    <div class="ws-back">
-      <a href="attend.html" class="back-link">Attend</a>
-      <span style="margin:0 0.35rem; color:#94a3b8;">·</span>
-      <a href="workshop.html" class="back-link">Workshop</a>
+      <script src="js/register-form.js?v=2027-09-29b"></script>
     </div>
   </main>
 
