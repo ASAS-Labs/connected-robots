@@ -425,12 +425,6 @@
           </div>
 
           <div class="ws-field">
-            <label for="phone">Phone number <span aria-label="required">*</span></label>
-            <input type="tel" id="phone" name="phone" required autocomplete="tel" maxlength="24" inputmode="tel" placeholder="+1 555 123 4567">
-            <p class="hint">Use a valid number with country code (8–15 digits; spaces or dashes allowed).</p>
-          </div>
-
-          <div class="ws-field">
             <label for="country-code">Country / territory of origin <span aria-label="required">*</span></label>
             <select id="country-code" name="country_code" required autocomplete="country">
               <option value="">Select…</option>
@@ -669,7 +663,7 @@
             <option value="UA">Ukraine</option>
             <option value="AE">United Arab Emirates</option>
             <option value="GB">United Kingdom</option>
-            <option value="US">United States</option>
+            <option value="US" selected>United States</option>
             <option value="UM">United States Minor Outlying Islands</option>
             <option value="VI">United States Virgin Islands</option>
             <option value="UY">Uruguay</option>
@@ -686,6 +680,12 @@
             <option value="AX">Åland Islands</option>
             </select>
             <p class="hint">Where you are based or traveling from for this event.</p>
+          </div>
+
+          <div class="ws-field">
+            <label for="phone">Phone number <span aria-label="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" maxlength="24" inputmode="tel" value="+1 " placeholder="+1 555 123 4567">
+            <p class="hint">The country code matches the country above. Add the rest of your number.</p>
           </div>
 
           <input type="hidden" name="participation_mode" id="reg-participation-mode" value="in_person">
@@ -825,7 +825,7 @@
         })();
         </script>
       </form>
-      <script src="js/register-form.js?v=2027-09-29b"></script>
+      <script src="js/register-form.js?v=2027-09-29c"></script>
     </div>
   </main>
 
