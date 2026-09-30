@@ -19,15 +19,18 @@ echo "ReviewCase=$(aws sesv2 get-account --region "$REGION" --query 'Details.Rev
 
 PROD=$(aws sesv2 get-account --region "$REGION" --query 'ProductionAccessEnabled' --output text)
 if [[ "$PROD" != "True" ]]; then
-  aws sesv2 put-account-details \
+  if aws sesv2 put-account-details \
     --region "$REGION" \
     --mail-type TRANSACTIONAL \
     --website-url "https://ears-conn.com/register.html" \
     --contact-language EN \
     --production-access-enabled \
     --additional-contact-email-addresses "aliasghar.arab@nyu.edu" \
-    --use-case-description "EARS-CONN 2027 (https://ears-conn.com) is a four-day academic conference at The City College of New York, January 18-21, 2027. The public registration form at https://ears-conn.com/register.html is submitted by the attendee. We send one transactional receipt to that address only: the option they selected, the price, and that organizers will follow up with payment or access details. We do not send newsletters, marketing, or purchased lists. Expected volume is a few hundred messages for this event. Bounce and complaint notifications go to mail.ears-conn.com. From address: noreply@ears-conn.com."
-  echo "Resubmitted production-access request."
+    --use-case-description "EARS-CONN 2027 (https://ears-conn.com) is a four-day academic conference at The City College of New York, January 18-21, 2027. The public registration form at https://ears-conn.com/register.html is submitted by the attendee. We send one transactional receipt to that address only: the option they selected, the price, and that organizers will follow up with payment or access details. We do not send newsletters, marketing, or purchased lists. Expected volume is a few hundred messages for this event. Bounce and complaint notifications go to mail.ears-conn.com. From address: noreply@ears-conn.com."; then
+    echo "Resubmitted production-access request."
+  else
+    echo "Production-access request was not accepted. Continuing with the sandbox recipient check."
+  fi
   echo "ReviewStatus=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.Status' --output text)"
   echo "ReviewCase=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.CaseId' --output text)"
 
