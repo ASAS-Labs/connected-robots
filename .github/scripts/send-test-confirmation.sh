@@ -14,6 +14,8 @@ if [[ -z "$FROM" || -z "$TO" ]]; then
 fi
 
 echo "ProductionAccessEnabled=$(aws sesv2 get-account --region "$REGION" --query 'ProductionAccessEnabled' --output text)"
+echo "ReviewStatus=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.Status' --output text)"
+echo "ReviewCase=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.CaseId' --output text)"
 echo "VerificationStatus=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'VerificationStatus' --output text)"
 echo "VerifiedForSending=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'VerifiedForSendingStatus' --output text)"
 echo "DkimStatus=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'DkimAttributes.Status' --output text)"
