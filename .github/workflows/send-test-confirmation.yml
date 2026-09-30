@@ -5,8 +5,14 @@ on:
     inputs:
       to_email:
         description: Recipient address
-        required: true
+        required: false
+        default: ""
         type: string
+      check_only:
+        description: Print SES status and do not send
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   send:
@@ -22,7 +28,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: SES account status
+        run: |
+          echo "Account=$(aws sts get-caller-identity --query Account --output text)"
+          aws sesv2 get-account --region us-east-1 --output json
+          aws sesv2 get-email-identity --email-identity ears-conn.com --region us-east-1 \
+            --query '{Verification:VerificationStatus,Sending:VerifiedForSendingStatus,Dkim:DkimAttributes.Status,MailFrom:MailFromAttributes.MailFromDomainStatus}' \
+            --output json
+          aws sesv2 get-email-identity --email-identity aliasghar.arab@nyu.edu --region us-east-1 \
+            --query '{Verification:VerificationStatus,Sending:VerifiedForSendingStatus}' \
+            --output json || echo "RecipientIdentity=missing"
+
       - name: Send receipt
+        if: ${{ inputs.check_only == false && inputs.to_email != '' }}
         env:
           CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
           TO_EMAIL: ${{ inputs.to_email }}
