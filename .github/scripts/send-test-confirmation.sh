@@ -14,31 +14,14 @@ if [[ -z "$FROM" || -z "$TO" ]]; then
 fi
 
 echo "ProductionAccessEnabled=$(aws sesv2 get-account --region "$REGION" --query 'ProductionAccessEnabled' --output text)"
-echo "ReviewStatus=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.Status' --output text)"
-echo "ReviewCase=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.CaseId' --output text)"
 
 PROD=$(aws sesv2 get-account --region "$REGION" --query 'ProductionAccessEnabled' --output text)
-if [[ "$PROD" != "True" ]]; then
-  if aws sesv2 put-account-details \
-    --region "$REGION" \
-    --mail-type TRANSACTIONAL \
-    --website-url "https://ears-conn.com/register.html" \
-    --contact-language EN \
-    --production-access-enabled \
-    --additional-contact-email-addresses "aliasghar.arab@nyu.edu" \
-    --use-case-description "EARS-CONN 2027 (https://ears-conn.com) is a four-day academic conference at The City College of New York, January 18-21, 2027. The public registration form at https://ears-conn.com/register.html is submitted by the attendee. We send one transactional receipt to that address only: the option they selected, the price, and that organizers will follow up with payment or access details. We do not send newsletters, marketing, or purchased lists. Expected volume is a few hundred messages for this event. Bounce and complaint notifications go to mail.ears-conn.com. From address: noreply@ears-conn.com."; then
-    echo "Resubmitted production-access request."
-  else
-    echo "Production-access request was not accepted. Continuing with the sandbox recipient check."
-  fi
-  echo "ReviewStatus=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.Status' --output text)"
-  echo "ReviewCase=$(aws sesv2 get-account --region "$REGION" --query 'Details.ReviewDetails.CaseId' --output text)"
-
-  RECIPIENT_STATUS=$(aws sesv2 get-email-identity --email-identity "$TO" --region "$REGION" --query 'VerifiedForSendingStatus' --output text 2>/dev/null || true)
-  if [[ "$RECIPIENT_STATUS" != "True" ]]; then
-    aws sesv2 create-email-identity --email-identity "$TO" --region "$REGION" >/dev/null 2>&1 || true
-    echo "Sandbox recipient verification requested for ${TO}."
-  fi
+RECIPIENT_STATUS=$(aws sesv2 get-email-identity --email-identity "$TO" --region "$REGION" --query 'VerifiedForSendingStatus' --output text 2>/dev/null || true)
+echo "RecipientVerified=${RECIPIENT_STATUS:-missing}"
+if [[ "$PROD" != "True" && "$RECIPIENT_STATUS" != "True" ]]; then
+  aws ses verify-email-identity --email-address "$TO" --region "$REGION"
+  echo "Amazon SES verification message sent to ${TO}. The registration receipt can be delivered after that address is confirmed."
+  exit 0
 fi
 echo "VerificationStatus=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'VerificationStatus' --output text)"
 echo "VerifiedForSending=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'VerifiedForSendingStatus' --output text)"
