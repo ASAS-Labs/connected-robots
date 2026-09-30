@@ -1,0 +1,29 @@
+name: Send test registration email
+
+on:
+  workflow_dispatch:
+    inputs:
+      to_email:
+        description: Recipient address
+        required: true
+        type: string
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Send receipt
+        env:
+          CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
+          TO_EMAIL: ${{ inputs.to_email }}
+        run: bash .github/scripts/send-test-confirmation.sh
