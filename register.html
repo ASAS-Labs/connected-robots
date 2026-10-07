@@ -346,14 +346,14 @@
     <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
       <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
       <ul class="nav-tabs" role="list">
-        <li><a href="index.html" class="nav-tab-item">Home</a></li>
-        <li><a href="attend.html" class="nav-tab-item">Attend</a></li>
-        <li><a href="register.html" class="nav-tab-item nav-tab-active">Register</a></li>
-        <li><a href="venue.html" class="nav-tab-item">Venue</a></li>
-        <li><a href="speakers.html" class="nav-tab-item">Speakers</a></li>
-        <li><a href="agenda.html" class="nav-tab-item">Agenda</a></li>
-        <li><a href="workshop.html" class="nav-tab-item">Workshop</a></li>
-        <li><a href="contribute.html" class="nav-tab-item cfp-link">Contribute</a></li>
+        <li><a href="/" class="nav-tab-item">Home</a></li>
+        <li><a href="attend" class="nav-tab-item">Attend</a></li>
+        <li><a href="register" class="nav-tab-item nav-tab-active">Register</a></li>
+        <li><a href="venue" class="nav-tab-item">Venue</a></li>
+        <li><a href="speakers" class="nav-tab-item">Speakers</a></li>
+        <li><a href="agenda" class="nav-tab-item">Agenda</a></li>
+        <li><a href="workshop" class="nav-tab-item">Workshop</a></li>
+        <li><a href="contribute" class="nav-tab-item cfp-link">Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -410,12 +410,12 @@
 
     /* A type with its own Blackbaud form only shows that form; types sharing MAIN_FORM_ID tell the user which fee to pick. */
     var TYPES = {
-      early: { name: 'Conference — early bird ($50)', formId: MAIN_FORM_ID },
-      regular: { name: 'Conference — regular ($100)', formId: MAIN_FORM_ID },
-      student: { name: 'Conference — student ($20)', formId: MAIN_FORM_ID },
-      cuny: { name: 'the free CUNY student ticket', formId: CUNY_FORM_ID || MAIN_FORM_ID, cuny: true },
-      workshop_full: { name: 'Workshop — in person ($600)', formId: MAIN_FORM_ID },
-      workshop_online: { name: 'Workshop — online ($500)', formId: MAIN_FORM_ID }
+      early: { name: 'Conference - early bird (through December 18, 2026)', formId: MAIN_FORM_ID },
+      regular: { name: 'Conference - regular', formId: MAIN_FORM_ID },
+      student: { name: 'Conference - student', formId: MAIN_FORM_ID },
+      cuny: { name: 'Conference - limited free ticket (request)', formId: CUNY_FORM_ID || MAIN_FORM_ID, cuny: true },
+      workshop_full: { name: 'Workshop - full in person (includes conference)', formId: MAIN_FORM_ID },
+      workshop_online: { name: 'Workshop - online (includes conference)', formId: MAIN_FORM_ID }
     };
     var HASH_TYPES = { 'reg-early': 'early', 'reg-free': 'cuny', 'reg-workshop': 'workshop_full' };
 
@@ -480,11 +480,14 @@
       render();
     });
 
-    var preset = HASH_TYPES[location.hash.slice(1)];
-    if (preset) {
+    function applyHash() {
+      var preset = HASH_TYPES[location.hash.slice(1)];
+      if (!preset) return;
       document.querySelector('input[name="reg_type"][value="' + preset + '"]').checked = true;
       render();
     }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
   })();
   </script>
   <script src="https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js"></script>

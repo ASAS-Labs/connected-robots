@@ -94,15 +94,24 @@ jobs:
 
       - name: Deploy to S3
         run: |
+          set -euo pipefail
+          trap 'echo "❌ Deployment failed! Check the AWS IAM permissions for user: earsconn-dev (s3:ListBucket, s3:GetObject, s3:PutObject, s3:DeleteObject)"' ERR
+          BUCKET=ears-conn.com
+
+          # Top-level pages are served without .html (e.g. /register); index.html stays the root document.
+          PAGES=$(ls *.html | grep -v '^index\.html$' | sed 's/\.html$//')
+          EXCLUDES=()
+          for p in $PAGES; do EXCLUDES+=(--exclude "$p.html" --exclude "$p"); done
+
           echo "Starting S3 sync deployment..."
-          if aws s3 sync . s3://ears-conn.com --delete --exclude ".git/*" --exclude ".github/*" --exclude ".DS_Store" --exclude "aws/*"; then
-            echo "✅ Deployment successful!"
-          else
-            echo "❌ Deployment failed!"
-            echo "Please check the AWS IAM permissions for user: earsconn-dev"
-            echo "Required permissions: s3:ListBucket, s3:GetObject, s3:PutObject, s3:DeleteObject"
-            exit 1
-          fi
+          aws s3 sync . "s3://$BUCKET" --delete --exclude ".git/*" --exclude ".github/*" --exclude ".DS_Store" --exclude "aws/*" "${EXCLUDES[@]}"
+
+          for p in $PAGES; do
+            aws s3 cp "$p.html" "s3://$BUCKET/$p" --content-type "text/html; charset=utf-8"
+            # Old /page.html URLs answer with a 301 to the clean URL.
+            aws s3api put-object --bucket "$BUCKET" --key "$p.html" --website-redirect-location "/$p" --content-type "text/html; charset=utf-8" > /dev/null
+          done
+          echo "✅ Deployment successful!"
 
       # If you're using React/Vue/etc. and have a build folder, replace above with:
       # - name: Build site
