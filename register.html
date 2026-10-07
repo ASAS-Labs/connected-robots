@@ -371,7 +371,7 @@
       <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-price">$100</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">Registration code required</span><span class="reg-type-price">Free</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">CUNY email and student ID required</span><span class="reg-type-price">Free</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$600</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
     </div>
@@ -380,11 +380,7 @@
       <h2 class="reg-step">2. <span id="reg-step2-title">Register and pay</span></h2>
       <p id="reg-pick-hint" class="reg-hint" hidden>In the form below, select <strong id="reg-pick-name"></strong>.</p>
 
-      <form id="cuny-code-form" class="ws-reserve-form" novalidate hidden>
-        <div class="ws-field">
-          <label for="cuny-code">Registration code</label>
-          <input type="text" id="cuny-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" required>
-        </div>
+      <form id="cuny-form" class="ws-reserve-form" novalidate hidden>
         <div class="ws-field">
           <label for="cuny-email">CUNY student email</label>
           <input type="email" id="cuny-email" autocomplete="email" maxlength="254" placeholder="name@citymail.cuny.edu" required>
@@ -393,7 +389,7 @@
           <label for="cuny-id">CUNY student ID (8 digits)</label>
           <input type="text" id="cuny-id" inputmode="numeric" maxlength="8" required>
         </div>
-        <p id="cuny-code-error" class="cuny-msg--error" role="alert" hidden></p>
+        <p id="cuny-error" class="cuny-msg--error" role="alert" hidden></p>
         <div class="ws-submit-row">
           <button type="submit" class="vision-btn" style="font-size:1rem; padding:0.7rem 2rem;">Continue</button>
         </div>
@@ -402,7 +398,6 @@
       <p id="cuny-active" class="reg-hint" hidden>Use <strong id="cuny-active-email"></strong> and student ID <strong id="cuny-active-id"></strong> in the form below. Registrations without a CUNY email and student ID will not receive a confirmation.</p>
 
       <div id="reg-embeds"></div>
-      <p id="reg-unavailable" class="ws-reg-callout" hidden>This registration type is being set up. Please check back soon or contact the organizers.</p>
     </section>
   </main>
 
@@ -410,17 +405,15 @@
   (function () {
     var ENV_ID = 'p-JO7Aymvusk6Nd_Cs8TyxNw';
     var MAIN_FORM_ID = '2c5421aa-41a1-4c8f-baeb-a02a168b0205';
-    /* Blackbaud form ID for the CUNY form (from the college). Leave empty until it exists. */
+    /* Blackbaud form ID for a CUNY-only form, if the college creates one; otherwise CUNY uses the main form. */
     var CUNY_FORM_ID = '';
-    /* SHA-256 of the uppercase CUNY code. To change: printf 'NEWCODE' | shasum -a 256 */
-    var CUNY_CODE_SHA256 = '9918ed544e2fbfb3be60615bd1ff862bf777efcbe56542e4cb5dae17547e32f0';
 
     /* A type with its own Blackbaud form only shows that form; types sharing MAIN_FORM_ID tell the user which fee to pick. */
     var TYPES = {
       early: { name: 'Conference — early bird ($50)', formId: MAIN_FORM_ID },
       regular: { name: 'Conference — regular ($100)', formId: MAIN_FORM_ID },
       student: { name: 'Conference — student ($20)', formId: MAIN_FORM_ID },
-      cuny: { name: 'CUNY student (free)', formId: CUNY_FORM_ID, code: true },
+      cuny: { name: 'the free CUNY student ticket', formId: CUNY_FORM_ID || MAIN_FORM_ID, cuny: true },
       workshop_full: { name: 'Workshop — in person ($600)', formId: MAIN_FORM_ID },
       workshop_online: { name: 'Workshop — online ($500)', formId: MAIN_FORM_ID }
     };
@@ -451,18 +444,17 @@
       var checked = document.querySelector('input[name="reg_type"]:checked');
       if (!checked) return;
       var t = TYPES[checked.value];
-      var needsCode = t.code && !cunyUnlocked;
+      var needsDetails = t.cuny && !cunyUnlocked;
 
       $('reg-step2').hidden = false;
-      $('reg-step2-title').textContent = needsCode ? 'Verify your CUNY student status' : 'Register and pay';
-      $('cuny-code-form').hidden = !needsCode;
-      $('cuny-active').hidden = !(t.code && cunyUnlocked && t.formId);
-      $('reg-pick-hint').hidden = needsCode || !t.formId || t.formId !== MAIN_FORM_ID;
+      $('reg-step2-title').textContent = needsDetails ? 'Enter your CUNY details' : 'Register';
+      $('cuny-form').hidden = !needsDetails;
+      $('cuny-active').hidden = !(t.cuny && cunyUnlocked);
+      $('reg-pick-hint').hidden = needsDetails || t.formId !== MAIN_FORM_ID;
       $('reg-pick-name').textContent = t.name;
-      $('reg-unavailable').hidden = needsCode || !!t.formId;
 
       Object.keys(embeds).forEach(function (id) {
-        embeds[id].hidden = needsCode || id !== t.formId;
+        embeds[id].hidden = needsDetails || id !== t.formId;
       });
     }
 
@@ -473,32 +465,19 @@
       });
     });
 
-    function sha256Hex(text) {
-      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
-        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
-          return ('0' + b.toString(16)).slice(-2);
-        }).join('');
-      });
-    }
-
-    $('cuny-code-form').addEventListener('submit', function (e) {
+    $('cuny-form').addEventListener('submit', function (e) {
       e.preventDefault();
-      var err = $('cuny-code-error');
+      var err = $('cuny-error');
       var fail = function (msg) { err.textContent = msg; err.hidden = false; };
       err.hidden = true;
-      var code = $('cuny-code').value.trim().toUpperCase();
       var email = $('cuny-email').value.trim().toLowerCase();
       var id = $('cuny-id').value.trim();
-      if (!code) return fail('Enter the registration code.');
       if (!/^[^\s@]+@([a-z0-9-]+\.)*cuny\.edu$/.test(email)) return fail('Enter a CUNY email address ending in cuny.edu.');
       if (!/^\d{8}$/.test(id)) return fail('Enter your 8-digit CUNY student ID.');
-      sha256Hex(code).then(function (hash) {
-        if (hash !== CUNY_CODE_SHA256) return fail('That registration code is not valid.');
-        cunyUnlocked = true;
-        $('cuny-active-email').textContent = email;
-        $('cuny-active-id').textContent = id;
-        render();
-      });
+      cunyUnlocked = true;
+      $('cuny-active-email').textContent = email;
+      $('cuny-active-id').textContent = id;
+      render();
     });
 
     var preset = HASH_TYPES[location.hash.slice(1)];
