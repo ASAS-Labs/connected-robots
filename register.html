@@ -14,7 +14,30 @@
   <style>
     .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
     .reg-blackbaud-wrap { margin-top: 1.5rem; min-height: 400px; }
-    .reg-anchor { display: block; position: relative; top: -80px; height: 0; }
+    .reg-step { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.85rem; }
+    #reg-step2 { margin-top: 2rem; scroll-margin-top: 96px; }
+    .reg-types { display: grid; gap: 0.6rem; }
+    .reg-type {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "radio name price" "radio note price";
+      align-items: center;
+      column-gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border, #d1d5db);
+      border-radius: 10px;
+      cursor: pointer;
+      background: var(--panel, #fff);
+    }
+    body.theme-dark .reg-type { background: #1e293b; border-color: #475569; }
+    .reg-type:has(input:checked) { border-color: #0ea5e9; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.35); }
+    .reg-type input { grid-area: radio; width: 1.1rem; height: 1.1rem; margin: 0; }
+    .reg-type-name { grid-area: name; font-weight: 600; }
+    .reg-type-note { grid-area: note; font-size: 0.82rem; color: var(--text-muted, #6b7280); }
+    .reg-type-price { grid-area: price; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .reg-hint { font-size: 0.95rem; margin: 0 0 1rem; }
+    .cuny-msg--error { color: #b91c1c; font-size: 0.9rem; margin: 0 0 0.5rem; }
+    body.theme-dark .cuny-msg--error { color: #fca5a5; }
     .ws-reg-hero {
       background: linear-gradient(135deg, #0a0e1a 0%, #0d1f3c 60%, #0a1a2e 100%);
       color: #fff;
@@ -338,60 +361,154 @@
   <div class="ws-reg-hero">
     <h1>Register for EARS-CONN 2027</h1>
     <p>
-      Secure your spot for January 18–21, 2027 in New York City.
-      Early bird conference rate is open through <strong>December 18, 2026</strong> — register today before it ends.
-      Limited free conference tickets are available by request for CUNY students (organizer approval required).
+      January 18–21, 2027 in New York City. Early bird pricing ends <strong>December 18, 2026</strong>.
     </p>
   </div>
 
   <main class="ws-reg-page cfp-section page-section">
-    <div id="ws-form-section">
-      <div class="ws-reg-callout ws-reg-urgency">
-        <strong>Register now.</strong> Early bird conference seats are <strong>$50 through December 18, 2026</strong>.
-        After that date, the regular conference rate is <strong>$100</strong>.
-        CUNY students can <strong>request a limited free conference ticket</strong> — approval is not guaranteed.
-      </div>
-      <div class="ws-reg-callout">
-        <strong>Rates (USD).</strong> The main program is in person in New York City.
-        Full in-person workshop registration includes the main conference. Online workshop registration includes conference access for remote participation in the main program where streaming is offered, and remote Autoware track access; the conference itself is not sold as online-only.
-        Student pricing may require verification. Free tickets are only for CUNY students.
-      </div>
-
-      <div class="reg-pricing-wrap">
-        <table class="reg-pricing-table" aria-label="Registration prices">
-          <thead>
-            <tr><th>Option</th><th>Price</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Conference — early bird (through December 18, 2026)</td><td>$50</td></tr>
-            <tr><td>Conference — regular</td><td>$100</td></tr>
-            <tr><td>Conference — student</td><td>$20</td></tr>
-            <tr><td>Conference — limited free ticket (CUNY students, request)</td><td>$0*</td></tr>
-            <tr><td>Workshop — full in person (includes conference)</td><td>$600</td></tr>
-            <tr><td>Workshop — online (includes conference)</td><td>$500</td></tr>
-          </tbody>
-        </table>
-        <p class="reg-pricing-note">* Free tickets are only for CUNY students, limited, and subject to organizer approval.</p>
-      </div>
-
-      <div id="reg-form" class="reg-blackbaud-wrap">
-        <span id="reg-early" class="reg-anchor" aria-hidden="true"></span>
-        <span id="reg-free" class="reg-anchor" aria-hidden="true"></span>
-        <span id="reg-workshop" class="reg-anchor" aria-hidden="true"></span>
-        <!-- Start form embed -->
-        <script src="https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js"></script>
-        <div
-          data-blackbaud-registration-form
-          data-blackbaud-registration-form-envid="p-JO7Aymvusk6Nd_Cs8TyxNw"
-          data-blackbaud-registration-form-id="2c5421aa-41a1-4c8f-baeb-a02a168b0205"
-          data-blackbaud-registration-form-zone="usa"
-          data-blackbaud-registration-form-header-height="0">
-        </div>
-        <!-- End form embed -->
-        <p class="reg-pricing-note">If the form does not load, <a href="https://host.nxt.blackbaud.com/registration-form/?formId=2c5421aa-41a1-4c8f-baeb-a02a168b0205&amp;envId=p-JO7Aymvusk6Nd_Cs8TyxNw&amp;zone=usa" target="_blank" rel="noopener">open the registration form in a new tab</a>.</p>
-      </div>
+    <h2 class="reg-step">1. Choose your registration type</h2>
+    <div class="reg-types" role="radiogroup" aria-label="Registration type">
+      <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-price">$100</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">Registration code required</span><span class="reg-type-price">Free</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$600</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
     </div>
+
+    <section id="reg-step2" hidden>
+      <h2 class="reg-step">2. <span id="reg-step2-title">Register and pay</span></h2>
+      <p id="reg-pick-hint" class="reg-hint" hidden>In the form below, select <strong id="reg-pick-name"></strong>.</p>
+
+      <form id="cuny-code-form" class="ws-reserve-form" novalidate hidden>
+        <div class="ws-field">
+          <label for="cuny-code">Registration code</label>
+          <input type="text" id="cuny-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" required>
+        </div>
+        <div class="ws-field">
+          <label for="cuny-email">CUNY student email</label>
+          <input type="email" id="cuny-email" autocomplete="email" maxlength="254" placeholder="name@citymail.cuny.edu" required>
+        </div>
+        <div class="ws-field">
+          <label for="cuny-id">CUNY student ID (8 digits)</label>
+          <input type="text" id="cuny-id" inputmode="numeric" maxlength="8" required>
+        </div>
+        <p id="cuny-code-error" class="cuny-msg--error" role="alert" hidden></p>
+        <div class="ws-submit-row">
+          <button type="submit" class="vision-btn" style="font-size:1rem; padding:0.7rem 2rem;">Continue</button>
+        </div>
+      </form>
+
+      <p id="cuny-active" class="reg-hint" hidden>Use <strong id="cuny-active-email"></strong> and student ID <strong id="cuny-active-id"></strong> in the form below. Registrations without a CUNY email and student ID will not receive a confirmation.</p>
+
+      <div id="reg-embeds"></div>
+      <p id="reg-unavailable" class="ws-reg-callout" hidden>This registration type is being set up. Please check back soon or contact the organizers.</p>
+    </section>
   </main>
+
+  <script>
+  (function () {
+    var ENV_ID = 'p-JO7Aymvusk6Nd_Cs8TyxNw';
+    var MAIN_FORM_ID = '2c5421aa-41a1-4c8f-baeb-a02a168b0205';
+    /* Blackbaud form ID for the CUNY form (from the college). Leave empty until it exists. */
+    var CUNY_FORM_ID = '';
+    /* SHA-256 of the uppercase CUNY code. To change: printf 'NEWCODE' | shasum -a 256 */
+    var CUNY_CODE_SHA256 = '9918ed544e2fbfb3be60615bd1ff862bf777efcbe56542e4cb5dae17547e32f0';
+
+    /* A type with its own Blackbaud form only shows that form; types sharing MAIN_FORM_ID tell the user which fee to pick. */
+    var TYPES = {
+      early: { name: 'Conference — early bird ($50)', formId: MAIN_FORM_ID },
+      regular: { name: 'Conference — regular ($100)', formId: MAIN_FORM_ID },
+      student: { name: 'Conference — student ($20)', formId: MAIN_FORM_ID },
+      cuny: { name: 'CUNY student (free)', formId: CUNY_FORM_ID, code: true },
+      workshop_full: { name: 'Workshop — in person ($600)', formId: MAIN_FORM_ID },
+      workshop_online: { name: 'Workshop — online ($500)', formId: MAIN_FORM_ID }
+    };
+    var HASH_TYPES = { 'reg-early': 'early', 'reg-free': 'cuny', 'reg-workshop': 'workshop_full' };
+
+    var $ = function (id) { return document.getElementById(id); };
+    var embeds = {};
+    var cunyUnlocked = false;
+
+    Object.keys(TYPES).forEach(function (key) {
+      var id = TYPES[key].formId;
+      if (!id || embeds[id]) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'reg-blackbaud-wrap';
+      wrap.hidden = true;
+      var el = document.createElement('div');
+      el.setAttribute('data-blackbaud-registration-form', '');
+      el.setAttribute('data-blackbaud-registration-form-envid', ENV_ID);
+      el.setAttribute('data-blackbaud-registration-form-id', id);
+      el.setAttribute('data-blackbaud-registration-form-zone', 'usa');
+      el.setAttribute('data-blackbaud-registration-form-header-height', '0');
+      wrap.appendChild(el);
+      $('reg-embeds').appendChild(wrap);
+      embeds[id] = wrap;
+    });
+
+    function render() {
+      var checked = document.querySelector('input[name="reg_type"]:checked');
+      if (!checked) return;
+      var t = TYPES[checked.value];
+      var needsCode = t.code && !cunyUnlocked;
+
+      $('reg-step2').hidden = false;
+      $('reg-step2-title').textContent = needsCode ? 'Verify your CUNY student status' : 'Register and pay';
+      $('cuny-code-form').hidden = !needsCode;
+      $('cuny-active').hidden = !(t.code && cunyUnlocked && t.formId);
+      $('reg-pick-hint').hidden = needsCode || !t.formId || t.formId !== MAIN_FORM_ID;
+      $('reg-pick-name').textContent = t.name;
+      $('reg-unavailable').hidden = needsCode || !!t.formId;
+
+      Object.keys(embeds).forEach(function (id) {
+        embeds[id].hidden = needsCode || id !== t.formId;
+      });
+    }
+
+    document.querySelectorAll('input[name="reg_type"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        render();
+        $('reg-step2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    function sha256Hex(text) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+          return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+      });
+    }
+
+    $('cuny-code-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('cuny-code-error');
+      var fail = function (msg) { err.textContent = msg; err.hidden = false; };
+      err.hidden = true;
+      var code = $('cuny-code').value.trim().toUpperCase();
+      var email = $('cuny-email').value.trim().toLowerCase();
+      var id = $('cuny-id').value.trim();
+      if (!code) return fail('Enter the registration code.');
+      if (!/^[^\s@]+@([a-z0-9-]+\.)*cuny\.edu$/.test(email)) return fail('Enter a CUNY email address ending in cuny.edu.');
+      if (!/^\d{8}$/.test(id)) return fail('Enter your 8-digit CUNY student ID.');
+      sha256Hex(code).then(function (hash) {
+        if (hash !== CUNY_CODE_SHA256) return fail('That registration code is not valid.');
+        cunyUnlocked = true;
+        $('cuny-active-email').textContent = email;
+        $('cuny-active-id').textContent = id;
+        render();
+      });
+    });
+
+    var preset = HASH_TYPES[location.hash.slice(1)];
+    if (preset) {
+      document.querySelector('input[name="reg_type"][value="' + preset + '"]').checked = true;
+      render();
+    }
+  })();
+  </script>
+  <script src="https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js"></script>
 
   <footer class="footer">
     <div class="footer-inner">
