@@ -162,8 +162,8 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
 
     text_body = (
         f"Hello {name},\n\n"
-        "Thank you for registering for EARS-CONN (Embodied-AI for Autonomous, Reliable, "
-        "and Safe Connected Operations in Networked Environments, through Digital-Earth).\n\n"
+        "Thank you for registering for EARS-CONN (Embodied AI Bridging Autonomous and "
+        "Remote Sensing for Reliable, Safe Connected Cities).\n\n"
         f"Registration option: {tier}\n"
         f"Email on file: {to_addr}\n\n"
         f"{next_steps}\n\n"
@@ -173,7 +173,7 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
     html_body = (
         f"<p>Hello {_html_escape(name)},</p>"
         "<p>Thank you for registering for <strong>EARS-CONN</strong> "
-        "(Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth).</p>"
+        "(Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities).</p>"
         f"<p><strong>Registration option:</strong> {_html_escape(tier)}<br>"
         f"<strong>Email on file:</strong> {_html_escape(to_addr)}</p>"
         f"<p>{_html_escape(next_steps)}</p>"

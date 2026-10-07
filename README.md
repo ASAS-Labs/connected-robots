@@ -1,6 +1,6 @@
 # EARS-CONN 2027
 
-Website for EARS-CONN 2027: Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth.
+Website for EARS-CONN 2027: Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities.
 
 ## Overview
 

@@ -103,8 +103,8 @@ for email, item in sorted(by_email.items()):
         )
     text = (
         f"Hello {name},\n\n"
-        "Thank you for registering for EARS-CONN (Embodied-AI for Autonomous, Reliable, and Safe "
-        "Connected Operations in Networked Environments, through Digital-Earth).\n\n"
+        "Thank you for registering for EARS-CONN (Embodied AI Bridging Autonomous and "
+        "Remote Sensing for Reliable, Safe Connected Cities).\n\n"
         f"Registration option: {tier}\n"
         f"Email on file: {email}\n\n"
         f"{next_steps}\n\n"
@@ -114,7 +114,7 @@ for email, item in sorted(by_email.items()):
     html = (
         f"<p>Hello {esc(name)},</p>"
         "<p>Thank you for registering for <strong>EARS-CONN</strong> "
-        "(Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth).</p>"
+        "(Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities).</p>"
         f"<p><strong>Registration option:</strong> {esc(tier)}<br>"
         f"<strong>Email on file:</strong> {esc(email)}</p>"
         f"<p>{esc(next_steps)}</p>"

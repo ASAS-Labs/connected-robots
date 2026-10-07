@@ -35,7 +35,7 @@ text = f"""Hello,
 
 This is a test of the EARS-CONN registration receipt. It does not create a registration.
 
-Thank you for registering for EARS-CONN (Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth).
+Thank you for registering for EARS-CONN (Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities).
 
 Registration option: Conference — early bird ($50)
 Email on file: {to}
@@ -48,7 +48,7 @@ Event site: https://ears-conn.com
 """
 html = f"""<p>Hello,</p>
 <p>This is a test of the EARS-CONN registration receipt. It does not create a registration.</p>
-<p>Thank you for registering for <strong>EARS-CONN</strong> (Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth).</p>
+<p>Thank you for registering for <strong>EARS-CONN</strong> (Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities).</p>
 <p><strong>Registration option:</strong> Conference — early bird ($50)<br>
 <strong>Email on file:</strong> {to}</p>
 <p>This message confirms that we received your registration request. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable.</p>
