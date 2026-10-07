@@ -1,6 +1,6 @@
-# Connected Autonomous Robotic Systems Workshop
+# EARS-CONN 2027
 
-Website repository for the **Connected Autonomous Robotic Systems** workshop initiative and related EARS-CONN activities.
+Website for EARS-CONN 2027: Embodied-AI for Autonomous, Reliable, and Safe Connected Operations in Networked Environments, through Digital-Earth.
 
 ## Overview
 
