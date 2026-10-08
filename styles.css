@@ -3884,6 +3884,30 @@ body.scroll-earth-page .organizers-section {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* Schedule heading and intro sit on the dark earth backdrop; give them a light panel */
+body.scroll-earth-page #section-schedule {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+body.scroll-earth-page #section-schedule > .section-title,
+body.theme-dark.scroll-earth-page #section-schedule > .section-title {
+  color: #111827;
+}
+
+body.scroll-earth-page #section-schedule > .digital-earth-tracks-intro,
+body.theme-dark.scroll-earth-page #section-schedule > .digital-earth-tracks-intro,
+body.scroll-earth-page #section-schedule > .digital-earth-tracks-intro strong,
+body.scroll-earth-page #section-schedule > .digital-earth-tracks-intro em {
+  color: #1f2937;
+}
+
 body.scroll-earth-page .organizers-section {
   padding: 2rem 1rem;
   border-radius: 12px;
