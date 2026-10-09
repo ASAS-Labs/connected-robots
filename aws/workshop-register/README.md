@@ -60,7 +60,7 @@ After a successful save, Lambda sends a confirmation to the registrant (and opti
 
 | Parameter | Purpose |
 |-----------|---------|
-| `ConfirmationFromEmail` | Verified SES From address (required to send) |
+| `ConfirmationFromEmail` | Verified SES From address (required to send). The inbox name is EARS-CONN; the address stays this value. |
 | `OrganizerNotifyEmail` | Optional inbox for new-registration alerts |
 
 Example:

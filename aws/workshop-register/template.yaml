@@ -19,7 +19,7 @@ Parameters:
   ConfirmationFromEmail:
     Type: String
     Default: ''
-    Description: Verified SES From address for registrant confirmation emails (e.g. noreply@ears-conn.com). Leave empty to disable email.
+    Description: Verified SES From address for registrant confirmation emails (e.g. noreply@ears-conn.com). The inbox shows the name EARS-CONN. Leave empty to disable email.
   OrganizerNotifyEmail:
     Type: String
     Default: ''

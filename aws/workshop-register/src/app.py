@@ -20,6 +20,7 @@ TABLE_NAME = os.environ["TABLE_NAME"]
 PUBLIC_SITE_ORIGIN = (os.environ.get("PUBLIC_SITE_ORIGIN") or "https://ears-conn.com").rstrip("/")
 THANK_YOU_PATH = os.environ.get("THANK_YOU_PATH") or "/register.html?thanks=1"
 CONFIRMATION_FROM_EMAIL = (os.environ.get("CONFIRMATION_FROM_EMAIL") or "").strip()
+CONFIRMATION_FROM_NAME = "EARS-CONN"
 ORGANIZER_NOTIFY_EMAIL = (os.environ.get("ORGANIZER_NOTIFY_EMAIL") or "").strip()
 
 _ddb = boto3.resource("dynamodb")
@@ -137,6 +138,14 @@ def _tier_label(tier: str) -> str:
     return _TIER_LABELS.get(tier, tier)
 
 
+def _ses_source(address: str) -> str:
+    """Show a conference name in the inbox. The address itself stays the verified SES identity."""
+    address = address.strip()
+    if "<" in address and address.endswith(">"):
+        return address
+    return f"{CONFIRMATION_FROM_NAME} <{address}>"
+
+
 def _send_confirmation_emails(item: dict[str, Any]) -> None:
     """Email the registrant (and optionally organizers). Failures are logged only."""
     if not CONFIRMATION_FROM_EMAIL:
@@ -183,7 +192,7 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
 
     try:
         _ses.send_email(
-            Source=CONFIRMATION_FROM_EMAIL,
+            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
             Destination={"ToAddresses": [to_addr]},
             Message={
                 "Subject": {"Data": subject, "Charset": "UTF-8"},
@@ -216,7 +225,7 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
     )
     try:
         _ses.send_email(
-            Source=CONFIRMATION_FROM_EMAIL,
+            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
             Destination={"ToAddresses": [ORGANIZER_NOTIFY_EMAIL]},
             Message={
                 "Subject": {"Data": org_subject, "Charset": "UTF-8"},

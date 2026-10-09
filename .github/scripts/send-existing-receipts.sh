@@ -30,7 +30,11 @@ import json, os, subprocess, time
 
 table = os.environ["TABLE_NAME"]
 region = os.environ["REGION"]
-source = os.environ["FROM"]
+raw_from = os.environ["FROM"].strip()
+if "<" in raw_from and raw_from.endswith(">"):
+    source = raw_from
+else:
+    source = f"EARS-CONN <{raw_from}>"
 site = "https://ears-conn.com"
 tiers = {
     "conf_early": "Conference — early bird ($50)",
@@ -103,8 +107,8 @@ for email, item in sorted(by_email.items()):
         )
     text = (
         f"Hello {name},\n\n"
-        "Thank you for registering for EARS-CONN (Embodied AI Bridging Autonomous and "
-        "Remote Sensing for Reliable, Safe Connected Cities).\n\n"
+        "Thank you for registering for EARS-CONN (Embodied AI and Remote Sensing "
+        "for Sustainable, Safe Connected Cities).\n\n"
         f"Registration option: {tier}\n"
         f"Email on file: {email}\n\n"
         f"{next_steps}\n\n"
@@ -114,7 +118,7 @@ for email, item in sorted(by_email.items()):
     html = (
         f"<p>Hello {esc(name)},</p>"
         "<p>Thank you for registering for <strong>EARS-CONN</strong> "
-        "(Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities).</p>"
+        "(Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities).</p>"
         f"<p><strong>Registration option:</strong> {esc(tier)}<br>"
         f"<strong>Email on file:</strong> {esc(email)}</p>"
         f"<p>{esc(next_steps)}</p>"
