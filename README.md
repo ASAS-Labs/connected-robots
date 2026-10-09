@@ -1,6 +1,6 @@
 # EARS-CONN 2027
 
-Website for EARS-CONN 2027: Embodied AI Bridging Autonomous and Remote Sensing for Reliable, Safe Connected Cities.
+Website for EARS-CONN 2027: Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities.
 
 ## Overview
 
