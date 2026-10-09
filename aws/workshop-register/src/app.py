@@ -16,6 +16,8 @@ from urllib.request import Request, urlopen
 import boto3
 from boto3.dynamodb.conditions import Key
 
+from confirmation_email import build_confirmation, registrant_message
+
 TABLE_NAME = os.environ["TABLE_NAME"]
 PUBLIC_SITE_ORIGIN = (os.environ.get("PUBLIC_SITE_ORIGIN") or "https://ears-conn.com").rstrip("/")
 THANK_YOU_PATH = os.environ.get("THANK_YOU_PATH") or "/register.html?thanks=1"
@@ -138,12 +140,19 @@ def _tier_label(tier: str) -> str:
     return _TIER_LABELS.get(tier, tier)
 
 
-def _ses_source(address: str) -> str:
-    """Show a conference name in the inbox. The address itself stays the verified SES identity."""
+def _from_parts(address: str) -> tuple[str, str]:
+    """Display name plus the verified SES address."""
     address = address.strip()
     if "<" in address and address.endswith(">"):
-        return address
-    return f"{CONFIRMATION_FROM_NAME} <{address}>"
+        name, addr = address[:-1].split("<", 1)
+        return name.strip().strip('"') or CONFIRMATION_FROM_NAME, addr.strip()
+    return CONFIRMATION_FROM_NAME, address
+
+
+def _ses_source(address: str) -> str:
+    """Show a conference name in the inbox. The address itself stays the verified SES identity."""
+    name, addr = _from_parts(address)
+    return f"{name} <{addr}>"
 
 
 def _send_confirmation_emails(item: dict[str, Any]) -> None:
@@ -157,54 +166,44 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
     tier_key = str(item.get("registration_tier") or "")
     tier = _tier_label(tier_key)
     site = PUBLIC_SITE_ORIGIN
-    subject = "EARS-CONN registration received"
     next_steps = (
-        "This message confirms that we received your registration request. "
         "Organizers will follow up by email with payment or access details, "
         "and with Autoware seat confirmation when applicable."
     )
     if tier_key == "conf_free_request":
-        next_steps += (
-            " Next steps for this request: free tickets are only for CUNY students. "
-            "Organizers will review your request and confirm eligibility by email."
+        next_steps = (
+            "Free tickets are only for CUNY students. "
+            "Organizers will review this request and confirm eligibility by email."
         )
 
-    text_body = (
-        f"Hello {name},\n\n"
-        "Thank you for registering for EARS-CONN (Embodied AI and Remote Sensing "
-        "for Sustainable, Safe Connected Cities).\n\n"
-        f"Registration option: {tier}\n"
-        f"Email on file: {to_addr}\n\n"
-        f"{next_steps}\n\n"
-        f"Event site: {site}\n\n"
-        "— EARS-CONN organizers\n"
-    )
-    html_body = (
-        f"<p>Hello {_html_escape(name)},</p>"
-        "<p>Thank you for registering for <strong>EARS-CONN</strong> "
-        "(Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities).</p>"
-        f"<p><strong>Registration option:</strong> {_html_escape(tier)}<br>"
-        f"<strong>Email on file:</strong> {_html_escape(to_addr)}</p>"
-        f"<p>{_html_escape(next_steps)}</p>"
-        f'<p>Event site: <a href="{_html_escape(site)}">{_html_escape(site)}</a></p>'
-        "<p>— EARS-CONN organizers</p>"
-    )
-
-    try:
-        _ses.send_email(
-            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
-            Destination={"ToAddresses": [to_addr]},
-            Message={
-                "Subject": {"Data": subject, "Charset": "UTF-8"},
-                "Body": {
-                    "Text": {"Data": text_body, "Charset": "UTF-8"},
-                    "Html": {"Data": html_body, "Charset": "UTF-8"},
-                },
-            },
+    if not to_addr:
+        _log.info("Registration %s has no email; skipping confirmation", item.get("id"))
+    else:
+        content = build_confirmation(
+            name=name,
+            email=to_addr,
+            tier_key=tier_key,
+            tier_label=tier,
+            site=site,
+            participation_mode=str(item.get("participation_mode") or ""),
+            next_steps=next_steps,
         )
-        _log.info("Confirmation email sent to %s", to_addr)
-    except Exception:
-        _log.exception("Failed to send confirmation email to %s", to_addr)
+        from_name, from_address = _from_parts(CONFIRMATION_FROM_EMAIL)
+        message = registrant_message(
+            from_name=from_name,
+            from_address=from_address,
+            to_address=to_addr,
+            content=content,
+        )
+        try:
+            _ses.send_raw_email(
+                Source=from_address,
+                Destinations=[to_addr],
+                RawMessage={"Data": message.as_bytes()},
+            )
+            _log.info("Confirmation email sent to %s", to_addr)
+        except Exception:
+            _log.exception("Failed to send confirmation email to %s", to_addr)
 
     if not ORGANIZER_NOTIFY_EMAIL:
         return
