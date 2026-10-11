@@ -27,54 +27,48 @@ echo "VerificationStatus=$(aws sesv2 get-email-identity --email-identity ears-co
 echo "VerifiedForSending=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'VerifiedForSendingStatus' --output text)"
 echo "DkimStatus=$(aws sesv2 get-email-identity --email-identity ears-conn.com --region "$REGION" --query 'DkimAttributes.Status' --output text)"
 
-export FROM TO
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+export FROM TO ROOT
 python3 - <<'PY'
-import json, os
+import base64, json, os, sys
+sys.path.insert(0, os.path.join(os.environ["ROOT"], "aws/workshop-register/src"))
+from confirmation_email import build_confirmation, registrant_message
+
 to = os.environ["TO"]
-text = f"""Hello,
-
-This is a test of the EARS-CONN registration receipt. It does not create a registration.
-
-Thank you for registering for EARS-CONN (Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities).
-
-Registration option: Conference — early bird ($50)
-Email on file: {to}
-
-This message confirms that we received your registration request. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable.
-
-Event site: https://ears-conn.com
-
-— EARS-CONN organizers
-"""
-html = f"""<p>Hello,</p>
-<p>This is a test of the EARS-CONN registration receipt. It does not create a registration.</p>
-<p>Thank you for registering for <strong>EARS-CONN</strong> (Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities).</p>
-<p><strong>Registration option:</strong> Conference — early bird ($50)<br>
-<strong>Email on file:</strong> {to}</p>
-<p>This message confirms that we received your registration request. Organizers will follow up by email with payment or access details, and with Autoware seat confirmation when applicable.</p>
-<p>Event site: <a href="https://ears-conn.com">https://ears-conn.com</a></p>
-<p>— EARS-CONN organizers</p>
-"""
 raw_from = os.environ["FROM"].strip()
 if "<" in raw_from and raw_from.endswith(">"):
-    source = raw_from
+    from_name, from_address = raw_from[:-1].split("<", 1)
+    from_name = from_name.strip().strip('"') or "EARS-CONN"
+    from_address = from_address.strip()
 else:
-    source = f"EARS-CONN <{raw_from}>"
+    from_name, from_address = "EARS-CONN", raw_from
+content = build_confirmation(
+    name="there",
+    email=to,
+    tier_key="conf_early",
+    tier_label="Conference — early bird ($50)",
+    site="https://ears-conn.com",
+    participation_mode="in_person",
+    next_steps=(
+        "This is a sample of the registration confirmation. It does not create a registration. "
+        "Organizers will follow up by email with payment or access details when a real registration is submitted."
+    ),
+)
+message = registrant_message(
+    from_name=from_name,
+    from_address=from_address,
+    to_address=to,
+    content=content,
+)
 payload = {
-    "Source": source,
-    "Destination": {"ToAddresses": [to]},
-    "Message": {
-        "Subject": {"Data": "EARS-CONN registration received", "Charset": "UTF-8"},
-        "Body": {
-            "Text": {"Data": text, "Charset": "UTF-8"},
-            "Html": {"Data": html, "Charset": "UTF-8"},
-        },
-    },
+    "Source": from_address,
+    "Destinations": [to],
+    "RawMessage": {"Data": base64.b64encode(message.as_bytes()).decode("ascii")},
 }
 with open("ses-message.json", "w", encoding="utf-8") as fh:
     json.dump(payload, fh)
 PY
 
-aws ses send-email --region "$REGION" --cli-input-json file://ses-message.json
+aws ses send-raw-email --region "$REGION" --cli-input-json file://ses-message.json
 rm -f ses-message.json
 echo "Sent registration receipt to ${TO}"

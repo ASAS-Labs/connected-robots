@@ -24,17 +24,22 @@ if [[ -z "$TABLE_NAME" || "$TABLE_NAME" == "None" ]]; then
   exit 1
 fi
 
-export TABLE_NAME REGION FROM
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+export TABLE_NAME REGION FROM ROOT
 python3 - <<'PY'
-import json, os, subprocess, time
+import base64, json, os, subprocess, sys, time
+sys.path.insert(0, os.path.join(os.environ["ROOT"], "aws/workshop-register/src"))
+from confirmation_email import build_confirmation, registrant_message
 
 table = os.environ["TABLE_NAME"]
 region = os.environ["REGION"]
 raw_from = os.environ["FROM"].strip()
 if "<" in raw_from and raw_from.endswith(">"):
-    source = raw_from
+    from_name, from_address = raw_from[:-1].split("<", 1)
+    from_name = from_name.strip().strip('"') or "EARS-CONN"
+    from_address = from_address.strip()
 else:
-    source = f"EARS-CONN <{raw_from}>"
+    from_name, from_address = "EARS-CONN", raw_from
 site = "https://ears-conn.com"
 tiers = {
     "conf_early": "Conference — early bird ($50)",
@@ -101,46 +106,35 @@ for email, item in sorted(by_email.items()):
         "and with Autoware seat confirmation when applicable."
     )
     if tier_key == "conf_free_request":
-        next_steps += (
-            " Next steps for this request: free tickets are only for CUNY students. "
-            "Organizers will review your request and confirm eligibility by email."
+        next_steps = (
+            "Free tickets are only for CUNY students. "
+            "Organizers will review this request and confirm eligibility by email."
         )
-    text = (
-        f"Hello {name},\n\n"
-        "Thank you for registering for EARS-CONN (Embodied AI and Remote Sensing "
-        "for Sustainable, Safe Connected Cities).\n\n"
-        f"Registration option: {tier}\n"
-        f"Email on file: {email}\n\n"
-        f"{next_steps}\n\n"
-        f"Event site: {site}\n\n"
-        "— EARS-CONN organizers\n"
+    content = build_confirmation(
+        name=name,
+        email=email,
+        tier_key=tier_key,
+        tier_label=tier,
+        site=site,
+        participation_mode=str(item.get("participation_mode") or ""),
+        next_steps=next_steps,
     )
-    html = (
-        f"<p>Hello {esc(name)},</p>"
-        "<p>Thank you for registering for <strong>EARS-CONN</strong> "
-        "(Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities).</p>"
-        f"<p><strong>Registration option:</strong> {esc(tier)}<br>"
-        f"<strong>Email on file:</strong> {esc(email)}</p>"
-        f"<p>{esc(next_steps)}</p>"
-        f'<p>Event site: <a href="{site}">{site}</a></p>'
-        "<p>— EARS-CONN organizers</p>"
+    message = registrant_message(
+        from_name=from_name,
+        from_address=from_address,
+        to_address=email,
+        content=content,
     )
     payload = {
-        "Source": source,
-        "Destination": {"ToAddresses": [email]},
-        "Message": {
-            "Subject": {"Data": "EARS-CONN registration received", "Charset": "UTF-8"},
-            "Body": {
-                "Text": {"Data": text, "Charset": "UTF-8"},
-                "Html": {"Data": html, "Charset": "UTF-8"},
-            },
-        },
+        "Source": from_address,
+        "Destinations": [email],
+        "RawMessage": {"Data": base64.b64encode(message.as_bytes()).decode("ascii")},
     }
     path = "ses-message.json"
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(payload, fh)
     result = subprocess.run(
-        ["aws", "ses", "send-email", "--region", region, "--cli-input-json", f"file://{path}"],
+        ["aws", "ses", "send-raw-email", "--region", region, "--cli-input-json", f"file://{path}"],
         text=True,
         capture_output=True,
     )
