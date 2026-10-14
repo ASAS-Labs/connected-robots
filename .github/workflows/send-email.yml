@@ -1,0 +1,70 @@
+name: Send email
+
+# Sends one message from the EARS-CONN SES identity. Only users with write access can dispatch.
+# Local usage: .github/scripts/request-email.sh (wraps `gh workflow run`).
+
+on:
+  workflow_dispatch:
+    inputs:
+      to:
+        description: Recipients (comma-separated)
+        required: true
+        type: string
+      cc:
+        description: CC (comma-separated)
+        required: false
+        default: ""
+        type: string
+      bcc:
+        description: BCC (comma-separated)
+        required: false
+        default: ""
+        type: string
+      reply_to:
+        description: Reply-To (comma-separated; defaults to CC)
+        required: false
+        default: ""
+        type: string
+      subject:
+        description: Subject
+        required: true
+        type: string
+      body:
+        description: Plain-text body (blank lines separate paragraphs; URLs become links)
+        required: true
+        type: string
+      dry_run:
+        description: Build the message without sending
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: send-email
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Send
+        env:
+          EMAIL_FROM: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
+          EMAIL_TO: ${{ inputs.to }}
+          EMAIL_CC: ${{ inputs.cc }}
+          EMAIL_BCC: ${{ inputs.bcc }}
+          EMAIL_REPLY_TO: ${{ inputs.reply_to }}
+          EMAIL_SUBJECT: ${{ inputs.subject }}
+          EMAIL_BODY: ${{ inputs.body }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python3 .github/scripts/send-email.py
