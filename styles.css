@@ -3872,6 +3872,29 @@ body.scroll-earth-page .hero-layout--overlay {
   min-height: clamp(480px, 58vh, 620px);
 }
 
+/* Desktop: two-line headline and a shorter hero so the logo strip is visible on load */
+@media (min-width: 769px) {
+  .workshop-title-container.has-earth-hero {
+    padding-top: 2rem;
+    padding-bottom: 0.75rem;
+  }
+
+  body.scroll-earth-page .hero-layout--overlay {
+    min-height: clamp(420px, 50vh, 540px);
+  }
+
+  .workshop-title-container.has-earth-hero .initiative-headline {
+    max-width: none;
+    font-size: clamp(1.6rem, 2.9vw, 2.45rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-headline-break {
+    display: none;
+  }
+}
+
 body.scroll-earth-page .abstract-section,
 body.scroll-earth-page .connectivity-section,
 body.scroll-earth-page .participate-box,

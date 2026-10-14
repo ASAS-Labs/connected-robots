@@ -13,7 +13,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="styles.css?v=2026-10-08">
+  <link rel="stylesheet" href="styles.css?v=2026-10-14">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
 </head>
 <body class="scroll-earth-page">
@@ -92,7 +92,7 @@
       <div class="hero-layout hero-layout--overlay">
         <div class="hero-copy text-center">
           <p class="hero-brand">EARS-CONN 2027</p>
-          <h1 class="initiative-headline">Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities</h1>
+          <h1 class="initiative-headline">Embodied AI and Remote Sensing for<br class="hero-headline-break"> Sustainable, Safe Connected Cities</h1>
           <div class="title-divider"></div>
           <p class="initiative-tagline">Join researchers, industry, and city leaders in New York</p>
           <div class="conference-date">January 18–21, 2027</div>
@@ -749,7 +749,7 @@
   /* Speaker and sponsor logo strip */
   .logo-marquee {
     max-width: 1200px;
-    margin: 1.25rem auto 0;
+    margin: 0.9rem auto 0;
     padding: 0 1rem;
   }
   .logo-marquee-track {
@@ -822,11 +822,8 @@
   @keyframes logo-marquee-scroll {
     to { transform: translateX(-100%); }
   }
-  @media (max-width: 640px) {
-    .logo-marquee-list { gap: 2rem; animation-duration: 32s; }
-    .logo-marquee-list img { height: 22px; }
-    .logo-marquee-list img.logo-marquee-icon { height: 22px; width: 22px; }
-    .logo-marquee-list img.logo-marquee-tall { height: 28px; }
+  @media (max-width: 768px) {
+    .logo-marquee { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     .logo-marquee-list { animation: none; }
