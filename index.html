@@ -111,6 +111,40 @@
     </div>
   </div>
 
+  <!-- Speaker and sponsor organizations: second list duplicates the first for a seamless loop -->
+  <section class="logo-marquee" aria-label="Organizations of our speakers and sponsors">
+    <div class="logo-marquee-track">
+      <ul class="logo-marquee-list">
+        <li><img src="images/logos/CUNY.png" alt="The City University of New York" loading="lazy"></li>
+        <li><img src="images/logos/un-emblem.png" alt="" loading="lazy" class="logo-marquee-icon"><span title="United Nations Office for Digital and Emerging Technologies">UN ODET</span></li>
+        <li><img src="images/logos/qualcomm.png" alt="Qualcomm" loading="lazy"></li>
+        <li><img src="images/logos/unu-hub-banner.png" alt="UNU Hub R-SIRUS" loading="lazy"></li>
+        <li><img src="images/logos/jpmorgan.png" alt="J.P. Morgan" loading="lazy"></li>
+        <li><img src="images/logos/fused.png" alt="" loading="lazy" class="logo-marquee-icon"><span>Fused</span></li>
+        <li><img src="images/logos/nokia-bell-labs.png" alt="Nokia Bell Labs" loading="lazy" class="logo-marquee-tall"></li>
+        <li><img src="images/logos/CUNYCREST.gif" alt="CUNY CREST Institute" loading="lazy"></li>
+        <li><img src="images/logos/purecipher.png" alt="PureCipher" loading="lazy"></li>
+        <li><img src="images/logos/gen-auto-ai.png?v=2" alt="General Autonomy" loading="lazy"></li>
+        <li><span class="logo-marquee-word">Pull City</span></li>
+        <li><img src="images/logos/asas-labs.png?v=2" alt="ASAS Labs" loading="lazy"></li>
+      </ul>
+      <ul class="logo-marquee-list" aria-hidden="true">
+        <li><img src="images/logos/CUNY.png" alt="" loading="lazy"></li>
+        <li><img src="images/logos/un-emblem.png" alt="" loading="lazy" class="logo-marquee-icon"><span title="United Nations Office for Digital and Emerging Technologies">UN ODET</span></li>
+        <li><img src="images/logos/qualcomm.png" alt="" loading="lazy"></li>
+        <li><img src="images/logos/unu-hub-banner.png" alt="" loading="lazy"></li>
+        <li><img src="images/logos/jpmorgan.png" alt="" loading="lazy"></li>
+        <li><img src="images/logos/fused.png" alt="" loading="lazy" class="logo-marquee-icon"><span>Fused</span></li>
+        <li><img src="images/logos/nokia-bell-labs.png" alt="" loading="lazy" class="logo-marquee-tall"></li>
+        <li><img src="images/logos/CUNYCREST.gif" alt="" loading="lazy"></li>
+        <li><img src="images/logos/purecipher.png" alt="" loading="lazy"></li>
+        <li><img src="images/logos/gen-auto-ai.png?v=2" alt="" loading="lazy"></li>
+        <li><span class="logo-marquee-word">Pull City</span></li>
+        <li><img src="images/logos/asas-labs.png?v=2" alt="" loading="lazy"></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Conference Vision -->
   <section id="section-intro" class="abstract-section e-con-inner vision-side-by-side">
     <div class="vision-left">
@@ -712,6 +746,93 @@
   </footer>
 
   <style>
+  /* Speaker and sponsor logo strip */
+  .logo-marquee {
+    max-width: 1200px;
+    margin: 1.25rem auto 0;
+    padding: 0 1rem;
+  }
+  .logo-marquee-track {
+    display: flex;
+    overflow: hidden;
+    padding: 7px 0;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .logo-marquee-list {
+    display: flex;
+    align-items: center;
+    gap: 2.75rem;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0 1.375rem;
+    list-style: none;
+    animation: logo-marquee-scroll 42s linear infinite;
+  }
+  .logo-marquee-track:hover .logo-marquee-list {
+    animation-play-state: paused;
+  }
+  .logo-marquee-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .logo-marquee-list li:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+  .logo-marquee-list img {
+    display: block;
+    height: 26px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+  }
+  .logo-marquee-list img.logo-marquee-icon {
+    height: 26px;
+    width: 26px;
+    border-radius: 6px;
+  }
+  .logo-marquee-list img.logo-marquee-tall {
+    height: 32px;
+  }
+  .logo-marquee-list span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f2937;
+    letter-spacing: 0.01em;
+  }
+  .logo-marquee-list .logo-marquee-word {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  body.theme-dark .logo-marquee-track {
+    background: rgba(255, 255, 255, 0.94);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  @keyframes logo-marquee-scroll {
+    to { transform: translateX(-100%); }
+  }
+  @media (max-width: 640px) {
+    .logo-marquee-list { gap: 2rem; animation-duration: 32s; }
+    .logo-marquee-list img { height: 22px; }
+    .logo-marquee-list img.logo-marquee-icon { height: 22px; width: 22px; }
+    .logo-marquee-list img.logo-marquee-tall { height: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee-list { animation: none; }
+    .logo-marquee-track { overflow-x: auto; }
+  }
+
   /* Base styles */
   .container {
     width: 100%;
