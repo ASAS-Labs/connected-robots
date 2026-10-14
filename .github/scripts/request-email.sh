@@ -43,19 +43,21 @@ if [[ -z "${BODY//[[:space:]]/}" ]]; then
 fi
 
 export TO CC BCC REPLY_TO SUBJECT BODY DRY_RUN
-python3 -c '
+RUN_URL="$(python3 -c '
 import json, os
 print(json.dumps({
     "to": os.environ["TO"], "cc": os.environ["CC"], "bcc": os.environ["BCC"],
     "reply_to": os.environ["REPLY_TO"], "subject": os.environ["SUBJECT"],
     "body": os.environ["BODY"], "dry_run": os.environ["DRY_RUN"],
-}))' | gh workflow run "$WORKFLOW" -R "$REPO" --ref main --json
-
-echo "Requested send-email run on ${REPO}."
+}))' | gh workflow run "$WORKFLOW" -R "$REPO" --ref main --json 2>&1)"
+echo "$RUN_URL"
 [[ "$WAIT" == true ]] || exit 0
 
-sleep 5
-RUN_ID="$(gh run list -R "$REPO" --workflow "$WORKFLOW" -L 1 --json databaseId -q '.[0].databaseId')"
+RUN_ID="$(rg -o 'actions/runs/[0-9]+' <<<"$RUN_URL" | rg -o '[0-9]+$' || true)"
+if [[ -z "$RUN_ID" ]]; then
+  sleep 5
+  RUN_ID="$(gh run list -R "$REPO" --workflow "$WORKFLOW" -L 1 --json databaseId -q '.[0].databaseId')"
+fi
 gh run watch "$RUN_ID" -R "$REPO" --exit-status >/dev/null || {
   gh run view "$RUN_ID" -R "$REPO" --log-failed | tail -20
   exit 1
