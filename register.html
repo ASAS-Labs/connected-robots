@@ -373,7 +373,7 @@
       <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-price">$100</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">CUNY email and student ID required</span><span class="reg-type-price">Free</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">CUNY email, student ID, and access key required</span><span class="reg-type-price">Free</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$600</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
     </div>
@@ -390,6 +390,10 @@
         <div class="ws-field">
           <label for="cuny-id">CUNY student ID (8 digits)</label>
           <input type="text" id="cuny-id" inputmode="numeric" maxlength="8" required>
+        </div>
+        <div class="ws-field">
+          <label for="cuny-key">Access key</label>
+          <input type="text" id="cuny-key" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" required>
         </div>
         <p id="cuny-error" class="cuny-msg--error" role="alert" hidden></p>
         <div class="ws-submit-row">
@@ -467,6 +471,17 @@
       });
     });
 
+    /* SHA-256 of the normalized CUNY access key (uppercase, no spaces or hyphens); the key itself stays out of the public source. */
+    var CUNY_KEY_SHA256 = '443b9207fa588c93898c70901e6a087be4d218e3e58a9a4ebf48a4ee8a3c9ec2';
+
+    function sha256Hex(text) {
+      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+          return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+      });
+    }
+
     $('cuny-form').addEventListener('submit', function (e) {
       e.preventDefault();
       var err = $('cuny-error');
@@ -474,12 +489,17 @@
       err.hidden = true;
       var email = $('cuny-email').value.trim().toLowerCase();
       var id = $('cuny-id').value.trim();
+      var key = $('cuny-key').value.replace(/[\s-]/g, '').toUpperCase();
       if (!/^[^\s@]+@([a-z0-9-]+\.)*cuny\.edu$/.test(email)) return fail('Enter a CUNY email address ending in cuny.edu.');
       if (!/^\d{8}$/.test(id)) return fail('Enter your 8-digit CUNY student ID.');
-      cunyUnlocked = true;
-      $('cuny-active-email').textContent = email;
-      $('cuny-active-id').textContent = id;
-      render();
+      if (!key) return fail('Enter the access key shared by your CUNY faculty or the organizers.');
+      sha256Hex(key).then(function (hex) {
+        if (hex !== CUNY_KEY_SHA256) return fail('That access key is not valid. Check with your CUNY faculty or the organizers.');
+        cunyUnlocked = true;
+        $('cuny-active-email').textContent = email;
+        $('cuny-active-id').textContent = id;
+        render();
+      });
     });
 
     function applyHash() {

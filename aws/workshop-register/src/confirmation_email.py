@@ -16,6 +16,8 @@ VENUE = (
 )
 EVENT_TITLE = "EARS-CONN 2027"
 DAILY_HOURS = "8:30 AM–5:20 PM Eastern Time"
+# Bump whenever event dates change so calendars replace earlier invites with the same UID.
+ICS_SEQUENCE = 1
 
 _WORKSHOP_TIERS = frozenset({"workshop_full", "workshop_online"})
 
@@ -83,6 +85,7 @@ def build_ics(
         "METHOD:PUBLISH",
         "BEGIN:VEVENT",
         f"UID:ears-conn-2027-{uid_hash}@ears-conn.com",
+        f"SEQUENCE:{ICS_SEQUENCE}",
         f"DTSTAMP:{_stamp(datetime.now(timezone.utc))}",
         f"DTSTART:{_stamp(start)}",
         f"DTEND:{_stamp(end)}",
@@ -130,6 +133,8 @@ def build_confirmation(
     site: str,
     participation_mode: str,
     next_steps: str,
+    notice: str = "",
+    subject: str = "",
 ) -> dict[str, str]:
     window = event_window(tier_key)
     start = window["start"]
@@ -151,10 +156,12 @@ def build_confirmation(
         description=details,
         site=site,
     )
-    subject = "EARS-CONN 2027 registration confirmation"
+    subject = subject.strip() or "EARS-CONN 2027 registration confirmation"
+    notice = notice.strip()
     text = (
         f"Hello {name},\n\n"
-        "Your EARS-CONN 2027 registration is confirmed.\n\n"
+        + (f"{notice}\n\n" if notice else "")
+        + "Your EARS-CONN 2027 registration is confirmed.\n\n"
         f"Date: {window['when']}\n"
         f"Time: {window['hours']}\n"
         f"Location: {where}\n"
@@ -170,7 +177,8 @@ def build_confirmation(
     )
     html = (
         f"<p>Hello {_esc(name)},</p>"
-        "<p>Your <strong>EARS-CONN 2027</strong> registration is confirmed.</p>"
+        + (f"<p>{_esc(notice)}</p>" if notice else "")
+        + "<p>Your <strong>EARS-CONN 2027</strong> registration is confirmed.</p>"
         "<p>"
         f"<strong>Date:</strong> {_esc(str(window['when']))}<br>"
         f"<strong>Time:</strong> {_esc(str(window['hours']))}<br>"
