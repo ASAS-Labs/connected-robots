@@ -21,14 +21,14 @@ _WORKSHOP_TIERS = frozenset({"workshop_full", "workshop_online"})
 
 
 def event_window(tier_key: str) -> dict[str, datetime | str]:
-    """Conference is January 18–19. Workshop registration includes January 20–21."""
-    start = datetime(2027, 1, 18, 8, 30, tzinfo=TZ)
+    """Conference is January 19–20. Workshop registration includes January 21–22."""
+    start = datetime(2027, 1, 19, 8, 30, tzinfo=TZ)
     if tier_key in _WORKSHOP_TIERS:
-        end = datetime(2027, 1, 21, 17, 20, tzinfo=TZ)
-        when = "Monday, January 18 through Thursday, January 21, 2027"
+        end = datetime(2027, 1, 22, 17, 20, tzinfo=TZ)
+        when = "Tuesday, January 19 through Friday, January 22, 2027"
     else:
-        end = datetime(2027, 1, 19, 17, 20, tzinfo=TZ)
-        when = "Monday, January 18 and Tuesday, January 19, 2027"
+        end = datetime(2027, 1, 20, 17, 20, tzinfo=TZ)
+        when = "Tuesday, January 19 and Wednesday, January 20, 2027"
     return {"start": start, "end": end, "when": when, "hours": DAILY_HOURS}
 
 
