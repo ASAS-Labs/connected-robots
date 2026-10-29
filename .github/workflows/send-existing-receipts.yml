@@ -2,6 +2,22 @@ name: Send receipts to existing registrations
 
 on:
   workflow_dispatch:
+    inputs:
+      notice:
+        description: Optional lead paragraph (for example, a date change)
+        required: false
+        default: ""
+        type: string
+      subject:
+        description: Optional subject (defaults to the registration confirmation subject)
+        required: false
+        default: ""
+        type: string
+      dry_run:
+        description: Count registrations without sending
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   send:
@@ -20,4 +36,7 @@ jobs:
       - name: Send receipts
         env:
           CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
+          RECEIPT_NOTICE: ${{ inputs.notice }}
+          RECEIPT_SUBJECT: ${{ inputs.subject }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: bash .github/scripts/send-existing-receipts.sh

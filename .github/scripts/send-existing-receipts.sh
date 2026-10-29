@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Send the registration receipt to each address already stored in DynamoDB.
 # One message per email address. Does not notify organizers.
+# Optional: RECEIPT_NOTICE (lead paragraph), RECEIPT_SUBJECT, DRY_RUN=true (count only).
+# The repository is public, so addresses are never printed.
 
 set -euo pipefail
 
@@ -86,6 +88,11 @@ for item in items:
         by_email[email] = item
 
 print(f"Registrations={len(items)} UniqueEmails={len(by_email)}")
+notice = os.environ.get("RECEIPT_NOTICE", "").strip()
+subject = os.environ.get("RECEIPT_SUBJECT", "").strip()
+if os.environ.get("DRY_RUN", "").lower() == "true":
+    print("Dry run: nothing sent.")
+    raise SystemExit(0)
 
 def esc(value):
     return (str(value)
@@ -118,6 +125,8 @@ for email, item in sorted(by_email.items()):
         site=site,
         participation_mode=str(item.get("participation_mode") or ""),
         next_steps=next_steps,
+        notice=notice,
+        subject=subject,
     )
     message = registrant_message(
         from_name=from_name,
@@ -140,11 +149,10 @@ for email, item in sorted(by_email.items()):
     )
     if result.returncode == 0:
         sent += 1
-        print(f"SENT {email}")
     else:
         err = (result.stderr or result.stdout or "send failed").strip().splitlines()[-1]
         failed.append(email)
-        print(f"FAILED {email} {err}")
+        print(f"FAILED #{len(failed)}: {err.replace(email, '<recipient>')}")
     time.sleep(0.2)
 
 try:
