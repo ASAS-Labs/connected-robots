@@ -43,6 +43,9 @@ jobs:
           TURNSTILE_SECRET_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SECRET_KEY }}
           CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
           ORGANIZER_NOTIFY_EMAIL: ${{ secrets.WORKSHOP_ORGANIZER_NOTIFY_EMAIL }}
+          FREE_FORM_ID: ${{ secrets.WORKSHOP_FREE_FORM_ID }}
+          FREE_ENV_ID: ${{ secrets.WORKSHOP_FREE_ENV_ID }}
+          FREE_ACCESS_KEY_SHA256: ${{ secrets.WORKSHOP_FREE_ACCESS_KEY_SHA256 }}
         run: |
           set -e
           OVERRIDES=(
@@ -57,6 +60,15 @@ jobs:
           fi
           if [ -n "${ORGANIZER_NOTIFY_EMAIL:-}" ]; then
             OVERRIDES+=("OrganizerNotifyEmail=${ORGANIZER_NOTIFY_EMAIL}")
+          fi
+          if [ -n "${FREE_FORM_ID:-}" ]; then
+            OVERRIDES+=("FreeFormId=${FREE_FORM_ID}")
+          fi
+          if [ -n "${FREE_ENV_ID:-}" ]; then
+            OVERRIDES+=("FreeEnvId=${FREE_ENV_ID}")
+          fi
+          if [ -n "${FREE_ACCESS_KEY_SHA256:-}" ]; then
+            OVERRIDES+=("FreeAccessKeySha256=${FREE_ACCESS_KEY_SHA256}")
           fi
           sam deploy \
             --no-confirm-changeset \

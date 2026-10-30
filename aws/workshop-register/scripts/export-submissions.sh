@@ -71,6 +71,10 @@ fields = [
     "bring_laptop",
     "accessibility_notes",
     "ack_limited_seats",
+    "verified_by",
+    "student_id",
+    "payment_status",
+    "record_kind",
     "id",
     "sourceIp",
 ]
@@ -105,7 +109,10 @@ while True:
         cmd.extend(["--exclusive-start-key", json.dumps(start_key)])
     page = json.loads(subprocess.check_output(cmd, text=True))
     for raw in page.get("Items") or []:
-        items.append({k: unwrap(v) for k, v in raw.items()})
+        row = {k: unwrap(v) for k, v in raw.items()}
+        if row.get("record_kind") == "otp":
+            continue
+        items.append(row)
     start_key = page.get("LastEvaluatedKey")
     if not start_key:
         break

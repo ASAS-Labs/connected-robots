@@ -51,18 +51,19 @@ jobs:
           url = os.environ["WORKSHOP_REGISTER_POST_URL"].strip()
           if not url:
               raise SystemExit(0)
-          path = pathlib.Path("register.html")
-          text = path.read_text(encoding="utf-8")
-          new_text, n = re.subn(
-              r"^(\s*)window\.__WORKSHOP_REGISTER_POST_URL__\s*=\s*[^;]*;",
-              r"\1window.__WORKSHOP_REGISTER_POST_URL__ = " + repr(url) + r";",
-              text,
-              count=1,
-              flags=re.M,
-          )
-          if n != 1:
-              raise SystemExit("register.html: could not inject WORKSHOP_REGISTER_POST_URL (marker missing).")
-          path.write_text(new_text, encoding="utf-8")
+          for name in ("register.html", "access.html"):
+              path = pathlib.Path(name)
+              text = path.read_text(encoding="utf-8")
+              new_text, n = re.subn(
+                  r"^(\s*)window\.__WORKSHOP_REGISTER_POST_URL__\s*=\s*[^;]*;",
+                  r"\1window.__WORKSHOP_REGISTER_POST_URL__ = " + repr(url) + r";",
+                  text,
+                  count=1,
+                  flags=re.M,
+              )
+              if n != 1:
+                  raise SystemExit(name + ": could not inject WORKSHOP_REGISTER_POST_URL (marker missing).")
+              path.write_text(new_text, encoding="utf-8")
           PY
 
       - name: Inject Turnstile site key into register.html (optional)
@@ -78,18 +79,19 @@ jobs:
           key = os.environ["WORKSHOP_TURNSTILE_SITE_KEY"].strip()
           if not key:
               raise SystemExit(0)
-          path = pathlib.Path("register.html")
-          text = path.read_text(encoding="utf-8")
-          new_text, n = re.subn(
-              r"^(\s*)window\.__TURNSTILE_SITE_KEY__\s*=\s*[^;]*;",
-              r"\1window.__TURNSTILE_SITE_KEY__ = " + repr(key) + r";",
-              text,
-              count=1,
-              flags=re.M,
-          )
-          if n != 1:
-              raise SystemExit("register.html: could not inject WORKSHOP_TURNSTILE_SITE_KEY (marker missing).")
-          path.write_text(new_text, encoding="utf-8")
+          for name in ("register.html", "access.html"):
+              path = pathlib.Path(name)
+              text = path.read_text(encoding="utf-8")
+              new_text, n = re.subn(
+                  r"^(\s*)window\.__TURNSTILE_SITE_KEY__\s*=\s*[^;]*;",
+                  r"\1window.__TURNSTILE_SITE_KEY__ = " + repr(key) + r";",
+                  text,
+                  count=1,
+                  flags=re.M,
+              )
+              if n != 1:
+                  raise SystemExit(name + ": could not inject WORKSHOP_TURNSTILE_SITE_KEY (marker missing).")
+              path.write_text(new_text, encoding="utf-8")
           PY
 
       - name: Deploy to S3
@@ -111,6 +113,10 @@ jobs:
             # Old /page.html URLs answer with a 301 to the clean URL.
             aws s3api put-object --bucket "$BUCKET" --key "$p.html" --website-redirect-location "/$p" --content-type "text/html; charset=utf-8" > /dev/null
           done
+          # The free-registration page is unlisted. Ask browsers not to keep a copy.
+          if [ -f access.html ]; then
+            aws s3 cp access.html "s3://$BUCKET/access" --content-type "text/html; charset=utf-8" --cache-control "private, no-store"
+          fi
           echo "✅ Deployment successful!"
 
       # If you're using React/Vue/etc. and have a build folder, replace above with:

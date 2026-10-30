@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import base64
+import hashlib
+import hmac
 import json
 import logging
 import os
 import re
+import secrets
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import parse_qs, urlencode
 from urllib.request import Request, urlopen
@@ -36,6 +39,7 @@ _TIER_LABELS = {
     "conf_standard": "Conference — regular ($100)",
     "conf_student": "Conference — student ($20)",
     "conf_free_request": "Conference — limited free ticket request ($0, CUNY students only)",
+    "conf_free": "Conference — free (verified CUNY student or access code)",
     "workshop_full": "Workshop — full in person ($600, includes conference)",
     "workshop_online": "Workshop — online ($500, includes conference)",
 }
@@ -156,7 +160,7 @@ def _ses_source(address: str) -> str:
     return f"{name} <{addr}>"
 
 
-def _send_confirmation_emails(item: dict[str, Any]) -> None:
+def _send_confirmation_emails(item: dict[str, Any], *, registrant: bool = True) -> None:
     """Email the registrant (and optionally organizers). Failures are logged only."""
     if not CONFIRMATION_FROM_EMAIL:
         _log.info("CONFIRMATION_FROM_EMAIL unset; skipping confirmation email")
@@ -177,7 +181,9 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
             "Organizers will review this request and confirm eligibility by email."
         )
 
-    if not to_addr:
+    if not registrant:
+        pass
+    elif not to_addr:
         _log.info("Registration %s has no email; skipping confirmation", item.get("id"))
     else:
         content = build_confirmation(
@@ -220,6 +226,9 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
         f"Participation: {item.get('participation_mode') or ''}\n"
         f"Affiliation: {item.get('affiliation') or ''}\n"
         f"Role: {item.get('role') or ''}\n"
+        f"Verified by: {item.get('verified_by') or ''}\n"
+        f"Payment status: {item.get('payment_status') or ''}\n"
+        f"Student ID: {item.get('student_id') or ''}\n"
         f"Submitted: {item.get('submittedAt') or ''}\n"
         f"Id: {item.get('id') or ''}\n"
     )
@@ -237,12 +246,340 @@ def _send_confirmation_emails(item: dict[str, Any]) -> None:
         _log.exception("Failed to send organizer notify email")
 
 
+_PAID_TIERS = frozenset(
+    {"conf_early", "conf_standard", "conf_student", "workshop_full", "workshop_online"}
+)
+_OTP_TTL = timedelta(minutes=15)
+_OTP_COOLDOWN = timedelta(seconds=60)
+_OTP_HOUR_LIMIT = 3
+_OTP_ATTEMPTS = 5
+
+
+def _json_response(status: int, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "statusCode": status,
+        "headers": {"content-type": "application/json; charset=utf-8"},
+        "body": json.dumps(payload),
+    }
+
+
+def _gate_error(message: str, status: int = 400) -> dict[str, Any]:
+    return _json_response(status, {"ok": False, "error": message})
+
+
+def _sha256_hex(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _hash_eq(left: str, right: str) -> bool:
+    if not left or not right or len(left) != len(right):
+        return False
+    return hmac.compare_digest(left, right)
+
+
+def _normalize_access_code(raw: str) -> str:
+    return re.sub(r"[\s-]", "", raw).upper()
+
+
+def _access_code_ok(raw: str) -> bool:
+    expected = (os.environ.get("FREE_ACCESS_KEY_SHA256") or "").strip().lower()
+    if len(expected) != 64:
+        return False
+    digest = _sha256_hex(_normalize_access_code(raw))
+    return _hash_eq(digest, expected)
+
+
+def _free_form_ready() -> bool:
+    form_id = (os.environ.get("FREE_FORM_ID") or "").strip()
+    env_id = (os.environ.get("FREE_ENV_ID") or "").strip()
+    return bool(form_id and env_id)
+
+
+def _free_form_payload() -> dict[str, Any]:
+    return {
+        "ok": True,
+        "step": "form",
+        "formId": (os.environ.get("FREE_FORM_ID") or "").strip(),
+        "envId": (os.environ.get("FREE_ENV_ID") or "").strip(),
+        "zone": "usa",
+    }
+
+
+def _parse_json_body(event: dict[str, Any]) -> dict[str, Any] | None:
+    body = event.get("body") or ""
+    if event.get("isBase64Encoded"):
+        body = base64.b64decode(body).decode("utf-8", errors="replace")
+    if len(body) > 8000:
+        return None
+    try:
+        data = json.loads(body) if body else {}
+    except json.JSONDecodeError:
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _parse_iso(value: str) -> datetime | None:
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def _items_for_email(email_key: str) -> list[dict[str, Any]]:
+    table = _get_table()
+    items: list[dict[str, Any]] = []
+    kwargs: dict[str, Any] = {
+        "IndexName": "email-index",
+        "KeyConditionExpression": Key("email").eq(email_key),
+    }
+    while True:
+        resp = table.query(**kwargs)
+        items.extend(resp.get("Items") or [])
+        last = resp.get("LastEvaluatedKey")
+        if not last:
+            return items
+        kwargs["ExclusiveStartKey"] = last
+
+
+def _send_otp_email(to_addr: str, code: str) -> bool:
+    if not CONFIRMATION_FROM_EMAIL:
+        return False
+    text = (
+        f"Your EARS-CONN verification code is {code}.\n\n"
+        "It expires in 15 minutes. If you did not request free registration "
+        "for EARS-CONN 2027, you can ignore this message.\n"
+    )
+    try:
+        _ses.send_email(
+            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
+            Destination={"ToAddresses": [to_addr]},
+            Message={
+                "Subject": {"Data": "Your EARS-CONN verification code", "Charset": "UTF-8"},
+                "Body": {"Text": {"Data": text, "Charset": "UTF-8"}},
+            },
+        )
+        return True
+    except Exception:
+        _log.exception("Failed to send verification code to %s", to_addr)
+        return False
+
+
+def _put_registration(item: dict[str, Any]) -> None:
+    item["record_kind"] = "registration"
+    _get_table().put_item(Item=item)
+    _send_confirmation_emails(item, registrant=False)
+
+
+def _registration_item(
+    *,
+    email_key: str,
+    full_name: str,
+    tier: str,
+    verified_by: str,
+    payment_status: str,
+    source_ip: str,
+    student_id: str = "",
+) -> dict[str, Any]:
+    participation = "remote" if tier == "workshop_online" else "in_person"
+    item: dict[str, Any] = {
+        "id": str(uuid.uuid4()),
+        "submittedAt": datetime.now(timezone.utc).isoformat(),
+        "registration_tier": tier,
+        "full_name": full_name,
+        "email": email_key,
+        "participation_mode": participation,
+        "verified_by": verified_by,
+        "payment_status": payment_status,
+        "sourceIp": source_ip,
+        "ack_limited_seats": "yes",
+    }
+    if student_id:
+        item["student_id"] = student_id
+    return item
+
+
+def _otp_items(email_key: str) -> list[dict[str, Any]]:
+    rows = [row for row in _items_for_email(email_key) if row.get("record_kind") == "otp"]
+    rows.sort(key=lambda row: str(row.get("submittedAt") or ""), reverse=True)
+    return rows
+
+
+def _start_cuny_otp(email_key: str, full_name: str, student_id: str) -> dict[str, Any]:
+    if not _free_form_ready():
+        return _gate_error("Free registration is not available right now.")
+    if not CONFIRMATION_FROM_EMAIL:
+        return _gate_error("Email verification is not available right now.")
+
+    now = datetime.now(timezone.utc)
+    existing = _otp_items(email_key)
+    recent = []
+    for row in existing:
+        sent = _parse_iso(str(row.get("submittedAt") or ""))
+        if sent is not None and now - sent <= timedelta(hours=1):
+            recent.append((sent, row))
+    if len(recent) >= _OTP_HOUR_LIMIT:
+        return _gate_error("Too many codes were sent. Try again later.")
+    if recent and now - recent[0][0] < _OTP_COOLDOWN:
+        return _json_response(200, {"ok": True, "step": "verify_email"})
+
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    item_id = "otp-" + str(uuid.uuid4())
+    _get_table().put_item(
+        Item={
+            "id": item_id,
+            "email": email_key,
+            "record_kind": "otp",
+            "otp_hash": _sha256_hex(code),
+            "expiresAt": (now + _OTP_TTL).isoformat(),
+            "attempts": 0,
+            "full_name": full_name,
+            "student_id": student_id,
+            "submittedAt": now.isoformat(),
+        }
+    )
+    if not _send_otp_email(email_key, code):
+        _get_table().delete_item(Key={"id": item_id})
+        return _gate_error("We could not send the verification email. Try again.")
+    _log.info("Verification code sent to %s", email_key)
+    return _json_response(200, {"ok": True, "step": "verify_email"})
+
+
+def _confirm_otp(email_key: str, full_name: str, otp: str, source_ip: str) -> dict[str, Any]:
+    if not _free_form_ready():
+        return _gate_error("Free registration is not available right now.")
+    digits = re.sub(r"\D", "", otp)
+    if len(digits) != 6:
+        return _gate_error("Enter the 6-digit code from your email.")
+
+    rows = _otp_items(email_key)
+    if not rows:
+        return _gate_error("That code is wrong or expired.")
+    latest = rows[0]
+    expires = _parse_iso(str(latest.get("expiresAt") or ""))
+    attempts = int(latest.get("attempts") or 0)
+    now = datetime.now(timezone.utc)
+    if expires is None or now > expires or attempts >= _OTP_ATTEMPTS:
+        return _gate_error("That code is wrong or expired.")
+    if not _hash_eq(_sha256_hex(digits), str(latest.get("otp_hash") or "")):
+        _get_table().update_item(
+            Key={"id": latest["id"]},
+            UpdateExpression="SET attempts = if_not_exists(attempts, :zero) + :one",
+            ExpressionAttributeValues={":zero": 0, ":one": 1},
+        )
+        return _gate_error("That code is wrong or expired.")
+
+    student_id = str(latest.get("student_id") or "")
+    name = full_name or str(latest.get("full_name") or "")
+    item = _registration_item(
+        email_key=email_key,
+        full_name=name,
+        tier="conf_free",
+        verified_by="cuny_email",
+        payment_status="free_form",
+        source_ip=source_ip,
+        student_id=student_id,
+    )
+    _put_registration(item)
+    for row in rows:
+        _get_table().delete_item(Key={"id": row["id"]})
+    _log.info("Free registration recorded for %s via cuny_email", email_key)
+    return _json_response(200, _free_form_payload())
+
+
+def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
+    data = _parse_json_body(event)
+    if data is None:
+        return _gate_error("We could not read that registration.")
+    if str(data.get("_gotcha") or "").strip():
+        return _json_response(200, {"ok": True, "step": "done"})
+
+    turnstile_secret = (os.environ.get("TURNSTILE_SECRET_KEY") or "").strip()
+    if turnstile_secret:
+        token = str(data.get("cf-turnstile-response") or "").strip()
+        if not _verify_turnstile(token, turnstile_secret, source_ip):
+            return _gate_error("Human verification failed or expired. Complete the check and try again.")
+
+    full_name = str(data.get("full_name") or "").strip()[:200]
+    email_raw = str(data.get("email") or "").strip()[:254]
+    if not full_name:
+        return _gate_error("Enter your full name.")
+    if not email_raw or not _EMAIL_RE.match(email_raw):
+        return _gate_error("Enter a valid email address.")
+    email_key = email_raw.lower()
+    kind = str(data.get("kind") or "").strip()
+
+    if kind == "paid":
+        tier = str(data.get("registration_tier") or "").strip()
+        if tier not in _PAID_TIERS:
+            return _gate_error("Choose a registration type.")
+        if tier == "conf_early" and datetime.now(timezone.utc) >= _EARLY_BIRD_END_UTC:
+            return _gate_error("Early registration has ended. Choose another option.")
+        item = _registration_item(
+            email_key=email_key,
+            full_name=full_name,
+            tier=tier,
+            verified_by="paid",
+            payment_status="sent_to_payment",
+            source_ip=source_ip,
+        )
+        _put_registration(item)
+        _log.info("Paid registration recorded for %s tier %s", email_key, tier)
+        return _json_response(200, {"ok": True, "step": "payment"})
+
+    if kind != "free":
+        return _gate_error("Choose a registration type.")
+
+    otp = str(data.get("otp") or "").strip()
+    if otp:
+        return _confirm_otp(email_key, full_name, otp, source_ip)
+
+    access_code = str(data.get("access_code") or "").strip()
+    student_digits = re.sub(r"\D", "", str(data.get("student_id") or ""))
+    student_id = student_digits if len(student_digits) == 8 else ""
+    if access_code:
+        if not (os.environ.get("FREE_ACCESS_KEY_SHA256") or "").strip():
+            return _gate_error("Free registration is not available right now.")
+        if not _access_code_ok(access_code):
+            return _gate_error("That access code is not valid.")
+        if not _free_form_ready():
+            return _gate_error("Free registration is not available right now.")
+        item = _registration_item(
+            email_key=email_key,
+            full_name=full_name,
+            tier="conf_free",
+            verified_by="access_code",
+            payment_status="free_form",
+            source_ip=source_ip,
+            student_id=student_id if len(student_id) == 8 else "",
+        )
+        _put_registration(item)
+        _log.info("Free registration recorded for %s via access_code", email_key)
+        return _json_response(200, _free_form_payload())
+
+    if _CUNY_EMAIL_RE.match(email_key) and re.fullmatch(r"\d{8}", student_id):
+        return _start_cuny_otp(email_key, full_name, student_id)
+    return _gate_error("Use a CUNY email and your 8-digit student ID, or enter an access code.")
+
+
 def handler(event, context):
     req = (event.get("requestContext") or {}).get("http") or {}
     method = req.get("method") or event.get("httpMethod") or ""
 
     if method == "OPTIONS":
         return {"statusCode": 204, "headers": {}, "body": ""}
+
+    path = req.get("path") or event.get("rawPath") or ""
+    if path.rstrip("/").endswith("/register-gate"):
+        if method != "POST":
+            return {
+                "statusCode": 405,
+                "headers": {"content-type": "text/plain; charset=utf-8"},
+                "body": "Method Not Allowed",
+            }
+        return _handle_gate(event, req.get("sourceIp") or "")
 
     if method != "POST":
         return {
@@ -341,6 +678,7 @@ def handler(event, context):
         "accessibility_notes": accessibility_notes,
         "ack_limited_seats": ack_limited_seats,
         "sourceIp": source_ip,
+        "record_kind": "registration",
     }
     _get_table().put_item(Item=item)
     _send_confirmation_emails(item)

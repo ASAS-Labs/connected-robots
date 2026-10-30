@@ -24,6 +24,21 @@ Parameters:
     Type: String
     Default: ''
     Description: Optional inbox that receives a copy/alert for each new registration. Leave empty to skip.
+  FreeFormId:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: Blackbaud form id for free registration. Leave empty to keep the free form unavailable.
+  FreeEnvId:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: Blackbaud environment id for the free registration form.
+  FreeAccessKeySha256:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: SHA-256 hex of the free-registration access code after removing spaces and hyphens and uppercasing it.
 
 Globals:
   Function:
@@ -80,6 +95,9 @@ Resources:
           TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
           CONFIRMATION_FROM_EMAIL: !Ref ConfirmationFromEmail
           ORGANIZER_NOTIFY_EMAIL: !Ref OrganizerNotifyEmail
+          FREE_FORM_ID: !Ref FreeFormId
+          FREE_ENV_ID: !Ref FreeEnvId
+          FREE_ACCESS_KEY_SHA256: !Ref FreeAccessKeySha256
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref WorkshopSubmissionsTable
@@ -95,6 +113,12 @@ Resources:
           Properties:
             ApiId: !Ref WorkshopHttpApi
             Path: /register
+            Method: POST
+        RegisterGatePost:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WorkshopHttpApi
+            Path: /register-gate
             Method: POST
 
 Outputs:

@@ -373,146 +373,196 @@
       <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-price">$100</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="cuny"><span class="reg-type-name">CUNY student</span><span class="reg-type-note">CUNY email, student ID, and access key required</span><span class="reg-type-price">Free</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$600</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
     </div>
 
     <section id="reg-step2" hidden>
       <h2 class="reg-step">2. <span id="reg-step2-title">Register and pay</span></h2>
-      <p id="reg-pick-hint" class="reg-hint" hidden>In the form below, select <strong id="reg-pick-name"></strong>.</p>
-
-      <form id="cuny-form" class="ws-reserve-form" novalidate hidden>
+      <form id="reg-identity" class="ws-reserve-form" novalidate hidden>
         <div class="ws-field">
-          <label for="cuny-email">CUNY student email</label>
-          <input type="email" id="cuny-email" autocomplete="email" maxlength="254" placeholder="name@citymail.cuny.edu" required>
+          <label for="reg-name">Full name</label>
+          <input type="text" id="reg-name" autocomplete="name" maxlength="200" required>
         </div>
         <div class="ws-field">
-          <label for="cuny-id">CUNY student ID (8 digits)</label>
-          <input type="text" id="cuny-id" inputmode="numeric" maxlength="8" required>
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" autocomplete="email" maxlength="254" required>
         </div>
-        <div class="ws-field">
-          <label for="cuny-key">Access key</label>
-          <input type="text" id="cuny-key" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" required>
-        </div>
-        <p id="cuny-error" class="cuny-msg--error" role="alert" hidden></p>
+        <input type="text" id="reg-gotcha" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
+        <div id="reg-turnstile" class="ws-turnstile-wrap" hidden></div>
+        <p id="reg-error" class="cuny-msg--error" role="alert" hidden></p>
         <div class="ws-submit-row">
-          <button type="submit" class="vision-btn" style="font-size:1rem; padding:0.7rem 2rem;">Continue</button>
+          <button type="submit" class="vision-btn" id="reg-identity-submit" style="font-size:1rem; padding:0.7rem 2rem;">Continue to payment</button>
         </div>
       </form>
 
-      <p id="cuny-active" class="reg-hint" hidden>Use <strong id="cuny-active-email"></strong> and student ID <strong id="cuny-active-id"></strong> in the form below. Registrations without a CUNY email and student ID will not receive a confirmation.</p>
-
+      <p id="reg-saved" class="reg-hint" hidden>Your registration is recorded. Complete payment below, and in that form select <strong id="reg-pick-name"></strong>.</p>
       <div id="reg-embeds"></div>
     </section>
   </main>
 
   <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+    window.__TURNSTILE_SITE_KEY__ = '';
+  </script>
+  <script>
   (function () {
     var ENV_ID = 'p-JO7Aymvusk6Nd_Cs8TyxNw';
     var MAIN_FORM_ID = '2c5421aa-41a1-4c8f-baeb-a02a168b0205';
-    /* Blackbaud form ID for a CUNY-only form, if the college creates one; otherwise CUNY uses the main form. */
-    var CUNY_FORM_ID = '';
-
-    /* A type with its own Blackbaud form only shows that form; types sharing MAIN_FORM_ID tell the user which fee to pick. */
-    var TYPES = {
-      early: { name: 'Conference - early bird (through December 18, 2026)', formId: MAIN_FORM_ID },
-      regular: { name: 'Conference - regular', formId: MAIN_FORM_ID },
-      student: { name: 'Conference - student', formId: MAIN_FORM_ID },
-      cuny: { name: 'Conference - limited free ticket (request)', formId: CUNY_FORM_ID || MAIN_FORM_ID, cuny: true },
-      workshop_full: { name: 'Workshop - full in person (includes conference)', formId: MAIN_FORM_ID },
-      workshop_online: { name: 'Workshop - online (includes conference)', formId: MAIN_FORM_ID }
+    var TIERS = {
+      early: 'conf_early',
+      regular: 'conf_standard',
+      student: 'conf_student',
+      workshop_full: 'workshop_full',
+      workshop_online: 'workshop_online'
     };
-    var HASH_TYPES = { 'reg-early': 'early', 'reg-free': 'cuny', 'reg-workshop': 'workshop_full' };
+    var TYPES = {
+      early: { name: 'Conference - early bird (through December 18, 2026)' },
+      regular: { name: 'Conference - regular' },
+      student: { name: 'Conference - student' },
+      workshop_full: { name: 'Workshop - full in person (includes conference)' },
+      workshop_online: { name: 'Workshop - online (includes conference)' }
+    };
+    var HASH_TYPES = { 'reg-early': 'early', 'reg-workshop': 'workshop_full' };
 
     var $ = function (id) { return document.getElementById(id); };
     var embeds = {};
-    var cunyUnlocked = false;
+    var paidSaved = false;
+    var bbLoaded = false;
+    var turnstileId = '';
 
-    Object.keys(TYPES).forEach(function (key) {
-      var id = TYPES[key].formId;
-      if (!id || embeds[id]) return;
+    function gateUrl() {
+      var base = String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/$/, '');
+      if (!base) return '';
+      if (/\/register-gate$/.test(base)) return base;
+      if (/\/register$/.test(base)) return base.replace(/\/register$/, '/register-gate');
+      return base + '/register-gate';
+    }
+
+    function ensureEmbed() {
+      if (embeds[MAIN_FORM_ID]) return;
       var wrap = document.createElement('div');
       wrap.className = 'reg-blackbaud-wrap';
-      wrap.hidden = true;
       var el = document.createElement('div');
       el.setAttribute('data-blackbaud-registration-form', '');
       el.setAttribute('data-blackbaud-registration-form-envid', ENV_ID);
-      el.setAttribute('data-blackbaud-registration-form-id', id);
+      el.setAttribute('data-blackbaud-registration-form-id', MAIN_FORM_ID);
       el.setAttribute('data-blackbaud-registration-form-zone', 'usa');
       el.setAttribute('data-blackbaud-registration-form-header-height', '0');
       wrap.appendChild(el);
       $('reg-embeds').appendChild(wrap);
-      embeds[id] = wrap;
-    });
+      embeds[MAIN_FORM_ID] = wrap;
+      if (!bbLoaded) {
+        bbLoaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js';
+        document.body.appendChild(s);
+      }
+    }
 
     function render() {
       var checked = document.querySelector('input[name="reg_type"]:checked');
       if (!checked) return;
       var t = TYPES[checked.value];
-      var needsDetails = t.cuny && !cunyUnlocked;
-
       $('reg-step2').hidden = false;
-      $('reg-step2-title').textContent = needsDetails ? 'Enter your CUNY details' : 'Register';
-      $('cuny-form').hidden = !needsDetails;
-      $('cuny-active').hidden = !(t.cuny && cunyUnlocked);
-      $('reg-pick-hint').hidden = needsDetails || t.formId !== MAIN_FORM_ID;
+      $('reg-step2-title').textContent = paidSaved ? 'Register and pay' : 'Your details';
+      $('reg-identity').hidden = paidSaved;
+      $('reg-saved').hidden = !paidSaved;
       $('reg-pick-name').textContent = t.name;
+      if (paidSaved) ensureEmbed();
+      if (embeds[MAIN_FORM_ID]) embeds[MAIN_FORM_ID].hidden = !paidSaved;
+    }
 
-      Object.keys(embeds).forEach(function (id) {
-        embeds[id].hidden = needsDetails || id !== t.formId;
-      });
+    function showError(msg) {
+      var err = $('reg-error');
+      err.textContent = msg;
+      err.hidden = false;
+    }
+
+    function mountTurnstile() {
+      var key = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+      var box = $('reg-turnstile');
+      if (!key || !box || !window.turnstile) return;
+      box.hidden = false;
+      if (!turnstileId) {
+        turnstileId = window.turnstile.render(box, { sitekey: key });
+      }
     }
 
     document.querySelectorAll('input[name="reg_type"]').forEach(function (r) {
       r.addEventListener('change', function () {
+        paidSaved = false;
+        $('reg-error').hidden = true;
         render();
         $('reg-step2').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    /* SHA-256 of the normalized CUNY access key (uppercase, no spaces or hyphens); the key itself stays out of the public source. */
-    var CUNY_KEY_SHA256 = '443b9207fa588c93898c70901e6a087be4d218e3e58a9a4ebf48a4ee8a3c9ec2';
-
-    function sha256Hex(text) {
-      return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
-        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
-          return ('0' + b.toString(16)).slice(-2);
-        }).join('');
-      });
-    }
-
-    $('cuny-form').addEventListener('submit', function (e) {
+    $('reg-identity').addEventListener('submit', function (e) {
       e.preventDefault();
-      var err = $('cuny-error');
-      var fail = function (msg) { err.textContent = msg; err.hidden = false; };
+      var err = $('reg-error');
       err.hidden = true;
-      var email = $('cuny-email').value.trim().toLowerCase();
-      var id = $('cuny-id').value.trim();
-      var key = $('cuny-key').value.replace(/[\s-]/g, '').toUpperCase();
-      if (!/^[^\s@]+@([a-z0-9-]+\.)*cuny\.edu$/.test(email)) return fail('Enter a CUNY email address ending in cuny.edu.');
-      if (!/^\d{8}$/.test(id)) return fail('Enter your 8-digit CUNY student ID.');
-      if (!key) return fail('Enter the access key shared by your CUNY faculty or the organizers.');
-      sha256Hex(key).then(function (hex) {
-        if (hex !== CUNY_KEY_SHA256) return fail('That access key is not valid. Check with your CUNY faculty or the organizers.');
-        cunyUnlocked = true;
-        $('cuny-active-email').textContent = email;
-        $('cuny-active-id').textContent = id;
+      var checked = document.querySelector('input[name="reg_type"]:checked');
+      var name = $('reg-name').value.trim();
+      var email = $('reg-email').value.trim();
+      if (!checked) return showError('Choose a registration type.');
+      if (!name) return showError('Enter your full name.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Enter a valid email address.');
+      var url = gateUrl();
+      if (!url) return showError('Registration recording is not available right now.');
+      var button = $('reg-identity-submit');
+      button.disabled = true;
+      var payload = {
+        kind: 'paid',
+        full_name: name,
+        email: email,
+        registration_tier: TIERS[checked.value],
+        _gotcha: $('reg-gotcha').value
+      };
+      var tokenEl = document.querySelector('#reg-turnstile [name="cf-turnstile-response"]');
+      if (tokenEl) payload['cf-turnstile-response'] = tokenEl.value;
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().then(function (data) {
+          return { res: res, data: data };
+        });
+      }).then(function (out) {
+        button.disabled = false;
+        if (!out.res.ok || !out.data || !out.data.ok) {
+          return showError((out.data && out.data.error) || 'We could not save this registration.');
+        }
+        if (out.data.step === 'done') return;
+        paidSaved = true;
         render();
+      }).catch(function () {
+        button.disabled = false;
+        showError('We could not reach the registration service. Try again.');
       });
     });
 
     function applyHash() {
       var preset = HASH_TYPES[location.hash.slice(1)];
       if (!preset) return;
-      document.querySelector('input[name="reg_type"][value="' + preset + '"]').checked = true;
+      var input = document.querySelector('input[name="reg_type"][value="' + preset + '"]');
+      if (!input) return;
+      input.checked = true;
       render();
     }
     applyHash();
     window.addEventListener('hashchange', applyHash);
+
+    var tsKey = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+    if (tsKey) {
+      var ts = document.createElement('script');
+      ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      ts.onload = mountTurnstile;
+      document.body.appendChild(ts);
+    }
   })();
   </script>
-  <script src="https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js"></script>
 
   <footer class="footer">
     <div class="footer-inner">

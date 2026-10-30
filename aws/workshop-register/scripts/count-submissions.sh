@@ -24,6 +24,8 @@ COUNT=$(aws dynamodb scan \
   --table-name "$TABLE_NAME" \
   --region "$REGION" \
   --select COUNT \
+  --filter-expression "attribute_not_exists(record_kind) OR record_kind = :reg" \
+  --expression-attribute-values '{":reg":{"S":"registration"}}' \
   --query Count \
   --output text)
 

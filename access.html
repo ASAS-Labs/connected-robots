@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register — EARS-CONN 2027</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="styles.css?v=2026-09-29r">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <style>
+    .ws-reg-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
+    .reg-blackbaud-wrap { margin-top: 1.5rem; min-height: 400px; }
+    .reg-step { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.85rem; }
+    .reg-hint { font-size: 0.95rem; margin: 0 0 1rem; line-height: 1.5; }
+    .cuny-msg--error { color: #b91c1c; font-size: 0.9rem; margin: 0 0 0.5rem; }
+    body.theme-dark .cuny-msg--error { color: #fca5a5; }
+    .ws-reg-hero {
+      background: linear-gradient(135deg, #0a0e1a 0%, #0d1f3c 60%, #0a1a2e 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      margin: 0 -1rem 2rem;
+    }
+    .ws-reg-hero h1 {
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      margin: 0 0 0.75rem;
+      color: #fff;
+    }
+    .ws-reg-hero p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .ws-reserve-form fieldset { border: none; margin: 0; padding: 0; }
+    .ws-field { margin-bottom: 1.15rem; }
+    .ws-field label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text, #374151);
+    }
+    body.theme-dark .ws-field label { color: #cbd5e1; }
+    .ws-field .hint { font-size: 0.8rem; font-weight: 400; color: var(--text-muted, #6b7280); margin-top: 0.25rem; }
+    .ws-reserve-form input[type="text"],
+    .ws-reserve-form input[type="email"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0.65rem 0.85rem;
+      font-size: 1rem;
+      border: 1px solid var(--border, #d1d5db);
+      border-radius: 8px;
+      background: var(--panel, #fff);
+      color: var(--text, #111827);
+    }
+    body.theme-dark .ws-reserve-form input[type="text"],
+    body.theme-dark .ws-reserve-form input[type="email"] {
+      background: #1e293b;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+    .ws-submit-row { margin-top: 1.25rem; }
+    .ws-submit-row .vision-btn {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .ws-submit-row .vision-btn:disabled { cursor: not-allowed; opacity: 0.55; }
+    .ws-turnstile-wrap { margin: 1rem 0 1.25rem; min-height: 65px; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="logo-left-container">
+      <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+      <img src="images/logos/NYU.png" alt="NYU Logo" class="logo-left" width="100" height="50" loading="lazy">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-left" width="80" height="50" loading="lazy">
+      <img src="images/logos/unu-hub-rsirus.png" alt="United Nations University Hub R-SIRUS at CCNY" class="logo-left logo-left--seal" width="50" height="50" loading="lazy">
+    </div>
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 19–22, 2027 — </span><span class="sliding-title-tagline">Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities</span>
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2027 — NYC — January 19–22
+      </span>
+    </div>
+  </div>
+
+  <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
+      <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
+    </button>
+    <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
+      <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <ul class="nav-tabs" role="list">
+        <li><a href="/" class="nav-tab-item">Home</a></li>
+        <li><a href="attend" class="nav-tab-item">Attend</a></li>
+        <li><a href="register" class="nav-tab-item">Register</a></li>
+        <li><a href="venue" class="nav-tab-item">Venue</a></li>
+        <li><a href="speakers" class="nav-tab-item">Speakers</a></li>
+        <li><a href="agenda" class="nav-tab-item">Agenda</a></li>
+        <li><a href="workshop" class="nav-tab-item">Workshop</a></li>
+        <li><a href="call-for-papers" class="nav-tab-item cfp-link">Short Papers</a></li>
+        <li><a href="innovation-challenge" class="nav-tab-item cfp-link">Innovation Challenge</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="ws-reg-hero">
+    <h1>Free conference registration</h1>
+    <p>January 19–22, 2027 in New York City. For CUNY students, and for guests who have an access code.</p>
+  </div>
+
+  <main class="ws-reg-page cfp-section page-section">
+    <p class="reg-hint">CUNY students enter a CUNY email and an 8-digit student ID. We email a verification code to that address. If you have an access code, enter the code instead. Paid registration stays on the public registration page.</p>
+
+    <form id="access-form" class="ws-reserve-form" novalidate>
+      <h2 class="reg-step">Your details</h2>
+      <div class="ws-field">
+        <label for="access-name">Full name</label>
+        <input type="text" id="access-name" autocomplete="name" maxlength="200" required>
+      </div>
+      <div class="ws-field">
+        <label for="access-email">Email</label>
+        <input type="email" id="access-email" autocomplete="email" maxlength="254" required>
+        <p class="hint">CUNY students: use your cuny.edu address.</p>
+      </div>
+      <div class="ws-field">
+        <label for="access-id">CUNY student ID</label>
+        <input type="text" id="access-id" inputmode="numeric" maxlength="8" autocomplete="off">
+        <p class="hint">8 digits. Leave this blank if you are using an access code.</p>
+      </div>
+      <div class="ws-field">
+        <label for="access-code">Access code</label>
+        <input type="text" id="access-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40">
+        <p class="hint">Only if the organizers gave you a code.</p>
+      </div>
+      <input type="text" id="access-gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
+      <div id="access-turnstile" class="ws-turnstile-wrap" hidden></div>
+      <p id="access-error" class="cuny-msg--error" role="alert" hidden></p>
+      <div class="ws-submit-row">
+        <button type="submit" class="vision-btn" id="access-submit" style="font-size:1rem; padding:0.7rem 2rem;">Continue</button>
+      </div>
+    </form>
+
+    <form id="access-otp" class="ws-reserve-form" novalidate hidden>
+      <h2 class="reg-step">Check your email</h2>
+      <p class="reg-hint">We sent a 6-digit code to <strong id="access-otp-email"></strong>. It expires in 15 minutes.</p>
+      <div class="ws-field">
+        <label for="access-otp-code">Verification code</label>
+        <input type="text" id="access-otp-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required>
+      </div>
+      <p id="access-otp-error" class="cuny-msg--error" role="alert" hidden></p>
+      <div class="ws-submit-row">
+        <button type="submit" class="vision-btn" id="access-otp-submit" style="font-size:1rem; padding:0.7rem 2rem;">Verify and continue</button>
+      </div>
+    </form>
+
+    <section id="access-ready" hidden>
+      <h2 class="reg-step">Complete free registration</h2>
+      <p class="reg-hint">Your details are recorded. Finish the form below with the same name and email.</p>
+      <div id="access-embeds"></div>
+    </section>
+  </main>
+
+  <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+    window.__TURNSTILE_SITE_KEY__ = '';
+  </script>
+  <script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var bbLoaded = false;
+    var turnstileId = '';
+    var saved = { name: '', email: '', studentId: '' };
+
+    function gateUrl() {
+      var base = String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/$/, '');
+      if (!base) return '';
+      if (/\/register-gate$/.test(base)) return base;
+      if (/\/register$/.test(base)) return base.replace(/\/register$/, '/register-gate');
+      return base + '/register-gate';
+    }
+
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.hidden = !msg;
+    }
+
+    function safeToken(value) {
+      return /^[A-Za-z0-9_-]{8,80}$/.test(value || '');
+    }
+
+    function showForm(data) {
+      if (!safeToken(data.formId) || !safeToken(data.envId) || data.zone !== 'usa') {
+        showError($('access-error'), 'Free registration is not available right now.');
+        return;
+      }
+      $('access-form').hidden = true;
+      $('access-otp').hidden = true;
+      $('access-ready').hidden = false;
+      if ($('access-embeds').childElementCount) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'reg-blackbaud-wrap';
+      var el = document.createElement('div');
+      el.setAttribute('data-blackbaud-registration-form', '');
+      el.setAttribute('data-blackbaud-registration-form-envid', data.envId);
+      el.setAttribute('data-blackbaud-registration-form-id', data.formId);
+      el.setAttribute('data-blackbaud-registration-form-zone', 'usa');
+      el.setAttribute('data-blackbaud-registration-form-header-height', '0');
+      wrap.appendChild(el);
+      $('access-embeds').appendChild(wrap);
+      if (!bbLoaded) {
+        bbLoaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js';
+        document.body.appendChild(s);
+      }
+    }
+
+    function post(payload) {
+      var url = gateUrl();
+      if (!url) return Promise.reject(new Error('Registration recording is not available right now.'));
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().then(function (data) {
+          return { res: res, data: data || {} };
+        }, function () {
+          return { res: res, data: {} };
+        });
+      }).then(function (out) {
+        if (!out.res.ok || !out.data.ok) {
+          throw new Error(out.data.error || 'We could not save this registration.');
+        }
+        return out.data;
+      });
+    }
+
+    function turnstileToken() {
+      var tokenEl = document.querySelector('#access-turnstile [name="cf-turnstile-response"]');
+      return tokenEl ? tokenEl.value : '';
+    }
+
+    $('access-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('access-error');
+      showError(err, '');
+      var name = $('access-name').value.trim();
+      var email = $('access-email').value.trim();
+      var studentId = $('access-id').value.trim();
+      var code = $('access-code').value.trim();
+      if (!name) return showError(err, 'Enter your full name.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError(err, 'Enter a valid email address.');
+      if (!code && !/^\d{8}$/.test(studentId)) return showError(err, 'Enter your 8-digit CUNY student ID, or an access code.');
+      var button = $('access-submit');
+      button.disabled = true;
+      saved.name = name;
+      saved.email = email;
+      saved.studentId = studentId;
+      post({
+        kind: 'free',
+        full_name: name,
+        email: email,
+        student_id: studentId,
+        access_code: code,
+        _gotcha: $('access-gotcha').value,
+        'cf-turnstile-response': turnstileToken()
+      }).then(function (data) {
+        button.disabled = false;
+        if (data.step === 'done') return;
+        if (data.step === 'verify_email') {
+          $('access-form').hidden = true;
+          $('access-otp').hidden = false;
+          $('access-otp-email').textContent = email;
+          $('access-otp-code').focus();
+          return;
+        }
+        if (data.step === 'form') showForm(data);
+      }).catch(function (ex) {
+        button.disabled = false;
+        showError(err, ex.message || 'We could not reach the registration service. Try again.');
+      });
+    });
+
+    $('access-otp').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = $('access-otp-error');
+      showError(err, '');
+      var code = $('access-otp-code').value.trim();
+      if (!/^\d{6}$/.test(code)) return showError(err, 'Enter the 6-digit code from your email.');
+      var button = $('access-otp-submit');
+      button.disabled = true;
+      post({
+        kind: 'free',
+        full_name: saved.name,
+        email: saved.email,
+        student_id: saved.studentId,
+        otp: code
+      }).then(function (data) {
+        button.disabled = false;
+        if (data.step === 'form') showForm(data);
+      }).catch(function (ex) {
+        button.disabled = false;
+        showError(err, ex.message || 'We could not reach the registration service. Try again.');
+      });
+    });
+
+    var tsKey = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+    if (tsKey) {
+      var ts = document.createElement('script');
+      ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      ts.onload = function () {
+        var box = $('access-turnstile');
+        if (!box || !window.turnstile || turnstileId) return;
+        box.hidden = false;
+        turnstileId = window.turnstile.render(box, { sitekey: tsKey });
+      };
+      document.body.appendChild(ts);
+    }
+  })();
+  </script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/site-nav.js"></script>
+</body>
+</html>
