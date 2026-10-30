@@ -176,6 +176,15 @@
     .ws-hackathon ul { padding-left: 1.3rem; margin: 0.5rem 0 0; }
     .ws-hackathon li { margin-bottom: 0.3rem; }
 
+    .ws-map-embed {
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+      background: #0f172a;
+    }
+    .ws-map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+
     /* ── Partner logos strip ── */
     .ws-partners-strip {
       display: flex;
@@ -277,19 +286,11 @@
 
   <!-- ── Hero ── -->
   <div class="ws-hero">
-    <div class="ws-hero-partners">
-      <a href="https://tier4.jp" target="_blank" rel="noopener">
-        <img src="images/logos/tier4-logo.png" alt="Tier IV">
-      </a>
-      <a href="https://autoware.org" target="_blank" rel="noopener">
-        <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation">
-      </a>
-    </div>
     <h1>How <em>Autonomous Vehicles</em><br>Build Safer Cities</h1>
     <p class="ws-hero-sub">
-      A hands-on workshop co-hosted with <strong>Tier IV</strong> and the <strong>Autoware Foundation</strong> —
-      training the next generation of engineers to fuse vehicle intelligence with urban sensing
-      for resilient, safer connected cities.
+      A hands-on workshop built on top of open-source autonomous driving projects,
+      training the next generation of engineers to help build Digital-Earth and sustainable cities
+      and to deliver high-resolution data and analytics to city stakeholders.
     </p>
     <div class="ws-hero-meta">
       <span><strong>When:</strong> January 21–22, 2027 (Days 3–4 of EARS-CONN)</span>
@@ -321,13 +322,13 @@
     <!-- Block 1: Autoware stack -->
     <div class="ws-split">
       <div class="ws-split-img">
-        <img src="images/autoware-screenshot.png" alt="Autoware autonomous driving stack visualization" loading="lazy">
+        <img src="images/asas-av-perception.jpg" alt="ASAS Labs autonomous vehicle with LiDAR perception and pedestrian detection on the CCNY campus" loading="lazy" style="object-position: center 72%;">
       </div>
       <div class="ws-split-text">
         <h3>Autoware — The Open-Source Autonomous Driving Stack</h3>
         <p>
           Participants will get hands-on training with
-          <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener">Autoware by Tier IV</a>,
+          <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener">Autoware</a>,
           the world's leading open-source software stack for self-driving vehicles. Built on ROS 2, Autoware provides
           a complete pipeline from sensor ingestion to route planning:
         </p>
@@ -347,7 +348,7 @@
     <!-- Block 2: Waymo / next-gen sensors -->
     <div class="ws-split reverse">
       <div class="ws-split-img">
-        <img src="images/waymo-car.png" alt="Next-generation autonomous vehicle sensor suite" loading="lazy" style="object-fit: contain; background:#f8fafc; padding: 1rem;">
+        <img src="images/asas-av-hudson.jpg" alt="ASAS Labs autonomous test vehicle with LiDAR on the Hudson River Park esplanade" loading="lazy" style="object-position: center 68%;">
       </div>
       <div class="ws-split-text">
         <h3>Sensors &amp; Perception in the Future Generation of Vehicles</h3>
@@ -449,7 +450,7 @@
           </tr>
           <tr>
             <td><strong>Instructors</strong></td>
-            <td>Tier IV / Autoware Foundation engineers + EARS-CONN faculty</td>
+            <td>ASAS Labs engineers + EARS-CONN faculty</td>
           </tr>
           <tr>
             <td><strong>Prerequisites</strong></td>
@@ -462,21 +463,13 @@
         </table>
       </div>
 
-      <div class="attend-block" style="text-align:center;">
-        <h3>Powered By</h3>
-        <div class="ws-partners-strip">
-          <a href="https://tier4.jp" target="_blank" rel="noopener">
-            <img src="images/logos/tier4-logo.png" alt="Tier IV" height="48">
-          </a>
-          <a href="https://autoware.org" target="_blank" rel="noopener">
-            <img src="images/logos/autoware-foundation-logo.png" alt="The Autoware Foundation" height="48">
-          </a>
+      <div class="attend-block">
+        <h3>Mapping Manhattan: ASAS Labs LiDAR Survey</h3>
+        <p>ASAS Labs surveyed the Hudson River Park esplanade from Pier 40 to Pier 25 in two LiDAR runs, merged into one georeferenced point cloud of more than 102 million points. Drag to orbit, right-drag to pan, and scroll to zoom.</p>
+        <div class="ws-map-embed">
+          <iframe src="https://nishant-zfyii.github.io/Hudson-River-Map/" title="ASAS Labs LiDAR point cloud of the Hudson River Park esplanade" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
         </div>
-        <p style="font-size:0.88rem; color:#6b7280; margin-top:1rem;">
-          The workshop curriculum is built on the
-          <a href="https://github.com/tier4/autoware_training" target="_blank" rel="noopener">official Autoware training materials</a>
-          developed by <strong>Tier IV</strong> and the <strong>Autoware Foundation</strong>.
-        </p>
+        <p style="font-size:0.88rem; margin-top:0.75rem;"><a href="https://nishant-zfyii.github.io/Hudson-River-Map/" target="_blank" rel="noopener">Open the map full screen</a></p>
       </div>
 
       <div class="attend-block" style="text-align:center;">
