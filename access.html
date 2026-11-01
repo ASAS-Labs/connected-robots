@@ -192,6 +192,9 @@
     var bbLoaded = false;
     var turnstileId = '';
     var saved = { name: '', email: '', studentId: '' };
+    var prefill = new URLSearchParams(location.search);
+    if (prefill.get('name')) $('access-name').value = prefill.get('name').slice(0, 200);
+    if (prefill.get('email')) $('access-email').value = prefill.get('email').slice(0, 254);
 
     function gateUrl() {
       var base = String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/$/, '');

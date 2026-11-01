@@ -36,6 +36,16 @@
     .reg-type-note { grid-area: note; font-size: 0.82rem; color: var(--text-muted, #6b7280); }
     .reg-type-price { grid-area: price; font-weight: 700; font-variant-numeric: tabular-nums; }
     .reg-hint { font-size: 0.95rem; margin: 0 0 1rem; }
+    .reg-type.is-closed { opacity: 0.55; cursor: not-allowed; }
+    .reg-check { display: flex; gap: 0.55rem; align-items: flex-start; font-size: 0.92rem; line-height: 1.45; }
+    .reg-check input { margin-top: 0.2rem; width: 1.05rem; height: 1.05rem; flex-shrink: 0; }
+    .cuny-dialog { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(420px, calc(100vw - 2rem)); max-width: 420px; border: 0; border-radius: 14px; padding: 1.5rem 1.6rem; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .cuny-dialog::backdrop { background: rgba(15, 23, 42, 0.55); }
+    .cuny-dialog h3 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+    .cuny-dialog p { margin: 0 0 1.1rem; line-height: 1.55; }
+    .cuny-dialog-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+    .cuny-dialog-actions button.link { background: none; border: 0; color: var(--brand, #0369a1); cursor: pointer; font-size: 0.92rem; text-decoration: underline; }
+    body.theme-dark .cuny-dialog { background: #1e293b; color: #e2e8f0; }
     .cuny-msg--error { color: #b91c1c; font-size: 0.9rem; margin: 0 0 0.5rem; }
     body.theme-dark .cuny-msg--error { color: #fca5a5; }
     .ws-reg-hero {
@@ -371,9 +381,9 @@
     <h2 class="reg-step">1. Choose your registration type</h2>
     <div class="reg-types" role="radiogroup" aria-label="Registration type">
       <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-price">$100</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-note">Opens December 19, 2026</span><span class="reg-type-price">$100</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$600</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference; participants in the United States only</span><span class="reg-type-price">$600</span></label>
       <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
     </div>
 
@@ -388,6 +398,9 @@
           <label for="reg-email">Email</label>
           <input type="email" id="reg-email" autocomplete="email" maxlength="254" required>
         </div>
+        <div class="ws-field" id="reg-us-field" hidden>
+          <label class="reg-check"><input type="checkbox" id="reg-in-us"> <span>I am based in the United States. In-person workshop seats are limited to participants in the US; international participants can join the online workshop.</span></label>
+        </div>
         <input type="text" id="reg-gotcha" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
         <div id="reg-turnstile" class="ws-turnstile-wrap" hidden></div>
         <p id="reg-error" class="cuny-msg--error" role="alert" hidden></p>
@@ -399,6 +412,15 @@
       <p id="reg-saved" class="reg-hint" hidden>Your registration is recorded. Complete payment below, and in that form select <strong id="reg-pick-name"></strong>.</p>
       <div id="reg-embeds"></div>
     </section>
+
+    <dialog id="cuny-dialog" class="cuny-dialog" aria-labelledby="cuny-dialog-title">
+      <h3 id="cuny-dialog-title">CUNY student? Register for free</h3>
+      <p>CUNY students can attend the conference for free for a limited time. You will need your CUNY email and 8-digit student ID, and we will email you a verification code.</p>
+      <div class="cuny-dialog-actions">
+        <a href="access" id="cuny-dialog-go" class="vision-btn" style="font-size:0.95rem; padding:0.6rem 1.4rem;">Register for free</a>
+        <button type="button" class="link" id="cuny-dialog-close">Continue with paid registration</button>
+      </div>
+    </dialog>
   </main>
 
   <script>
@@ -467,6 +489,7 @@
       $('reg-step2').hidden = false;
       $('reg-step2-title').textContent = paidSaved ? 'Register and pay' : 'Your details';
       $('reg-identity').hidden = paidSaved;
+      $('reg-us-field').hidden = checked.value !== 'workshop_full';
       $('reg-saved').hidden = !paidSaved;
       $('reg-pick-name').textContent = t.name;
       if (paidSaved) ensureEmbed();
@@ -489,6 +512,45 @@
       }
     }
 
+    var EARLY_BIRD_END = Date.UTC(2026, 11, 19, 5, 0, 0);
+    function closeType(value, note) {
+      var input = document.querySelector('input[name="reg_type"][value="' + value + '"]');
+      if (!input) return;
+      input.disabled = true;
+      input.checked = false;
+      var label = input.closest('.reg-type');
+      label.classList.add('is-closed');
+      var noteEl = label.querySelector('.reg-type-note');
+      if (noteEl) noteEl.textContent = note;
+    }
+    if (Date.now() < EARLY_BIRD_END) {
+      closeType('regular', 'Opens December 19, 2026, after early bird ends');
+    } else {
+      closeType('early', 'Early bird ended December 18, 2026');
+      var regularNote = document.querySelector('input[name="reg_type"][value="regular"]').closest('.reg-type').querySelector('.reg-type-note');
+      if (regularNote) regularNote.remove();
+    }
+
+    var CUNY_EMAIL = /@([a-z0-9-]+\.)*cuny\.edu$/i;
+    var cunyOffered = false;
+    function offerCuny() {
+      var email = $('reg-email').value.trim();
+      if (cunyOffered || !CUNY_EMAIL.test(email)) return false;
+      cunyOffered = true;
+      var params = new URLSearchParams({ email: email, name: $('reg-name').value.trim() });
+      $('cuny-dialog-go').href = 'access?' + params.toString();
+      var dialog = $('cuny-dialog');
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+      return true;
+    }
+    $('reg-email').addEventListener('change', offerCuny);
+    $('cuny-dialog-close').addEventListener('click', function () {
+      var dialog = $('cuny-dialog');
+      if (typeof dialog.close === 'function') dialog.close();
+      else dialog.removeAttribute('open');
+    });
+
     document.querySelectorAll('input[name="reg_type"]').forEach(function (r) {
       r.addEventListener('change', function () {
         paidSaved = false;
@@ -508,6 +570,11 @@
       if (!checked) return showError('Choose a registration type.');
       if (!name) return showError('Enter your full name.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Enter a valid email address.');
+      if (offerCuny()) return;
+      var inPerson = checked.value === 'workshop_full';
+      if (inPerson && !$('reg-in-us').checked) {
+        return showError('In-person workshop seats are for participants in the United States. Confirm you are based in the US, or choose the online workshop.');
+      }
       var url = gateUrl();
       if (!url) return showError('Registration recording is not available right now.');
       var button = $('reg-identity-submit');
@@ -517,6 +584,7 @@
         full_name: name,
         email: email,
         registration_tier: TIERS[checked.value],
+        in_us: inPerson ? true : undefined,
         _gotcha: $('reg-gotcha').value
       };
       var tokenEl = document.querySelector('#reg-turnstile [name="cf-turnstile-response"]');
@@ -547,7 +615,7 @@
       var preset = HASH_TYPES[location.hash.slice(1)];
       if (!preset) return;
       var input = document.querySelector('input[name="reg_type"][value="' + preset + '"]');
-      if (!input) return;
+      if (!input || input.disabled) return;
       input.checked = true;
       render();
     }

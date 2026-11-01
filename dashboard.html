@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrations — EARS-CONN 2027</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <style>
+    :root { --brand: #4c1d95; --muted: #6b7280; --border: #e5e7eb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #111827; background: #f8fafc; }
+    header { background: #0f172a; color: #fff; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    header h1 { font-size: 1.05rem; margin: 0; font-weight: 600; }
+    header button { background: transparent; color: #cbd5e1; border: 1px solid #475569; border-radius: 6px; padding: 0.35rem 0.8rem; cursor: pointer; }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .signin { max-width: 380px; margin: 3rem auto; }
+    .signin h2 { margin: 0 0 0.4rem; font-size: 1.2rem; }
+    .signin p { color: var(--muted); margin: 0 0 1rem; font-size: 0.92rem; line-height: 1.5; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+    input { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; }
+    .btn { margin-top: 0.9rem; width: 100%; background: var(--brand); color: #fff; border: 0; border-radius: 8px; padding: 0.7rem; font-size: 1rem; cursor: pointer; }
+    .btn:disabled { opacity: 0.6; cursor: wait; }
+    .error { color: #b91c1c; font-size: 0.88rem; margin: 0.7rem 0 0; }
+    .stats { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
+    .stat { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.9rem; font-size: 0.85rem; }
+    .stat strong { display: block; font-size: 1.3rem; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.8rem; }
+    .toolbar input { max-width: 320px; }
+    .toolbar button { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.55rem 0.9rem; cursor: pointer; font-size: 0.9rem; }
+    .updated { color: var(--muted); font-size: 0.82rem; margin-left: auto; }
+    .table-wrap { overflow-x: auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { background: #f1f5f9; font-weight: 600; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: 0; }
+    td.empty { text-align: center; color: var(--muted); padding: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EARS-CONN 2027 · Registrations</h1>
+    <button type="button" id="logout" hidden>Sign out</button>
+  </header>
+
+  <main>
+    <form id="step-email" class="card signin" novalidate>
+      <h2>Organizer sign-in</h2>
+      <p>Enter your organizer email. If it is on the list, we will email you a 6-digit code.</p>
+      <label for="email">Email</label>
+      <input type="email" id="email" autocomplete="email" required>
+      <button class="btn" type="submit">Send code</button>
+      <p class="error" id="email-error" hidden></p>
+    </form>
+
+    <form id="step-code" class="card signin" novalidate hidden>
+      <h2>Check your email</h2>
+      <p>If <strong id="code-email"></strong> is an organizer address, a code is on its way. It expires in 15 minutes.</p>
+      <label for="code">Sign-in code</label>
+      <input type="text" id="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required>
+      <button class="btn" type="submit">Sign in</button>
+      <p class="error" id="code-error" hidden></p>
+    </form>
+
+    <section id="list" hidden>
+      <div class="stats" id="stats"></div>
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search name, email, affiliation">
+        <button type="button" id="refresh">Refresh</button>
+        <button type="button" id="csv">Download CSV</button>
+        <span class="updated" id="updated"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Name</th><th>Email</th><th>Type</th><th>Payment</th><th>Verified by</th><th>Affiliation</th><th>Registered</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="error" id="list-error" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+  </script>
+  <script>
+  (function () {
+    var $ = function (id) { return document.getElementById(id); };
+    var TOKEN_KEY = 'earsconn-admin-token';
+    var rows = [];
+    var tiers = {};
+    var email = '';
+
+    function apiUrl() {
+      return String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/(register|register-gate)?\/?$/, '') + '/admin';
+    }
+
+    function call(payload) {
+      return fetch(apiUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          return { status: res.status, data: data || {} };
+        });
+      });
+    }
+
+    function showError(id, msg) {
+      $(id).textContent = msg || '';
+      $(id).hidden = !msg;
+    }
+
+    function show(step) {
+      $('step-email').hidden = step !== 'email';
+      $('step-code').hidden = step !== 'code';
+      $('list').hidden = step !== 'list';
+      $('logout').hidden = step !== 'list';
+    }
+
+    function tierName(key) {
+      return (tiers[key] || key || '').replace(/\s*\(.*\)$/, '');
+    }
+
+    function cell(tr, text) {
+      var td = document.createElement('td');
+      td.textContent = text;
+      tr.appendChild(td);
+    }
+
+    function render() {
+      var q = $('search').value.trim().toLowerCase();
+      var shown = rows.filter(function (r) {
+        return !q || [r.full_name, r.email, r.affiliation, r.registration_tier].join(' ').toLowerCase().indexOf(q) !== -1;
+      });
+      var body = $('rows');
+      body.textContent = '';
+      if (!shown.length) {
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.colSpan = 8;
+        td.className = 'empty';
+        td.textContent = rows.length ? 'No matches.' : 'No registrations yet.';
+        tr.appendChild(td);
+        body.appendChild(tr);
+      }
+      shown.forEach(function (r, i) {
+        var tr = document.createElement('tr');
+        cell(tr, String(i + 1));
+        cell(tr, r.full_name);
+        cell(tr, r.email);
+        cell(tr, tierName(r.registration_tier));
+        cell(tr, r.payment_status);
+        cell(tr, r.verified_by);
+        cell(tr, r.affiliation);
+        cell(tr, r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '');
+        body.appendChild(tr);
+      });
+
+      var stats = $('stats');
+      stats.textContent = '';
+      var counts = {};
+      rows.forEach(function (r) { counts[r.registration_tier] = (counts[r.registration_tier] || 0) + 1; });
+      var unique = {};
+      rows.forEach(function (r) { unique[r.email.toLowerCase()] = 1; });
+      [['Registrations', rows.length], ['Unique emails', Object.keys(unique).length]]
+        .concat(Object.keys(counts).sort().map(function (k) { return [tierName(k) || 'Unknown', counts[k]]; }))
+        .forEach(function (pair) {
+          var div = document.createElement('div');
+          div.className = 'stat';
+          var strong = document.createElement('strong');
+          strong.textContent = pair[1];
+          div.appendChild(strong);
+          div.appendChild(document.createTextNode(pair[0]));
+          stats.appendChild(div);
+        });
+    }
+
+    function load() {
+      var token = sessionStorage.getItem(TOKEN_KEY);
+      if (!token) return show('email');
+      showError('list-error', '');
+      call({ action: 'list', token: token }).then(function (out) {
+        if (out.status === 401) {
+          sessionStorage.removeItem(TOKEN_KEY);
+          return show('email');
+        }
+        if (!out.data.ok) return showError('list-error', out.data.error || 'Could not load registrations.');
+        rows = out.data.registrations || [];
+        tiers = out.data.tiers || {};
+        $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+        show('list');
+        render();
+      }).catch(function () {
+        showError('list-error', 'Could not reach the registration service.');
+      });
+    }
+
+    $('step-email').addEventListener('submit', function (e) {
+      e.preventDefault();
+      email = $('email').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('email-error', 'Enter a valid email address.');
+      var btn = e.submitter || this.querySelector('button');
+      btn.disabled = true;
+      call({ action: 'start', email: email }).then(function (out) {
+        btn.disabled = false;
+        if (!out.data.ok) return showError('email-error', out.data.error || 'Could not send a code.');
+        showError('email-error', '');
+        $('code-email').textContent = email;
+        show('code');
+        $('code').focus();
+      }).catch(function () {
+        btn.disabled = false;
+        showError('email-error', 'Could not reach the registration service.');
+      });
+    });
+
+    $('step-code').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = e.submitter || this.querySelector('button');
+      btn.disabled = true;
+      call({ action: 'verify', email: email, code: $('code').value.trim() }).then(function (out) {
+        btn.disabled = false;
+        if (!out.data.ok || !out.data.token) return showError('code-error', out.data.error || 'That code is wrong or expired.');
+        sessionStorage.setItem(TOKEN_KEY, out.data.token);
+        $('code').value = '';
+        load();
+      }).catch(function () {
+        btn.disabled = false;
+        showError('code-error', 'Could not reach the registration service.');
+      });
+    });
+
+    $('logout').addEventListener('click', function () {
+      var token = sessionStorage.getItem(TOKEN_KEY);
+      sessionStorage.removeItem(TOKEN_KEY);
+      rows = [];
+      show('email');
+      if (token) call({ action: 'logout', token: token });
+    });
+
+    $('search').addEventListener('input', render);
+    $('refresh').addEventListener('click', load);
+
+    $('csv').addEventListener('click', function () {
+      var cols = ['submittedAt', 'full_name', 'email', 'registration_tier', 'payment_status', 'verified_by',
+        'participation_mode', 'affiliation', 'role', 'country_code', 'phone', 'student_id'];
+      var esc = function (v) {
+        v = String(v == null ? '' : v);
+        if (/^[=+\-@]/.test(v)) v = "'" + v;
+        return '"' + v.replace(/"/g, '""') + '"';
+      };
+      var csv = [cols.join(',')].concat(rows.map(function (r) {
+        return cols.map(function (c) { return esc(r[c]); }).join(',');
+      })).join('\r\n');
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.download = 'ears-conn-registrations-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    });
+
+    load();
+  })();
+  </script>
+</body>
+</html>

@@ -27,6 +27,11 @@ THANK_YOU_PATH = os.environ.get("THANK_YOU_PATH") or "/register.html?thanks=1"
 CONFIRMATION_FROM_EMAIL = (os.environ.get("CONFIRMATION_FROM_EMAIL") or "").strip()
 CONFIRMATION_FROM_NAME = "EARS-CONN"
 ORGANIZER_NOTIFY_EMAIL = (os.environ.get("ORGANIZER_NOTIFY_EMAIL") or "").strip()
+ADMIN_EMAILS = frozenset(
+    a.strip().lower()
+    for a in ((os.environ.get("ADMIN_EMAILS") or "").strip() or ORGANIZER_NOTIFY_EMAIL).split(",")
+    if a.strip()
+)
 
 _ddb = boto3.resource("dynamodb")
 _ses = boto3.client("ses")
@@ -517,6 +522,10 @@ def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
             return _gate_error("Choose a registration type.")
         if tier == "conf_early" and datetime.now(timezone.utc) >= _EARLY_BIRD_END_UTC:
             return _gate_error("Early registration has ended. Choose another option.")
+        if tier == "conf_standard" and datetime.now(timezone.utc) < _EARLY_BIRD_END_UTC:
+            return _gate_error("Regular registration opens December 19, 2026. Choose early bird registration.")
+        if tier == "workshop_full" and data.get("in_us") is not True:
+            return _gate_error("In-person workshop seats are for participants in the United States. Choose the online workshop.")
         item = _registration_item(
             email_key=email_key,
             full_name=full_name,
@@ -564,6 +573,162 @@ def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
     return _gate_error("Use a CUNY email and your 8-digit student ID, or enter an access code.")
 
 
+_ADMIN_SESSION_TTL = timedelta(hours=12)
+_INTERNAL_KINDS = frozenset({"otp", "admin_otp", "admin_session"})
+_ADMIN_FIELDS = (
+    "submittedAt", "full_name", "email", "registration_tier", "payment_status", "verified_by",
+    "participation_mode", "affiliation", "role", "country_code", "phone", "student_id",
+)
+
+
+def _admin_otp_items(email_key: str) -> list[dict[str, Any]]:
+    rows = [row for row in _items_for_email(email_key) if row.get("record_kind") == "admin_otp"]
+    rows.sort(key=lambda row: str(row.get("submittedAt") or ""), reverse=True)
+    return rows
+
+
+def _admin_start(email_key: str) -> dict[str, Any]:
+    sent = _json_response(200, {"ok": True, "step": "verify"})
+    if email_key not in ADMIN_EMAILS or not CONFIRMATION_FROM_EMAIL:
+        _log.info("Dashboard sign-in requested for a non-admin address")
+        return sent
+    now = datetime.now(timezone.utc)
+    recent = []
+    for row in _admin_otp_items(email_key):
+        at = _parse_iso(str(row.get("submittedAt") or ""))
+        if at is not None and now - at <= timedelta(hours=1):
+            recent.append(at)
+    if len(recent) >= 5:
+        return _gate_error("Too many codes were sent. Try again later.")
+    if recent and now - recent[0] < _OTP_COOLDOWN:
+        return sent
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    item_id = "admin-otp-" + str(uuid.uuid4())
+    _get_table().put_item(
+        Item={
+            "id": item_id,
+            "email": email_key,
+            "record_kind": "admin_otp",
+            "otp_hash": _sha256_hex(code),
+            "expiresAt": (now + _OTP_TTL).isoformat(),
+            "attempts": 0,
+            "submittedAt": now.isoformat(),
+        }
+    )
+    try:
+        _ses.send_email(
+            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
+            Destination={"ToAddresses": [email_key]},
+            Message={
+                "Subject": {"Data": "Your EARS-CONN dashboard sign-in code", "Charset": "UTF-8"},
+                "Body": {
+                    "Text": {
+                        "Data": f"Your EARS-CONN dashboard sign-in code is {code}.\n\n"
+                        "It expires in 15 minutes. If you did not try to sign in, you can ignore this message.\n",
+                        "Charset": "UTF-8",
+                    }
+                },
+            },
+        )
+    except Exception:
+        _log.exception("Failed to send dashboard sign-in code")
+        _get_table().delete_item(Key={"id": item_id})
+        return _gate_error("We could not send a code right now. Try again later.")
+    return sent
+
+
+def _admin_verify(email_key: str, code: str) -> dict[str, Any]:
+    wrong = _gate_error("That code is wrong or expired.")
+    digits = re.sub(r"\D", "", code)
+    if email_key not in ADMIN_EMAILS or len(digits) != 6:
+        return wrong
+    rows = _admin_otp_items(email_key)
+    if not rows:
+        return wrong
+    latest = rows[0]
+    expires = _parse_iso(str(latest.get("expiresAt") or ""))
+    now = datetime.now(timezone.utc)
+    if expires is None or now > expires or int(latest.get("attempts") or 0) >= _OTP_ATTEMPTS:
+        return wrong
+    if not _hash_eq(_sha256_hex(digits), str(latest.get("otp_hash") or "")):
+        _get_table().update_item(
+            Key={"id": latest["id"]},
+            UpdateExpression="SET attempts = if_not_exists(attempts, :zero) + :one",
+            ExpressionAttributeValues={":zero": 0, ":one": 1},
+        )
+        return wrong
+    for row in rows:
+        _get_table().delete_item(Key={"id": row["id"]})
+    token = secrets.token_urlsafe(32)
+    expires_at = (now + _ADMIN_SESSION_TTL).isoformat()
+    _get_table().put_item(
+        Item={
+            "id": "admin-session-" + _sha256_hex(token),
+            "email": email_key,
+            "record_kind": "admin_session",
+            "expiresAt": expires_at,
+            "submittedAt": now.isoformat(),
+        }
+    )
+    _log.info("Dashboard session started")
+    return _json_response(200, {"ok": True, "token": token, "expiresAt": expires_at})
+
+
+def _admin_session(token: str) -> dict[str, Any] | None:
+    if not token or len(token) > 100:
+        return None
+    item = _get_table().get_item(Key={"id": "admin-session-" + _sha256_hex(token)}).get("Item")
+    if not item or item.get("record_kind") != "admin_session":
+        return None
+    expires = _parse_iso(str(item.get("expiresAt") or ""))
+    if expires is None or datetime.now(timezone.utc) > expires:
+        return None
+    return item
+
+
+def _admin_list() -> dict[str, Any]:
+    table = _get_table()
+    items: list[dict[str, Any]] = []
+    kwargs: dict[str, Any] = {}
+    while True:
+        resp = table.scan(**kwargs)
+        items.extend(resp.get("Items") or [])
+        last = resp.get("LastEvaluatedKey")
+        if not last:
+            break
+        kwargs["ExclusiveStartKey"] = last
+    rows = [
+        {k: str(item.get(k) or "") for k in _ADMIN_FIELDS}
+        for item in items
+        if item.get("record_kind") not in _INTERNAL_KINDS and item.get("email")
+    ]
+    rows.sort(key=lambda r: r["submittedAt"], reverse=True)
+    return _json_response(200, {"ok": True, "registrations": rows, "tiers": _TIER_LABELS})
+
+
+def _handle_admin(event: dict[str, Any]) -> dict[str, Any]:
+    data = _parse_json_body(event)
+    if data is None:
+        return _gate_error("We could not read that request.")
+    action = str(data.get("action") or "")
+    email_key = str(data.get("email") or "").strip().lower()[:254]
+    if action == "start":
+        if not _EMAIL_RE.match(email_key):
+            return _gate_error("Enter a valid email address.")
+        return _admin_start(email_key)
+    if action == "verify":
+        return _admin_verify(email_key, str(data.get("code") or ""))
+    session = _admin_session(str(data.get("token") or ""))
+    if session is None:
+        return _gate_error("Your session expired. Sign in again.", status=401)
+    if action == "list":
+        return _admin_list()
+    if action == "logout":
+        _get_table().delete_item(Key={"id": session["id"]})
+        return _json_response(200, {"ok": True})
+    return _gate_error("Unknown request.")
+
+
 def handler(event, context):
     req = (event.get("requestContext") or {}).get("http") or {}
     method = req.get("method") or event.get("httpMethod") or ""
@@ -572,6 +737,15 @@ def handler(event, context):
         return {"statusCode": 204, "headers": {}, "body": ""}
 
     path = req.get("path") or event.get("rawPath") or ""
+    if path.rstrip("/").endswith("/admin"):
+        if method != "POST":
+            return {
+                "statusCode": 405,
+                "headers": {"content-type": "text/plain; charset=utf-8"},
+                "body": "Method Not Allowed",
+            }
+        return _handle_admin(event)
+
     if path.rstrip("/").endswith("/register-gate"):
         if method != "POST":
             return {

@@ -24,6 +24,11 @@ Parameters:
     Type: String
     Default: ''
     Description: Optional inbox that receives a copy/alert for each new registration. Leave empty to skip.
+  AdminEmails:
+    Type: String
+    Default: ''
+    NoEcho: true
+    Description: Comma-separated emails allowed to sign in to the registration dashboard. Empty falls back to OrganizerNotifyEmail.
   FreeFormId:
     Type: String
     Default: ''
@@ -95,6 +100,7 @@ Resources:
           TURNSTILE_SECRET_KEY: !Ref TurnstileSecretKey
           CONFIRMATION_FROM_EMAIL: !Ref ConfirmationFromEmail
           ORGANIZER_NOTIFY_EMAIL: !Ref OrganizerNotifyEmail
+          ADMIN_EMAILS: !Ref AdminEmails
           FREE_FORM_ID: !Ref FreeFormId
           FREE_ENV_ID: !Ref FreeEnvId
           FREE_ACCESS_KEY_SHA256: !Ref FreeAccessKeySha256
@@ -119,6 +125,12 @@ Resources:
           Properties:
             ApiId: !Ref WorkshopHttpApi
             Path: /register-gate
+            Method: POST
+        AdminPost:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WorkshopHttpApi
+            Path: /admin
             Method: POST
 
 Outputs:
