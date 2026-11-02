@@ -184,7 +184,7 @@
 
   <script>
     window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
-    window.__TURNSTILE_SITE_KEY__ = '';
+    window.__TURNSTILE_SITE_KEY__ = '0x4AAAAAADIs8IhjCxEiMIOU';
   </script>
   <script>
   (function () {
@@ -277,6 +277,9 @@
       if (!name) return showError(err, 'Enter your full name.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError(err, 'Enter a valid email address.');
       if (!code && !/^\d{8}$/.test(studentId)) return showError(err, 'Enter your 8-digit CUNY student ID, or an access code.');
+      var tsKeyNow = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+      var tokenNow = document.querySelector('#access-turnstile [name="cf-turnstile-response"]');
+      if (tsKeyNow && (!tokenNow || !tokenNow.value)) return showError(err, 'Complete the check above the button, then continue.');
       var button = $('access-submit');
       button.disabled = true;
       saved.name = name;

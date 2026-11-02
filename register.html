@@ -425,7 +425,7 @@
 
   <script>
     window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
-    window.__TURNSTILE_SITE_KEY__ = '';
+    window.__TURNSTILE_SITE_KEY__ = '0x4AAAAAADIs8IhjCxEiMIOU';
   </script>
   <script>
   (function () {
@@ -493,6 +493,7 @@
       $('reg-saved').hidden = !paidSaved;
       $('reg-pick-name').textContent = t.name;
       if (paidSaved) ensureEmbed();
+      else mountTurnstile();
       if (embeds[MAIN_FORM_ID]) embeds[MAIN_FORM_ID].hidden = !paidSaved;
     }
 
@@ -577,6 +578,9 @@
       }
       var url = gateUrl();
       if (!url) return showError('Registration recording is not available right now.');
+      var tsKeyNow = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+      var tokenNow = document.querySelector('#reg-turnstile [name="cf-turnstile-response"]');
+      if (tsKeyNow && (!tokenNow || !tokenNow.value)) return showError('Complete the check above the button, then continue.');
       var button = $('reg-identity-submit');
       button.disabled = true;
       var payload = {

@@ -502,7 +502,9 @@ def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
         return _json_response(200, {"ok": True, "step": "done"})
 
     turnstile_secret = (os.environ.get("TURNSTILE_SECRET_KEY") or "").strip()
-    if turnstile_secret:
+    # The email code is the second step. Its Turnstile token was already used to send the code.
+    confirming_code = str(data.get("kind") or "").strip() == "free" and str(data.get("otp") or "").strip()
+    if turnstile_secret and not confirming_code:
         token = str(data.get("cf-turnstile-response") or "").strip()
         if not _verify_turnstile(token, turnstile_secret, source_ip):
             return _gate_error("Human verification failed or expired. Complete the check and try again.")
