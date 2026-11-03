@@ -16,7 +16,7 @@ body {
   line-height: 1.7;
   color: var(--text);
   background: var(--page-bg);
-  padding-top: 68px; /* Fixed top bar only; site nav is a side drawer */
+  padding-top: 104px; /* Fixed top bar, with the menu button sitting below the title */
   font-weight: 400;
   letter-spacing: 0.01em;
   overflow-x: hidden;
@@ -67,7 +67,7 @@ body.theme-dark {
   background: #000000;
   padding: 0.5rem 1rem;
   padding-left: max(1rem, env(safe-area-inset-left));
-  padding-right: max(5.75rem, calc(4.75rem + env(safe-area-inset-right)));
+  padding-right: max(1rem, env(safe-area-inset-right));
   border-bottom: 1px solid #8b5cf6;
   color: white;
   position: fixed;
@@ -83,7 +83,7 @@ body.theme-dark {
 .site-nav.nav-tab,
 .nav-tab {
   position: fixed;
-  top: max(0.5rem, env(safe-area-inset-top));
+  top: max(3.15rem, calc(env(safe-area-inset-top) + 2.65rem));
   right: max(0.65rem, env(safe-area-inset-right));
   left: auto;
   transform: none;
@@ -125,7 +125,7 @@ body.theme-dark {
   left: auto;
   bottom: 0;
   width: min(300px, 88vw);
-  padding: calc(68px + 1rem) max(1rem, env(safe-area-inset-right)) 1.5rem 1.25rem;
+  padding: calc(108px + 1rem) max(1rem, env(safe-area-inset-right)) 1.5rem 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -3153,18 +3153,18 @@ body.theme-dark .section-breaker {
 /* ========== MOBILE & PHONE OPTIMIZATIONS ========== */
 @media (max-width: 900px) {
   body {
-    padding-top: 60px;
+    padding-top: 96px;
   }
 
   .nav-links {
     width: min(280px, 92vw);
-    padding-top: calc(56px + 1rem);
+    padding-top: calc(96px + 1rem);
   }
 }
 
 @media (max-width: 768px) {
   body {
-    padding-top: 56px;
+    padding-top: 92px;
   }
 
   .top-bar {
@@ -3337,7 +3337,7 @@ body.theme-dark .section-breaker {
 
 @media (max-width: 480px) {
   body {
-    padding-top: 52px;
+    padding-top: 88px;
   }
 
   .top-bar {
