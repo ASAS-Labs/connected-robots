@@ -81,7 +81,7 @@ while True:
 by_email = {}
 for item in items:
     email = str(item.get("email") or "").strip().lower()
-    if not email:
+    if not email or item.get("record_kind") in ("otp", "admin_otp", "admin_session"):
         continue
     prev = by_email.get(email)
     if prev is None or (item.get("submittedAt") or "") >= (prev.get("submittedAt") or ""):

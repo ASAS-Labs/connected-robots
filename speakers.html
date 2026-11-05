@@ -571,17 +571,37 @@
     }
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (card.id && location.hash !== '#' + card.id) history.replaceState(null, '', '#' + card.id);
   }
   function closeSpeakerModal() {
     document.getElementById('speakerModal').classList.remove('open');
     document.body.style.overflow = '';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  }
+  function speakerSlug(name) {
+    return name.replace(/^Dr\.\s+/i, '').replace(/,\s*Ph\.?D\.?$/i, '')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+  function openSpeakerFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var card = document.getElementById(id);
+    if (!card || !card.classList.contains('speaker-card') || card.hidden) return;
+    card.scrollIntoView({ block: 'center' });
+    openSpeakerModal(card.querySelector('.speaker-card-inner'));
   }
   (function() {
+    document.querySelectorAll('.speaker-card[data-name]').forEach(function(card) {
+      if (!card.id) card.id = speakerSlug(card.dataset.name);
+    });
     var modal = document.getElementById('speakerModal');
     if (modal) {
       modal.addEventListener('click', function(e) { if (e.target === modal) closeSpeakerModal(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeSpeakerModal(); });
     }
+    openSpeakerFromHash();
+    window.addEventListener('hashchange', openSpeakerFromHash);
   })();
   </script>
   <script src="js/site-nav.js"></script>

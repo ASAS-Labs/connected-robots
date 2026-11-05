@@ -51,7 +51,7 @@ jobs:
           url = os.environ["WORKSHOP_REGISTER_POST_URL"].strip()
           if not url:
               raise SystemExit(0)
-          for name in ("register.html", "access.html"):
+          for name in ("register.html", "access.html", "dashboard.html"):
               path = pathlib.Path(name)
               text = path.read_text(encoding="utf-8")
               new_text, n = re.subn(
