@@ -165,6 +165,8 @@
     }
 
     /* ── Modal ── */
+    .page-head .speakers-lede { max-width: 620px; margin: 0.6rem auto 0; font-size: 1.05rem; line-height: 1.6; color: var(--text); }
+    .page-head .speakers-hint { margin: 0.75rem auto 0; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
     .speaker-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
     .speaker-modal-overlay.open { display: flex; }
     .speaker-modal { background: var(--panel); border-radius: 12px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
@@ -225,11 +227,24 @@
   <main class="speakers-page">
     <div class="page-head">
       <h1>Speakers &amp; Panelists</h1>
-      <p>Click any card to view the full bio.</p>
-      <p style="max-width:760px; margin: 0.75rem auto 0; font-size:0.95rem; color:var(--text-muted); line-height:1.7;">EARS-CONN brings together researchers, engineers, and industry leaders across <strong>embodied-AI, remote sensing, Digital-Earth infrastructure, and urban insurance intelligence</strong>. A dedicated track examines how Digital-Earth — powered by the combination of satellite data and ground-level robotic sensing — enables proactive hazard prediction, property-specific risk assessment, and next-generation insurance for climate-exposed cities. Speakers span academia, government, and industries including <strong>robotics, telecommunications, insurance, and financial risk</strong>.</p>
+      <p class="speakers-lede">Leaders from academia, government, and industry working on embodied AI, remote sensing, and Digital-Earth for resilient cities.</p>
+      <p class="speakers-hint">Select a speaker to read the full bio.</p>
     </div>
 
     <div class="speakers-grid-unified">
+
+          <article class="speaker-card speaker-card--academy" data-photo="images/speakers/NaomiLeonard.png" data-name="Naomi Ehrich Leonard" data-title="Plenary Speaker · Edwin S. Wilsey Professor of Mechanical and Aerospace Engineering" data-university="Princeton University" data-topic="Dynamics, control, and learning for multi-agent systems on networks" data-bio="Naomi Ehrich Leonard is Chair and Edwin S. Wilsey Professor of Mechanical and Aerospace Engineering, associated faculty with the Program in Applied and Computational Mathematics and the Biophysics Graduate Program, and affiliated faculty with the Princeton Neuroscience Institute and the Center for Statistics and Machine Learning at Princeton University. She is Founding Director of creativeX, a Princeton engineering-and-the-arts collective, and Founding Editor of Annual Review of Control, Robotics, and Autonomous Systems. Leonard received her B.S.E. in Mechanical Engineering from Princeton University in 1985 and her Ph.D. in Electrical Engineering from the University of Maryland in 1994. She is a MacArthur Fellow, member of the American Academy of Arts and Sciences, and Fellow of the ASME, IEEE, IFAC, and SIAM. Recent awards include the 2023 IEEE Control Systems Award, the 2024 Richard E. Bellman Control Heritage Award, and the 2025 IEEE George S. Axelby Outstanding Paper Award. Her current research focuses on dynamics, control, and learning for multi-agent systems on networks with application to multi-robot teams, collective animal behavior, and other networked systems in technology, nature, and the arts." data-url="https://naomi.princeton.edu/research-group/profile/">
+            <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
+              <div class="speaker-card-media">
+                <img src="images/speakers/NaomiLeonard.png" alt="Naomi Ehrich Leonard" class="speaker-photo" loading="lazy">
+                <div class="speaker-card-caption">
+                  <h2 class="speaker-name">Naomi Ehrich Leonard</h2>
+                  <p class="speaker-title">Plenary Speaker · Edwin S. Wilsey Professor</p>
+                  <p class="speaker-university">Mechanical and Aerospace Engineering, Princeton University</p>
+                </div>
+              </div>
+            </div>
+          </article>
 
           <article class="speaker-card speaker-card--academy" data-photo="images/speakers/HamidJafarnejadSani.png" data-name="Hamid Jafarnejad Sani" data-title="Assistant Professor of Mechanical Engineering" data-university="Stevens Institute of Technology" data-topic="Mobile robots, UAVs, and safe autonomous systems" data-bio="Dr. Jafarnejad-Sani is an Assistant Professor of Mechanical Engineering at Stevens Institute of Technology and director of the Safe Autonomous Systems Lab. He received his Ph.D. in Mechanical Engineering from the University of Illinois at Urbana-Champaign in 2018. His research in the areas of controls, robotics, machine learning, and UAV applications is funded by the NSF, IARPA, and the US Army." data-url="">
             <div class="speaker-card-inner" onclick="openSpeakerModal(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSpeakerModal(this);}">
@@ -558,17 +573,37 @@
     }
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    if (card.id && location.hash !== '#' + card.id) history.replaceState(null, '', '#' + card.id);
   }
   function closeSpeakerModal() {
     document.getElementById('speakerModal').classList.remove('open');
     document.body.style.overflow = '';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  }
+  function speakerSlug(name) {
+    return name.replace(/^Dr\.\s+/i, '').replace(/,\s*Ph\.?D\.?$/i, '')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+  function openSpeakerFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    var card = document.getElementById(id);
+    if (!card || !card.classList.contains('speaker-card') || card.hidden) return;
+    card.scrollIntoView({ block: 'center' });
+    openSpeakerModal(card.querySelector('.speaker-card-inner'));
   }
   (function() {
+    document.querySelectorAll('.speaker-card[data-name]').forEach(function(card) {
+      if (!card.id) card.id = speakerSlug(card.dataset.name);
+    });
     var modal = document.getElementById('speakerModal');
     if (modal) {
       modal.addEventListener('click', function(e) { if (e.target === modal) closeSpeakerModal(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeSpeakerModal(); });
     }
+    openSpeakerFromHash();
+    window.addEventListener('hashchange', openSpeakerFromHash);
   })();
   </script>
   <script src="js/site-nav.js"></script>

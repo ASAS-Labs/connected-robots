@@ -43,6 +43,7 @@ jobs:
           TURNSTILE_SECRET_KEY: ${{ secrets.WORKSHOP_TURNSTILE_SECRET_KEY }}
           CONFIRMATION_FROM_EMAIL: ${{ secrets.WORKSHOP_CONFIRMATION_FROM_EMAIL }}
           ORGANIZER_NOTIFY_EMAIL: ${{ secrets.WORKSHOP_ORGANIZER_NOTIFY_EMAIL }}
+          ADMIN_EMAILS: ${{ secrets.WORKSHOP_ADMIN_EMAILS }}
           FREE_FORM_ID: ${{ secrets.WORKSHOP_FREE_FORM_ID }}
           FREE_ENV_ID: ${{ secrets.WORKSHOP_FREE_ENV_ID }}
           FREE_ACCESS_KEY_SHA256: ${{ secrets.WORKSHOP_FREE_ACCESS_KEY_SHA256 }}
@@ -60,6 +61,9 @@ jobs:
           fi
           if [ -n "${ORGANIZER_NOTIFY_EMAIL:-}" ]; then
             OVERRIDES+=("OrganizerNotifyEmail=${ORGANIZER_NOTIFY_EMAIL}")
+          fi
+          if [ -n "${ADMIN_EMAILS:-}" ]; then
+            OVERRIDES+=("AdminEmails=${ADMIN_EMAILS}")
           fi
           if [ -n "${FREE_FORM_ID:-}" ]; then
             OVERRIDES+=("FreeFormId=${FREE_FORM_ID}")
