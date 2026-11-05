@@ -165,6 +165,8 @@
     }
 
     /* ── Modal ── */
+    .page-head .speakers-lede { max-width: 620px; margin: 0.6rem auto 0; font-size: 1.05rem; line-height: 1.6; color: var(--text); }
+    .page-head .speakers-hint { margin: 0.75rem auto 0; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
     .speaker-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 1rem; }
     .speaker-modal-overlay.open { display: flex; }
     .speaker-modal { background: var(--panel); border-radius: 12px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
@@ -225,8 +227,8 @@
   <main class="speakers-page">
     <div class="page-head">
       <h1>Speakers &amp; Panelists</h1>
-      <p>Click any card to view the full bio.</p>
-      <p style="max-width:760px; margin: 0.75rem auto 0; font-size:0.95rem; color:var(--text-muted); line-height:1.7;">EARS-CONN brings together researchers, engineers, and industry leaders across <strong>embodied-AI, remote sensing, Digital-Earth infrastructure, and urban insurance intelligence</strong>. A dedicated track examines how Digital-Earth — powered by the combination of satellite data and ground-level robotic sensing — enables proactive hazard prediction, property-specific risk assessment, and next-generation insurance for climate-exposed cities. Speakers span academia, government, and industries including <strong>robotics, telecommunications, insurance, and financial risk</strong>.</p>
+      <p class="speakers-lede">Leaders from academia, government, and industry working on embodied AI, remote sensing, and Digital-Earth for resilient cities.</p>
+      <p class="speakers-hint">Select a speaker to read the full bio.</p>
     </div>
 
     <div class="speakers-grid-unified">
