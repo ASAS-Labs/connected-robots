@@ -386,18 +386,18 @@
   <div class="ws-reg-hero">
     <h1>Register for EARS-CONN 2027</h1>
     <p>
-      January 19–22, 2027 in New York City. Early bird pricing ends <strong>December 18, 2026</strong>.
+      January 19–22, 2027 in New York City. Early bird pricing ends <strong>December 18, 2026</strong> for the conference and <strong>December 25, 2026</strong> for the workshop.
     </p>
   </div>
 
   <main class="ws-reg-page cfp-section page-section">
     <h2 class="reg-step">1. Choose your registration type</h2>
     <div class="reg-types" role="radiogroup" aria-label="Registration type">
-      <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$50</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-note">Opens December 19, 2026</span><span class="reg-type-price">$100</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$20</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person</span><span class="reg-type-note">Includes conference; participants in the United States only</span><span class="reg-type-price">$600</span></label>
-      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online</span><span class="reg-type-note">Includes conference</span><span class="reg-type-price">$500</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="early"><span class="reg-type-name">Conference — early bird</span><span class="reg-type-note">Through December 18, 2026</span><span class="reg-type-price">$100</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="regular"><span class="reg-type-name">Conference — regular</span><span class="reg-type-note">Opens December 19, 2026</span><span class="reg-type-price">$150</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="student"><span class="reg-type-name">Conference — student</span><span class="reg-type-price">$50</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_full"><span class="reg-type-name">Workshop — in person, early bird</span><span class="reg-type-note">Through December 25, 2026, then $500. Includes conference; participants in the United States only</span><span class="reg-type-price">$400</span></label>
+      <label class="reg-type"><input type="radio" name="reg_type" value="workshop_online"><span class="reg-type-name">Workshop — online, early bird</span><span class="reg-type-note">Through December 25, 2026, then $400. Includes conference</span><span class="reg-type-price">$300</span></label>
     </div>
 
     <section id="reg-step2" hidden>
@@ -455,9 +455,21 @@
       early: { name: 'Conference - early bird (through December 18, 2026)' },
       regular: { name: 'Conference - regular' },
       student: { name: 'Conference - student' },
-      workshop_full: { name: 'Workshop - full in person (includes conference)' },
-      workshop_online: { name: 'Workshop - online (includes conference)' }
+      workshop_full: { name: 'Workshop - in person (Early Bird)' },
+      workshop_online: { name: 'Workshop - online (Early Bird)' }
     };
+    var WORKSHOP_EARLY_END = Date.UTC(2026, 11, 26, 5, 0, 0);
+    if (Date.now() >= WORKSHOP_EARLY_END) {
+      TYPES.workshop_full.name = 'Workshop - full in person (includes conference)';
+      TYPES.workshop_online.name = 'Workshop - online (includes conference)';
+      [['workshop_full', 'Workshop — in person', 'Includes conference; participants in the United States only', '$500'],
+       ['workshop_online', 'Workshop — online', 'Includes conference', '$400']].forEach(function (w) {
+        var label = document.querySelector('input[name="reg_type"][value="' + w[0] + '"]').closest('.reg-type');
+        label.querySelector('.reg-type-name').textContent = w[1];
+        label.querySelector('.reg-type-note').textContent = w[2];
+        label.querySelector('.reg-type-price').textContent = w[3];
+      });
+    }
     var HASH_TYPES = { 'reg-early': 'early', 'reg-workshop': 'workshop_full' };
 
     var $ = function (id) { return document.getElementById(id); };

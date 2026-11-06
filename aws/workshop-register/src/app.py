@@ -40,13 +40,21 @@ _log = logging.getLogger(__name__)
 _log.setLevel(logging.INFO)
 
 _TIER_LABELS = {
-    "conf_early": "Conference — early bird ($50)",
-    "conf_standard": "Conference — regular ($100)",
-    "conf_student": "Conference — student ($20)",
+    "conf_early": "Conference — early bird ($100)",
+    "conf_standard": "Conference — regular ($150)",
+    "conf_student": "Conference — student ($50)",
     "conf_free_request": "Conference — limited free ticket request ($0, CUNY students only)",
     "conf_free": "Conference — free (verified CUNY student or access code)",
-    "workshop_full": "Workshop — full in person ($600, includes conference)",
-    "workshop_online": "Workshop — online ($500, includes conference)",
+    "workshop_full": "Workshop — in person ($400 early bird, $500 regular; includes conference)",
+    "workshop_online": "Workshop — online ($300 early bird, $400 regular; includes conference)",
+}
+_WORKSHOP_EARLY_LABELS = {
+    "workshop_full": "Workshop — in person, early bird ($400, includes conference)",
+    "workshop_online": "Workshop — online, early bird ($300, includes conference)",
+}
+_WORKSHOP_REGULAR_LABELS = {
+    "workshop_full": "Workshop — in person ($500, includes conference)",
+    "workshop_online": "Workshop — online ($400, includes conference)",
 }
 
 _EMAIL_RE = re.compile(
@@ -70,6 +78,8 @@ _ALLOWED_REGISTRATION_TIERS = frozenset(
 )
 # Early bird (conf_early) ends after December 18, 2026 US Eastern (midnight → Dec 19 05:00 UTC).
 _EARLY_BIRD_END_UTC = datetime(2026, 12, 19, 5, 0, 0, tzinfo=timezone.utc)
+# Workshop early bird ends after December 25, 2026 US Eastern.
+_WORKSHOP_EARLY_BIRD_END_UTC = datetime(2026, 12, 26, 5, 0, 0, tzinfo=timezone.utc)
 
 
 def _get_table():
@@ -147,6 +157,9 @@ def _html_escape(s: str) -> str:
 
 
 def _tier_label(tier: str) -> str:
+    if tier in _WORKSHOP_EARLY_LABELS:
+        early = datetime.now(timezone.utc) < _WORKSHOP_EARLY_BIRD_END_UTC
+        return (_WORKSHOP_EARLY_LABELS if early else _WORKSHOP_REGULAR_LABELS)[tier]
     return _TIER_LABELS.get(tier, tier)
 
 
