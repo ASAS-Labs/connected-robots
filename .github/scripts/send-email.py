@@ -8,7 +8,8 @@ Inputs come from environment variables (set by the send-email workflow):
   EMAIL_BCC        comma-separated BCC (optional)
   EMAIL_REPLY_TO   comma-separated Reply-To (optional, defaults to EMAIL_CC)
   EMAIL_SUBJECT    subject line (required)
-  EMAIL_BODY       plain-text body; blank lines separate paragraphs (required)
+  EMAIL_BODY       plain-text body; blank lines separate paragraphs (required).
+                   A paragraph of only ![alt](https://ears-conn.com/...) is an image (HTML only).
   DRY_RUN          "true" to build the message without sending
   AWS_REGION       defaults to us-east-1
 
@@ -30,6 +31,8 @@ from email.utils import formataddr, formatdate, make_msgid, parseaddr
 
 ADDRESS_RE = re.compile(r"^[^@\s,<>]+@[^@\s,<>]+\.[^@\s,<>]+$")
 URL_RE = re.compile(r"(https?://[^\s<]+[^\s<.,;:!?)\]])")
+# A paragraph that is only ![alt](https://ears-conn.com/...) becomes an image in the HTML part.
+IMAGE_RE = re.compile(r"^!\[([^\]]*)\]\((https://ears-conn\.com/[^\s)]+)\)$")
 
 
 def addresses(var: str) -> list[str]:
@@ -41,14 +44,35 @@ def addresses(var: str) -> list[str]:
     return out
 
 
+def paragraphs(text: str) -> list[str]:
+    return [p.strip() for p in re.split(r"\n\s*\n", text.strip()) if p.strip()]
+
+
+def body_to_text(text: str) -> str:
+    return "\n\n".join(p for p in paragraphs(text) if not IMAGE_RE.match(p))
+
+
 def body_to_html(text: str) -> str:
-    paragraphs = [p.strip() for p in re.split(r"\n\s*\n", text.strip()) if p.strip()]
     rendered = []
-    for p in paragraphs:
+    for p in paragraphs(text):
+        image = IMAGE_RE.match(p)
+        if image:
+            rendered.append(
+                f'<p style="margin:0 0 20px"><img src="{html.escape(image.group(2))}" '
+                f'alt="{html.escape(image.group(1))}" width="600" '
+                'style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:6px"></p>'
+            )
+            continue
         escaped = html.escape(p)
-        linked = URL_RE.sub(r'<a href="\1">\1</a>', escaped)
-        rendered.append("<p>" + linked.replace("\n", "<br>\n") + "</p>")
-    return "\n".join(rendered)
+        linked = URL_RE.sub(r'<a href="\1" style="color:#4338ca">\1</a>', escaped)
+        rendered.append('<p style="margin:0 0 16px">' + linked.replace("\n", "<br>\n") + "</p>")
+    return (
+        '<div style="background:#f5f6fa;padding:24px 12px">'
+        '<div style="max-width:600px;margin:0 auto;background:#ffffff;padding:24px;border-radius:8px;'
+        'font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#1f2937">'
+        + "\n".join(rendered)
+        + "</div></div>"
+    )
 
 
 def main() -> None:
@@ -79,7 +103,7 @@ def main() -> None:
     msg["Subject"] = subject
     msg["Date"] = formatdate(localtime=True)
     msg["Message-ID"] = make_msgid(domain="ears-conn.com")
-    msg.set_content(body + "\n")
+    msg.set_content(body_to_text(body) + "\n")
     msg.add_alternative(body_to_html(body), subtype="html")
 
     print(f"Recipients: {len(to)} to, {len(cc)} cc, {len(bcc)} bcc")
