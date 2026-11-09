@@ -639,12 +639,39 @@
           return showError((out.data && out.data.error) || 'We could not save this registration.');
         }
         if (out.data.step === 'done') return;
+        if (out.data.ref) {
+          try { localStorage.setItem(PAY_REF_KEY, out.data.ref); } catch (e) {}
+        }
         paidSaved = true;
         render();
       }).catch(function () {
         button.disabled = false;
         showError('We could not reach the registration service. Try again.');
       });
+    });
+
+    var PAY_REF_KEY = 'earsconn-pay-ref';
+    var lastStepReport = 0;
+    function reportPayment(eventName) {
+      var ref = '';
+      try { ref = localStorage.getItem(PAY_REF_KEY) || ''; } catch (e) {}
+      var url = gateUrl();
+      if (!ref || !url) return;
+      // text/plain keeps this a simple request, so it survives the page navigating away.
+      var body = JSON.stringify({ kind: 'payment_event', ref: ref, event: eventName });
+      var blob = new Blob([body], { type: 'text/plain' });
+      if (!(navigator.sendBeacon && navigator.sendBeacon(url, blob))) {
+        fetch(url, { method: 'POST', body: blob, keepalive: true }).catch(function () {});
+      }
+    }
+    window.addEventListener('message', function (e) {
+      if (e.origin !== 'https://host.nxt.blackbaud.com' || !e.data || typeof e.data !== 'object') return;
+      if (e.data.Blackbaud_Online_Registration_Form_Confirmation_Page) {
+        reportPayment('complete');
+      } else if (e.data.Blackbaud_Online_Registration_Form === 'scroll_top' && Date.now() - lastStepReport > 3000) {
+        lastStepReport = Date.now();
+        reportPayment('step');
+      }
     });
 
     function applyHash() {

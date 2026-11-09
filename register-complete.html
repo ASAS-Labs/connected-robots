@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration complete — EARS-CONN 2027</title>
+  <meta name="robots" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="styles.css?v=2026-09-29r">
+  <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <style>
+    .done-page { padding: 0 1rem 3rem; max-width: 640px; margin: 0 auto; }
+    .done-page p { line-height: 1.7; }
+    .done-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+    .done-links a { padding: 0.6rem 1.1rem; border-radius: 8px; background: var(--brand, #4f46e5); color: #fff; font-weight: 600; text-decoration: none; }
+    .done-links a:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="logo-left-container">
+      <img src="images/logos/CNNY.png" alt="CCNY Logo" class="logo-left" width="120" height="50" loading="lazy">
+      <img src="images/logos/CUNY.png" alt="CUNY Logo" class="logo-left" width="80" height="50" loading="lazy">
+      <img src="images/logos/unu-hub-rsirus.png" alt="United Nations University Hub R-SIRUS at CCNY" class="logo-left logo-left--seal" width="50" height="50" loading="lazy">
+    </div>
+    <div class="title-container">
+      <h1 class="sliding-title" aria-hidden="true">
+        <img src="images/logos/ears-conn.png" alt="" class="brand-mark" width="42" height="42" loading="lazy" />
+        <span class="sliding-title-prefix">EARS-CONN 2027 — NEW YORK CITY — JANUARY 19–22, 2027 — </span><span class="sliding-title-tagline">Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities</span>
+      </h1>
+      <span class="sliding-title-mobile" aria-hidden="false">
+        <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="brand-mark" width="28" height="28" loading="lazy" />
+        EARS-CONN 2027 — NYC — January 19–22
+      </span>
+    </div>
+  </div>
+
+  <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
+      <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
+    </button>
+    <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
+      <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <ul class="nav-tabs" role="list">
+        <li><a href="/" class="nav-tab-item">Home</a></li>
+        <li><a href="attend" class="nav-tab-item">Attend</a></li>
+        <li><a href="register" class="nav-tab-item">Register</a></li>
+        <li><a href="venue" class="nav-tab-item">Venue</a></li>
+        <li><a href="speakers" class="nav-tab-item">Speakers</a></li>
+        <li><a href="agenda" class="nav-tab-item">Agenda</a></li>
+        <li><a href="workshop" class="nav-tab-item">Workshop</a></li>
+        <li><a href="call-for-papers" class="nav-tab-item cfp-link">Short Papers</a></li>
+        <li><a href="innovation-challenge" class="nav-tab-item cfp-link">Innovation Challenge</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="ws-reg-hero">
+    <h1>Thank you for registering</h1>
+    <p>EARS-CONN 2027, January 19–22, 2027, The City College of New York.</p>
+  </div>
+
+  <main class="done-page cfp-section page-section">
+    <p>Your registration for EARS-CONN 2027 is complete. A receipt from The City College of New York will arrive by email; if you do not see it within an hour, please check your spam folder.</p>
+    <p>For questions about your registration, contact us at <a href="mailto:aarab@ccny.cuny.edu">aarab@ccny.cuny.edu</a>.</p>
+    <div class="done-links">
+      <a href="agenda">View the agenda</a>
+      <a href="venue">Plan your visit</a>
+    </div>
+  </main>
+
+  <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+  </script>
+  <script>
+  (function () {
+    var key = 'earsconn-pay-ref';
+    var ref = '';
+    try { ref = localStorage.getItem(key) || ''; } catch (e) {}
+    var base = String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/$/, '');
+    if (!ref || !base) return;
+    var url = /\/register$/.test(base) ? base.replace(/\/register$/, '/register-gate') : base + '/register-gate';
+    var blob = new Blob([JSON.stringify({ kind: 'payment_event', ref: ref, event: 'complete' })], { type: 'text/plain' });
+    fetch(url, { method: 'POST', body: blob, keepalive: true }).then(function (res) {
+      if (res.ok) {
+        try { localStorage.removeItem(key); } catch (e) {}
+      }
+    }).catch(function () {});
+  })();
+  </script>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
+      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/site-nav.js"></script>
+</body>
+</html>

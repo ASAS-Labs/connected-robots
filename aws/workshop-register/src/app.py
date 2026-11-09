@@ -507,12 +507,58 @@ def _confirm_otp(email_key: str, full_name: str, otp: str, source_ip: str) -> di
     return _json_response(200, _free_form_payload())
 
 
+_PAYMENT_EVENTS = frozenset({"step", "complete"})
+
+
+def _payment_event(data: dict[str, Any]) -> dict[str, Any]:
+    """Record what the visitor's browser saw in the Blackbaud form.
+
+    Browser-reported only: it shows the visitor reached Blackbaud's confirmation
+    page, not the amount charged. Reconcile money against the Blackbaud export.
+    """
+    ref = str(data.get("ref") or "")[:200]
+    event_name = str(data.get("event") or "")
+    item_id, _, token = ref.partition(".")
+    if event_name not in _PAYMENT_EVENTS or not item_id or not token:
+        return _gate_error("Unknown payment event.")
+    row = _get_table().get_item(Key={"id": item_id}).get("Item")
+    if (
+        not row
+        or row.get("record_kind") != "registration"
+        or not _hash_eq(_sha256_hex(token), str(row.get("pay_ref_hash") or ""))
+    ):
+        return _gate_error("Unknown payment event.", 404)
+
+    now = datetime.now(timezone.utc).isoformat()
+    status = str(row.get("payment_status") or "")
+    if event_name == "complete":
+        if status != "completed_in_blackbaud":
+            _get_table().update_item(
+                Key={"id": item_id},
+                UpdateExpression="SET payment_status = :s, completedAt = :t",
+                ExpressionAttributeValues={":s": "completed_in_blackbaud", ":t": now},
+            )
+            _log.info("Blackbaud confirmation reported for %s", row.get("email"))
+    else:
+        values: dict[str, Any] = {":zero": 0, ":one": 1, ":t": now}
+        expr = "SET form_steps = if_not_exists(form_steps, :zero) + :one, last_form_step_at = :t"
+        if status == "sent_to_payment":
+            expr += ", payment_status = :s"
+            values[":s"] = "in_payment_form"
+        _get_table().update_item(
+            Key={"id": item_id}, UpdateExpression=expr, ExpressionAttributeValues=values
+        )
+    return _json_response(200, {"ok": True})
+
+
 def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
     data = _parse_json_body(event)
     if data is None:
         return _gate_error("We could not read that registration.")
     if str(data.get("_gotcha") or "").strip():
         return _json_response(200, {"ok": True, "step": "done"})
+    if str(data.get("kind") or "").strip() == "payment_event":
+        return _payment_event(data)
 
     turnstile_secret = (os.environ.get("TURNSTILE_SECRET_KEY") or "").strip()
     # The email code is the second step. Its Turnstile token was already used to send the code.
@@ -549,9 +595,11 @@ def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
             payment_status="sent_to_payment",
             source_ip=source_ip,
         )
+        pay_token = secrets.token_urlsafe(24)
+        item["pay_ref_hash"] = _sha256_hex(pay_token)
         _put_registration(item)
         _log.info("Paid registration recorded for %s tier %s", email_key, tier)
-        return _json_response(200, {"ok": True, "step": "payment"})
+        return _json_response(200, {"ok": True, "step": "payment", "ref": item["id"] + "." + pay_token})
 
     if kind != "free":
         return _gate_error("Choose a registration type.")
@@ -593,6 +641,7 @@ _INTERNAL_KINDS = frozenset({"otp", "admin_otp", "admin_session"})
 _ADMIN_FIELDS = (
     "submittedAt", "full_name", "email", "registration_tier", "payment_status", "verified_by",
     "participation_mode", "affiliation", "role", "country_code", "phone", "student_id",
+    "completedAt", "form_steps",
 )
 
 

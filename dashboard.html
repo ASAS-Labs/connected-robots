@@ -140,6 +140,20 @@
       return (tiers[key] || key || '').replace(/\s*\(.*\)$/, '');
     }
 
+    var STATUS_NAMES = {
+      sent_to_payment: 'Started, not paid',
+      in_payment_form: 'In payment form, not finished',
+      completed_in_blackbaud: 'Completed (browser-reported)',
+      free_form: 'Free ticket'
+    };
+    function statusName(r) {
+      var name = STATUS_NAMES[r.payment_status] || r.payment_status || '';
+      if (r.payment_status === 'completed_in_blackbaud' && r.completedAt) {
+        name += ' ' + new Date(r.completedAt).toLocaleDateString();
+      }
+      return name;
+    }
+
     function cell(tr, text) {
       var td = document.createElement('td');
       td.textContent = text;
@@ -168,7 +182,7 @@
         cell(tr, r.full_name);
         cell(tr, r.email);
         cell(tr, tierName(r.registration_tier));
-        cell(tr, r.payment_status);
+        cell(tr, statusName(r));
         cell(tr, r.verified_by);
         cell(tr, r.affiliation);
         cell(tr, r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '');
@@ -181,7 +195,10 @@
       rows.forEach(function (r) { counts[r.registration_tier] = (counts[r.registration_tier] || 0) + 1; });
       var unique = {};
       rows.forEach(function (r) { unique[r.email.toLowerCase()] = 1; });
-      [['Registrations', rows.length], ['Unique emails', Object.keys(unique).length]]
+      var completed = rows.filter(function (r) { return r.payment_status === 'completed_in_blackbaud'; }).length;
+      var unfinished = rows.filter(function (r) { return r.payment_status === 'sent_to_payment' || r.payment_status === 'in_payment_form'; }).length;
+      [['Registrations', rows.length], ['Unique emails', Object.keys(unique).length],
+       ['Paid, completed', completed], ['Started, not paid', unfinished]]
         .concat(Object.keys(counts).sort().map(function (k) { return [tierName(k) || 'Unknown', counts[k]]; }))
         .forEach(function (pair) {
           var div = document.createElement('div');
@@ -262,7 +279,8 @@
 
     $('csv').addEventListener('click', function () {
       var cols = ['submittedAt', 'full_name', 'email', 'registration_tier', 'payment_status', 'verified_by',
-        'participation_mode', 'affiliation', 'role', 'country_code', 'phone', 'student_id'];
+        'participation_mode', 'affiliation', 'role', 'country_code', 'phone', 'student_id',
+        'completedAt', 'form_steps'];
       var esc = function (v) {
         v = String(v == null ? '' : v);
         if (/^[=+\-@]/.test(v)) v = "'" + v;
