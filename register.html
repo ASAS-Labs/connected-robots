@@ -503,6 +503,13 @@
         bbLoaded = true;
         var s = document.createElement('script');
         s.src = 'https://sky.blackbaudcdn.net/static/reg-form-loader/5/main.js';
+        // The loader only scans the page on window load, which has already fired here.
+        s.onload = function () {
+          var loader = window.BBEventRegistrationFormLoader;
+          if (document.readyState === 'complete' && loader && loader.newEventRegistrationForm) {
+            loader.newEventRegistrationForm(window);
+          }
+        };
         document.body.appendChild(s);
       }
     }
