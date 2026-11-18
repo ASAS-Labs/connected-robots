@@ -50,6 +50,8 @@
     th { background: #f1f5f9; font-weight: 600; position: sticky; top: 0; }
     tr:last-child td { border-bottom: 0; }
     td.empty { text-align: center; color: var(--muted); padding: 2rem; }
+    h2 { font-size: 1rem; margin: 1.6rem 0 0.6rem; }
+    td.wrap { white-space: pre-wrap; max-width: 720px; color: #374151; }
   </style>
 </head>
 <body>
@@ -82,15 +84,26 @@
       <div class="toolbar">
         <input type="search" id="search" placeholder="Search name, email, affiliation">
         <button type="button" id="refresh">Refresh</button>
-        <button type="button" id="csv">Download CSV</button>
+        <button type="button" id="csv">Download registrations</button>
+        <button type="button" id="app-csv">Download applications</button>
         <span class="updated" id="updated"></span>
       </div>
+      <h2>Registrations</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr><th>#</th><th>Name</th><th>Email</th><th>Type</th><th>Payment</th><th>Verified by</th><th>Affiliation</th><th>Registered</th></tr>
           </thead>
           <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <h2>Innovation Challenge applications</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Team</th><th>Lead</th><th>Email</th><th>Affiliation</th><th>Domain</th><th>Readiness</th><th>Submitted</th></tr>
+          </thead>
+          <tbody id="app-rows"></tbody>
         </table>
       </div>
       <p class="error" id="list-error" hidden></p>
@@ -105,6 +118,7 @@
     var $ = function (id) { return document.getElementById(id); };
     var TOKEN_KEY = 'earsconn-admin-token';
     var rows = [];
+    var apps = [];
     var tiers = {};
     var email = '';
 
@@ -209,6 +223,51 @@
           div.appendChild(document.createTextNode(pair[0]));
           stats.appendChild(div);
         });
+
+      var appQuery = q;
+      var shownApps = apps.filter(function (r) {
+        return !appQuery || [r.team_name, r.full_name, r.email, r.affiliation, r.use_case_domain].join(' ').toLowerCase().indexOf(appQuery) !== -1;
+      });
+      var appBody = $('app-rows');
+      appBody.textContent = '';
+      if (!shownApps.length) {
+        var empty = document.createElement('tr');
+        var emptyCell = document.createElement('td');
+        emptyCell.colSpan = 8;
+        emptyCell.className = 'empty';
+        emptyCell.textContent = apps.length ? 'No matches.' : 'No applications yet.';
+        empty.appendChild(emptyCell);
+        appBody.appendChild(empty);
+      }
+      shownApps.forEach(function (r, i) {
+        var tr = document.createElement('tr');
+        cell(tr, String(i + 1));
+        cell(tr, r.team_name);
+        cell(tr, r.full_name);
+        cell(tr, r.email);
+        cell(tr, r.affiliation);
+        cell(tr, r.use_case_domain);
+        cell(tr, r.technology_readiness);
+        cell(tr, r.submittedAt ? new Date(r.submittedAt).toLocaleString() : '');
+        appBody.appendChild(tr);
+        var detail = document.createElement('tr');
+        var detailCell = document.createElement('td');
+        detailCell.colSpan = 8;
+        detailCell.className = 'wrap';
+        detailCell.textContent = [
+          'Technologies: ' + (r.core_technologies || ''),
+          'Problem: ' + (r.problem || ''),
+          'Solution: ' + (r.solution || ''),
+          'Users: ' + (r.users || ''),
+          'Impact: ' + (r.impact || ''),
+          'CREST help: ' + (r.crest_help || ''),
+          'CREST detail: ' + (r.crest_detail || ''),
+          'Link: ' + (r.deck_url || ''),
+          'Notes: ' + (r.extra || '')
+        ].join('\n');
+        detail.appendChild(detailCell);
+        appBody.appendChild(detail);
+      });
     }
 
     function load() {
@@ -225,6 +284,7 @@
         tiers = out.data.tiers || {};
         $('updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
         show('list');
+        apps = out.data.applications || [];
         render();
       }).catch(function () {
         showError('list-error', 'Could not reach the registration service.');
@@ -270,6 +330,7 @@
       var token = sessionStorage.getItem(TOKEN_KEY);
       sessionStorage.removeItem(TOKEN_KEY);
       rows = [];
+      apps = [];
       show('email');
       if (token) call({ action: 'logout', token: token });
     });
@@ -277,23 +338,34 @@
     $('search').addEventListener('input', render);
     $('refresh').addEventListener('click', load);
 
-    $('csv').addEventListener('click', function () {
-      var cols = ['submittedAt', 'full_name', 'email', 'registration_tier', 'payment_status', 'verified_by',
-        'participation_mode', 'affiliation', 'role', 'country_code', 'phone', 'student_id',
-        'completedAt', 'form_steps'];
+    function downloadCsv(name, cols, data) {
       var esc = function (v) {
         v = String(v == null ? '' : v);
         if (/^[=+\-@]/.test(v)) v = "'" + v;
         return '"' + v.replace(/"/g, '""') + '"';
       };
-      var csv = [cols.join(',')].concat(rows.map(function (r) {
+      var csv = [cols.join(',')].concat(data.map(function (r) {
         return cols.map(function (c) { return esc(r[c]); }).join(',');
       })).join('\r\n');
       var a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-      a.download = 'ears-conn-registrations-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.download = name;
       a.click();
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    }
+
+    $('csv').addEventListener('click', function () {
+      var cols = ['submittedAt', 'full_name', 'email', 'registration_tier', 'payment_status', 'verified_by',
+        'participation_mode', 'affiliation', 'role', 'country_code', 'phone', 'student_id',
+        'completedAt', 'form_steps'];
+      downloadCsv('ears-conn-registrations-' + new Date().toISOString().slice(0, 10) + '.csv', cols, rows);
+    });
+
+    $('app-csv').addEventListener('click', function () {
+      var cols = ['submittedAt', 'team_name', 'full_name', 'email', 'affiliation', 'use_case_domain',
+        'core_technologies', 'technology_readiness', 'problem', 'solution', 'users', 'impact',
+        'crest_help', 'crest_detail', 'deck_url', 'extra', 'id'];
+      downloadCsv('ears-conn-innovation-applications-' + new Date().toISOString().slice(0, 10) + '.csv', cols, apps);
     });
 
     load();

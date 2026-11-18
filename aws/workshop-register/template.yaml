@@ -132,6 +132,12 @@ Resources:
             ApiId: !Ref WorkshopHttpApi
             Path: /admin
             Method: POST
+        InnovationPost:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref WorkshopHttpApi
+            Path: /innovation-challenge
+            Method: POST
 
 Outputs:
   HttpApiInvokeUrl:
