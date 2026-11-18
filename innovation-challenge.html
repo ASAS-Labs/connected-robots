@@ -6,7 +6,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="EARS-CONN">
   <meta property="og:title" content="Innovation Challenge — EARS-CONN 2027">
-  <meta property="og:description" content="Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities. January 19–22, 2027, in New York City.">
+  <meta property="og:description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
   <meta property="og:url" content="https://ears-conn.com/innovation-challenge">
   <meta property="og:image" content="https://ears-conn.com/images/og-ears-conn.png">
   <meta property="og:image:width" content="1200">
@@ -14,16 +14,167 @@
   <meta property="og:image:alt" content="EARS-CONN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Innovation Challenge — EARS-CONN 2027">
-  <meta name="twitter:description" content="Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities. January 19–22, 2027, in New York City.">
+  <meta name="twitter:description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
   <meta name="twitter:image" content="https://ears-conn.com/images/og-ears-conn.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
+  <meta name="description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="stylesheet" href="styles.css?v=2026-09-29r">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
+  <style>
+    .challenge-support {
+      margin: 1.25rem 0 0;
+      padding: 1rem 1.15rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(14, 165, 233, 0.08));
+      border: 1px solid rgba(79, 70, 229, 0.22);
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+    .challenge-support strong { color: var(--text); }
+    .ic-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.35rem;
+      margin-top: 0.75rem;
+    }
+    .ic-form-section-title {
+      margin: 0.5rem 0 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .ic-field label,
+    .ic-fieldset legend {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .ic-field .ic-hint,
+    .ic-fieldset .ic-hint {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin: -0.15rem 0 0.45rem;
+      line-height: 1.4;
+    }
+    .ic-field input[type="text"],
+    .ic-field input[type="email"],
+    .ic-field input[type="url"],
+    .ic-field select,
+    .ic-field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel, #fff);
+      color: var(--text);
+      font: inherit;
+      line-height: 1.45;
+    }
+    .ic-field textarea { min-height: 118px; resize: vertical; }
+    .ic-field input:focus,
+    .ic-field select:focus,
+    .ic-field textarea:focus {
+      outline: 2px solid rgba(79, 70, 229, 0.35);
+      border-color: #6366f1;
+    }
+    .ic-fieldset {
+      margin: 0;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+    body.theme-dark .ic-fieldset { background: rgba(15, 23, 42, 0.35); }
+    .ic-options {
+      display: grid;
+      gap: 0.45rem;
+    }
+    .ic-options--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 640px) {
+      .ic-options--3 { grid-template-columns: 1fr; }
+    }
+    .ic-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .ic-option input { margin-top: 0.2rem; flex-shrink: 0; }
+    .ic-error {
+      display: none;
+      margin: 0;
+      padding: 0.75rem 0.9rem;
+      border-radius: 10px;
+      background: rgba(220, 38, 38, 0.08);
+      border: 1px solid rgba(220, 38, 38, 0.25);
+      color: #b91c1c;
+      font-size: 0.92rem;
+    }
+    .ic-error.show { display: block; }
+    .ic-success {
+      display: none;
+      margin: 0 0 1rem;
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      background: rgba(22, 163, 74, 0.1);
+      border: 1px solid rgba(22, 163, 74, 0.28);
+      color: #166534;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .ic-success.show { display: block; }
+    .ic-form .vision-btn {
+      align-self: flex-start;
+      border: none;
+      cursor: pointer;
+    }
+    .ic-form .vision-btn[disabled] { opacity: 0.65; cursor: wait; }
+    .ic-organizer {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-top: 0.35rem;
+    }
+    .ic-organizer img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      flex-shrink: 0;
+    }
+    .ic-organizer-name {
+      margin: 0 0 0.2rem;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .ic-organizer-role {
+      margin: 0 0 0.45rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .ic-organizer p:last-child {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -69,19 +220,18 @@
   <section class="cfp-section page-section">
     <h1 class="initiative-page-headline">Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities (EARS-CONN)</h1>
     <h2 class="section-title">Innovation Challenge</h2>
-    <p class="page-intro">Submit a 2-page idea brief. Selected teams pitch on the Innovation Stage for the EARS-CONN Prize. Abstracts and short papers for the poster session are submitted on the <a href="call-for-papers">Short Papers</a> page.</p>
-    <p class="page-intro"><strong>EARS-CONN</strong> challenges you to show how <strong>embodied-AI</strong> — from ground robots and drones to satellite remote sensing — builds a <strong>living Digital-Earth</strong> that enables smarter city planning and more resilient urban infrastructure. <strong>Peer reviewed.</strong> Possible <strong>awards</strong> and <strong>technology advancement sponsorships</strong>.</p>
+    <p class="page-intro">Apply with a short questionnaire—no PDF required. Selected teams pitch on the <a href="agenda#innovation-stage">Day 2 Innovation Stage</a> for the EARS-CONN Prize. Abstracts and short papers for the poster session stay on the <a href="call-for-papers">Short Papers</a> page.</p>
+    <p class="page-intro"><strong>EARS-CONN</strong> challenges you to show how smart sensing—from satellite remote sensing and mobile sensors to embodied-AI robotics and quantum sensing—supports urban sustainability for air, water, and land systems.</p>
+    <p class="challenge-support"><strong>Support for selected teams:</strong> up to <strong>$5,000</strong> to advance the idea, plus mentoring and access to CUNY CREST / NOAA-CESSRST resources where a strong fit exists.</p>
 
     <div class="attend-blocks">
       <div class="attend-block">
         <h3>Challenge Focus</h3>
-        <p>The Digital-Earth Challenge invites ideas aligned with <strong>EARS-CONN: Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities</strong>. We seek innovative approaches that address resilient and sustainable urban ecosystems, and leverage data from satellites, embodied-AI systems, robots, drones, and sensors to build and keep Digital-Earth updated for real-time ethical decisions.</p>
-        <p>A priority focus is <strong>urban insurance intelligence</strong>: demonstrating how Digital-Earth platforms transform insurance from reactive to proactive — enabling precise hazard prediction, property-specific digital twins, hyper-local risk scoring, and ethical automated underwriting and claims. Critically, satellite and aerial remote sensing provides the macro-scale picture but cannot resolve the structural and micro-topographic detail that dense urban environments require; we particularly encourage ideas that integrate <strong>embodied-AI robotics as a complementary ground-truth layer</strong> to close this precision gap for insurers, city planners, and first responders.</p>
+        <p>We seek ideas that improve resilient, sustainable urban ecosystems and keep a living Digital-Earth current for better decisions. Priority themes include urban sustainability, climate and hazard risk, and closing the precision gap between satellite views and street-level reality with mobile and robotic sensing.</p>
       </div>
 
       <div class="attend-block">
-        <h3>Who Can Submit</h3>
-        <p>We welcome challenge submissions from:</p>
+        <h3>Who Can Apply</h3>
         <ul>
           <li><strong>Undergraduate students</strong></li>
           <li><strong>Graduate students</strong></li>
@@ -91,49 +241,175 @@
       </div>
 
       <div class="attend-block">
-        <h3>Example Themes</h3>
-        <ul>
-          <li><strong>Improving NYC life:</strong> robotics and AI for urban quality of life, mobility, safety, sustainability</li>
-          <li><strong>Implementation plans:</strong> Digital-Earth and embodied-AI for sustainability assurance</li>
-          <li>Urban sustainability: smart cities, resource flow, infrastructure monitoring</li>
-          <li>Environmental sustainability: climate, biodiversity, pollution, natural resources</li>
-          <li>Safety: disaster response, risk assessment, ethical decision-making</li>
-          <li>Data fusion: combining satellite, robot, drone, and sensor data for Digital-Earth</li>
-          <li>Governance and assurance: standards, monitoring, and ethical deployment</li>
-          <li><strong>Urban insurance &amp; proactive risk:</strong> Digital-Earth for hyper-local hazard prediction (flood, wildfire, hail), property digital twins for underwriting, personalized premiums, and faster claims processing</li>
-          <li><strong>Robotics as the insurance ground layer:</strong> autonomous robots and drones capturing roof conditions, façade integrity, vegetation proximity, and drainage micro-topography to fill the precision gap that satellite remote sensing cannot cover in dense cities</li>
-          <li><strong>Climate-change resilience for insurers:</strong> defensible-space evaluation, long-term risk trajectory modeling, and parametric trigger design informed by combined satellite and robotic data streams</li>
-        </ul>
+        <h3>Use Cases &amp; Technologies</h3>
+        <p>Pick one primary domain: <strong>Air</strong>, <strong>Water</strong>, or <strong>Land</strong>. Then choose up to three technologies your idea relies on, for example satellite / remote sensing, mobile / IoT sensing, ground robotics / embodied AI, aerial robotics / drones, quantum sensing, or data fusion / Digital-Earth platforms.</p>
       </div>
 
       <div class="attend-block">
-        <h3>Resources &amp; Infrastructure</h3>
-        <p>Participants can leverage:</p>
-        <ul>
-          <li>Satellite and Earth observation data</li>
-          <li>Cloud, connectivity, compute, and AI/ML infrastructure</li>
-          <li>Robotic platforms and embodied AI solutions</li>
-          <li>Open datasets and APIs for environmental and urban sensing</li>
-        </ul>
+        <h3>Challenge Organizer</h3>
+        <div class="ic-organizer">
+          <img src="images/hosts/NiaRene.jpg" alt="Dr. Nia René" width="72" height="72" loading="lazy">
+          <div>
+            <p class="ic-organizer-name">Dr. Nia René</p>
+            <p class="ic-organizer-role">Innovation Challenge Organizer · Technology Transfer Specialist, NOAA</p>
+            <p>Nia leads the Innovation Challenge, including applicant review coordination and the Day 2 Innovation Stage.</p>
+          </div>
+        </div>
       </div>
 
       <div class="attend-block">
-        <h3>Submission &amp; Pitch</h3>
-        <p>Submit a <strong>2-page idea brief</strong> (single PDF) by <strong>December 12, 2026 (11:59 p.m. ET)</strong>. The brief should cover:</p>
-        <ul>
-          <li>The urban problem and who it affects</li>
-          <li>The proposed approach, including the embodied-AI, robotics, or remote-sensing components</li>
-          <li>Data, platforms, and resources needed</li>
-          <li>Expected impact and a path to a pilot or deployment</li>
-          <li>Team members, affiliations, and contact email</li>
-        </ul>
-        <p>Shortlisted teams will present their ideas during the event. A jury panel will evaluate proposals and announce winners for the most impactful Digital-Earth ideas. Pitches are on the <a href="agenda#innovation-stage">Day 2 Innovation Stage</a> (January 20), where selected startup and innovation applicants present for the EARS-CONN Prize. At least one team member must register for the conference to pitch.</p>
-        <p class="attend-cta"><a href="https://cmt3.research.microsoft.com/EARS2026" target="_blank" rel="noopener" class="vision-btn">Submit via Microsoft CMT</a></p>
+        <h3>What Happens Next</h3>
+        <p>Submit the questionnaire by <strong>December 12, 2026 (11:59 p.m. ET)</strong>. A review panel shortlists teams for the Innovation Stage on January 20. Selected teams may receive up to $5,000 in support. At least one team member must register for the conference to pitch.</p>
+        <p class="attend-cta"><a href="#apply" class="vision-btn">Apply with the questionnaire</a></p>
+      </div>
+
+      <div class="attend-block" id="apply">
+        <h3>Application Questionnaire</h3>
+        <p>No PDF upload. An optional pitch deck or video link is welcome if you have one.</p>
+
+        <div class="ic-success" id="ic-success" role="status">Thank you — your Innovation Challenge application was submitted. We will follow up by email after review.</div>
+
+        <form class="ic-form" id="ic-form" action="https://formsubmit.co/ajax/aarab@ccny.cuny.edu" method="POST" novalidate>
+          <input type="hidden" name="_subject" id="ic-subject" value="[EARS-CONN] Innovation Challenge Application">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_replyto" id="ic-replyto" value="">
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+
+          <p class="ic-form-section-title">Team</p>
+
+          <div class="ic-field">
+            <label for="team_name">Team name</label>
+            <input id="team_name" name="Team name" type="text" required maxlength="120" autocomplete="organization">
+          </div>
+
+          <div class="ic-field">
+            <label for="lead_name">Lead contact name</label>
+            <input id="lead_name" name="Lead contact name" type="text" required maxlength="120" autocomplete="name">
+          </div>
+
+          <div class="ic-field">
+            <label for="lead_email">Lead contact email</label>
+            <input id="lead_email" name="Lead contact email" type="email" required maxlength="160" autocomplete="email">
+          </div>
+
+          <div class="ic-field">
+            <label for="affiliation">Affiliation</label>
+            <select id="affiliation" name="Affiliation" required>
+              <option value="">Select one</option>
+              <option>Undergraduate student</option>
+              <option>Graduate student</option>
+              <option>Research lab</option>
+              <option>Startup</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <p class="ic-form-section-title">Taxonomy</p>
+
+          <fieldset class="ic-fieldset">
+            <legend>Use case domain</legend>
+            <span class="ic-hint">Pick one primary domain.</span>
+            <div class="ic-options ic-options--3">
+              <label class="ic-option"><input type="radio" name="Use case domain" value="Air" required> Air</label>
+              <label class="ic-option"><input type="radio" name="Use case domain" value="Water"> Water</label>
+              <label class="ic-option"><input type="radio" name="Use case domain" value="Land"> Land</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="ic-fieldset" id="tech-fieldset">
+            <legend>Core technologies</legend>
+            <span class="ic-hint">Select up to 3.</span>
+            <div class="ic-options" id="tech-options">
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Satellite / remote sensing"> Satellite / remote sensing</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Mobile / IoT sensing"> Mobile / IoT sensing</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Ground robotics / embodied AI"> Ground robotics / embodied AI</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Aerial robotics / drones"> Aerial robotics / drones</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Quantum sensing"> Quantum sensing</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Data fusion / Digital-Earth platform"> Data fusion / Digital-Earth platform</label>
+              <label class="ic-option"><input type="checkbox" name="Core technologies" value="Other"> Other</label>
+            </div>
+          </fieldset>
+
+          <div class="ic-field">
+            <label for="readiness">Technology readiness</label>
+            <select id="readiness" name="Technology readiness" required>
+              <option value="">Select one</option>
+              <option>Idea</option>
+              <option>Proof of concept</option>
+              <option>MVP</option>
+              <option>Pilot / early deployment</option>
+            </select>
+          </div>
+
+          <p class="ic-form-section-title">Pitch narrative</p>
+
+          <div class="ic-field">
+            <label for="problem">What problem are you solving?</label>
+            <span class="ic-hint">Urban sustainability or safety problem, where it shows up, and why it matters now.</span>
+            <textarea id="problem" name="What problem are you solving?" required maxlength="2500"></textarea>
+          </div>
+
+          <div class="ic-field">
+            <label for="solution">How does your technology solve it?</label>
+            <span class="ic-hint">Sensing and AI approach; how your chosen technologies work together; what you measure or act on.</span>
+            <textarea id="solution" name="How does your technology solve it?" required maxlength="2500"></textarea>
+          </div>
+
+          <div class="ic-field">
+            <label for="users">Who will use it?</label>
+            <span class="ic-hint">Primary users and how they would use the output in a real workflow.</span>
+            <textarea id="users" name="Who will use it?" required maxlength="2000"></textarea>
+          </div>
+
+          <div class="ic-field">
+            <label for="impact">What broader impact do you expect?</label>
+            <span class="ic-hint">City resilience, equity, climate risk, cost savings, public safety—and how you would know it worked.</span>
+            <textarea id="impact" name="What broader impact do you expect?" required maxlength="2000"></textarea>
+          </div>
+
+          <fieldset class="ic-fieldset">
+            <legend>How can CUNY CREST / NOAA-CESSRST help you advance this?</legend>
+            <span class="ic-hint">Select all that apply, then add detail below.</span>
+            <div class="ic-options">
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Earth observation / satellite data"> Earth observation / satellite data</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Mentorship"> Mentorship</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Compute / cloud"> Compute / cloud</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Robotic platforms"> Robotic platforms</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="City or agency introductions"> City or agency introductions</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Validation / field sites"> Validation / field sites</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Student talent"> Student talent</label>
+              <label class="ic-option"><input type="checkbox" name="CREST help needed" value="Other"> Other</label>
+            </div>
+          </fieldset>
+
+          <div class="ic-field">
+            <label for="crest_detail">CREST support detail</label>
+            <span class="ic-hint">Briefly explain the support that would help most.</span>
+            <textarea id="crest_detail" name="CREST support detail" required maxlength="2000"></textarea>
+          </div>
+
+          <p class="ic-form-section-title">Optional materials</p>
+
+          <div class="ic-field">
+            <label for="deck_url">Pitch deck or demo video link</label>
+            <span class="ic-hint">Optional. Prefer a link that opens without login.</span>
+            <input id="deck_url" name="Pitch deck or video link" type="url" maxlength="500" placeholder="https://">
+          </div>
+
+          <div class="ic-field">
+            <label for="extra">Anything else we should know?</label>
+            <textarea id="extra" name="Anything else" maxlength="1500"></textarea>
+          </div>
+
+          <p class="ic-error" id="ic-error" role="alert"></p>
+
+          <button type="submit" class="vision-btn" id="ic-submit">Submit application</button>
+        </form>
       </div>
     </div>
 
     <div class="important-dates" style="margin-top: 2rem;">
-      <strong>Submission deadline:</strong> December 12, 2026 &nbsp;|&nbsp; <strong>Event:</strong> January 19–20, 2027
+      <strong>Submission deadline:</strong> December 12, 2026 &nbsp;|&nbsp; <strong>Event:</strong> January 19–20, 2027 &nbsp;|&nbsp; <strong>Support:</strong> up to $5,000 for selected teams
     </div>
 
     <div style="margin-top: 2rem; text-align: center;">
@@ -148,6 +424,85 @@
     </div>
   </footer>
 
+  <script>
+  (function () {
+    var form = document.getElementById('ic-form');
+    var err = document.getElementById('ic-error');
+    var success = document.getElementById('ic-success');
+    var submitBtn = document.getElementById('ic-submit');
+    var techBoxes = Array.prototype.slice.call(document.querySelectorAll('#tech-options input[type="checkbox"]'));
+
+    if (location.search.indexOf('submitted=1') !== -1) {
+      success.classList.add('show');
+      success.scrollIntoView({ block: 'center' });
+    }
+
+    function showError(msg) {
+      err.textContent = msg;
+      err.classList.add('show');
+    }
+    function clearError() {
+      err.textContent = '';
+      err.classList.remove('show');
+    }
+
+    techBoxes.forEach(function (box) {
+      box.addEventListener('change', function () {
+        var checked = techBoxes.filter(function (b) { return b.checked; });
+        if (checked.length > 3) {
+          box.checked = false;
+          showError('Select up to 3 core technologies.');
+        } else {
+          clearError();
+        }
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      clearError();
+      var checkedTech = techBoxes.filter(function (b) { return b.checked; });
+      if (!checkedTech.length) {
+        showError('Select at least one core technology (up to 3).');
+        return;
+      }
+      if (checkedTech.length > 3) {
+        showError('Select up to 3 core technologies.');
+        return;
+      }
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      var teamName = (document.getElementById('team_name').value || '').trim();
+      var leadEmail = (document.getElementById('lead_email').value || '').trim();
+      document.getElementById('ic-subject').value = teamName
+        ? '[EARS-CONN] Innovation Challenge Application — ' + teamName
+        : '[EARS-CONN] Innovation Challenge Application';
+      document.getElementById('ic-replyto').value = leadEmail;
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' }
+      }).then(function (res) {
+        if (!res.ok) throw new Error('submit failed');
+        return res.json().catch(function () { return {}; });
+      }).then(function () {
+        form.reset();
+        success.classList.add('show');
+        history.replaceState(null, '', location.pathname + '?submitted=1#apply');
+        success.scrollIntoView({ block: 'center' });
+      }).catch(function () {
+        showError('We could not submit the form right now. Please try again, or email aarab@ccny.cuny.edu with your answers.');
+      }).finally(function () {
+        submitBtn.disabled = false;
+      });
+    });
+  })();
+  </script>
   <script src="js/site-nav.js"></script>
 </body>
 </html>
