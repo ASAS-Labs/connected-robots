@@ -2,27 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Workshop: How Autonomous Vehicles Build Safer Cities — EARS-CONN 2027</title>
+  <title>Hands-on Workshop — EARS-CONN 2027</title>
+  <link rel="canonical" href="https://ears-conn.com/workshop">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="EARS-CONN">
-  <meta property="og:title" content="Workshop: How Autonomous Vehicles Build Safer Cities — EARS-CONN 2027">
-  <meta property="og:description" content="Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities. January 19–22, 2027, in New York City.">
+  <meta property="og:title" content="Hands-on Workshop — EARS-CONN 2027">
+  <meta property="og:description" content="Two-day hands-on workshop fusing autonomous-vehicle, public IoT, and remote-sensing data for urban safety. NYC, Jan 21-22, 2027.">
   <meta property="og:url" content="https://ears-conn.com/workshop">
   <meta property="og:image" content="https://ears-conn.com/images/og-ears-conn.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="EARS-CONN">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Workshop: How Autonomous Vehicles Build Safer Cities — EARS-CONN 2027">
-  <meta name="twitter:description" content="Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities. January 19–22, 2027, in New York City.">
+  <meta name="twitter:title" content="Hands-on Workshop — EARS-CONN 2027">
+  <meta name="twitter:description" content="Two-day hands-on workshop fusing autonomous-vehicle, public IoT, and remote-sensing data for urban safety. NYC, Jan 21-22, 2027.">
   <meta name="twitter:image" content="https://ears-conn.com/images/og-ears-conn.png">
 
+  <meta name="description" content="Two-day hands-on workshop fusing autonomous-vehicle, public IoT, and remote-sensing data for urban safety. NYC, Jan 21-22, 2027.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="styles.css?v=2026-09-29r">
+  <link rel="stylesheet" href="styles.css?v=2026-11-19">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
   <style>
     /* ── Workshop hero banner ── */
@@ -277,12 +279,17 @@
   </div>
 
   <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <div class="nav-top-actions">
+      <a href="register" class="nav-register-btn">Register</a>
     <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
       <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
     </button>
+    </div>
     <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
       <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <p class="nav-group-label">Pages</p>
+      <p class="nav-group-note">Attend is the program overview. Register is where you claim a seat.</p>
       <ul class="nav-tabs" role="list">
         <li><a href="/" class="nav-tab-item">Home</a></li>
         <li><a href="attend" class="nav-tab-item">Attend</a></li>
@@ -327,9 +334,22 @@
 
   <!-- ── Body ── -->
   <section class="cfp-section page-section">
-    <h2 class="section-title" style="text-align:center; margin-bottom: 0.4rem;">Workshop Overview</h2>
+    <p class="page-intro" style="text-align:center; max-width:720px; margin: 0 auto 1.25rem;">
+      In two days you will build a working urban-safety data layer from real AV, IoT, and remote-sensing data.
+    </p>
+
+    <div class="attend-block">
+      <h3>Mapping Manhattan: ASAS Labs LiDAR Survey</h3>
+      <p>ASAS Labs surveyed the Hudson River Park esplanade from Pier 40 to Pier 25 in two LiDAR runs, merged into one georeferenced point cloud of more than 102 million points. Drag to orbit, right-drag to pan, and scroll to zoom.</p>
+      <div class="ws-map-embed">
+        <iframe src="https://nishant-zfyii.github.io/Hudson-River-Map/" title="ASAS Labs LiDAR point cloud of the Hudson River Park esplanade" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+      </div>
+      <p style="font-size:0.88rem; margin-top:0.75rem;"><a href="https://nishant-zfyii.github.io/Hudson-River-Map/" target="_blank" rel="noopener">Open the map full screen</a></p>
+    </div>
+
+    <h2 class="section-title" style="text-align:center; margin: 2rem 0 0.4rem;">Workshop Overview</h2>
     <p class="page-intro" style="text-align:center; max-width:720px; margin: 0 auto 2rem;">
-      Autonomous vehicles are <strong>mobile embodied-AI platforms</strong> — continuously mapping, perceiving, and reasoning about the urban environment from the ground up. This workshop explores how their intelligence, powered by <strong>Autoware</strong>, can be fused with <strong>satellite remote sensing</strong> to build a living Digital-Earth that enables smarter city planning, more resilient urban infrastructure, and a new generation of proactive insurance intelligence — all in real time. Satellite imagery captures the wide-area hazard picture, but <strong>remote sensing alone cannot resolve the ground-level detail</strong> that dense urban environments demand: roof conditions, façade integrity, drainage micro-topography, and structural vulnerability. Embodied-AI robotics fill this gap, turning autonomous vehicle fleets into continuous urban observatories whose data feeds directly into property-specific digital twins for risk assessment and insurance.
+      Autonomous vehicles are mobile embodied-AI platforms. The training uses <strong>Autoware</strong> on ROS 2, then a hackathon that fuses those logs with satellite imagery, NYC open geodata, and public IoT feeds for urban safety.
     </p>
 
     <!-- Block 1: Autoware stack -->
@@ -387,13 +407,15 @@
         Hackathon — Fusing AV Data with Remote Sensing for Emergency Response
       </h3>
       <p>
-        The afternoon session becomes a competitive hackathon. Teams will combine <strong>Autoware perception outputs</strong>
-        with satellite and drone remote-sensing feeds to build rapid-response urban intelligence layers —
-        think flood routing, post-earthquake damage mapping, wildfire evacuation planning, or <strong>property-level insurance risk scoring</strong> for NYC. These scenarios illustrate why satellite data alone is not sufficient: robotic ground-truth fills the precision gap that aerial imagery cannot, enabling property-specific digital twins that insurers, city planners, and emergency managers all depend on.
+        The afternoon session is a hackathon. Teams combine Autoware perception outputs with satellite imagery and public city data to build an urban-safety layer. Insurance risk scoring is one of the use cases, alongside emergency routing and infrastructure damage.
       </p>
       <ul>
-        <li><strong>Challenge tracks:</strong> Emergency routing, infrastructure damage assessment, crowd-flow estimation, and urban insurance risk modeling</li>
-        <li><strong>Data provided:</strong> Autoware sensor logs, Sentinel-2 satellite imagery, NYC open geodata</li>
+        <li><strong>Emergency response</strong> — Emergency routing</li>
+        <li><strong>Infrastructure safety</strong> — Infrastructure damage assessment</li>
+        <li><strong>Road and crowd safety</strong> — Crowd-flow estimation</li>
+        <li><strong>Climate and insurance risk</strong> — Urban insurance risk modeling</li>
+        <!-- TODO: confirm specific IoT datasets -->
+        <li><strong>Data provided:</strong> Autoware sensor logs, Sentinel-2 satellite imagery, NYC open geodata, and public IoT feeds such as city sensors, traffic, air quality, and open-data portals</li>
         <li><strong>Tools:</strong> ROS 2 / Autoware, Python, QGIS, and cloud APIs</li>
         <li><strong>Awards:</strong> Cash prizes and recognition at the EARS-CONN 2027 closing ceremony</li>
         <li><strong>Eligibility:</strong> Students, researchers, and early-career engineers welcome</li>
@@ -423,6 +445,8 @@
           <li>Familiarity with ROS or ROS 2 is helpful but not required; a short primer is shared before the workshop</li>
           <li>No prior experience with Autoware, GIS, or remote sensing is needed</li>
         </ul>
+        <!-- TODO: confirm cloud or pre-built environment -->
+        <p><strong>Not set up for Ubuntu?</strong> We will share a setup guide before Day 3.</p>
       </div>
 
       <div class="attend-block">
@@ -477,12 +501,18 @@
       </div>
 
       <div class="attend-block">
-        <h3>Mapping Manhattan: ASAS Labs LiDAR Survey</h3>
-        <p>ASAS Labs surveyed the Hudson River Park esplanade from Pier 40 to Pier 25 in two LiDAR runs, merged into one georeferenced point cloud of more than 102 million points. Drag to orbit, right-drag to pan, and scroll to zoom.</p>
-        <div class="ws-map-embed">
-          <iframe src="https://nishant-zfyii.github.io/Hudson-River-Map/" title="ASAS Labs LiDAR point cloud of the Hudson River Park esplanade" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
-        </div>
-        <p style="font-size:0.88rem; margin-top:0.75rem;"><a href="https://nishant-zfyii.github.io/Hudson-River-Map/" target="_blank" rel="noopener">Open the map full screen</a></p>
+        <h3>Workshop pricing</h3>
+        <p>Workshop registration includes the conference. Seats are limited.</p>
+        <table class="ws-price-table">
+          <caption class="visually-hidden">Workshop prices, early bird through December 25, 2026, then regular</caption>
+          <thead>
+            <tr><th scope="col">Format</th><th scope="col">Through December 25, 2026</th><th scope="col">After December 25, 2026</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>In person</td><td>$400</td><td>$500</td></tr>
+            <tr><td>Online</td><td>$300</td><td>$400</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="attend-block" style="text-align:center;">
@@ -508,10 +538,14 @@
   <footer class="footer">
     <div class="footer-inner">
       <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
-      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+      <p style="margin: 0;">&copy; 2026-2027 EARS-CONN. All Rights Reserved.</p>
     </div>
   </footer>
 
   <script src="js/site-nav.js"></script>
+  <nav class="mobile-action-bar" aria-label="Quick actions">
+    <a href="register">Register</a>
+    <a href="innovation-challenge">Submit an idea</a>
+  </nav>
 </body>
 </html>

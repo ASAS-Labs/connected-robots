@@ -27,7 +27,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="../styles.css?v=2026-09-29r">
+  <link rel="stylesheet" href="../styles.css?v=2026-11-19">
   <link rel="icon" href="../images/logos/ears-conn.png" type="image/png">
 </head>
 <body>
@@ -53,12 +53,17 @@
 
   <!-- Navigation Tab -->
   <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <div class="nav-top-actions">
+      <a href="../register" class="nav-register-btn">Register</a>
     <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
       <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
     </button>
+    </div>
     <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
       <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <p class="nav-group-label">Pages</p>
+      <p class="nav-group-note">Attend is the program overview. Register is where you claim a seat.</p>
       <ul class="nav-tabs" role="list">
         <li><a href="../attend" class="nav-tab-item">Attend</a></li>
         <li><a href="../register" class="nav-tab-item">Register</a></li>
@@ -758,7 +763,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <img src="../images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
-      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+      <p style="margin: 0;">&copy; 2026-2027 EARS-CONN. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -2116,6 +2121,10 @@
   </script>
   <script src="../js/site-nav.js"></script>
 
+  <nav class="mobile-action-bar" aria-label="Quick actions">
+    <a href="../register">Register</a>
+    <a href="../innovation-challenge">Submit an idea</a>
+  </nav>
 </body>
 </html>
 
