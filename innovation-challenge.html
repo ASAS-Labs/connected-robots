@@ -2,28 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Innovation Challenge — EARS-CONN 2027</title>
+  <title>Innovation Challenge — EARS-CONN</title>
+  <link rel="canonical" href="https://ears-conn.com/innovation-challenge">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="EARS-CONN">
-  <meta property="og:title" content="Innovation Challenge — EARS-CONN 2027">
-  <meta property="og:description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
+  <meta property="og:title" content="Innovation Challenge — EARS-CONN">
+  <meta property="og:description" content="Submit an urban-safety idea to the EARS-CONN Innovation Challenge. Selected teams pitch live. Deadline Dec 12, 2026.">
   <meta property="og:url" content="https://ears-conn.com/innovation-challenge">
   <meta property="og:image" content="https://ears-conn.com/images/og-ears-conn.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="EARS-CONN">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Innovation Challenge — EARS-CONN 2027">
-  <meta name="twitter:description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
+  <meta name="twitter:title" content="Innovation Challenge — EARS-CONN">
+  <meta name="twitter:description" content="Submit an urban-safety idea to the EARS-CONN Innovation Challenge. Selected teams pitch live. Deadline Dec 12, 2026.">
   <meta name="twitter:image" content="https://ears-conn.com/images/og-ears-conn.png">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Apply with a short questionnaire for the EARS-CONN Innovation Challenge. Selected teams may receive up to $5,000 in support and pitch on the Innovation Stage.">
+  <meta name="description" content="Submit an urban-safety idea to the EARS-CONN Innovation Challenge. Selected teams pitch live. Deadline Dec 12, 2026.">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="styles.css?v=2026-09-29r">
+  <link rel="stylesheet" href="styles.css?v=2026-11-19">
   <link rel="icon" href="images/logos/ears-conn.png" type="image/png">
   <style>
     .challenge-support {
@@ -145,6 +146,7 @@
       cursor: pointer;
     }
     .ic-form .vision-btn[disabled] { opacity: 0.65; cursor: wait; }
+    .ic-turnstile { min-height: 65px; }
     .ic-organizer {
       display: flex;
       gap: 1rem;
@@ -197,12 +199,17 @@
   </div>
 
   <nav class="site-nav nav-tab" id="site-nav" aria-label="Main navigation">
+    <div class="nav-top-actions">
+      <a href="register" class="nav-register-btn">Register</a>
     <button type="button" class="nav-hamburger" id="site-nav-toggle" aria-expanded="false" aria-controls="site-nav-panel" aria-haspopup="dialog" aria-label="Open menu">
       <span class="nav-hamburger-bars" aria-hidden="true"><span></span><span></span><span></span></span>
       <span class="nav-hamburger-text" aria-hidden="true">Menu</span>
     </button>
+    </div>
     <div class="nav-links" id="site-nav-panel" role="dialog" aria-modal="true" aria-labelledby="site-nav-heading" inert>
       <h2 class="site-nav-heading" id="site-nav-heading">Site menu</h2>
+      <p class="nav-group-label">Pages</p>
+      <p class="nav-group-note">Attend is the program overview. Register is where you claim a seat.</p>
       <ul class="nav-tabs" role="list">
         <li><a href="/" class="nav-tab-item">Home</a></li>
         <li><a href="attend" class="nav-tab-item">Attend</a></li>
@@ -245,6 +252,30 @@
         <p>Pick one primary domain: <strong>Air</strong>, <strong>Water</strong>, or <strong>Land</strong>. Then choose up to three technologies your idea relies on, for example satellite / remote sensing, mobile / IoT sensing, ground robotics / embodied AI, aerial robotics / drones, quantum sensing, or data fusion / Digital-Earth platforms.</p>
       </div>
 
+      <!--
+        Original example themes, kept so nothing is lost:
+        Improving NYC life: robotics and AI for urban quality of life, mobility, safety, sustainability.
+        Implementation plans: Digital-Earth and embodied-AI for sustainability assurance.
+        Urban sustainability: smart cities, resource flow, infrastructure monitoring.
+        Environmental sustainability: climate, biodiversity, pollution, natural resources.
+        Safety: disaster response, risk assessment, ethical decision-making.
+        Data fusion: combining satellite, robot, drone, and sensor data for Digital-Earth.
+        Governance and assurance: standards, monitoring, and ethical deployment.
+        Urban insurance and proactive risk: Digital-Earth for hyper-local hazard prediction (flood, wildfire, hail), property digital twins for underwriting, personalized premiums, and faster claims processing.
+        Robotics as the insurance ground layer: autonomous robots and drones capturing roof conditions, facade integrity, vegetation proximity, and drainage micro-topography to fill the precision gap that satellite remote sensing cannot cover in dense cities.
+        Climate-change resilience for insurers: defensible-space evaluation, long-term risk trajectory modeling, and parametric trigger design informed by combined satellite and robotic data streams.
+      -->
+      <div class="attend-block">
+        <h3>Safety tracks</h3>
+        <ul>
+          <li><strong>Emergency response and disaster resilience.</strong> Disaster response, risk assessment, and ideas that improve how a city reacts when something fails.</li>
+          <li><strong>Infrastructure and public-space safety.</strong> Smart-city resource flow and infrastructure monitoring. Insurance ground-truth, such as roofs, facades, and drainage, sits here as one application.</li>
+          <li><strong>Road, mobility, and pedestrian safety.</strong> Robotics and AI for mobility and safer everyday movement in New York.</li>
+          <li><strong>Climate and environmental hazards.</strong> Climate, pollution, and natural resources, including hazard prediction for flood, wildfire, and hail. Insurance and parametric triggers are one use of that picture, not a separate track.</li>
+          <li><strong>Data fusion, governance, and ethical AI.</strong> Combining satellite, robot, drone, and sensor data, plus standards and ethical deployment.</li>
+        </ul>
+      </div>
+
       <div class="attend-block">
         <h3>Challenge Organizer</h3>
         <div class="ic-organizer">
@@ -260,6 +291,40 @@
       <div class="attend-block">
         <h3>What Happens Next</h3>
         <p>Submit the questionnaire by <strong>December 12, 2026 (11:59 p.m. ET)</strong>. A review panel shortlists teams for the Innovation Stage on January 20. Selected teams may receive up to $5,000 in support. At least one team member must register for the conference to pitch.</p>
+        <ol class="ic-steps">
+          <li><strong>1. Submit</strong> Questionnaire due December 12, 2026, 11:59 p.m. ET.</li>
+          <li><strong>2. Shortlist</strong> Shortlisted teams notified by email. <!-- TODO: confirm shortlist notification date --></li>
+          <li><strong>3. Pitch</strong> Pitch on the Innovation Stage, January 20, 2027. <!-- TODO: confirm pitch length and format --></li>
+        </ol>
+        <h3 style="margin-top:1.25rem;">Why enter</h3>
+        <ul>
+          <li>A live pitch on the Innovation Stage</li>
+          <li>Feedback from the review panel <!-- TODO: confirm jury names --></li>
+          <li>Prizes and support for selected teams <!-- TODO: confirm prize amounts and what support includes beyond the support already stated above --></li>
+        </ul>
+        <h3 style="margin-top:1.25rem;">Questions</h3>
+        <div class="ic-faq">
+          <details>
+            <summary>Who can enter?</summary>
+            <p>Undergraduate students, graduate students, research labs, and startup companies.</p>
+          </details>
+          <details>
+            <summary>How large can a team be?</summary>
+            <p>The form asks for a team name. <!-- TODO: confirm team size --></p>
+          </details>
+          <details>
+            <summary>Can we take part remotely?</summary>
+            <p>The pitch is on the Innovation Stage in New York on January 20. At least one team member must register for the conference to pitch. <!-- TODO: confirm whether application or pitching can be remote --></p>
+          </details>
+          <details>
+            <summary>What happens after we submit?</summary>
+            <p>A review panel shortlists teams. Shortlisted teams are notified by email and pitch on January 20. Selected teams may receive support.</p>
+          </details>
+          <details>
+            <summary>Do we need to register?</summary>
+            <p>At least one team member must register for the conference to pitch.</p>
+          </details>
+        </div>
         <p class="attend-cta"><a href="#apply" class="vision-btn">Apply with the questionnaire</a></p>
       </div>
 
@@ -269,11 +334,9 @@
 
         <div class="ic-success" id="ic-success" role="status">Thank you — your Innovation Challenge application was submitted. We will follow up by email after review.</div>
 
-        <form class="ic-form" id="ic-form" action="https://formsubmit.co/ajax/aarab@ccny.cuny.edu" method="POST" novalidate>
-          <input type="hidden" name="_subject" id="ic-subject" value="[EARS-CONN] Innovation Challenge Application">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_replyto" id="ic-replyto" value="">
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+        <!-- TODO: verify the former Microsoft CMT submission URL. It used the year EARS2026: https://cmt3.research.microsoft.com/EARS2026. This form now posts to the site API, not CMT. -->
+        <form class="ic-form" id="ic-form" action="#" method="POST" novalidate>
+          <input type="text" name="_gotcha" id="ic-gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
 
           <p class="ic-form-section-title">Team</p>
 
@@ -401,6 +464,7 @@
             <textarea id="extra" name="Anything else" maxlength="1500"></textarea>
           </div>
 
+          <div id="ic-turnstile" class="ic-turnstile" hidden></div>
           <p class="ic-error" id="ic-error" role="alert"></p>
 
           <button type="submit" class="vision-btn" id="ic-submit">Submit application</button>
@@ -420,10 +484,14 @@
   <footer class="footer">
     <div class="footer-inner">
       <img src="images/logos/ears-conn.png" alt="EARS-CONN" class="footer-logo">
-      <p style="margin: 0;">&copy; 2027 EARS-CONN. All Rights Reserved.</p>
+      <p style="margin: 0;">&copy; 2026-2027 EARS-CONN. All Rights Reserved.</p>
     </div>
   </footer>
 
+  <script>
+    window.__WORKSHOP_REGISTER_POST_URL__ = 'https://pqoeb41iz6.execute-api.us-east-1.amazonaws.com/register';
+    window.__TURNSTILE_SITE_KEY__ = '0x4AAAAAADIs8IhjCxEiMIOU';
+  </script>
   <script>
   (function () {
     var form = document.getElementById('ic-form');
@@ -431,6 +499,7 @@
     var success = document.getElementById('ic-success');
     var submitBtn = document.getElementById('ic-submit');
     var techBoxes = Array.prototype.slice.call(document.querySelectorAll('#tech-options input[type="checkbox"]'));
+    var turnstileId = '';
 
     if (location.search.indexOf('submitted=1') !== -1) {
       success.classList.add('show');
@@ -444,6 +513,26 @@
     function clearError() {
       err.textContent = '';
       err.classList.remove('show');
+    }
+    function checkedValues(name) {
+      return Array.prototype.map.call(
+        document.querySelectorAll('input[name="' + name + '"]:checked'),
+        function (box) { return box.value; }
+      );
+    }
+    function postUrl() {
+      var base = String(window.__WORKSHOP_REGISTER_POST_URL__ || '').replace(/\/$/, '');
+      if (!base) return '';
+      return base.replace(/\/(register|register-gate|admin|innovation-challenge)$/, '') + '/innovation-challenge';
+    }
+    function mountTurnstile() {
+      var key = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+      var box = document.getElementById('ic-turnstile');
+      if (!key || !box || !window.turnstile) return;
+      box.hidden = false;
+      if (!turnstileId) {
+        turnstileId = window.turnstile.render(box, { sitekey: key });
+      }
     }
 
     techBoxes.forEach(function (box) {
@@ -474,35 +563,78 @@
         form.reportValidity();
         return;
       }
+      var url = postUrl();
+      if (!url) {
+        showError('Applications are not available right now. Please try again later.');
+        return;
+      }
+      var tsKey = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+      var tokenEl = document.querySelector('#ic-turnstile [name="cf-turnstile-response"]');
+      if (!tsKey || !tokenEl || !tokenEl.value) {
+        showError('Complete the robot check, then submit.');
+        return;
+      }
 
       submitBtn.disabled = true;
-      var teamName = (document.getElementById('team_name').value || '').trim();
-      var leadEmail = (document.getElementById('lead_email').value || '').trim();
-      document.getElementById('ic-subject').value = teamName
-        ? '[EARS-CONN] Innovation Challenge Application — ' + teamName
-        : '[EARS-CONN] Innovation Challenge Application';
-      document.getElementById('ic-replyto').value = leadEmail;
-      var data = new FormData(form);
-      fetch(form.action, {
+      var payload = {
+        team_name: document.getElementById('team_name').value,
+        lead_name: document.getElementById('lead_name').value,
+        lead_email: document.getElementById('lead_email').value,
+        affiliation: document.getElementById('affiliation').value,
+        use_case_domain: (checkedValues('Use case domain')[0] || ''),
+        core_technologies: checkedValues('Core technologies'),
+        technology_readiness: document.getElementById('readiness').value,
+        problem: document.getElementById('problem').value,
+        solution: document.getElementById('solution').value,
+        users: document.getElementById('users').value,
+        impact: document.getElementById('impact').value,
+        crest_help: checkedValues('CREST help needed'),
+        crest_detail: document.getElementById('crest_detail').value,
+        deck_url: document.getElementById('deck_url').value,
+        extra: document.getElementById('extra').value,
+        _gotcha: document.getElementById('ic-gotcha').value,
+        'cf-turnstile-response': tokenEl.value
+      };
+      fetch(url, {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       }).then(function (res) {
-        if (!res.ok) throw new Error('submit failed');
-        return res.json().catch(function () { return {}; });
-      }).then(function () {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          return { res: res, data: data || {} };
+        });
+      }).then(function (out) {
+        if (!out.res.ok || !out.data.ok) {
+          if (window.turnstile && turnstileId) window.turnstile.reset(turnstileId);
+          showError((out.data && out.data.error) || 'We could not submit the application right now. Please try again.');
+          return;
+        }
         form.reset();
+        if (window.turnstile && turnstileId) window.turnstile.reset(turnstileId);
         success.classList.add('show');
         history.replaceState(null, '', location.pathname + '?submitted=1#apply');
         success.scrollIntoView({ block: 'center' });
       }).catch(function () {
-        showError('We could not submit the form right now. Please try again, or email aarab@ccny.cuny.edu with your answers.');
+        if (window.turnstile && turnstileId) window.turnstile.reset(turnstileId);
+        showError('We could not submit the application right now. Please try again.');
       }).finally(function () {
         submitBtn.disabled = false;
       });
     });
+
+    var tsKey = String(window.__TURNSTILE_SITE_KEY__ || '').trim();
+    if (tsKey) {
+      var ts = document.createElement('script');
+      ts.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      ts.onload = mountTurnstile;
+      document.body.appendChild(ts);
+    }
   })();
   </script>
   <script src="js/site-nav.js"></script>
+  <nav class="mobile-action-bar" aria-label="Quick actions">
+    <a href="register">Register</a>
+    <a href="innovation-challenge">Submit an idea</a>
+  </nav>
 </body>
 </html>

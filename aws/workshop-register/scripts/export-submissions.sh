@@ -77,6 +77,18 @@ fields = [
     "record_kind",
     "id",
     "sourceIp",
+    "team_name",
+    "use_case_domain",
+    "core_technologies",
+    "technology_readiness",
+    "problem",
+    "solution",
+    "users",
+    "impact",
+    "crest_help",
+    "crest_detail",
+    "deck_url",
+    "extra",
 ]
 
 def unwrap(attr):
@@ -110,7 +122,7 @@ while True:
     page = json.loads(subprocess.check_output(cmd, text=True))
     for raw in page.get("Items") or []:
         row = {k: unwrap(v) for k, v in raw.items()}
-        if row.get("record_kind") == "otp":
+        if row.get("record_kind") in ("otp", "admin_otp", "admin_session", "ic_rate"):
             continue
         items.append(row)
     start_key = page.get("LastEvaluatedKey")

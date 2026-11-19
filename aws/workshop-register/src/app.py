@@ -80,6 +80,11 @@ _ALLOWED_REGISTRATION_TIERS = frozenset(
 _EARLY_BIRD_END_UTC = datetime(2026, 12, 19, 5, 0, 0, tzinfo=timezone.utc)
 # Workshop early bird ends after December 25, 2026 US Eastern.
 _WORKSHOP_EARLY_BIRD_END_UTC = datetime(2026, 12, 26, 5, 0, 0, tzinfo=timezone.utc)
+# Innovation Challenge closes after December 12, 2026, 11:59 p.m. US Eastern.
+_INNOVATION_DEADLINE_UTC = datetime(2026, 12, 13, 5, 0, 0, tzinfo=timezone.utc)
+_INNOVATION_NOTIFY_EMAIL = "aarab@ccny.cuny.edu"
+_INNOVATION_EMAIL_CAP = 1
+_INNOVATION_IP_CAP = 20
 
 
 def _get_table():
@@ -323,11 +328,11 @@ def _free_form_payload() -> dict[str, Any]:
     }
 
 
-def _parse_json_body(event: dict[str, Any]) -> dict[str, Any] | None:
+def _parse_json_body(event: dict[str, Any], max_bytes: int = 8000) -> dict[str, Any] | None:
     body = event.get("body") or ""
     if event.get("isBase64Encoded"):
         body = base64.b64decode(body).decode("utf-8", errors="replace")
-    if len(body) > 8000:
+    if len(body) > max_bytes:
         return None
     try:
         data = json.loads(body) if body else {}
@@ -637,11 +642,17 @@ def _handle_gate(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
 
 
 _ADMIN_SESSION_TTL = timedelta(hours=12)
-_INTERNAL_KINDS = frozenset({"otp", "admin_otp", "admin_session"})
+_INTERNAL_KINDS = frozenset({"otp", "admin_otp", "admin_session", "ic_rate"})
 _ADMIN_FIELDS = (
     "submittedAt", "full_name", "email", "registration_tier", "payment_status", "verified_by",
     "participation_mode", "affiliation", "role", "country_code", "phone", "student_id",
     "completedAt", "form_steps",
+)
+_APP_FIELDS = (
+    "submittedAt", "id", "team_name", "full_name", "email", "affiliation",
+    "use_case_domain", "core_technologies", "technology_readiness",
+    "problem", "solution", "users", "impact", "crest_help", "crest_detail",
+    "deck_url", "extra",
 )
 
 
@@ -764,10 +775,19 @@ def _admin_list() -> dict[str, Any]:
     rows = [
         {k: str(item.get(k) or "") for k in _ADMIN_FIELDS}
         for item in items
-        if item.get("record_kind") not in _INTERNAL_KINDS and item.get("email")
+        if (item.get("record_kind") or "registration") == "registration" and item.get("email")
     ]
     rows.sort(key=lambda r: r["submittedAt"], reverse=True)
-    return _json_response(200, {"ok": True, "registrations": rows, "tiers": _TIER_LABELS})
+    applications = [
+        {k: str(item.get(k) or "") for k in _APP_FIELDS}
+        for item in items
+        if item.get("record_kind") == "innovation_challenge"
+    ]
+    applications.sort(key=lambda r: r["submittedAt"], reverse=True)
+    return _json_response(
+        200,
+        {"ok": True, "registrations": rows, "applications": applications, "tiers": _TIER_LABELS},
+    )
 
 
 def _handle_admin(event: dict[str, Any]) -> dict[str, Any]:
@@ -791,6 +811,248 @@ def _handle_admin(event: dict[str, Any]) -> dict[str, Any]:
         _get_table().delete_item(Key={"id": session["id"]})
         return _json_response(200, {"ok": True})
     return _gate_error("Unknown request.")
+
+
+_IC_AFFILIATIONS = frozenset(
+    {"Undergraduate student", "Graduate student", "Research lab", "Startup", "Other"}
+)
+_IC_DOMAINS = frozenset({"Air", "Water", "Land"})
+_IC_TECHNOLOGIES = frozenset(
+    {
+        "Satellite / remote sensing",
+        "Mobile / IoT sensing",
+        "Ground robotics / embodied AI",
+        "Aerial robotics / drones",
+        "Quantum sensing",
+        "Data fusion / Digital-Earth platform",
+        "Other",
+    }
+)
+_IC_READINESS = frozenset({"Idea", "Proof of concept", "MVP", "Pilot / early deployment"})
+_IC_CREST_HELP = frozenset(
+    {
+        "Earth observation / satellite data",
+        "Mentorship",
+        "Compute / cloud",
+        "Robotic platforms",
+        "City or agency introductions",
+        "Validation / field sites",
+        "Student talent",
+        "Other",
+    }
+)
+_IC_URL_RE = re.compile(r"^https?://\S+$", re.IGNORECASE)
+
+
+def _ic_text(value: Any, limit: int) -> str | None:
+    text = str(value or "").replace("\r\n", "\n").replace("\r", "\n").strip()
+    if len(text) > limit:
+        return None
+    return text
+
+
+def _ic_choices(value: Any, allowed: frozenset[str], limit: int) -> list[str] | None:
+    if value is None or value == "":
+        raw: list[Any] = []
+    elif isinstance(value, str):
+        raw = [value]
+    elif isinstance(value, list):
+        raw = value
+    else:
+        return None
+    chosen: list[str] = []
+    for item in raw:
+        text = str(item).strip()
+        if not text:
+            continue
+        if text not in allowed or text in chosen:
+            return None
+        chosen.append(text)
+        if len(chosen) > limit:
+            return None
+    return chosen
+
+
+def _innovation_ip_allowed(source_ip: str) -> bool:
+    hour = datetime.now(timezone.utc).strftime("%Y%m%d%H")
+    key = "ic-rl-" + hour + "-" + _sha256_hex(source_ip or "unknown")[:32]
+    resp = _get_table().update_item(
+        Key={"id": key},
+        UpdateExpression="ADD hits :one SET record_kind = :kind",
+        ExpressionAttributeValues={":one": 1, ":kind": "ic_rate"},
+        ReturnValues="UPDATED_NEW",
+    )
+    hits = int(resp.get("Attributes", {}).get("hits", 0))
+    return hits <= _INNOVATION_IP_CAP
+
+
+def _innovation_recipients() -> list[str]:
+    recipients: list[str] = []
+    seen: set[str] = set()
+    for addr in (ORGANIZER_NOTIFY_EMAIL, _INNOVATION_NOTIFY_EMAIL):
+        cleaned = addr.strip()
+        key = cleaned.lower()
+        if cleaned and key not in seen:
+            seen.add(key)
+            recipients.append(cleaned)
+    return recipients
+
+
+def _send_innovation_email(item: dict[str, Any]) -> None:
+    if not CONFIRMATION_FROM_EMAIL:
+        _log.info("CONFIRMATION_FROM_EMAIL unset; application %s stored without email", item.get("id"))
+        return
+    recipients = _innovation_recipients()
+    if not recipients:
+        _log.info("No innovation notify address; application %s stored without email", item.get("id"))
+        return
+    team = item.get("team_name") or "Unknown team"
+    lines = [
+        "New Innovation Challenge application.",
+        "",
+        f"Team: {team}",
+        f"Lead: {item.get('full_name') or ''}",
+        f"Email: {item.get('email') or ''}",
+        f"Affiliation: {item.get('affiliation') or ''}",
+        f"Domain: {item.get('use_case_domain') or ''}",
+        f"Technologies: {item.get('core_technologies') or ''}",
+        f"Readiness: {item.get('technology_readiness') or ''}",
+        "",
+        "What problem are you solving?",
+        str(item.get("problem") or ""),
+        "",
+        "How does your technology solve it?",
+        str(item.get("solution") or ""),
+        "",
+        "Who will use it?",
+        str(item.get("users") or ""),
+        "",
+        "What broader impact do you expect?",
+        str(item.get("impact") or ""),
+        "",
+        "CREST help needed:",
+        str(item.get("crest_help") or ""),
+        "",
+        "CREST support detail:",
+        str(item.get("crest_detail") or ""),
+        "",
+        f"Pitch deck or video: {item.get('deck_url') or ''}",
+        "",
+        "Anything else:",
+        str(item.get("extra") or ""),
+        "",
+        f"Submitted: {item.get('submittedAt') or ''}",
+        f"Id: {item.get('id') or ''}",
+    ]
+    try:
+        _ses.send_email(
+            Source=_ses_source(CONFIRMATION_FROM_EMAIL),
+            Destination={"ToAddresses": recipients},
+            ReplyToAddresses=[item["email"]] if item.get("email") else [],
+            Message={
+                "Subject": {
+                    "Data": f"[EARS-CONN] Innovation Challenge Application — {team}",
+                    "Charset": "UTF-8",
+                },
+                "Body": {"Text": {"Data": "\n".join(lines), "Charset": "UTF-8"}},
+            },
+        )
+        _log.info("Innovation application email sent for %s", item.get("id"))
+    except Exception:
+        _log.exception("Failed to email innovation application %s", item.get("id"))
+
+
+def _handle_innovation(event: dict[str, Any], source_ip: str) -> dict[str, Any]:
+    data = _parse_json_body(event, max_bytes=40000)
+    if data is None:
+        return _gate_error("We could not read that application.")
+    if str(data.get("_gotcha") or "").strip():
+        return _json_response(200, {"ok": True})
+    if datetime.now(timezone.utc) >= _INNOVATION_DEADLINE_UTC:
+        return _gate_error("The Innovation Challenge deadline has passed.")
+
+    turnstile_secret = (os.environ.get("TURNSTILE_SECRET_KEY") or "").strip()
+    token = str(data.get("cf-turnstile-response") or "").strip()
+    if not turnstile_secret or not _verify_turnstile(token, turnstile_secret, source_ip):
+        return _gate_error("Complete the robot check, then submit again.")
+
+    team_name = _ic_text(data.get("team_name"), 120)
+    lead_name = _ic_text(data.get("lead_name"), 120)
+    lead_email = _ic_text(data.get("lead_email"), 160)
+    affiliation = _ic_text(data.get("affiliation"), 80)
+    domain = _ic_text(data.get("use_case_domain"), 20)
+    readiness = _ic_text(data.get("technology_readiness"), 40)
+    problem = _ic_text(data.get("problem"), 2500)
+    solution = _ic_text(data.get("solution"), 2500)
+    users = _ic_text(data.get("users"), 2000)
+    impact = _ic_text(data.get("impact"), 2000)
+    crest_detail = _ic_text(data.get("crest_detail"), 2000)
+    extra = _ic_text(data.get("extra"), 1500)
+    deck_url = _ic_text(data.get("deck_url"), 500)
+    technologies = _ic_choices(data.get("core_technologies"), _IC_TECHNOLOGIES, 3)
+    crest_help = _ic_choices(data.get("crest_help"), _IC_CREST_HELP, len(_IC_CREST_HELP))
+    if (
+        not team_name
+        or not lead_name
+        or not lead_email
+        or not _EMAIL_RE.match(lead_email)
+        or affiliation not in _IC_AFFILIATIONS
+        or domain not in _IC_DOMAINS
+        or readiness not in _IC_READINESS
+        or technologies is None
+        or not 1 <= len(technologies) <= 3
+        or crest_help is None
+        or not problem
+        or not solution
+        or not users
+        or not impact
+        or not crest_detail
+        or extra is None
+        or deck_url is None
+        or (deck_url and not _IC_URL_RE.match(deck_url))
+    ):
+        return _gate_error("Check the form and submit again. Required answers are missing or too long.")
+
+    email_key = lead_email.lower()
+    prior = [
+        row
+        for row in _items_for_email(email_key)
+        if row.get("record_kind") == "innovation_challenge"
+    ]
+    if len(prior) >= _INNOVATION_EMAIL_CAP:
+        return _gate_error(
+            "This email already submitted an application. Email aarab@ccny.cuny.edu if you need to update it."
+        )
+    if not _innovation_ip_allowed(source_ip):
+        return _gate_error("Too many applications were sent from this network. Wait a while and try again.")
+
+    item_id = str(uuid.uuid4())
+    submitted_at = datetime.now(timezone.utc).isoformat()
+    item: dict[str, Any] = {
+        "id": item_id,
+        "submittedAt": submitted_at,
+        "record_kind": "innovation_challenge",
+        "team_name": team_name,
+        "full_name": lead_name,
+        "email": email_key,
+        "affiliation": affiliation,
+        "use_case_domain": domain,
+        "core_technologies": "; ".join(technologies),
+        "technology_readiness": readiness,
+        "problem": problem,
+        "solution": solution,
+        "users": users,
+        "impact": impact,
+        "crest_help": "; ".join(crest_help),
+        "crest_detail": crest_detail,
+        "deck_url": deck_url,
+        "extra": extra,
+        "sourceIp": source_ip,
+    }
+    _get_table().put_item(Item=item)
+    _send_innovation_email(item)
+    _log.info("Innovation application stored id=%s", item_id)
+    return _json_response(200, {"ok": True})
 
 
 def handler(event, context):
@@ -818,6 +1080,15 @@ def handler(event, context):
                 "body": "Method Not Allowed",
             }
         return _handle_gate(event, req.get("sourceIp") or "")
+
+    if path.rstrip("/").endswith("/innovation-challenge"):
+        if method != "POST":
+            return {
+                "statusCode": 405,
+                "headers": {"content-type": "text/plain; charset=utf-8"},
+                "body": "Method Not Allowed",
+            }
+        return _handle_innovation(event, req.get("sourceIp") or "")
 
     if method != "POST":
         return {
@@ -884,12 +1155,8 @@ def handler(event, context):
 
     email_key = email_raw.lower()
 
-    existing = _get_table().query(
-        IndexName="email-index",
-        KeyConditionExpression=Key("email").eq(email_key),
-        Limit=1,
-    )
-    if existing.get("Items"):
+    existing = _items_for_email(email_key)
+    if any((row.get("record_kind") or "registration") == "registration" for row in existing):
         return {
             "statusCode": 302,
             "headers": {"location": _duplicate_location()},

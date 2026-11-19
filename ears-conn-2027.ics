@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//EARS-CONN//2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ears-conn-2027@ears-conn.com
+DTSTAMP:20261119T160000Z
+DTSTART;VALUE=DATE:20270119
+DTEND;VALUE=DATE:20270123
+SUMMARY:EARS-CONN 2027
+DESCRIPTION:Embodied AI and Remote Sensing for Sustainable, Safe Connected Cities. Conference January 19-20. Hands-on workshop January 21-22.
+LOCATION:Grove School of Engineering\, The City College of New York\, 160 Convent Ave\, New York\, NY 10031
+URL:https://ears-conn.com/
+END:VEVENT
+END:VCALENDAR
